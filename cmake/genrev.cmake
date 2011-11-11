@@ -78,5 +78,10 @@ if(NOT "${rev_hash_cached}" MATCHES "${rev_hash}")
     "${BUILDDIR}/revision.h"
     @ONLY
   )
+  configure_file(
+	"${CMAKE_SOURCE_DIR}/acore_revision.h.in.cmake"
+	"${BUILDDIR}/acore_revision.h"
+	@ONLY
+  )
   set(rev_hash_cached "${rev_hash}" CACHE INTERNAL "Cached commit-hash")
 endif()

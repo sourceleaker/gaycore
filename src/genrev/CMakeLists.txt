@@ -13,3 +13,8 @@ add_custom_target(revision.h ALL
   COMMAND ${CMAKE_COMMAND} -DBUILDDIR=${CMAKE_BINARY_DIR} -P ${CMAKE_SOURCE_DIR}/cmake/genrev.cmake
   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
+
+add_custom_target(acore_revision.h ALL 
+  COMMAND ${CMAKE_COMMAND} -DBUILDDIR=${CMAKE_BINARY_DIR} -P ${CMAKE_SOURCE_DIR}/cmake/genrev.cmake
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+)

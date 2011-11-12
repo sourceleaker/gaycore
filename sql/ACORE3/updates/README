@@ -1,0 +1,17 @@
+Tutorial "Jak pisac sql updates ?"
+-------------------------------------------------
+Piszac SQL update musimy zawrzec w nim na samym poczatku ALTER TABLE 
+** ALTER TABLE `baza_db_version` CHANGE `current_column_name` `required_file_sql_name` BIT(1);
+a takze zamienic w pliku acore_revision.h.in.cmake stringa na ten ktory zmieniamy.
+
+Przykladowo - aktualnie jest w bazie world required_40_creature i chcemy dodac nasza sql.
+1. W pliku sql piszemy na samym poczatku:
+** ALTER TABLE `world_db_version` CHANGE `required_40_creature` `required_41_gameobject` BIT(1);
+2. Otwieramy plik acore_revision.h.in.cmake i zmianiamy:
+** #define ACORE_DB_WORLD    "required_40_creature" --> #define ACORE_DB_WORLD    "required_41_gameobject"
+** #define ACORE_REVISION "40" --> #define ACORE_REVISION "41"
+
+
+** Uwaga, ACORE_REVISION zmieniamy takze gdy nie wgrywamy sql updates. Kazda zmiana w core musi miec swoj revision. 
+** Prosze pamietac o tym, poniewaz pomoze nam to utrzymac porzadek. Uniemozliwi powtorne wgrywanie tych samych sql,
+** a takze w latwy sposob informowac nas w jakiej aktualniej wersji jest baza.

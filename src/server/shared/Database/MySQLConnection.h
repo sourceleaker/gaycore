@@ -120,7 +120,7 @@ class MySQLConnection
         MYSQL* GetHandle()  { return m_Mysql; }
         MySQLPreparedStatement* GetPreparedStatement(uint32 index);
         void PrepareStatement(uint32 index, const char* sql, ConnectionFlags flags);
-
+		
         bool PrepareStatements();
         virtual void DoPrepareStatements() = 0;
 

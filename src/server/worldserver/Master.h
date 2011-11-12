@@ -38,6 +38,7 @@ class Master
         void _StopDB();
 
         void clearOnlineAccounts();
+        bool CheckDatabaseVersion(char const* tName, char const* reqVersion);
 };
 
 #define sMaster ACE_Singleton<Master, ACE_Null_Mutex>::instance()

@@ -432,6 +432,13 @@ bool Master::_StartDB()
         sLog->outError("Cannot connect to login database %s", dbstring.c_str());
         return false;
     }
+    
+    ///- Check database version
+    if(!CheckDatabaseVersion("world_db_version", ACORE_DB_WORLD) ||
+       !CheckDatabaseVersion("characters_db_version", ACORE_DB_CHAR) ||
+       !CheckDatabaseVersion("auth_db_version", ACORE_DB_AUTH)
+       )
+        return false;
 
     ///- Get the realm Id from the configuration file
     realmID = ConfigMgr::GetIntDefault("RealmID", 0);
@@ -481,4 +488,83 @@ void Master::clearOnlineAccounts()
 
     // Battleground instance ids reset at server restart
     CharacterDatabase.DirectExecute(CharacterDatabase.GetPreparedStatement(CHAR_RESET_PLAYERS_BGDATA));
+}
+
+bool Master::CheckDatabaseVersion(char const* tName, const char* reqVersion)
+{
+    char const* db_name;
+    QueryResult result;
+    QueryResult resultC;
+
+    if(!strcmp(tName, "world_db_version"))
+    {
+        db_name = "World";
+        result  = WorldDatabase.PQuery("SELECT %s FROM %s LIMIT 1", reqVersion, tName);
+        resultC = WorldDatabase.PQuery("SHOW COLUMNS FROM %s", tName);
+    }else if(!strcmp(tName, "characters_db_version"))
+    {
+        db_name = "Characters";
+        result  = CharacterDatabase.PQuery("SELECT %s FROM %s LIMIT 1", reqVersion, tName);
+        resultC = CharacterDatabase.PQuery("SHOW COLUMNS FROM %s", tName);
+    }else if(!strcmp(tName, "auth_db_version"))
+    {
+        db_name = "Auth";
+        result  = LoginDatabase.PQuery("SELECT %s FROM %S LIMIT 1", reqVersion, tName);
+        resultC = LoginDatabase.PQuery("SHOW COLUMNS FROM %s", tName);
+    }else{
+        sLog->outError("Invalid type databases (reqVersion: %s - tName: %s)", reqVersion, tName);
+        return true;
+    }
+
+    if(result)
+    {
+        sLog->outString("The database [%s] is up to date", db_name);
+        return true;
+    }else if (!resultC)
+    {
+        sLog->outErrorDb("The table `%s` in your [%s] database doesn't exists or isn't incorrect.", tName, db_name);
+        sLog->outErrorDb("Server cannot be started because cannot determine database version.");
+        sLog->outErrorDb("");
+        
+        return false;
+    }
+
+    // 0     1    2    3   4       5
+    // FIELD TYPE NULL KEY DEFAULT EXTRA
+    std::string required_in_db;
+    do
+    {
+        Field* fields = resultC->Fetch();
+        std::string column_name = fields[0].GetString();
+        if(column_name.substr(0, 9) == "required_")
+        {
+            required_in_db = column_name;
+            break;
+        }
+    }while(resultC->NextRow());
+
+    if(!required_in_db.empty())
+    {
+        std::string sHave = required_in_db.substr(9, required_in_db.size());
+        std::stringstream tmp;
+        std::string sNeed;
+        tmp << reqVersion;
+        tmp >> sNeed;
+        sNeed = sNeed.substr(9, sNeed.size());
+
+        sLog->outErrorDb("The table `%s` in your [%s] database indicates that this database is out of date!", tName, db_name);
+        sLog->outErrorDb("");
+        sLog->outErrorDb("   [A] You Have: --> `%s.sql`", sHave.c_str());
+        sLog->outErrorDb("   [B] You need: --> `%s.sql`", sNeed.c_str());
+        sLog->outErrorDb("");
+        sLog->outErrorDb("You must apply all updates after [A] to [B] to use server with this database");
+        sLog->outErrorDb("These updates are included in the sql/acore/updates folder");
+    }else{
+        sLog->outErrorDb("The table `%s` in [%s] database is missing its version info.", tName, db_name);
+        sLog->outErrorDb("Server cannot  find the version info needed to check that db is up to date.");
+        sLog->outErrorDb("");
+        sLog->outErrorDb("The table `%s` in [%s] database required will be up to `%s`.", tName, db_name, reqVersion);
+    }
+
+    return false;
 }

@@ -460,7 +460,9 @@ enum SMART_ACTION
     SMART_ACTION_REMOVE_DYNAMIC_FLAG                = 96,     // Flags
     SMART_ACTION_JUMP_TO_POS                        = 97,     // speedXY, speedZ, targetX, targetY, targetZ
     SMART_ACTION_SEND_GOSSIP_MENU                   = 98,     // menuId, optionId
-    SMART_ACTION_END                                = 99,
+    SMART_ACTION_SET_RANDOM_HEALTH                  = 99,     // speedXY, speedZ, targetX, targetY, targetZ
+
+    SMART_ACTION_END                                = 100,
 };
 
 struct SmartAction
@@ -873,6 +875,11 @@ struct SmartAction
             uint32 param5;
             uint32 param6;
         } raw;
+        struct
+        {
+            uint32 MinPct;
+            uint32 MaxPct;
+        } health;
     };
 };
 

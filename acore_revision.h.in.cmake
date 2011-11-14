@@ -1,8 +1,8 @@
 #ifndef __ACORE_REVISION_H__
 #define __ACORE_REVISION_H__
-#define ACORE_REVISION "23"
+#define ACORE_REVISION "24"
 
-#define ACORE_DB_WORLD    "required_22_arathi_highlands"
+#define ACORE_DB_WORLD    "required_24_corrupted_bloodtalon"
 #define ACORE_DB_CHAR     "required_03_db_version"
 #define ACORE_DB_AUTH     "required_03_db_version"
 #endif // __ACORE_REVISION_H__

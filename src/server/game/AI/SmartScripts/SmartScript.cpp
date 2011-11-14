@@ -957,11 +957,21 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
         }
         case SMART_ACTION_FORCE_DESPAWN:
         {
-            if (!IsSmart())
+            ObjectList* targets = GetTargets(e, unit);
+            if (!targets)
                 return;
 
+            for (ObjectList::const_iterator itr = targets->begin(); itr != targets->end(); ++itr)
+            {
+                if (!IsCreature((*itr))) 
+                    continue;
+
+                (*itr)->ToCreature()->ForcedDespawn(e.action.forceDespawn.delay);
+            }
+            /*if (!IsSmart()) // Better way to do it :D
+                return;
             CAST_AI(SmartAI, me->AI())->SetDespawnTime(e.action.forceDespawn.delay + 1);//next tick
-            CAST_AI(SmartAI, me->AI())->StartDespawn();
+            CAST_AI(SmartAI, me->AI())->StartDespawn();*/
             break;
         }
         case SMART_ACTION_SET_INGAME_PHASE_MASK:
@@ -1780,6 +1790,21 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
             me->GetMotionMaster()->Clear();
             me->GetMotionMaster()->MoveJump(e.target.x, e.target.y, e.target.z, (float)e.action.jump.speedxy, (float)e.action.jump.speedz);
             // TODO: Resume path when reached jump location
+            break;
+        }
+        case SMART_ACTION_SET_RANDOM_HEALTH:
+        {
+            ObjectList* targets = GetTargets(e, unit);
+            if (!targets)
+                return;
+
+            for (ObjectList::const_iterator itr = targets->begin(); itr != targets->end(); ++itr)
+            {
+                if (Creature *cUnit = (*itr)->ToCreature())
+                {
+                    cUnit->SetHealth(cUnit->GetHealth() * urand(e.action.health.MinPct, e.action.health.MaxPct) / 100);
+                }
+            }
             break;
         }
         case SMART_ACTION_SEND_GOSSIP_MENU:

@@ -130,6 +130,14 @@ class npc_professor_phizzlethorpe : public CreatureScript
             return true;
         }
 };
+
+float VictimsWaves[3][5]=
+{
+    {2775, -2144.64f, -1985.12f, 11.74f, 5.54f},
+    {2775, -2148.25f, -1990.27f, 13.60f, 5.76f},
+    {2775, -2140.80f, -1980.00f, 11.46f, 5.51f}
+};
+
 enum eShakes
 {
     QUEST_DEATH_FROM_BELOW = 26628
@@ -149,8 +157,8 @@ public:
                     CAST_AI(npc_shakes::npc_shakesAI, pCreature->AI())->PlayerGUID = pPlayer->GetGUID(); 
             }
 
-        }return true;
-    }
+		}return true;
+	}
 
         CreatureAI* GetAI(Creature* pCreature) const
         {
@@ -160,55 +168,35 @@ public:
         struct npc_shakesAI : public ScriptedAI
         {
             npc_shakesAI(Creature* creature) : ScriptedAI(creature) {}
-        
-            uint8 Phase;
-            uint32 EventTimer;
-            uint64 PlayerGUID;
-            bool EventStarted;
-            bool Say;
-            bool Summoned;
-            bool Summoned2;
-            
+		
+			uint8 Phase;
+			uint32 EventTimer;
+			uint64 PlayerGUID;
+			bool EventStarted;
+			bool Say;
 
-            void Reset()
-            {
+			void Reset()
+			{
+				EventStarted = false;
+				Say=false;
+				EventTimer = 1000;
+				Phase = 0;
+				PlayerGUID = 0;
+				me->GetMotionMaster()->MoveTargetedHome();
+			}
+			void DamageTaken(Unit * pWho, uint32 &uiDamage)
+			{
+				if (pWho->GetEntry()==2775)
+				{
+					me->AI()->AttackStart(pWho);
+				}
+			}
 
-                EventStarted = false;
-                Say=false;
-                Summoned = false;
-                Summoned2 = false;
-                EventTimer = 1000;
-                Phase = 0;
-                PlayerGUID = 0;
-                me->GetMotionMaster()->MoveTargetedHome();
-            }
-            void DamageTaken(Unit * pWho, uint32 &uiDamage)
-            {
-                if (pWho->GetEntry()==2775)
+			void SummonInvaders()
+			{ 
+				for (int i = 0; i < 3; i++)
                 {
-                    me->AI()->AttackStart(pWho);
-                }
-            }
-
-            void SummonInvaders()
-            { 
-                if(!Summoned)
-                {   
-                    me->SummonCreature(2775,-2144.64f, -1985.12f, 11.74f, 5.54f, TEMPSUMMON_CORPSE_DESPAWN, 0);
-                    me->SummonCreature(2775,-2148.25f, -1990.27f, 13.60f, 5.76f, TEMPSUMMON_CORPSE_DESPAWN, 0);
-                    me->SummonCreature(2775,-2140.8f, -1980.0f, 11.46f, 5.51f, TEMPSUMMON_CORPSE_DESPAWN, 0);
-                    Summoned = true;							
-                }
-            }
-
-            void SummonInvadersNextWave()
-            { 
-                if(!Summoned2)
-                {   
-                    me->SummonCreature(2775,-2144.64f, -1985.12f, 11.74f, 5.54f, TEMPSUMMON_CORPSE_DESPAWN, 0);
-                    me->SummonCreature(2775,-2148.25f, -1990.27f, 13.60f, 5.76f, TEMPSUMMON_CORPSE_DESPAWN, 0);
-                    me->SummonCreature(2775,-2140.8f, -1980.0f, 11.46f, 5.51f, TEMPSUMMON_CORPSE_DESPAWN, 0);
-                    Summoned2 = true;							
+                    me->SummonCreature(VictimsWaves[i][1], VictimsWaves[i][2], VictimsWaves[i][3], VictimsWaves[i][4], VictimsWaves[i][5], TEMPSUMMON_CORPSE_DESPAWN, 0);
                 }
             }
 
@@ -232,21 +220,20 @@ public:
                                         {
                                             Naga->MonsterYell("You've plundered our treasures too long. Prepare to meet your watery grave!",0,0);
                                             Say=true;
-                                            EventTimer=15000;
-                                            Phase++;
                                         }
                                     }
+                                    EventTimer=15000;
+									Phase++;
                                 }break;
                                 case 3: me->MonsterSay("If we can just hold them now, I am sure we will be in the clear.",0,0); EventTimer = 20000; Phase++; break;
-                                case 4: SummonInvadersNextWave(); EventTimer = 10000; Phase++; break;
+                                case 4: SummonInvaders(); EventTimer = 10000; Phase++; break;
                                 case 5:
                                 {
                                     if(Creature* Naga = me->FindNearestCreature(2775,100.0f,true))
-                                    {
-                                        Naga->MonsterYell("Nothing will stop us! You will die!",0,0);
-                                        Phase++;
-                                        EventTimer=5000;											
-                                    }																		
+                                        Naga->MonsterYell("Nothing will stop us! You will die!",0,0);											
+
+                                    Phase++;
+									EventTimer=5000;
                                 }break;
                                 case 6:
                                 {
@@ -260,15 +247,19 @@ public:
                                 }break;	
                                 case 7: 
                                 {
-                                    std::list<Player*> players;
+                                    if(pPlayer)
+                                        pPlayer->AreaExploredOrEventHappens(26628);
+                                    else
+                                    {
+                                        std::list<Player*> players;
 
-                                    Trinity::AnyPlayerInObjectRangeCheck checker(me, 35.0f);
-                                    Trinity::PlayerListSearcher<Trinity::AnyPlayerInObjectRangeCheck> searcher(me, players, checker);
-                                    me->VisitNearbyWorldObject(35.0f, searcher);
+                                        Trinity::AnyPlayerInObjectRangeCheck checker(me, 35.0f);
+                                        Trinity::PlayerListSearcher<Trinity::AnyPlayerInObjectRangeCheck> searcher(me, players, checker);
+                                        me->VisitNearbyWorldObject(35.0f, searcher);
 
-                                    for (std::list<Player*>::const_iterator itr = players.begin(); itr != players.end(); ++itr)
-                                        (*itr)->AreaExploredOrEventHappens(26628);
-                                        
+                                        for (std::list<Player*>::const_iterator itr = players.begin(); itr != players.end(); ++itr)
+                                            (*itr)->AreaExploredOrEventHappens(26628);
+                                    }
                                     Reset();
                                 }break;
                                 default: break;

@@ -71,7 +71,7 @@ public:
             { "areatrigger_involvedrelation", SEC_ADMINISTRATOR, true,  &HandleReloadQuestAreaTriggersCommand,          "", NULL },
             { "areatrigger_tavern",           SEC_ADMINISTRATOR, true,  &HandleReloadAreaTriggerTavernCommand,          "", NULL },
             { "areatrigger_teleport",         SEC_ADMINISTRATOR, true,  &HandleReloadAreaTriggerTeleportCommand,        "", NULL },
-            { "areatrigger_startquest",       SEC_ADMINISTRATOR, true,  &HandleReloadAreaTriggerStartQuestCommand,      "", NULL },
+            //{ "areatrigger_startquest",       SEC_ADMINISTRATOR, true,  &HandleReloadAreaTriggerStartQuestCommand,      "", NULL },
             { "autobroadcast",                SEC_ADMINISTRATOR, true,  &HandleReloadAutobroadcastCommand,              "", NULL },
             { "command",                      SEC_ADMINISTRATOR, true,  &HandleReloadCommandCommand,                    "", NULL },
             { "conditions",                   SEC_ADMINISTRATOR, true,  &HandleReloadConditions,                        "", NULL },

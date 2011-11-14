@@ -192,6 +192,7 @@ set(scripts_STAT_SRCS
   EasternKingdoms/Deadmines/boss_helix_gearbreaker.cpp
   EasternKingdoms/Deadmines/boss_vanessa_vancleef.cpp
   EasternKingdoms/Deadmines/instance_deadmines.cpp
+  EasternKingdoms/dun_morogh.cpp
   EasternKingdoms/duskwood.cpp
   EasternKingdoms/ScarletMonastery/boss_azshir_the_sleepless.cpp
   EasternKingdoms/ScarletMonastery/boss_mograine_and_whitemane.cpp

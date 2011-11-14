@@ -199,9 +199,19 @@ bool Condition::Meets(Player* player, Unit* invoker)
             condMeets = GetClosestCreatureWithEntry(player, mConditionValue1, (float)mConditionValue2) ? true : false;
             break;
         }
+        case CONDITION_NOT_NEAR_CREATURE:
+        {
+            condMeets = GetClosestCreatureWithEntry(player, mConditionValue1, (float)mConditionValue2) ? false : true;
+            break;
+        }
         case CONDITION_NEAR_GAMEOBJECT:
         {
             condMeets = GetClosestGameObjectWithEntry(player, mConditionValue1, (float)mConditionValue2) ? true : false;
+            break;
+        }
+        case CONDITION_NOT_NEAR_GAMEOBJECT:
+        {
+            condMeets = GetClosestGameObjectWithEntry(player, mConditionValue1, (float)mConditionValue2) ? false : true;
             break;
         }
         case CONDITION_SMART_PHASE:

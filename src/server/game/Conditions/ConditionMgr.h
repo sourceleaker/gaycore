@@ -61,7 +61,9 @@ enum ConditionType
     CONDITION_NEAR_CREATURE         = 29,                   // creature entry   distance    +referenceID       true if there is a creature of entry in range
     CONDITION_NEAR_GAMEOBJECT       = 30,                   // gameobject entry distance    +referenceID       true if there is a gameobject of entry in range
     CONDITION_SMART_PHASE           = 31,                   // smart_script phase       id          +referenceID       true if there is a gameobject of entry in range
-	CONDITION_MAX                   = 32                    // MAX
+    CONDITION_NOT_NEAR_CREATURE     = 32,                   // creature entry           distance    +referenceID       true if there isn't a creature of entry in range
+    CONDITION_NOT_NEAR_GAMEOBJECT   = 33,                   // gameobject entry         distance    +referenceID       true if there isn't a gameobject of entry in range
+    CONDITION_MAX                   = 34                    // MAX
 };
 
 enum LevelConditionType

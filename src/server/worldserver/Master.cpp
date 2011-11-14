@@ -509,7 +509,7 @@ bool Master::CheckDatabaseVersion(char const* tName, const char* reqVersion)
     }else if(!strcmp(tName, "auth_db_version"))
     {
         db_name = "Auth";
-        result  = LoginDatabase.PQuery("SELECT %s FROM %S LIMIT 1", reqVersion, tName);
+        result  = LoginDatabase.PQuery("SELECT %s FROM %s LIMIT 1", reqVersion, tName);
         resultC = LoginDatabase.PQuery("SHOW COLUMNS FROM %s", tName);
     }else{
         sLog->outError("Invalid type databases (reqVersion: %s - tName: %s)", reqVersion, tName);

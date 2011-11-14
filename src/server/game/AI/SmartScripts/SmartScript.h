@@ -213,9 +213,7 @@ class SmartScript
         Unit* GetLastInvoker();
         uint64 mLastInvoker;
         
-        // For Conditions
-        bool IsInPhase(uint32 p) const { return mEventPhase & p; }
-
+        bool IsInPhase(uint32 p) const { return (1 << (mEventPhase - 1)) & p; }
     private:
         void IncPhase(int32 p = 1)
         {
@@ -226,7 +224,6 @@ class SmartScript
         }
 
         void DecPhase(int32 p = 1) { mEventPhase  -= (mEventPhase < (uint32)p ? (uint32)p - mEventPhase : (uint32)p); }
-        bool IsInPhase(uint32 p) const { return (1 << (mEventPhase - 1)) & p; }
         void SetPhase(uint32 p = 0) { mEventPhase = p; }
 
         SmartAIEventList mEvents;

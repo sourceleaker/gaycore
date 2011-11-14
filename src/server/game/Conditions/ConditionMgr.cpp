@@ -217,12 +217,20 @@ bool Condition::Meets(Player* player, Unit* invoker)
         case CONDITION_SMART_PHASE:
         {
             // condMeets = false; ? not needed - in declaration variable value set to false
-            if (Unit* target = player->GetSelectedUnit() &&
-                Creature * cTarget = target->ToCreature() && cTarget->GetAIName() == "SmartAI")
+            if (Unit* target = player->GetSelectedUnit())
             {
-                if (SmartAI *SAI = SCRIPT_CAST_TYPE<SmartAI*>(cTarget->GetAI()) && SmartScript* smart = SAI->GetScript())
+                if (Creature* cTarget = target->ToCreature())
                 {
-                    condMeets = smart->IsInPhase(mConditionValue1) || mConditionValue1 == 0;
+                    if (cTarget->GetAIName() == "SmartAI")
+                    {
+                        if (SmartAI *SAI = CAST_AI(SmartAI, cTarget->GetAI()))
+                        {
+                            if(SmartScript* smart = SAI->GetScript())
+                            {
+                                condMeets = smart->IsInPhase(mConditionValue1) || mConditionValue1 == 0;
+                            }
+                        }
+                    }
                 }
             }
             break;
@@ -1177,14 +1185,6 @@ bool ConditionMgr::isConditionTypeValid(Condition* cond)
             }
             break;
         }
-        case CONDITION_TARGET_NO_AURA_IN_RANGE:
-        {
-            if (Creature *cTarget = GetClosestCreatureWithEntry(player, mConditionValue2, (float)mConditionValue3))
-                condMeets = !cTarget->HasAura(mConditionValue1);
-            else
-                condMeets = false;
-            break;
-        }
         case CONDITION_ACTIVE_EVENT:
         {
             GameEventMgr::GameEventDataMap const& events = sGameEventMgr->GetEventMap();
@@ -1400,6 +1400,7 @@ bool ConditionMgr::isConditionTypeValid(Condition* cond)
         case CONDITION_SMART_PHASE:
         case CONDITION_AREAID:
         case CONDITION_INSTANCE_DATA:
+        case CONDITION_TARGET_NO_AURA_IN_RANGE:
             break;
         default:
             break;

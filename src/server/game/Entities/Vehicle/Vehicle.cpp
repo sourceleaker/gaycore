@@ -173,8 +173,12 @@ void Vehicle::ApplyAllImmunities()
     // Different immunities for vehicles goes below
     switch (GetVehicleInfo()->m_ID)
     {
-        case 160:
+        // code below prevents a bug with movable cannons
+        case 160: // Strand of the Ancients
+        case 244: // Wintergrasp
+        case 510: // Isle of Conquest
             _me->SetControlled(true, UNIT_STAT_ROOT);
+            // why we need to apply this? we can simple add immunities to slow mechanic in DB
             _me->ApplySpellImmune(0, IMMUNITY_STATE, SPELL_AURA_MOD_DECREASE_SPEED, true);
             break;
         default:
@@ -457,6 +461,20 @@ void Vehicle::Dismiss()
     _me->DestroyForNearbyPlayers();
     _me->CombatStop();
     _me->AddObjectToRemoveList();
+}
+
+void Vehicle::TeleportVehicle(float x, float y, float z, float ang)
+{
+    vehiclePlayers.clear();
+    for(int8 i = 0; i < 8; i++)
+        if (Unit* player = GetPassenger(i))
+            vehiclePlayers.insert(player->GetGUID());
+
+    RemoveAllPassengers(); // this can unlink Guns from Siege Engines
+    _me->NearTeleportTo(x, y, z, ang);
+    for (GuidSet::const_iterator itr = vehiclePlayers.begin(); itr != vehiclePlayers.end(); ++itr)
+        if(Unit* player = sObjectAccessor->FindUnit(*itr))
+                player->NearTeleportTo(x, y, z, ang);
 }
 
 void Vehicle::InitMovementInfoForBase()

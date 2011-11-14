@@ -28,6 +28,7 @@
 #include "Chat.h"
 #include "Spell.h"
 #include "BattlegroundMgr.h"
+#include "BattlefieldMgr.h"
 #include "CreatureAI.h"
 #include "MapManager.h"
 #include "BattlegroundIC.h"
@@ -97,7 +98,7 @@ DiminishingGroup GetDiminishingReturnsGroupForSpell(SpellInfo const* spellproto,
                 return DIMINISHING_CONTROLLED_ROOT;
             // Dragon's Breath
             else if (spellproto->SpellFamilyFlags[0] & 0x800000)
-                return DIMINISHING_DISORIENT;
+                return DIMINISHING_DRAGONS_BREATH;
             break;
         }
         case SPELLFAMILY_WARRIOR:
@@ -168,7 +169,7 @@ DiminishingGroup GetDiminishingReturnsGroupForSpell(SpellInfo const* spellproto,
         }
         case SPELLFAMILY_HUNTER:
         {
-            // Hunter's mark
+            // Hunter's Mark
             if ((spellproto->SpellFamilyFlags[0] & 0x400) && spellproto->SpellIconID == 538)
                 return DIMINISHING_LIMITONLY;
             // Scatter Shot (own diminishing)
@@ -322,20 +323,20 @@ bool IsDiminishingReturnsGroupDurationLimited(DiminishingGroup group)
 {
     switch (group)
     {
-        case DIMINISHING_CONTROLLED_STUN:
-        case DIMINISHING_STUN:
-        case DIMINISHING_ENTRAPMENT:
-        case DIMINISHING_CONTROLLED_ROOT:
-        case DIMINISHING_ROOT:
-        case DIMINISHING_FEAR:
-        case DIMINISHING_MIND_CONTROL:
-        case DIMINISHING_DISORIENT:
-        case DIMINISHING_CYCLONE:
         case DIMINISHING_BANISH:
-        case DIMINISHING_LIMITONLY:
-        case DIMINISHING_OPENING_STUN:
+        case DIMINISHING_CONTROLLED_STUN:
+        case DIMINISHING_CONTROLLED_ROOT:
+        case DIMINISHING_CYCLONE:
+        case DIMINISHING_DISORIENT:
+        case DIMINISHING_ENTRAPMENT:
+        case DIMINISHING_FEAR:
         case DIMINISHING_HORROR:
+        case DIMINISHING_MIND_CONTROL:
+        case DIMINISHING_OPENING_STUN:
+        case DIMINISHING_ROOT:
+        case DIMINISHING_STUN:
         case DIMINISHING_SLEEP:
+        case DIMINISHING_LIMITONLY:
             return true;
         default:
             return false;
@@ -1128,6 +1129,16 @@ bool SpellArea::IsFitToRequirements(Player const* player, uint32 newZone, uint32
             if (!(pArea && pArea->flags & AREA_FLAG_NO_FLY_ZONE))
                 return false;
             if (!player->HasAuraType(SPELL_AURA_MOD_INCREASE_MOUNTED_FLIGHT_SPEED) && !player->HasAuraType(SPELL_AURA_FLY))
+                return false;
+            break;
+        }
+        case 58730: // No fly Zone - Wintergrasp
+        {
+            if (!player)
+                return false;
+
+            Battlefield* Bf = sBattlefieldMgr.GetBattlefieldToZoneId(player->GetZoneId());
+            if (!Bf || Bf->CanFlyIn() || (!player->HasAuraType(SPELL_AURA_MOD_INCREASE_MOUNTED_FLIGHT_SPEED) && !player->HasAuraType(SPELL_AURA_FLY)))
                 return false;
             break;
         }

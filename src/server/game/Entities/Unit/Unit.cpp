@@ -42,6 +42,7 @@
 #include "Util.h"
 #include "Totem.h"
 #include "Battleground.h"
+#include "BattlefieldMgr.h"
 #include "OutdoorPvP.h"
 #include "InstanceSaveMgr.h"
 #include "GridNotifiersImpl.h"
@@ -1615,7 +1616,7 @@ void Unit::CalcAbsorbResist(Unit* victim, SpellSchoolMask schoolMask, DamageEffe
     // Magic damage, check for resists
     if ((schoolMask & SPELL_SCHOOL_MASK_NORMAL) == 0)
     {
-        float victimResistance = float(victim->GetResistance(GetFirstSchoolInMask(schoolMask)));
+        float victimResistance = float(victim->GetResistance(schoolMask));
         victimResistance += float(GetTotalAuraModifierByMiscMask(SPELL_AURA_MOD_TARGET_RESISTANCE, schoolMask));
 
         if (Player* player = ToPlayer())
@@ -2251,22 +2252,23 @@ void Unit::SendMeleeAttackStart(Unit* victim)
     WorldPacket data(SMSG_ATTACKSTART, 8 + 8);  //406
     data << uint64(GetGUID());
     data << uint64(victim->GetGUID());
-
     SendMessageToSet(&data, true);
     sLog->outStaticDebug("WORLD: Sent SMSG_ATTACKSTART");
 }
 
 void Unit::SendMeleeAttackStop(Unit* victim)
 {
-    if (!victim)
-        return;
-
     WorldPacket data(SMSG_ATTACKSTOP, (8+8+4));            // we guess size
     data.append(GetPackGUID());
-    data.append(victim->GetPackGUID());                     // can be 0x00...
-    data << uint32(0);                                      // can be 0x1
+    data.append(victim ? victim->GetPackGUID() : 0);       // can be 0x00...
+    data << uint32(0);                                     // can be 0x1
     SendMessageToSet(&data, true);
-    sLog->outDetail("%s %u stopped attacking %s %u", (GetTypeId() == TYPEID_PLAYER ? "player" : "creature"), GetGUIDLow(), (victim->GetTypeId() == TYPEID_PLAYER ? "player" : "creature"), victim->GetGUIDLow());
+    sLog->outStaticDebug("WORLD: Sent SMSG_ATTACKSTART");
+
+    if (victim)
+        sLog->outDetail("%s %u stopped attacking %s %u", (GetTypeId() == TYPEID_PLAYER ? "Player" : "Creature"), GetGUIDLow(), (victim->GetTypeId() == TYPEID_PLAYER ? "player" : "creature"), victim->GetGUIDLow());
+    else
+        sLog->outDetail("%s %u stopped attacking", (GetTypeId() == TYPEID_PLAYER ? "Player" : "Creature"), GetGUIDLow());
 }
 
 bool Unit::isSpellBlocked(Unit* victim, SpellInfo const* spellProto, WeaponAttackType attackType)
@@ -7349,7 +7351,7 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
                 // Item - Shaman T10 Elemental 4P Bonus
                 case 70817:
                 {
-                    if(!target)
+                    if (!target)
                         return false;
                     // try to find spell Flame Shock on the target
                     if (AuraEffect const* aurEff = target->GetAuraEffect(SPELL_AURA_PERIODIC_DAMAGE, SPELLFAMILY_SHAMAN, 0x10000000, 0x0, 0x0, GetGUID()))
@@ -8536,6 +8538,13 @@ bool Unit::HandleProcTriggerSpell(Unit* victim, uint32 damage, AuraEffect* trigg
 
                     basepoints0 = CalculatePctN(int32(damage), triggerAmount) / (TriggerPS->GetMaxDuration() / TriggerPS->Effects[0].Amplitude);
                     basepoints0 += victim->GetRemainingPeriodicAmount(GetGUID(), trigger_spell_id, SPELL_AURA_PERIODIC_DAMAGE);
+                    break;
+                }
+                // Item - Hunter T9 4P Bonus
+                if (auraSpellInfo->Id == 67151)
+                {
+                    trigger_spell_id = 68130;
+                    target = this;
                     break;
                 }
                 break;
@@ -14626,7 +14635,7 @@ void Unit::ProcDamageAndSpellFor(bool isVictim, Unit* target, uint32 procFlag, u
         }
 
         if (!handled)
-        for (uint8 effIndex = 0; effIndex<MAX_SPELL_EFFECTS; ++effIndex)
+        for (uint8 effIndex = 0; effIndex < MAX_SPELL_EFFECTS; ++effIndex)
         {
             if (!(i->effMask & (1<<effIndex)))
                 continue;
@@ -15853,8 +15862,13 @@ void Unit::Kill(Unit* victim, bool durabilityLoss)
     // outdoor pvp things, do these after setting the death state, else the player activity notify won't work... doh...
     // handle player kill only if not suicide (spirit of redemption for example)
     if (player && this != victim)
+	{
         if (OutdoorPvP* pvp = player->GetOutdoorPvP())
             pvp->HandleKill(player, victim);
+
+		if (Battlefield* bf = sBattlefieldMgr.GetBattlefieldToZoneId(player->GetZoneId()))
+            bf->HandleKill(player, victim);
+    }
 
     //if (victim->GetTypeId() == TYPEID_PLAYER)
     //    if (OutdoorPvP* pvp = victim->ToPlayer()->GetOutdoorPvP())
@@ -15933,7 +15947,8 @@ void Unit::SetControlled(bool apply, UnitState state)
                 if (!HasUnitState(UNIT_STAT_STUNNED))
                 {
                     ClearUnitState(UNIT_STAT_MELEE_ATTACKING);
-                    SendMeleeAttackStop(m_attacking);
+                    SendMeleeAttackStop();
+                    // SendAutoRepeatCancel ?
                     SetConfused(true);
                     CastStop();
                 }
@@ -15942,7 +15957,8 @@ void Unit::SetControlled(bool apply, UnitState state)
                 if (!HasUnitState(UNIT_STAT_STUNNED | UNIT_STAT_CONFUSED))
                 {
                     ClearUnitState(UNIT_STAT_MELEE_ATTACKING);
-                    SendMeleeAttackStop(m_attacking);
+                    SendMeleeAttackStop();
+                    // SendAutoRepeatCancel ?
                     SetFeared(true);
                     CastStop();
                 }
@@ -17854,7 +17870,7 @@ uint32 Unit::GetRemainingPeriodicAmount(uint64 caster, uint32 spellId, AuraType 
     AuraEffectList const& periodicAuras = GetAuraEffectsByType(auraType);
     for (AuraEffectList::const_iterator i = periodicAuras.begin(); i != periodicAuras.end(); ++i)
     {
-        if ((*i)->GetCasterGUID() != caster || (*i)->GetId() != spellId || (*i)->GetEffIndex() != effectIndex || (*i)->GetTotalTicks() == 0)
+        if ((*i)->GetCasterGUID() != caster || (*i)->GetId() != spellId || (*i)->GetEffIndex() != effectIndex || !(*i)->GetTotalTicks())
             continue;
         amount += uint32(((*i)->GetAmount() * std::max<int32>((*i)->GetTotalTicks() - int32((*i)->GetTickNumber()), 0)) / (*i)->GetTotalTicks());
         break;
@@ -17914,6 +17930,17 @@ bool Unit::IsVisionObscured(Unit* victim)
             return true;
     }
     return false;
+}
+
+uint32 Unit::GetResistance(SpellSchoolMask mask) const
+{
+    int32 resist = -1;
+    for (int i = SPELL_SCHOOL_NORMAL; i < MAX_SPELL_SCHOOL; ++i)
+        if (mask & (1 << i) && (resist < 0 || resist > int32(GetResistance(SpellSchools(i)))))
+            resist = int32(GetResistance(SpellSchools(i)));
+
+    // resist value will never be negative here
+    return uint32(resist);
 }
 
 void CharmInfo::SetIsCommandAttack(bool val)

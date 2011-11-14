@@ -71,7 +71,6 @@ public:
             { "areatrigger_involvedrelation", SEC_ADMINISTRATOR, true,  &HandleReloadQuestAreaTriggersCommand,          "", NULL },
             { "areatrigger_tavern",           SEC_ADMINISTRATOR, true,  &HandleReloadAreaTriggerTavernCommand,          "", NULL },
             { "areatrigger_teleport",         SEC_ADMINISTRATOR, true,  &HandleReloadAreaTriggerTeleportCommand,        "", NULL },
-            { "areatrigger_startquest",       SEC_ADMINISTRATOR, true,  &HandleReloadAreaTriggerStartQuestCommand,      "", NULL },
             { "autobroadcast",                SEC_ADMINISTRATOR, true,  &HandleReloadAutobroadcastCommand,              "", NULL },
             { "command",                      SEC_ADMINISTRATOR, true,  &HandleReloadCommandCommand,                    "", NULL },
             { "conditions",                   SEC_ADMINISTRATOR, true,  &HandleReloadConditions,                        "", NULL },
@@ -1259,13 +1258,6 @@ public:
         return true;
     }
 
-    static bool HandleReloadAreaTriggerStartQuestCommand(ChatHandler* handler, const char*)
-    {
-        sLog->outString("Re-Loading AreaTrigger Quest Start...");
-        sObjectMgr->LoadAreaTriggerQuestStart();
-        handler->SendGlobalGMSysMessage("DB table `areatrigger_queststart` reloaded.");
-        return true;
-    }
 };
 
 void AddSC_reload_commandscript()

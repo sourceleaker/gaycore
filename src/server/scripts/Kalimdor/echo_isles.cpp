@@ -419,14 +419,14 @@ public:
 
         void Reset()
         {
-			    if (Unit *owner = CAST_SUM(me)->GetCharmerOrOwner())
+                if (Unit *owner = CAST_SUM(me)->GetCharmerOrOwner())
                     if (owner->GetTypeId() == TYPEID_PLAYER)
-					{
+                    {
                        owner->CastSpell(me, SPELL_RIDE_VEHICLE_1, true);
                        me->MonsterSay("%N", 0, me->ToTempSummon()->GetSummoner()->GetGUID());
-					   me->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_SPELLCLICK);
+                       me->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_SPELLCLICK);
                        me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE); 
-					}
+                    }
             else
                 me->ForcedDespawn();
         }
@@ -459,36 +459,36 @@ public:
 class npc_swiftclaw2 : public CreatureScript
 {
 public:
-	 npc_swiftclaw2() : CreatureScript("npc_swiftclaw2") { }
+     npc_swiftclaw2() : CreatureScript("npc_swiftclaw2") { }
 
-	CreatureAI* GetAI(Creature* pCreature) const
-	{
-		return new  npc_swiftclaw2AI(pCreature);
-	}
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new  npc_swiftclaw2AI(pCreature);
+    }
 
-	struct npc_swiftclaw2AI : public ScriptedAI
-	{
-		npc_swiftclaw2AI(Creature* pCreature) : ScriptedAI(pCreature) { }
+    struct npc_swiftclaw2AI : public ScriptedAI
+    {
+        npc_swiftclaw2AI(Creature* pCreature) : ScriptedAI(pCreature) { }
 
-		void SpellHit(Unit* hitter, const SpellInfo* spell)
-		{
-			if (!hitter || !spell)
-				return;
+        void SpellHit(Unit* hitter, const SpellInfo* spell)
+        {
+            if (!hitter || !spell)
+                return;
 
-			if (spell->Id != 70927)
-				return;
+            if (spell->Id != 70927)
+                return;
 
-			hitter->SummonCreature(38002,hitter->GetPositionX(),hitter->GetPositionY(),hitter->GetPositionZ(),0, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 100000);
-			me->DisappearAndDie();
+            hitter->SummonCreature(38002,hitter->GetPositionX(),hitter->GetPositionY(),hitter->GetPositionZ(),0, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 100000);
+            me->DisappearAndDie();
 
-		}
+        }
 
-	};
+    };
 };
 void AddSC_echo_isles()
 {
     new npc_tiki_target();
     new npc_jailor();
     new npc_swiftclaw();
-	new npc_swiftclaw2();
+    new npc_swiftclaw2();
 }

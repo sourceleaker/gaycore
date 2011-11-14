@@ -117,6 +117,7 @@ set(scripts_STAT_SRCS
   Kalimdor/WailingCaverns/instance_wailing_caverns.cpp
   Kalimdor/WailingCaverns/wailing_caverns.cpp
   Kalimdor/durotar.cpp
+  Kalimdor/echo_isles.cpp
   Kalimdor/felwood.cpp
   Kalimdor/boss_azuregos.cpp
   Kalimdor/tanaris.cpp

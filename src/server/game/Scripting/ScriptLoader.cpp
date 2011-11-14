@@ -391,6 +391,7 @@ void AddSC_boss_azuregos();
 void AddSC_darkshore();
 void AddSC_desolace();
 void AddSC_durotar();
+void AddSC_echo_isles();
 void AddSC_dustwallow_marsh();
 void AddSC_felwood();
 void AddSC_feralas();
@@ -1069,6 +1070,7 @@ void AddKalimdorScripts()
     AddSC_darkshore();
     AddSC_desolace();
     AddSC_durotar();
+    AddSC_echo_isles();
     AddSC_dustwallow_marsh();
     AddSC_felwood();
     AddSC_feralas();

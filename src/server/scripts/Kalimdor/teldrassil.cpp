@@ -109,7 +109,66 @@ public:
     };
 };
 
+/*################
+##Quest 13946#####
+################*/
+enum
+{
+    SPELL_NATURE_FURY		= 65455,
+    NPC_GRELLKIN			= 2003,
+    NPC_GRELLKIN2			= 2005,
+    QUEST_NATURE_REPERSAL	= 13946
+};
+
+class npc_grellkin : public CreatureScript
+{
+public:
+
+    npc_grellkin() : CreatureScript("npc_grellkin") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+
+    {
+        return new npc_grellkinAI (pCreature);
+    }
+
+    struct npc_grellkinAI : public ScriptedAI
+    {
+        npc_grellkinAI(Creature *c) : ScriptedAI(c) {}
+
+        //uint32 CheckTimer;
+        uint64 PlayerGUID;
+        //bool bHit;
+
+        void Reset()
+        {
+            PlayerGUID = 0;	
+            //CheckTimer = 1000;
+            //bHit = false;
+        }
+
+        void JustDied(Unit * Killer)
+        {
+            if (Killer->GetTypeId() == TYPEID_PLAYER)
+            {
+                if (CAST_PLR(Killer)->GetQuestStatus(13946) == QUEST_STATUS_INCOMPLETE)
+                {
+                    if (me->HasAura(65455))
+                    {
+                        if (Player* pPlayer = Killer->GetCharmerOrOwnerPlayerOrPlayerItself())
+                        {
+                            pPlayer->KilledMonsterCredit(34440,NULL);
+                        }
+                    }
+                }
+            }
+        }
+
+    };
+};
+
 void AddSC_teldrassil()
 {
     new npc_mist();
+    new npc_grellkin();
 }

@@ -1,6 +1,6 @@
 CREATE TABLE `world_db_version`
 (
-    `required_01_create` BIT(1);
+    `required_01_create` BIT(1)
 );
 INSERT INTO `world_db_version` VALUES(0);
 

@@ -1251,6 +1251,31 @@ class go_large_gjalerbron_cage : public GameObjectScript
         }
 };
 
+class go_makeshift_cage : public GameObjectScript
+{
+public:
+    go_makeshift_cage() : GameObjectScript("go_makeshift_cage") { }
+
+    bool OnGossipHello(Player* pPlayer, GameObject *pGo)
+    {
+         if(Creature* pCaptured = pPlayer->FindNearestCreature(42645, 5.0f, true))
+         {
+             switch(urand(0,3))
+             {
+                 case 0: pCaptured->MonsterSay("Finally, someone who's not a trogg!", 0, 0); break;
+                 case 1: pCaptured->MonsterSay("You have no idea how happy I am to see you!", 0, 0); break;
+                 case 2: pCaptured->MonsterSay("Thank you for breaking me out of here!", 0, 0); break;
+                 case 3: pCaptured->MonsterSay("Thanks. Now, let's blow up that cave!", 0, 0); break;
+              }
+              pPlayer->KilledMonsterCredit(pCaptured->GetEntry(), NULL);
+              pCaptured->ForcedDespawn(4000);
+              return true;
+          } 
+
+         return false;
+     }
+};
+
 void AddSC_go_scripts()
 {
     new go_cat_figurine;
@@ -1291,4 +1316,5 @@ void AddSC_go_scripts()
     new go_massive_seaforium_charge;
     new go_gjalerbron_cage;
     new go_large_gjalerbron_cage;
+    new go_makeshift_cage;
 }

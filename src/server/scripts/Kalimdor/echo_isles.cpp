@@ -144,12 +144,12 @@ public:
             {
                 if (me->GetHealth() > 1)
                 {
-                    if (spell == GET_SPELL(348)   || // The Arts of a Warlock
-                        spell == GET_SPELL(56641) || // The Arts of a Hunter
-                        spell == GET_SPELL(5143)  || // The Arts of a Mage
-                        spell == GET_SPELL(2098)  || // The Arts of a Rogue
-                        spell == GET_SPELL(73899) || // The Arts of a Shaman
-                        spell == GET_SPELL(100)      // The Arts of a Warrior
+                    if (spell->Id == 348   || // The Arts of a Warlock
+                        spell->Id == 5664 || // The Arts of a Hunter
+                        spell->Id == 5143  || // The Arts of a Mage
+                        spell->Id == 2098  || // The Arts of a Rogue
+                        spell->Id == 73899 || // The Arts of a Shaman
+                        spell->Id == 100      // The Arts of a Warrior
                        )
                     {
                         sPlayer->KilledMonsterCredit(44175, 0);
@@ -419,7 +419,7 @@ public:
 
         void Reset()
         {
-                if (Unit *owner = CAST_SUM(me)->GetCharmerOrOwner())
+			 if (Unit *owner = me->ToCreature()->GetCharmerOrOwner())
                     if (owner->GetTypeId() == TYPEID_PLAYER)
                     {
                        owner->CastSpell(me, SPELL_RIDE_VEHICLE_1, true);

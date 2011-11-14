@@ -1023,6 +1023,51 @@ public:
     }
 };
 
+enum PlaceTerritorialFetish
+{
+    SPELL_TERRITORIAL_FETISH = 72072,
+};
+
+// 72070 Place Territorial Fetish
+class spell_q24813_place_territorial_fetish : public SpellScriptLoader
+{
+public:
+    spell_q24813_place_territorial_fetish() : SpellScriptLoader("spell_q24813_place_territorial_fetish") { }
+
+    class spell_q24813_place_territorial_fetish_SpellScript : public SpellScript
+    {
+        PrepareSpellScript(spell_q24813_place_territorial_fetish_SpellScript);
+
+        void HandleDummy(SpellEffIndex /*effIndex*/)
+        {
+
+            Unit* caster = GetCaster();
+            if (Creature* target =  GetHitCreature()->ToCreature())
+            {
+              if(Creature* unitTarget = target->FindNearestCreature(38560, 5.0f, true))
+              {
+                 if (unitTarget->HasAura(SPELL_TERRITORIAL_FETISH))
+                     return;
+
+                 unitTarget->CastSpell(caster, SPELL_TERRITORIAL_FETISH, true);
+
+              }
+            }
+        }
+
+        void Register()
+        {
+            OnEffectHitTarget += SpellEffectFn(spell_q24813_place_territorial_fetish_SpellScript::HandleDummy, EFFECT_0, SPELL_EFFECT_DUMMY);
+        }
+    };
+
+    SpellScript* GetSpellScript() const
+    {
+        return new spell_q24813_place_territorial_fetish_SpellScript();
+    };
+};
+
+
 void AddSC_quest_spell_scripts()
 {
     new spell_q55_sacred_cleansing();
@@ -1047,4 +1092,5 @@ void AddSC_quest_spell_scripts()
     new spell_q12805_lifeblood_dummy();
     new spell_q13280_13283_plant_battle_standard();
     new spell_q14112_14145_chum_the_water();
+    new spell_q24813_place_territorial_fetish();
 }

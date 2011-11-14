@@ -1266,6 +1266,43 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                     unitTarget->CastSpell(unitTarget, 42726, true);
                     m_caster->ToPlayer()->KilledMonsterCredit(KillCredit, NULL);
                 }
+                case 77314:                                 //Burn Constriction Totem
+                {
+                    if(unitTarget->GetEntry() != 41202)
+                        return;
+
+                    if(Creature* pCreature = unitTarget->FindNearestCreature(41237, 8.0f, true))
+                    {
+                        //Missing Aura check
+                        pCreature->HandleEmoteCommand(4);
+                        pCreature->MonsterTextEmote("Kharanos Mountaineer gasps for air.", 0);
+                        pCreature->MonsterSay("Thank you for freeing me!", 0, 0);
+                        pCreature->GetMotionMaster()->MoveRandom(10.0f);
+                        pCreature->RemoveAllAuras();
+                        pCreature->ForcedDespawn(20000);
+                        unitTarget->ToCreature()->ForcedDespawn(1000);
+                        m_caster->ToPlayer()->KilledMonsterCredit(unitTarget->GetEntry(), unitTarget->GetGUID());
+                    }
+                    return;
+                }
+                case 79416:
+                {
+                    if(Creature* pToxic = m_caster->FindNearestCreature(42563, 10.0f))
+                    if(GameObject* pGo = m_caster->FindNearestGameObject(203975, 5.0f))
+                    {
+                        m_caster->MonsterSay("Initiating cleanup ... ...", 0, 0);
+
+                        if(m_caster->GetDisplayId() == 37146)
+                            m_caster->SetDisplayId(37140);
+
+                        uint32 SpellId[2] = {79424, 94516};
+                        m_caster->CastSpell(pToxic, SpellId[urand(0,1)], true);
+                        pToxic->ForcedDespawn(750);
+
+                        m_caster->CastSpell(m_caster, 79422, true);
+                        pGo->DestroyForNearbyPlayers();
+                    }
+                } return;
                 case 79751:                                 // Destroy Mechano-Tank
                 {
                     if (m_caster->GetTypeId() != TYPEID_PLAYER)

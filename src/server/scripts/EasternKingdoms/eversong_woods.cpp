@@ -618,6 +618,109 @@ public:
     };
 };
 
+/*################
+npc_whitebark_old#
+################*/
+
+enum Spells
+{
+  SPELL_ROOTS        = 31287,
+  SPELL_WITHERED_TOUCH  = 11442,
+
+  SAY1          = -1019456,
+  SAY2          = -1019457
+};
+class npc_old_whitebark : public CreatureScript
+{
+public:
+    npc_old_whitebark() : CreatureScript("npc_old_whitebark") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_old_whitebarkAI(pCreature);
+    }
+
+    struct npc_old_whitebarkAI : public ScriptedAI
+    {
+        uint32 m_uiRootsTimer;                               
+        uint32 m_uiTouchTimer;
+
+        bool bSay;
+
+        npc_old_whitebarkAI(Creature *c) : ScriptedAI(c) {}
+
+        void Reset()
+        {
+            me->RestoreFaction();
+            m_uiRootsTimer = 5000;                             
+            m_uiTouchTimer = 10000;
+            bSay=false;
+        }
+
+        void EnterCombat(Unit* pWho)
+        {      
+             DoScriptText(SAY1, me);
+        }
+
+        void JustDied(Unit* /*killer*/)
+        {
+            me->RestoreFaction();
+        }
+
+        void AttackedBy(Unit* pAttacker)
+        {
+            if (me->getVictim() || me->IsFriendlyTo(pAttacker))
+                return;
+
+            AttackStart(pAttacker);
+        }
+
+        void UpdateAI(const uint32 diff)
+        {
+            if (m_uiRootsTimer <= diff)
+            {
+                    
+                DoCast(me->getVictim(), SPELL_ROOTS);
+                m_uiRootsTimer = 15000;
+             }
+             else
+                 m_uiRootsTimer -= diff;
+            
+            if (m_uiTouchTimer <= diff)
+            {
+                    
+                DoCast(me->getVictim(), SPELL_WITHERED_TOUCH);
+                 m_uiTouchTimer = 10000;
+             }
+             else
+                 m_uiTouchTimer -= diff;
+
+
+            if (HealthBelowPct(35))
+            {
+                    
+                me->setFaction(35);
+                me->SetFlag(UNIT_FIELD_FLAGS,UNIT_FLAG_OOC_NOT_ATTACKABLE);
+                me->CombatStop(true);
+                if(!bSay)
+                {
+                    DoScriptText(SAY2, me);
+                    bSay=true;
+                }
+                    
+             } 
+            
+            
+            if (!UpdateVictim())
+                return;
+
+            DoMeleeAttackIfReady();
+        }
+    };
+
+};
+
+
 void AddSC_eversong_woods()
 {
     new npc_second_trial_controller();
@@ -625,4 +728,5 @@ void AddSC_eversong_woods()
     new go_second_trial();
     new npc_apprentice_mirveda();
     new npc_infused_crystal();
+    new npc_old_whitebark();
 }

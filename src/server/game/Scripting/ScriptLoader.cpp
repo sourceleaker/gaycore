@@ -287,7 +287,7 @@ void AddSC_burning_steppes();
 void AddSC_duskwood();
 void AddSC_dun_morogh();
 void AddSC_eastern_plaguelands();
-void AddSC_elwynn_forest()
+void AddSC_elwynn_forest();
 void AddSC_eversong_woods();
 void AddSC_ghostlands();
 void AddSC_gilneas();

@@ -1062,7 +1062,7 @@ public:
 
         void ReceiveEmote(Player* player, uint32 emote)
         {
-            if (emote==TEXTEMOTE_WHISTLE && whistle == false && player->IsWithinDistInMap(me,20.00f))
+            if (emote==TEXT_EMOTE_WHISTLE && whistle == false && player->IsWithinDistInMap(me,20.00f))
             {
                 if (player->GetQuestStatus(QUEST_RAMS_ON_THE_LAM) == QUEST_STATUS_INCOMPLETE)
                 {

@@ -342,6 +342,16 @@ void MotionMaster::MoveTakeoff(uint32 id, Position const& pos, float speed)
     i_owner->SendMonsterMove(data);
 }
 
+void MotionMaster::MoveForward(float distance, float zDiff)
+{
+    if (i_owner->GetTypeId() == TYPEID_PLAYER)
+        return;
+
+    float x, y, z;
+    i_owner->GetClosePoint(x, y, z, DEFAULT_WORLD_OBJECT_SIZE, distance);
+    i_owner->GetMotionMaster()->MovePoint(1, x, y, z+zDiff);
+}
+
 void MotionMaster::MoveKnockbackFrom(float srcX, float srcY, float speedXY, float speedZ)
 {
     //this function may make players fall below map

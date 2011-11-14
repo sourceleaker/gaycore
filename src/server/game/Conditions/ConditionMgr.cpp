@@ -26,6 +26,7 @@
 #include "ConditionMgr.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
+#include "SmartAI.h"
 
 // Checks if player meets the condition
 // Can have CONDITION_SOURCE_TYPE_NONE && !mReferenceId if called from a special event (ie: eventAI)
@@ -201,6 +202,19 @@ bool Condition::Meets(Player* player, Unit* invoker)
         case CONDITION_NEAR_GAMEOBJECT:
         {
             condMeets = GetClosestGameObjectWithEntry(player, mConditionValue1, (float)mConditionValue2) ? true : false;
+            break;
+        }
+        case CONDITION_SMART_PHASE:
+        {
+            // condMeets = false; ? not needed - in declaration variable value set to false
+            if (Unit* target = player->GetSelectedUnit() &&
+                Creature * cTarget = target->ToCreature() && cTarget->GetAIName() == "SmartAI")
+            {
+                if (SmartAI *SAI = SCRIPT_CAST_TYPE<SmartAI*>(cTarget->GetAI()) && SmartScript* smart = SAI->GetScript())
+                {
+                    condMeets = smart->IsInPhase(mConditionValue1) || mConditionValue1 == 0;
+                }
+            }
             break;
         }
         default:
@@ -1365,6 +1379,7 @@ bool ConditionMgr::isConditionTypeValid(Condition* cond)
             }
             break;
         }
+        case CONDITION_SMART_PHASE:
         case CONDITION_AREAID:
         case CONDITION_INSTANCE_DATA:
             break;

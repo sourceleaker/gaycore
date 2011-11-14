@@ -60,7 +60,8 @@ enum ConditionType
     CONDITION_QUEST_COMPLETE        = 28,                   // quest_id         0           +referenceID       true if player has quest_id with all objectives complete, but not yet rewarded
     CONDITION_NEAR_CREATURE         = 29,                   // creature entry   distance    +referenceID       true if there is a creature of entry in range
     CONDITION_NEAR_GAMEOBJECT       = 30,                   // gameobject entry distance    +referenceID       true if there is a gameobject of entry in range
-    CONDITION_MAX                   = 31                    // MAX
+    CONDITION_SMART_PHASE           = 31,                   // smart_script phase       id          +referenceID       true if there is a gameobject of entry in range
+	CONDITION_MAX                   = 32                    // MAX
 };
 
 enum LevelConditionType

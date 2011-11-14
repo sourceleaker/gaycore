@@ -212,6 +212,9 @@ class SmartScript
         void SetScript9(SmartScriptHolder& e, uint32 entry);
         Unit* GetLastInvoker();
         uint64 mLastInvoker;
+        
+        // For Conditions
+        bool IsInPhase(uint32 p) const { return mEventPhase & p; }
 
     private:
         void IncPhase(int32 p = 1)

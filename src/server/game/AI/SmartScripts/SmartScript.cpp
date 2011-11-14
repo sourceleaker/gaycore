@@ -1332,9 +1332,20 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
             if (!IsSmart())
                 return;
 
-            bool run = e.action.setRun.run ? true : false;
-            CAST_AI(SmartAI, me->AI())->SetRun(run);
-            me->GetMotionMaster()->MovePoint(0, e.target.x, e.target.y, e.target.z);
+            Unit *mTarget = me;
+
+            if (e.action.moveTo.entry)
+                 mTarget = me->FindNearestCreature(e.action.moveTo.entry, e.action.moveTo.distance, true);
+
+            if (mTarget)
+            {
+                if (e.action.moveTo.run)
+                    mTarget->RemoveUnitMovementFlag(MOVEMENTFLAG_WALKING);
+                else
+                    mTarget->AddUnitMovementFlag(MOVEMENTFLAG_WALKING);
+
+                mTarget->GetMotionMaster()->MovePoint(0, e.target.x, e.target.y , e.target.z);
+            }
             break;
         }
         case SMART_ACTION_RESPAWN_TARGET:

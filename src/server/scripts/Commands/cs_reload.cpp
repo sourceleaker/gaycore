@@ -1259,13 +1259,14 @@ public:
         return true;
     }
 
-    static bool HandleReloadAreaTriggerStartQuestCommand(ChatHandler* handler, const char*)
-    {
-        sLog->outString("Re-Loading AreaTrigger Quest Start...");
-        sObjectMgr->LoadAreaTriggerQuestStart();
-        handler->SendGlobalGMSysMessage("DB table `areatrigger_queststart` reloaded.");
-        return true;
-    }
+    // NOT IMPLEMENTED....
+    //static bool HandleReloadAreaTriggerStartQuestCommand(ChatHandler* handler, const char*)
+    //{
+    //    sLog->outString("Re-Loading AreaTrigger Quest Start...");
+    //    sObjectMgr->LoadAreaTriggerQuestStart();
+    //    handler->SendGlobalGMSysMessage("DB table `areatrigger_queststart` reloaded.");
+    //    return true;
+    //}
 };
 
 void AddSC_reload_commandscript()

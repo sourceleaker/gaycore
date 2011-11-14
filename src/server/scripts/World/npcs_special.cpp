@@ -2040,7 +2040,16 @@ public:
 enum eTrainingDummy
 {
     NPC_ADVANCED_TARGET_DUMMY                  = 2674,
-    NPC_TARGET_DUMMY                           = 2673
+    NPC_TARGET_DUMMY                           = 2673,
+	NPC_CATACLYSM_TARGET_DUMMY                 = 44548,
+ 	
+ 	SPELL_CHARGE                               = 100,
+ 	SPELL_IMMOLATE                             = 348,
+ 	SPELL_EVISCERATE                           = 2098,
+ 	SPELL_STEADY_SHOT                          = 56641,
+ 	SPELL_ARCANE_MISSILES                      = 5143,
+ 	SPELL_JUDGEMENT                            = 20271,
+ 	SPELL_PRIMAL_STRIKE                        = 73899
 };
 
 class npc_training_dummy : public CreatureScript
@@ -2075,6 +2084,30 @@ public:
 
             Reset();
         }
+		
+		void SpellHit(Unit* pCaster, SpellEntry const* pSpell)
+        {
+            if(pCaster->GetTypeId() != TYPEID_PLAYER)
+                return;
+
+            uint32 uiKillCredit = 0;
+
+            switch(pSpell->Id)
+            {
+                case SPELL_CHARGE:
+                case SPELL_IMMOLATE:
+                case SPELL_EVISCERATE:
+                case SPELL_STEADY_SHOT:
+                case SPELL_ARCANE_MISSILES:
+                case SPELL_JUDGEMENT:
+                case SPELL_PRIMAL_STRIKE:
+                    uiKillCredit = 44175;
+                    break;
+                default: break;
+            }
+            ((Player*)pCaster)->KilledMonsterCredit(uiKillCredit, NULL);
+        }
+
 
         void DamageTaken(Unit* /*doneBy*/, uint32& damage)
         {

@@ -497,7 +497,7 @@ public:
         {
             if (KillCount >= 3 && PlayerGUID)
                 if (Player* player = Unit::GetPlayer(*me, PlayerGUID))
-                    CAST_PLR(player)->CompleteQuest(QUEST_UNEXPECTED_RESULT);
+                     player->GroupEventHappens(QUEST_UNEXPECTED_RESULT,me);
 
             if (Summon)
             {

@@ -524,6 +524,257 @@ public:
     };
 };
 
+/*######
+## npc_demoniac_scryer
+######*/
+
+
+enum eDemoniac
+{
+    GOSSIP_TEXTID_PROTECT = 10659,
+    GOSSIP_TEXTID_ATTUNED = 10643,
+
+    QUEST_DEMONIAC = 10838,
+    NPC_HELLFIRE_WARDLING = 22259,
+    NPC_BUTTRESS = 22267, //the 4x nodes
+    NPC_SPAWNER = 22260, //just a dummy, not used
+
+    MAX_BUTTRESS = 4,
+    TIME_TOTAL = MINUTE*10*IN_MILLISECONDS,
+
+    SPELL_SUMMONED_DEMON = 7741, //visual spawn-in for demon
+    SPELL_DEMONIAC_VISITATION = 38708, //create item
+
+    SPELL_BUTTRESS_APPERANCE = 38719, //visual on 4x bunnies + the flying ones
+    SPELL_SUCKER_CHANNEL = 38721, //channel to the 4x nodes
+    SPELL_SUCKER_DESPAWN_MOB = 38691
+};
+
+#define GOSSIP_ITEM_ATTUNE "Yes, Scryer. You may possess me."
+#define M_PI_F            3.14159265358979323846f
+
+class npc_demoniac_scryer : public CreatureScript
+{
+public:
+    npc_demoniac_scryer() : CreatureScript("npc_demoniac_scryer") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_demoniac_scryerAI (pCreature);
+    }
+
+    struct npc_demoniac_scryerAI : public ScriptedAI
+    {
+	    npc_demoniac_scryerAI(Creature* c) : ScriptedAI(c) {}
+
+        bool bIsComplete;
+
+        uint32 SpawnDemonTimer;
+        uint32 SpawnButtressTimer;
+        uint32 ButtressCount;
+
+    void Reset() 
+    {
+    	bIsComplete = false;
+        SpawnDemonTimer = 15000;
+        SpawnButtressTimer = 45000;
+        ButtressCount = 0;
+    }
+
+
+    void AttackedBy(Unit* pEnemy) {}
+    void AttackStart(Unit* pEnemy) {}
+
+    void DoSpawnButtress()
+    {
+        ++ButtressCount;
+
+        float fAngle;
+
+        switch(ButtressCount)
+        {
+            case 1: fAngle = 0.0f; break;
+            case 2: fAngle = M_PI_F+M_PI_F/2; break;
+            case 3: fAngle = M_PI_F/2; break;
+            case 4: fAngle = M_PI_F; break;
+        }
+
+        float fX, fY, fZ;
+        me->GetNearPoint(me, fX, fY, fZ, 0.0f, 5.0f, fAngle);
+
+        uint32 uiTime = TIME_TOTAL - (SpawnButtressTimer * ButtressCount);
+        me->SummonCreature(NPC_BUTTRESS, fX, fY, fZ, me->GetAngle(fX, fY), TEMPSUMMON_TIMED_DESPAWN, uiTime);
+    }
+
+    void DoSpawnDemon()
+    {
+        const Position src = {me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(), 0};
+        Position pos;
+
+        me->GetRandomPoint(src, 20.0f, pos);
+        me->SummonCreature(NPC_HELLFIRE_WARDLING, pos, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 5000);
+    }
+
+    void JustSummoned(Creature* pSummoned)
+    {
+        if (pSummoned->GetEntry() == NPC_HELLFIRE_WARDLING)
+        {
+            pSummoned->CastSpell(pSummoned, SPELL_SUMMONED_DEMON, false);
+            pSummoned->AI()->AttackStart(me);
+        }
+        else
+        {
+            if (pSummoned->GetEntry() == NPC_BUTTRESS)
+            {
+                pSummoned->CastSpell(pSummoned, SPELL_BUTTRESS_APPERANCE, false);
+                me->CastSpell(pSummoned, SPELL_SUCKER_CHANNEL, false);
+            }
+        }
+    }
+
+    void SpellHitTarget(Unit* pTarget, const SpellInfo* pSpell)
+    {
+        if (pTarget->GetEntry() == NPC_HELLFIRE_WARDLING && pSpell->Id == SPELL_SUCKER_DESPAWN_MOB)
+            ((Creature*)pTarget)->ForcedDespawn();
+    }
+
+    void UpdateAI(const uint32 uiDiff)
+    {
+        if (bIsComplete || !me->isAlive())
+            return;
+
+        if (SpawnButtressTimer <= uiDiff)
+        {
+            if (ButtressCount >= MAX_BUTTRESS)
+            {
+                me->CastSpell(me, SPELL_SUCKER_DESPAWN_MOB, false);
+
+                if (me->isInCombat())
+                {
+                    me->DeleteThreatList();
+                    me->CombatStop();
+                }
+
+                bIsComplete = true;
+                return;
+            }
+
+            SpawnButtressTimer = 45000;
+            DoSpawnButtress();
+        }
+        else
+            SpawnButtressTimer -= uiDiff;
+
+        if (SpawnDemonTimer <= uiDiff)
+        {
+            DoSpawnDemon();
+            SpawnDemonTimer = 15000;
+        }
+        else
+            SpawnDemonTimer -= uiDiff;
+    }
+};
+
+
+bool OnGossipHello(Player* pPlayer, Creature* pCreature)
+{
+    if (npc_demoniac_scryerAI* pScryerAI = dynamic_cast<npc_demoniac_scryerAI*>(pCreature->AI()))
+    {
+        if (pScryerAI->bIsComplete)
+        {
+            if (pPlayer->GetQuestStatus(QUEST_DEMONIAC) == QUEST_STATUS_INCOMPLETE)
+                pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_ATTUNE, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
+
+            pPlayer->SEND_GOSSIP_MENU(GOSSIP_TEXTID_ATTUNED, pCreature->GetGUID());
+            return true;
+        }
+    }
+
+    pPlayer->SEND_GOSSIP_MENU(GOSSIP_TEXTID_PROTECT, pCreature->GetGUID());
+    return true;
+}
+
+bool OnGossipSelect(Player* pPlayer, Creature* pCreature, uint32 /*uiSender*/, uint32 uiAction)
+{
+    if (uiAction == GOSSIP_ACTION_INFO_DEF + 1)
+    {
+        pPlayer->CLOSE_GOSSIP_MENU();
+        pCreature->CastSpell(pPlayer, SPELL_DEMONIAC_VISITATION, false);
+    }return true;
+}
+
+};
+
+/*######
+## npc_dreghood
+######*/
+ 
+enum eDreghood
+{
+    NPC1        =	20677,
+    NPC2        =	20678,
+    NPC3        =	20679
+};
+ 
+#define GOSSIP_HELLO_DREGHOOD1   "The winds do not speak to our tribe anymore.  My people are lost without elders to bring the spirits to them."
+#define GOSSIP_HELLO_DREGHOOD2   "These chains that bind me prevent me from bringing the spirit of fire to my people.  Souls without fire are souls that cannot rebel against their masters."
+#define GOSSIP_HELLO_DREGHOOD3   "The spirit of water has left us.  Our tribe is doomed.>"
+ 
+ 
+class npc_dreghood : public CreatureScript
+{
+public:
+    npc_dreghood() : CreatureScript("npc_dreghood") { }
+ 
+    bool OnGossipHello(Player* pPlayer, Creature* pCreature)
+    {
+        
+ 
+        if (pPlayer->GetQuestStatus(10368) == QUEST_STATUS_INCOMPLETE && pCreature->GetEntry() == NPC1)
+            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_HELLO_DREGHOOD1, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
+        
+        
+        if (pPlayer->GetQuestStatus(10368) == QUEST_STATUS_INCOMPLETE && pCreature->GetEntry() == NPC2)
+            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_HELLO_DREGHOOD2, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 2);
+ 
+ 
+        if (pPlayer->GetQuestStatus(10368) == QUEST_STATUS_INCOMPLETE && pCreature->GetEntry() == NPC3)
+            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_HELLO_DREGHOOD3, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 3);
+ 
+        pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pCreature), pCreature->GetGUID());
+ 
+        return true;
+    }
+ 
+    bool OnGossipSelect(Player* pPlayer, Creature* pCreature, uint32 /*uiSender*/, uint32 uiAction)
+    {
+        pPlayer->PlayerTalkClass->ClearMenus();
+        
+        if (uiAction == GOSSIP_ACTION_INFO_DEF + 1)
+        {
+            pPlayer->CLOSE_GOSSIP_MENU();
+            pPlayer->KilledMonsterCredit(NPC1, 0);
+            pCreature->SetStandState(UNIT_STAND_STATE_STAND);
+	}       
+ 
+        if (uiAction == GOSSIP_ACTION_INFO_DEF + 2)
+        {
+            pPlayer->CLOSE_GOSSIP_MENU();
+            pPlayer->KilledMonsterCredit(NPC2, 0);
+            pCreature->SetStandState(UNIT_STAND_STATE_STAND);
+	}
+ 
+        if (uiAction == GOSSIP_ACTION_INFO_DEF + 3)
+        {
+            pPlayer->CLOSE_GOSSIP_MENU();
+            pPlayer->KilledMonsterCredit(NPC3, 0);
+            pCreature->SetStandState(UNIT_STAND_STATE_STAND);
+        }return true;
+        
+    }
+};
+
+
 void AddSC_hellfire_peninsula()
 {
     new npc_aeranas();
@@ -534,4 +785,6 @@ void AddSC_hellfire_peninsula()
     new npc_trollbane();
     new npc_wounded_blood_elf();
     new npc_fel_guard_hound();
+	new npc_demoniac_scryer();
+ 	new npc_dreghood();
 }

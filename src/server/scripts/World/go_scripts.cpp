@@ -1276,6 +1276,29 @@ public:
      }
 };
 
+class go_quilboar_cage : public GameObjectScript
+{
+public:
+    go_quilboar_cage() : GameObjectScript("go_quilboar_cage") { }
+
+    bool OnGossipHello(Player* pPlayer, GameObject *pGo)
+    {
+        if(Creature* pBrave = pPlayer->FindNearestCreature(38345, 8.0f, true))
+        {
+            switch(urand(0, 2))
+            {
+                case 0: pBrave->MonsterSay("I can move again", 0, NULL); pBrave->ForcedDespawn(3000); break;
+                case 1: pBrave->MonsterSay("Thank the Earth Mother", 0, NULL); pBrave->ForcedDespawn(3000); break;
+                case 2: pBrave->MonsterSay("The quilboar will pay!", 0, NULL); pBrave->ForcedDespawn(3000); break;
+            }
+            pGo->setActive(true);
+            pPlayer->KilledMonsterCredit(5504, NULL);
+        }
+        return true;
+    }
+};
+
+
 void AddSC_go_scripts()
 {
     new go_cat_figurine;
@@ -1317,4 +1340,5 @@ void AddSC_go_scripts()
     new go_gjalerbron_cage;
     new go_large_gjalerbron_cage;
     new go_makeshift_cage;
+    new go_quilboar_cage;
 }

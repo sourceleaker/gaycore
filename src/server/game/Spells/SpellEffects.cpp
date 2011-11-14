@@ -1201,6 +1201,15 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                     m_caster->SendMessageToSet(&data, true);
                     return;
                 }
+                case 62430:                                 // Absorb Fire
+                {
+                    if(!unitTarget)
+                       return;
+    
+                    unitTarget->CastSpell(unitTarget, 65348, true);
+                    unitTarget->ToCreature()->ForcedDespawn(3000);
+                    return;
+                }
                 case 68996:                                 // Two forms (worgen transformation spell)
                 {
                     if (m_caster->GetTypeId() == TYPEID_PLAYER && !m_caster->isInCombat())

@@ -1155,6 +1155,10 @@ bool Player::Create(uint32 guidlow, CharacterCreateInfo* createInfo)
         }
     }
 
+    //Exeptions for Undead
+    if ((getRace() == RACE_UNDEAD_PLAYER) && getClass() != CLASS_DEATH_KNIGHT)
+        CastSpell(this, 73523, true);
+
     for (PlayerCreateInfoItems::const_iterator item_id_itr = info->item.begin(); item_id_itr != info->item.end(); ++item_id_itr)
         StoreNewItemInBestSlots(item_id_itr->item_id, item_id_itr->item_amount);
 

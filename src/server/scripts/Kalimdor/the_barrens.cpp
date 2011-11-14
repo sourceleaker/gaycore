@@ -700,6 +700,78 @@ public:
     }
 };
 
+class npc_sabresnout : public CreatureScript
+{
+public:
+    npc_sabresnout() : CreatureScript("npc_sabresnout") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_sabresnoutAI(pCreature);
+    }
+
+    struct npc_sabresnoutAI : public ScriptedAI
+    {
+        npc_sabresnoutAI(Creature* pCreature) : ScriptedAI(pCreature){}
+
+        uint8 Phase;
+        uint8 StillAlive;
+        uint32 TalkTimer;
+
+        void Reset()
+        {
+            Phase = 0;
+            StillAlive = 10;
+            TalkTimer = 3000;
+        }
+        void SummonedCreatureDespawn(Creature* pBoar) 
+        {
+            if(!pBoar->isDead())
+                return;
+
+            if(StillAlive <= 1)
+                Phase = 4;
+
+            --StillAlive;
+        }
+        void UpdateAI(const uint32 diff)
+        {
+            if(TalkTimer < diff)
+            {
+                Unit* pPlayer = me->getVictim();
+
+                    if(me->GetHealthPct() <= 30)
+                    {
+                        switch(Phase)
+                        {
+                            case 0: me->CastSpell(me, 70166, true); me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE); me->GetMotionMaster()->MoveTargetedHome(); me->SetReactState(REACT_PASSIVE); TalkTimer = 1000; Phase++; break;
+                            case 1: me->MonsterYell("You, <snort> you are strong <Gurgle>. But... Strong enough for THE BOURPOCALYPSE?", 0, 0); TalkTimer = 1000; Phase++; break;
+                            case 2:
+                            {
+                                for (uint8 SummonCount = 10; SummonCount > 0; --SummonCount)
+                                {
+                                    if(Creature* pBoar = me->SummonCreature(37536, me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(), 0.0f, TEMPSUMMON_CORPSE_DESPAWN, 0))
+                                    {
+                                        pBoar->setFaction(14);
+                                        if(pPlayer)
+                                            pBoar->Attack(pPlayer, true);
+                                    }
+                                }
+                                Phase++;
+                                break;
+                            }
+                            case 3: break;
+                            case 4: me->MonsterYell("You... survive the boars? <Snort> So many boars! So sad!< Gurgle>", 0, 0); TalkTimer = 1000; Phase++; break;
+                            case 5: me->RemoveAurasDueToSpell(70166); me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE); me->SetReactState(REACT_AGGRESSIVE); if(pPlayer) me->Attack(pPlayer, true); Phase++; break;
+                        }
+                    }
+            } else TalkTimer -= diff;
+            DoMeleeAttackIfReady();
+        }
+};
+};
+
+
 void AddSC_the_barrens()
 {
     new npc_beaten_corpse();
@@ -708,4 +780,5 @@ void AddSC_the_barrens()
     new npc_taskmaster_fizzule();
     new npc_twiggy_flathead();
     new npc_wizzlecrank_shredder();
+    new npc_sabresnout();
 }

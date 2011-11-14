@@ -161,10 +161,10 @@ public:
                         case 1:
                             if (Unit* unit = Unit::GetUnit(*me, uiPlayerGUID))
                             {
-                                if (GameObject* go = unit->GetGameObject(SPELL_LUNCH))
+                                if (GameObject* pGo = me->FindNearestGameObject(186265, 30.0f))
                                 {
                                     m_bIsMovingToLunch = true;
-                                    me->GetMotionMaster()->MovePoint(POINT_ID, go->GetPositionX(), go->GetPositionY(), go->GetPositionZ());
+                                    me->GetMotionMaster()->MovePoint(POINT_ID, pGo->GetPositionX(), pGo->GetPositionY(), pGo->GetPositionZ());
                                 }
                             }
                             break;
@@ -177,6 +177,8 @@ public:
                                 unit->TalkedToCreature(me->GetEntry(), me->GetGUID());
 
                             me->UpdateEntry(NPC_KYLE_FRIENDLY);
+                            if (GameObject* pGo = me->FindNearestGameObject(186265, 30.0f))
+                                pGo->Delete();
                             break;
                         case 4:
                             uiEventTimer = 30000;
@@ -310,13 +312,112 @@ public:
     };
 };
 
+class npc_eagle_spirit : public CreatureScript
+{
+public:
+    npc_eagle_spirit() : CreatureScript("npc_eagle_spirit") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+          return new npc_eagle_spiritAI (pCreature);
+    }
+
+    struct npc_eagle_spiritAI  : public ScriptedAI
+    {
+        npc_eagle_spiritAI(Creature *c) : ScriptedAI(c) {}
+
+        uint8 Phase;
+        uint32 ToMoveTime;
+        uint64 PlayerGuid;
+
+        void Reset()
+        {
+            Phase = 0;
+            PlayerGuid = me->GetCreatorGUID();
+
+            //This is flags sniffed from blizz servers however they don't work ;/
+            //me->SetUnitMovementFlags(SPLINEFLAG_UNKNOWN31 | SPLINEFLAG_ANIMATION | SPLINEFLAG_CATMULL_ROM | SPLINEFLAG_FLYING);
+            me->CastSpell(me, 69324, true);
+        }
+
+        void UpdateAI(const uint32 diff)
+        {
+            if(Player* pPlayer = me->GetPlayer(*me, PlayerGuid))
+            {
+                if(ToMoveTime < diff)
+                {
+                    switch(Phase)
+                    {
+                        case 0:
+                        {
+                            if(!pPlayer->GetVehicle())
+                                pPlayer->EnterVehicle(me, 0); ToMoveTime = 1000; Phase++;
+                            break;
+                        }
+                        case 1: pPlayer->SendMonsterMoveTransport(me); me->GetMotionMaster()->MovePoint(7, -2343.872f, -401.82f, -8.3208f); Phase++; ToMoveTime = 104000; break;
+                        case 2: pPlayer->AreaExploredOrEventHappens(24215); pPlayer->ExitVehicle(); me->ForcedDespawn(); break;
+                        //This is Blizzlike version but it's bugged in some way (When "Z" increase we get wrong packet and blackscreen ;/)
+                        
+                        //case 0: pPlayer->EnterVehicle(me, 0); Phase++; ToMoveTime = 2000; break;
+                        //case 1: pPlayer->SendMonsterMoveTransport(me); me->GetMotionMaster()->MovePoint(1, -2884.2f, -71.1f, 242.07f); Phase++; ToMoveTime = 25000; break;
+                        //case 2: pPlayer->SendMonsterMoveTransport(me); me->GetMotionMaster()->MovePoint(2, -2720.6f, -111.0035f, 242.59f); Phase++; ToMoveTime = 30000; break;
+                        //case 3: pPlayer->SendMonsterMoveTransport(me); me->GetMotionMaster()->MovePoint(3, -2683.95f, -382.9f, 231.20f); Phase++; ToMoveTime = 30000; break;
+                        //case 4: pPlayer->SendMonsterMoveTransport(me); me->GetMotionMaster()->MovePoint(4, -2619.150f, -484.93f, 231.18f); Phase++; ToMoveTime = 30000; break;
+                        //case 5: pPlayer->SendMonsterMoveTransport(me); me->GetMotionMaster()->MovePoint(5, -2543.868f, -525.33f, 231.18f); Phase++; ToMoveTime = 30000; break;
+                        //case 6: pPlayer->SendMonsterMoveTransport(me); me->GetMotionMaster()->MovePoint(6, -2465.321f, -502.500f, 190.75f); Phase++; ToMoveTime = 30000; break;
+                        //case 7: pPlayer->SendMonsterMoveTransport(me); me->GetMotionMaster()->MovePoint(7, -2343.872f, -401.82f, -8.3208f); Phase++; ToMoveTime = 30000; break;
+                        //case 8: pPlayer->AreaExploredOrEventHappens(24215); pPlayer->ExitVehicle(); me->ForcedDespawn(500); Phase++; break;
+                        default: break;
+                        
+                    }
+                } else ToMoveTime -= diff;
+            }
+        }
+    };
+};
+
+
 /*#####
-#
+#npc_restless_earth
 ######*/
+
+class npc_restless_earth : public CreatureScript
+{
+public:
+    npc_restless_earth() : CreatureScript("npc_restless_earth") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+          return new npc_restless_earthAI (pCreature);
+    }
+ 
+    struct npc_restless_earthAI  : public ScriptedAI
+    {
+        npc_restless_earthAI(Creature *c) : ScriptedAI(c) {}
+
+        uint64 PlayerGUID;
+
+        void Reset()
+        {
+            PlayerGUID = 0;
+        }
+        void SpellHit(Unit* Hitter, const SpellInfo *Spellkind)
+        {
+            if (Spellkind->Id == 69453)
+            {
+                Hitter->ToPlayer()->KilledMonsterCredit(36872,PlayerGUID);
+                me->ForcedDespawn(1500);
+            }
+        } 
+    };
+};
+
 
 void AddSC_mulgore()
 {
     new npc_skorn_whitecloud();
     new npc_kyle_frenzied();
     new npc_plains_vision();
+    new npc_eagle_spirit();
+    new npc_restless_earth();
 }

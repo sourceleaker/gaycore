@@ -816,6 +816,7 @@ class WorldObject : public Object, public WorldLocation
 
         bool m_isWorldObject;
         uint32  LastUsedScriptID;
+        int32   LastDoScriptText;
 
         // Transports
         Transport* GetTransport() const { return m_transport; }

@@ -392,9 +392,87 @@ public:
     };
 };
 
+uint32 SummonSpells[] = {65366, 65367, 65368, 65369};
+
+class npc_SoothingTotem : public CreatureScript
+{
+public:
+    npc_SoothingTotem() : CreatureScript("npc_SoothingTotem") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_SoothingTotemAI(pCreature);
+    }
+
+    struct npc_SoothingTotemAI : public ScriptedAI
+    {
+        npc_SoothingTotemAI(Creature *c) : ScriptedAI(c)
+        {
+            Phase = 0;
+            TimeUpdate = 10000;
+            PlayerGuid = me->GetCreatorGUID();
+            Reset();
+        }
+
+        uint8 Phase;
+        uint32 TimeUpdate;
+        uint64 PlayerGuid;
+
+        void Reset() {}
+
+        void JustSummoned(Creature* pSummoned)
+        {
+            pSummoned->AI()->AttackStart(me);
+        }
+
+        void AquireQuestComplete()
+        {
+        if(PlayerGuid != 0)
+        {
+        if(Player* pPlayer = me->GetPlayer(*me, PlayerGuid))
+            pPlayer->KilledMonsterCredit(34371, NULL);
+        }
+            else
+        {
+                std::list<Player*> players;
+                Trinity::AnyPlayerInObjectRangeCheck checker(me, 35.0f);
+                Trinity::PlayerListSearcher<Trinity::AnyPlayerInObjectRangeCheck> searcher(me, players, checker);
+                me->VisitNearbyWorldObject(35.0f, searcher);
+
+                for (std::list<Player*>::const_iterator itr = players.begin(); itr != players.end(); ++itr)
+                    (*itr)->KilledMonsterCredit(34371, NULL);
+        }
+        }
+
+        void UpdateAI(const uint32 diff)
+        {
+            if(me->isAlive())
+            {
+                if(TimeUpdate < diff)
+                {
+                    uint8 i = urand(0,2);
+
+                    switch(Phase)
+                    {
+                        //Still Need to Find Correct Amount of Mobs, correct Timers and Texts if exist
+                        case 0: me->CastSpell(me, SummonSpells[i], true); TimeUpdate = 15000; Phase++; break;
+                        case 1: me->CastSpell(me, SummonSpells[i], true); TimeUpdate = 15000; Phase++; break;
+                        case 2: me->CastSpell(me, SummonSpells[i], true); TimeUpdate = 15000; Phase++; break;
+                        case 3: me->CastSpell(me, SummonSpells[3], true); TimeUpdate = 15000; Phase++; break;
+                        case 4: AquireQuestComplete(); Phase++; break;
+                        default: break;
+                    }
+                } else TimeUpdate -= diff;
+            }
+        }
+    };
+};
+
+
 void AddSC_darkshore()
 {
     new npc_kerlonian();
     new npc_prospector_remtravel();
     new npc_threshwackonator();
+    new npc_SoothingTotem();
 }

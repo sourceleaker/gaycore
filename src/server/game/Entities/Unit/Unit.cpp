@@ -6531,9 +6531,15 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
         {
             switch (dummySpell->Id)
             {
-                case 56800: // Glyph of Backstab
+                // Glyph of Backstab
+                case 56800:
                 {
-                    triggered_spell_id = 63975;
+                    Player* caster = ToPlayer();
+    
+                    if(caster->getClass() == CLASS_ROGUE)
+                       caster->ModifyPower(POWER_ENERGY, 5);
+                    //Spell Don't Exist
+                    //triggered_spell_id = 63975;
                     break;
                 }
                 case 32748: // Deadly Throw Interrupt

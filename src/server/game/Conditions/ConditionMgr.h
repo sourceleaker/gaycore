@@ -63,7 +63,8 @@ enum ConditionType
     CONDITION_SMART_PHASE           = 31,                   // smart_script phase       id          +referenceID       true if there is a gameobject of entry in range
     CONDITION_NOT_NEAR_CREATURE     = 32,                   // creature entry           distance    +referenceID       true if there isn't a creature of entry in range
     CONDITION_NOT_NEAR_GAMEOBJECT   = 33,                   // gameobject entry         distance    +referenceID       true if there isn't a gameobject of entry in range
-    CONDITION_MAX                   = 34                    // MAX
+    CONDITION_TARGET_NO_AURA_IN_RANGE = 35,                 // spell_id                 TargetEntry Range              true if does not have aura of spell_id with effect effindex
+    CONDITION_MAX                   = 36                    // MAX
 };
 
 enum LevelConditionType

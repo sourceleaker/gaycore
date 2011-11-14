@@ -1177,6 +1177,14 @@ bool ConditionMgr::isConditionTypeValid(Condition* cond)
             }
             break;
         }
+        case CONDITION_TARGET_NO_AURA_IN_RANGE:
+        {
+            if (Creature *cTarget = GetClosestCreatureWithEntry(player, mConditionValue2, (float)mConditionValue3))
+                condMeets = !cTarget->HasAura(mConditionValue1);
+            else
+                condMeets = false;
+            break;
+        }
         case CONDITION_ACTIVE_EVENT:
         {
             GameEventMgr::GameEventDataMap const& events = sGameEventMgr->GetEventMap();

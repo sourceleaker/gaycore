@@ -1322,7 +1322,7 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (48252, 0, 0, 0, 4097, 233, NULL);
 
 DELETE FROM `creature_equip_template` WHERE `entry` IN (52650,52651,52652,52653,52654,52655,52656,52657,52658,52659,52660,52661,52662,52663,52664,52665,52666,52667,52668);
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `ItemEntry1`, `ItemEntry2`, `ItemEntry3`) VALUES
 (52668, 2178, 30314, 0),
 (52667, 18869, 0, 0),
 (52666, 5580, 0, 0),

@@ -15,11 +15,11 @@ INSERT INTO gossip_menu (entry, text_id) VALUES
 (@GOSSIP, 15468);
 
 DELETE FROM gossip_menu_option WHERE menu_id = @GOSSIP;
-INSERT INTO gossip_menu_option (`menu_id`, `id`, `option_icon`, `option_text`, `option_id`, `npc_option_npcflag`, `action_menu_id`, `action_poi_id`, `action_script_id`, `box_coded`, `box_money`, `box_text`) VALUES
+INSERT INTO gossip_menu_option (`menu_id`, `id`, `option_icon`, `option_text`, `option_id`, `npc_option_npcflag`, `action_menu_id`, `action_poi_id`, `action_script_id`, `box_coded`, `box_money`, `box_text`) values
 (@GOSSIP,0,0,"Can you tell me of the time when the Darkspear left Orgrimmar, Vol'jin?  I need to see Garrosh's actions for myself.",1,3,0,0,0,0,0,NULL);
 
 DELETE FROM conditions WHERE SourceTypeOrReferenceId = 15 AND SourceGroup = @GOSSIP;
-INSERT INTO conditions (SourceTypeOrReferenceId, SourceGroup, SourceEntry, ElseGroup, ConditionTypeOrReference, ConditionValue1, COMMENT) VALUES
+INSERT INTO conditions (SourceTypeOrReferenceId, SourceGroup, SourceEntry, ElseGroup, ConditionTypeOrReference, ConditionValue1, Comment) VALUES
 (15, @GOSSIP, 0, 0, 8, 24781, "Show gossip_option when rewarded quest More Than Expected"),
 (15, @GOSSIP, 0, 0, 31, 1, "Show gossip_option when rewarded quest More Than Expected"),
 (15, @GOSSIP, 0, 1, 8, 24787, "Show gossip_option when rewarded quest More Than Expected"),
@@ -47,7 +47,8 @@ INSERT INTO `smart_scripts` (`entryorguid`,`source_type`,`id`,`link`,`event_type
 (@ENTRY,@SOURCETYPE,5,0,20,1,100,0,24755,0,0,0,80,38966,0,0,0,0,0,1,0,0,0,0.0,0.0,0.0,0.0,"Event after reward quest More Than Expected."),
 (@ENTRY,@SOURCETYPE,6,0,20,1,100,0,24763,0,0,0,80,38966,0,0,0,0,0,1,0,0,0,0.0,0.0,0.0,0.0,"Event after reward quest More Than Expected."),
 (@ENTRY,@SOURCETYPE,7,0,20,1,100,0,24643,0,0,0,80,38966,0,0,0,0,0,1,0,0,0,0.0,0.0,0.0,0.0,"Event after reward quest More Than Expected."),
-(@ENTRY,@SOURCETYPE,8,0,62,1,100,0,11112,0,0,0,80,38966,0,0,0,0,0,1,0,0,0,0.0,0.0,0.0,0.0,"Event after click on gossip after reward More Than Expected.");
+(@ENTRY,@SOURCETYPE,8,0,20,1,100,0,24781,0,0,0,80,38966,0,0,0,0,0,1,0,0,0,0.0,0.0,0.0,0.0,"Event after reward quest More Than Expected."),
+(@ENTRY,@SOURCETYPE,9,0,62,1,100,0,11112,0,0,0,80,38966,0,0,0,0,0,1,0,0,0,0.0,0.0,0.0,0.0,"Event after click on gossip after reward More Than Expected.");
 
 DELETE FROM `creature_text` WHERE `entry` IN (@ENTRY, 38938, 38953);
 INSERT INTO `creature_text` (`entry`,`groupid`,`id`,`text`,`type`,`language`,`probability`,`emote`,`duration`,`sound`,`comment`) VALUES 

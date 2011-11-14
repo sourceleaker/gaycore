@@ -330,8 +330,8 @@ INSERT INTO `creature_addon` (`guid`, `bytes1`) VALUES ('500009', '8');
 DELETE FROM creature_addon WHERE guid=500006;
 INSERT INTO `creature_addon` (`guid`, `bytes1`) VALUES ('500006', '3');
 -- tobias mistmantle
-DELETE FROM creature_equip_template WHERE entry=60000 AND equipentry1=2130;
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`) VALUES ('60000', '2130');
+DELETE FROM creature_equip_template WHERE entry=60000 AND ItemEntry1=2130;
+INSERT INTO `creature_equip_template` (`entry`, `ItemEntry1`) VALUES ('60000', '2130');
 
 DELETE FROM `creature_questrelation` WHERE `id`='35840';
 INSERT INTO `creature_questrelation` SET quest=14277, id=35840;
@@ -3404,10 +3404,10 @@ Nothing really new has happened in Shadowglen since I sent you my sigil, but I\'
 UPDATE quest_template SET RequiredRaces=0 WHERE entry IN(26940,26945,26946,26947,26948,26949,3116,3117,3118,3119,3120,26841);
 
 DELETE FROM npc_trainer WHERE entry=3597;
-INSERT INTO `npc_trainer` (`entry`, `spell`, `spellcost`, `reqskill`, `reqskillvalue`, `reqlevel`, `KillCredit`) VALUES
-('3597','467','142','574','0','5','0'),
-('3597','774','390','573','0','8','0'),
-('3597','8921','97','574','0','4','0');
+INSERT INTO `npc_trainer` (`entry`, `spell`, `spellcost`, `reqskill`, `reqskillvalue`, `reqlevel`) VALUES
+('3597','467','142','574','0','5'),
+('3597','774','390','573','0','8'),
+('3597','8921','97','574','0','4');
 
 UPDATE `quest_template` SET `Title`='Rejuvenating Touch', `Objectives`='Learn Rejuvination from Mardant Strongoak. Use Rejuvenation to treat a Wounded Sentinel in Aldrassil.', `ObjectiveText1`='Use Rejuvenation on Wounded Sentinel', `ReqCreatureOrGOId1`='44617', `ReqSpellCast1`='774', `RequiredSpell`='774' WHERE entry=26948;
 UPDATE quest_template SET `ReqCreatureOrGOId1`='44614', `ReqSpellCast1`='5143', `RequiredSpell`='5143' WHERE entry=26940;

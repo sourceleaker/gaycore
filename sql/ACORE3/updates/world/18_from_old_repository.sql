@@ -1,4 +1,4 @@
-ALTER TABLE `world_db_version` CHANGE  `required_15_troll_fetish` `required_18_from_old_repository`  BIT(1);
+ALTER TABLE `world_db_version` CHANGE  `required_17_troll_artof` `required_18_from_old_repository`  BIT(1);
 -- AREATRIGGER_QUESTSTART
 CREATE TABLE IF NOT EXISTS `areatrigger_queststart`(`Trigger_ID` int NOT NULL , `Quest_ID` int NOT NULL);
 
@@ -464,6 +464,7 @@ UPDATE creature_template SET npcflag=3 WHERE `entry` IN(15402,2083,16200,16239,3
 -- Fix for Quest: Extinguishing Hope 
 DELETE FROM `creature_questrelation` WHERE (`id`='42940');
 UPDATE `creature_template` SET `AIName`='EventAI' WHERE (`entry`='42940');
+DELETE FROM `creature_ai_scripts` WHERE `id`=4294001;
 INSERT INTO `creature_ai_scripts` (`id`, `creature_id`, `event_type`, `action1_type`, `action1_param1`, `comment`) VALUES
 ('4294001', '42940', '11', '11', '80175', 'Northshire Vineyards Fire Trigger - Cast Fire at Respawn');
 DELETE FROM `conditions` WHERE `SourceEntry` = 80187;

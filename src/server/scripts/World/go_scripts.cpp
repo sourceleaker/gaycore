@@ -1271,6 +1271,8 @@ public:
               pCaptured->ForcedDespawn(4000);
               return true;
           } 
+
+         return false;
      }
 };
 

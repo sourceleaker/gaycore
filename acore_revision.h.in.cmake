@@ -1,6 +1,6 @@
 #ifndef __ACORE_REVISION_H__
 #define __ACORE_REVISION_H__
-#define ACORE_REVISION "54"
+#define ACORE_REVISION "55"
 
 #define ACORE_DB_WORLD    "required_54_world_quest_13907"
 #define ACORE_DB_CHAR     "required_03_db_version"

@@ -467,6 +467,37 @@ public:
     };
 };
 
+class npc_Tidal_Spirit : public CreatureScript
+{
+public:
+    npc_Tidal_Spirit() : CreatureScript("npc_Tidal_Spirit") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_Tidal_SpiritAI(pCreature);
+    }
+
+    struct npc_Tidal_SpiritAI : public ScriptedAI
+    {
+        npc_Tidal_SpiritAI(Creature *c) : ScriptedAI(c)
+        {}
+
+        void Reset()
+        {
+            if(Creature* pCreature = me->FindNearestCreature(32890, 10.0f, false))
+                pCreature->ForcedDespawn();
+
+            switch(urand(0, 2))
+            {
+                case 0: me->MonsterSay("Return to the ocean... return to the tides.", 0, 0); break;
+                case 1: me->MonsterSay("We thank you mortal. The ocean's will is to be free.", 0, 0); break;
+                case 2: me->MonsterSay("The tides do as Elune commands.", 0, 0); break;
+                default: break;
+            }
+            me->GetMotionMaster()->MoveForward(10.0f, 0.0f);
+        }
+    };
+};
 
 void AddSC_darkshore()
 {
@@ -474,4 +505,5 @@ void AddSC_darkshore()
     new npc_prospector_remtravel();
     new npc_threshwackonator();
     new npc_SoothingTotem();
+    new npc_Tidal_Spirit();
 }

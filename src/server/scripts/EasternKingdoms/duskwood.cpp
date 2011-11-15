@@ -1,26 +1,31 @@
 /*
+ * Copyright (C) 2005-2011 MaNGOS <http://www.getmangos.com/>
+ *
+ * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
+ *
+ * Copyright (C) 2006-2011 ScriptDev2 <http://www.scriptdev2.com/>
+ *
  * Copyright (C) 2010-2011 Project SkyFire <http://www.projectskyfire.org/>
- * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the
- * Free Software Foundation; either version 2 of the License, or (at your
- * option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
 /* ScriptData
 SDName: Duskwood
 SD%Complete: 98%
-SDAutor: Raknar	
+SDAutor: Raknar
 SDCategory: Duskwood
 EndScriptData */
 
@@ -35,33 +40,34 @@ class at_twilight_grove : public AreaTriggerScript
 public:
     at_twilight_grove() : AreaTriggerScript("at_twilight_grove") { }
 
-    bool OnTrigger(Player* player, const AreaTriggerEntry* /*at*/)
+    bool OnTrigger(Player* player, const AreaTriggerEntry * /*at*/)
     {
         if (player->HasQuestForItem(21149))
         {
-            if (Unit* TCorrupter = player->SummonCreature(15625, -10328.16f, -489.57f, 49.95f, 0, TEMPSUMMON_MANUAL_DESPAWN, 60000))
+            if (Unit* TCorrupter = player->SummonCreature(15625,-10328.16f,-489.57f,49.95f,0,TEMPSUMMON_MANUAL_DESPAWN,60000))
             {
                 TCorrupter->setFaction(14);
                 TCorrupter->SetMaxHealth(832750);
-            }
-            if (Unit* CorrupterSpeaker = player->SummonCreature(1, player->GetPositionX(), player->GetPositionY(), player->GetPositionZ()-1, 0, TEMPSUMMON_TIMED_DESPAWN, 15000))
+            
+            if (Unit* CorrupterSpeaker = player->SummonCreature(1,player->GetPositionX(),player->GetPositionY(),player->GetPositionZ()-1,0,TEMPSUMMON_TIMED_DESPAWN,15000))
             {
                 CorrupterSpeaker->SetName("Twilight Corrupter");
                 CorrupterSpeaker->SetVisible(true);
-                CorrupterSpeaker->MonsterYell("Come, $N. See what the Nightmare brings...", 0, player->GetGUID());
+                CorrupterSpeaker->MonsterYell("Come, $N. See what the Nightmare brings...",0,pPlayer->GetGUID());
             }
         }
         return false;
     };
+
 };
 
 /*######
 # boss_twilight_corrupter
 ######*/
 
-#define SPELL_SOUL_CORRUPTION               25805
-#define SPELL_CREATURE_OF_NIGHTMARE         25806
-#define SPELL_LEVEL_UP                      24312
+#define SPELL_SOUL_CORRUPTION       25805
+#define SPELL_CREATURE_OF_NIGHTMARE 25806
+#define SPELL_LEVEL_UP              24312
 
 class boss_twilight_corrupter : public CreatureScript
 {
@@ -75,7 +81,7 @@ public:
 
     struct boss_twilight_corrupterAI : public ScriptedAI
     {
-        boss_twilight_corrupterAI(Creature* creature) : ScriptedAI(creature) {}
+        boss_twilight_corrupterAI(Creature *creature) : ScriptedAI(creature) {}
 
         uint32 SoulCorruption_Timer;
         uint32 CreatureOfNightmare_Timer;
@@ -83,9 +89,9 @@ public:
 
         void Reset()
         {
-            SoulCorruption_Timer         = 15000;
-            CreatureOfNightmare_Timer    = 30000;
-            KillCount                    = 0;
+            SoulCorruption_Timer      = 15000;
+            CreatureOfNightmare_Timer = 30000;
+            KillCount                 = 0;
         }
         void EnterCombat(Unit* /*who*/)
         {
@@ -116,7 +122,6 @@ public:
                 DoCast(me->getVictim(), SPELL_SOUL_CORRUPTION);
                 SoulCorruption_Timer = rand()%4000+15000; //gotta confirm Timers
             } else SoulCorruption_Timer-=diff;
-
             if (CreatureOfNightmare_Timer <= diff)
             {
                 DoCast(me->getVictim(), SPELL_CREATURE_OF_NIGHTMARE);
@@ -125,6 +130,7 @@ public:
             DoMeleeAttackIfReady();
         };
     };
+
 };
 
 /*##########
@@ -177,12 +183,10 @@ public:
         npc_stitchesAI(Creature *c) : ScriptedAI(c) {}
 
         uint32 Timer;
-        uint32 dmgCount;
 
         void Reset()
         {
             me->SetRespawnTime(10);
-            dmgCount = 0;
             Timer = 5000;
         }
         void DamageTaken(Unit * pWho, uint32 &uiDamage)
@@ -193,22 +197,20 @@ public:
                 pWho->AddThreat(me, 100000.0f);
                 me->AddThreat(pWho, 100000.0f);
                 me->AI()->AttackStart(pWho);
-                dmgCount = 0;
             }
-            else if (pWho->isPet())
-        {
-        me->getThreatManager().resetAllAggro();
-        me->AddThreat(pWho, 100000.0f);
-        me->AI()->AttackStart(pWho);
-        dmgCount = 0;
-        }
-        else uiDamage = 0;
+            else if (pWho->isPet() || pWho->isGuardian())
+            {
+                me->getThreatManager().resetAllAggro();
+                me->AddThreat(pWho, 100000.0f);
+                me->AI()->AttackStart(pWho);
+            }
+            else uiDamage = 0;
         }
         void DamageDealt(Unit* target, uint32& damage, DamageEffectType damageType)
-    {
-        if (target->GetEntry() == guard)
-        dmgCount = 0;
-    }
+        {
+            if (target->GetEntry() == guard)
+                damage = 0;
+        }
         void JustDied(Unit* /*pKiller*/)
         {
             me->ForcedDespawn(4000);
@@ -223,10 +225,7 @@ public:
             if (!UpdateVictim())
                 return;
 
-            if (dmgCount < 2)
-                DoMeleeAttackIfReady();
-            else if (me->getVictim()->GetTypeId() == TYPEID_PLAYER) dmgCount = 0;
-            else if (me->getVictim()->isPet()) dmgCount = 0;
+            DoMeleeAttackIfReady();
 
             if (me->HasReactState(REACT_AGGRESSIVE) && Timer <= diff)
             {
@@ -258,23 +257,9 @@ class npc_stalvan : public CreatureScript
         {
             npc_stalvanAI(Creature* creature) : ScriptedAI(creature) {}
 
-            uint32 TextTimer1;
-            uint32 TextTimer2;
-            uint32 TextTimer3;
-            uint32 TextTimer4;
-            uint32 TextTimer5;
-            uint32 TextTimer6;
-            uint32 FightTimer;
+            uint32 StepTimer;
             uint32 FetidBreathTimer;
-            uint64 PlayerGUID;
-
-            bool bSay1;
-            bool bSay2;
-            bool bSay3;
-            bool bSay4;
-            bool bSay5;
-            bool bSay6;
-
+            uint8 Step;
 
             void Reset()
             {
@@ -282,21 +267,9 @@ class npc_stalvan : public CreatureScript
                 me->GetMotionMaster()->MoveTargetedHome();
                 me->SetFlag(UNIT_FIELD_FLAGS,UNIT_FLAG_NON_ATTACKABLE | UNIT_FLAG_OOC_NOT_ATTACKABLE);
                 me->SetReactState(REACT_PASSIVE);
-                TextTimer1=3000;
-                TextTimer2=9000;
-                TextTimer3=15000;
-                TextTimer4=22000;
-                TextTimer5=26000;
-                TextTimer6=32000;
-                FightTimer=34000;
-                FetidBreathTimer=8000;
-                bSay1=false;
-                bSay2=false;
-                bSay3=false;
-                bSay4=false;
-                bSay5=false;
-                bSay6=false;
-                PlayerGUID=0;
+                Step = 0;
+                StepTimer = 3000;
+                FetidBreathTimer = 8000;
             }
             void JustDied(Unit*)
             {
@@ -305,66 +278,34 @@ class npc_stalvan : public CreatureScript
 
             void UpdateAI(const uint32 diff)
             {
-                if(TextTimer1<=diff)
+                if(StepTimer <= diff)
                 {
-                    if(!bSay1)
+                    switch(Step)
                     {
-                        me->MonsterSay("My ring... Who holds my family ring... Tilloa, is that you?",0,0);
-                        bSay1=true;
+                        case 0: me->MonsterSay("My ring... Who holds my family ring... Tilloa, is that you?",0,0); StepTimer = 6000; Step++; break;
+                        case 1: me->MonsterSay("Tobias...",0,0); StepTimer = 6000; Step++; break;
+                        case 2: me->MonsterSay("It's all true, brother. Every word. You doubted it?",0,0); StepTimer = 7000; Step++; break;
+                        case 3: me->MonsterSay("You know why!",0,0); StepTimer = 4000; Step++; break;
+                        case 4: me->MonsterSay("Surely you've felt anger. Anger so foul and vicious that it makes you want to tear someone to shreds...",0,0); StepTimer = 6000; Step++; break;
+                        case 5: me->MonsterSay("Aren't you feeling it right now?",0,0); StepTimer = 2000; Step++; break;
+                        case 6: 
+                        {
+                            me->SetReactState(REACT_AGGRESSIVE);
+                            me->RemoveFlag(UNIT_FIELD_FLAGS,UNIT_FLAG_NON_ATTACKABLE | UNIT_FLAG_OOC_NOT_ATTACKABLE);
+                            Step++;
+                        } break;
+                        default: break;
                     }
-                }else TextTimer1 -=diff;
+                } else StepTimer -= diff;
 
-                if(TextTimer2<=diff)
+                if(Step == 7)
                 {
-                    if(!bSay2)
+                    if(FetidBreathTimer <= diff)
                     {
-                        me->MonsterSay("Tobias...",0,0);
-                        bSay2=true;
-                    }
-                }else TextTimer2 -=diff;
-
-                if(TextTimer3<=diff)
-                {
-                    if(!bSay3)
-                    {
-                        me->MonsterSay("It's all true, brother. Every word. You doubted it?",0,0);
-                        bSay3=true;
-                    }
-                }else TextTimer3 -=diff;
-
-                if(TextTimer4<=diff)
-                {
-                    if(!bSay4)
-                    {
-                        me->MonsterSay("You know why!",0,0);
-                        bSay4=true;
-                    }
-                }else TextTimer4 -=diff;
-
-                if(TextTimer5<=diff)
-                {
-                    if(!bSay5)
-                    {
-                        me->MonsterSay("Surely you've felt anger. Anger so foul and vicious that it makes you want to tear someone to shreds...",0,0);
-                        bSay5=true;
-                    }
-                }else TextTimer5 -=diff;
-
-                if(TextTimer6<=diff)
-                {
-                    if(!bSay6)
-                    {
-                        me->MonsterSay("Aren't you feeling it right now?",0,0);
-                        bSay6=true;
-                    }
-                }else TextTimer6 -=diff;
-
-                if(FightTimer<=diff)
-                {
-                    me->SetReactState(REACT_AGGRESSIVE);
-                    me->RemoveFlag(UNIT_FIELD_FLAGS,UNIT_FLAG_NON_ATTACKABLE | UNIT_FLAG_OOC_NOT_ATTACKABLE);
-                }else FightTimer -= diff;
-
+                        me->CastSpell(me, SPELL_FETID_BREATH, false);
+                        FetidBreathTimer = urand(8000, 25000);
+                    } else FetidBreathTimer -= diff;
+                }
                 DoMeleeAttackIfReady();
             }
         };
@@ -388,55 +329,51 @@ class npc_tobias : public CreatureScript
             npc_tobiasAI(Creature* creature) : ScriptedAI(creature) {}
     
             uint8 Phase;
-            uint32 TextTimer7;
+            uint32 PhaseTimer;
 
             void Reset()
             {
-                TextTimer7=4000;
-                Phase=0;
-                me->RestoreDisplayId();
-                
+                PhaseTimer = 4000;
+                Phase = 0;
+                me->RestoreDisplayId();    
             }
             
             void UpdateAI(const uint32 diff)
             {
-                if(TextTimer7<=diff)
+                if(PhaseTimer<=diff)
                 {
-                    if(Creature* pStalvan = me->FindNearestCreature(315, 30.0f, true))
+                    if(Creature* pStalvan = me->FindNearestCreature(NPC_STALVAN, 30.0f, true))
                     {
                         switch(Phase)
                         {
-                            case 0: me->MonsterSay("Brother!",0,0); TextTimer7=6000; me->RemoveFlag(UNIT_NPC_FLAGS,UNIT_NPC_FLAG_QUESTGIVER); Phase++; break;
-                            case 1: me->MonsterSay("Tell me it's not true, brother. Tell me you didn't die a murderer!",0,0); TextTimer7=7000; Phase++; break;
-                            case 2: me->MonsterSay("But why?! How could you?",0,0); TextTimer7=15000; Phase++; break;
+                            case 0: me->MonsterSay("Brother!",0,0); PhaseTimer = 6000; me->RemoveFlag(UNIT_NPC_FLAGS,UNIT_NPC_FLAG_QUESTGIVER); Phase++; break;
+                            case 1: me->MonsterSay("Tell me it's not true, brother. Tell me you didn't die a murderer!",0,0); PhaseTimer = 7000; Phase++; break;
+                            case 2: me->MonsterSay("But why?! How could you?",0,0); PhaseTimer = 15000; Phase++; break;
                             case 3:
                             {
                                 me->MonsterYell("No. NO! STOP IT!",0,0);
                                 me->CastSpell(me,84798,true);
-                                TextTimer7=2000;
                                 me->CombatStart(pStalvan,true);
                                 me->Attack(pStalvan,true);
-                                me->getVictim();
                                 me->AddThreat(pStalvan,1000.0f);
+                                PhaseTimer = 2000;
                                 Phase++;
                             }break;
                             case 4: 
                             {
                                 if(pStalvan->isDead())
-                                {
-                                    me->MonsterSay("No...",0,0); TextTimer7=2000; Phase++;
-                                }
+                                    me->MonsterSay("No...",0,0); PhaseTimer = 2000; Phase++;
                             }break;
                             case 5:
                             {
-                                me->GetMotionMaster()->MoveCharge(-10362.98f, -1220.066f, 39.45f, 15);
+                                me->GetMotionMaster()->MoveCharge(-10362.98f, -1220.066f, 39.45f, 15.0f);
                                 me->SetFlag(UNIT_NPC_FLAGS,UNIT_NPC_FLAG_QUESTGIVER);
                                 me->ForcedDespawn(6000);
                             }break;
                             default: break;
                         }
                     }
-                }else TextTimer7 -= diff;
+                }else PhaseTimer -= diff;
 
                 DoMeleeAttackIfReady();
             }
@@ -465,12 +402,7 @@ public:
     {
         npc_nightwatchAI(Creature *c) : ScriptedAI(c) {}
 
-        uint32 dmgCount;
-
-        void Reset()
-        {
-            dmgCount = 0;
-        }
+        void Reset(){ }
         void DamageTaken(Unit * pWho, uint32 &uiDamage)
         {
             if (pWho->GetTypeId() == TYPEID_PLAYER)
@@ -479,39 +411,40 @@ public:
                 pWho->AddThreat(me, 100000.0f);
                 me->AddThreat(pWho, 100000.0f);
                 me->AI()->AttackStart(pWho);
-                dmgCount = 0;
             }
             else if (pWho->isPet())
-        {
-        me->getThreatManager().resetAllAggro();
-        me->AddThreat(pWho, 100000.0f);
-        me->AI()->AttackStart(pWho);
-        dmgCount = 0;
-        }
+            {
+                me->getThreatManager().resetAllAggro();
+                me->AddThreat(pWho, 100000.0f);
+                me->AI()->AttackStart(pWho);
+            }
             else uiDamage = 0;
         }
         void DamageDealt(Unit* target, uint32& damage, DamageEffectType damageType)
-    {
-        if (target->GetEntry() == stitches)
-        dmgCount = 0;
-    }
+        {
+            if (target->GetEntry() == stitches)
+                damage = 0;
+        }
         void JustDied(Unit* /*pKiller*/)
         {
             me->SetRespawnTime(10);
         }
         void UpdateAI(const uint32 diff)
         {
+            //This make CPU usage increase, need to set every something (time, event)
             if (me->isAlive() && !me->isInCombat() && (me->GetDistance2d(me->GetHomePosition().GetPositionX(), me->GetHomePosition().GetPositionY()) <= 1.0f))
                 if (Creature* enemy = me->FindNearestCreature(NPC_STITCHES, 16.0f, true))
                     me->AI()->AttackStart(enemy);
 
-            if (dmgCount < 2)
-                DoMeleeAttackIfReady();
-            else if (me->getVictim()->GetTypeId() == TYPEID_PLAYER) dmgCount = 0;
-            else if (me->getVictim()->isPet()) dmgCount = 0;
-
+            DoMeleeAttackIfReady();
         }
     };
+};
+
+enum eMoundofLooseDirt
+{
+    SPELL_STUNNING_POUNCE       = 81949,
+    SPELL_STUNNING_POUNCE_A     = 81957
 };
 
 class npc_lurking_worgen : public CreatureScript
@@ -530,55 +463,45 @@ public:
 
         uint8 Phase;
         uint32 StunningPounceTimer;
-        uint64 PlayerGUID;
-
-        bool bJumped;
-        bool bCharged;
 
         void Reset()
         {
             Phase = 0;
-            StunningPounceTimer = 1500;
-            PlayerGUID = 0; 
-            bJumped=false;
-            bCharged=false; 
+            StunningPounceTimer = 0; 
         }
-
         void UpdateAI(const uint32 uiDiff)
         {
             ScriptedAI::UpdateAI(uiDiff);
 
             if (Player* pPlayer = me->FindNearestPlayer(20.0f,true))		
             {
-                if(Phase == 0 && pPlayer->GetQuestStatus(26717) == QUEST_STATUS_INCOMPLETE)
+                if(pPlayer->GetQuestStatus(26717) == QUEST_STATUS_INCOMPLETE)
                 {
-                    if(!bJumped)
+                    switch(Phase)
                     {
-                            me->CastSpell(pPlayer,81957,true); 
-                            bJumped=true;							
-                            bCharged=true;	
+                        case 0:
+                        {
+                            me->CastSpell(pPlayer,SPELL_STUNNING_POUNCE_A,true); 
+                            Phase++;
                             StunningPounceTimer=2500;
-                    }
-                    if(bCharged == true)
-                    {
+                        } break;
+                        //This can work?
                         if(StunningPounceTimer <= uiDiff)
                         {
-                            pPlayer->CastSpell(pPlayer,81949,true);
-                            pPlayer->AreaExploredOrEventHappens(26717);
-                            me->GetMotionMaster()->MoveCharge(-11124.71f, -499.84f, 34.95f, 8);
-                            me->ForcedDespawn(5000);
+                            case 1:
+                            {
+                                pPlayer->CastSpell(pPlayer,SPELL_STUNNING_POUNCE,true);
+                                pPlayer->AreaExploredOrEventHappens(26717);
+                                me->GetMotionMaster()->MoveCharge(-11124.71f, -499.84f, 34.95f, 8.0f);
+                                me->ForcedDespawn(5000);
+                            } break;
                         }else StunningPounceTimer -= uiDiff;
+                        default: break;
                     }
                 }
             }
         }
     };
-};
-
-enum eMoundofLooseDirt
-{
-    SPELL_STUNNING_POUNCE       = 81949,
-    SPELL_STUNNING_POUNCE_A     = 81957
 };
 
 class go_mound_dirt : public GameObjectScript
@@ -588,9 +511,8 @@ public:
 
     bool OnGossipHello(Player *pPlayer, GameObject *pGO)
     {
-       if (pGO->GetGoType() == GAMEOBJECT_TYPE_GOOBER)
-        pPlayer->SummonCreature(43799,-11127.5f, -518.42f, 35.25f, 0.43f, TEMPSUMMON_CORPSE_DESPAWN, 0);
-        
+       if(pPlayer->GetQuestStatus(26717) == QUEST_STATUS_INCOMPLETE)
+            pPlayer->SummonCreature(43799,-11127.5f, -518.42f, 35.25f, 0.43f, TEMPSUMMON_CORPSE_DESPAWN, 0);
         return true;
     }
 };
@@ -680,7 +602,7 @@ enum eCryMoon
     SPELL_KILL_CREDIT	    = 82286
 };
 
-class npc_cry_for_the_moon : public CreatureScript
+/*class npc_cry_for_the_moon : public CreatureScript
 {
 public:
     npc_cry_for_the_moon() : CreatureScript("npc_cry_for_the_moon") { }
@@ -689,17 +611,20 @@ public:
     {
         if (pQuest->GetQuestId() == QUEST_CRY_FOR_THE_MOON)
         {
-        pPlayer->RemoveAurasDueToSpell(82288);
-        pPlayer->RemoveAurasDueToSpell(82289);
-        if (!pPlayer->FindNearestCreature(43858, 20.0f, true))
-        {
-            pPlayer->SummonCreature(43859,-10748.52f,333.62f,37.46f,5.37f,TEMPSUMMON_TIMED_OR_DEAD_DESPAWN,90000);
-                pPlayer->SummonCreature(43858,-10752.87f,338.19f,37.294f,5.48f,TEMPSUMMON_TIMED_OR_DEAD_DESPAWN,90000);
-                pPlayer->SummonCreature(43950,-10747.40f,332.28f,37.74f,4.48f,TEMPSUMMON_TIMED_OR_DEAD_DESPAWN,90000);
+            pPlayer->RemoveAurasDueToSpell(SPELL_INVISIBILITY_7);
+            pPlayer->RemoveAurasDueToSpell(SPELL_INVISIBILITY_8);
+            CAST_AI(npc_cry_for_the_moon::npc_cry_for_the_moonAI, pCreature->AI())->PlayerGUID = pPlayer->GetGUID();
+
+            if (!pPlayer->FindNearestCreature(NPC_OLIVER_HARRIS, 20.0f, true))
+            {
+                pPlayer->SummonCreature(NPC_JITTERS,-10748.52f,333.62f,37.46f,5.37f,TEMPSUMMON_TIMED_OR_DEAD_DESPAWN,90000);
+                pPlayer->SummonCreature(NPC_OLIVER_HARRIS,-10752.87f,338.19f,37.294f,5.48f,TEMPSUMMON_TIMED_OR_DEAD_DESPAWN,90000);
+                pPlayer->SummonCreature(NPC_LUR_WORGEN,-10747.40f,332.28f,37.74f,4.48f,TEMPSUMMON_TIMED_OR_DEAD_DESPAWN,90000);
+            }
         }
-    }return true;
+        return true;
     }
-};
+};*/
 
 class npc_oliver_harris : public CreatureScript
 {
@@ -717,18 +642,20 @@ class npc_oliver_harris : public CreatureScript
             
             uint8 Phase;
             uint32 TalkEventTimer;
+            uint64 PlayerGUID;
 
             void Reset()
             {
                 Phase = 0;
                 TalkEventTimer = 2000;
+                //PlayerGUID = pPlayer->GetGUID();
             }
 
             void UpdateAI(const uint32 diff)
             {
                 if(TalkEventTimer <= diff)
                 {
-                    if (Player* pPlayer = me->FindNearestPlayer(10.0f,true)) 
+                    if (Player* pPlayer = me->GetPlayer(*me,PlayerGUID)) 
                     if (Creature* Jitters = me->FindNearestCreature(NPC_JITTERS,20.0f,true))
                     if (Creature* Worgen = me->FindNearestCreature(NPC_LUR_WORGEN,20.0f,true))
                     {
@@ -771,26 +698,14 @@ class npc_forlorn_spirit : public CreatureScript
         {
         npc_forlorn_spiritAI(Creature *c) : ScriptedAI(c) {}
 
-        bool spellhit;
-
         void Reset()
         {
             me->CastSpell(me,82199,true);
-            GiveCredit();
-        }
-        void GiveCredit()
-        {
             if(Player* pPlayer = me->FindNearestPlayer(10.0f,true))
-            {
                 pPlayer->KilledMonsterCredit(43930,0);
-            }
-        }
-            
+        }		
     };
 };
-
-
-
 
 void AddSC_duskwood()
 {
@@ -804,7 +719,7 @@ void AddSC_duskwood()
     new go_mound_dirt();
     new npc_lurking_worgen();
     new npc_lurking_potion();
-    new npc_cry_for_the_moon();
+    //new npc_cry_for_the_moon();
     new npc_oliver_harris();
     new npc_forlorn_spirit();
 }

@@ -355,15 +355,15 @@ enum eOngolongo
 {
     NPC_ONGOLONGOS_RIGHT_SHACKLE   = 42816,
     NPC_ONGOLONGOS_LEFT_SHACKLE    = 42817,
-	NPC_ONGOLONGO                  = 42815,
+    NPC_ONGOLONGO                  = 42815,
     NPC_VILEBRANCH_HANDLER         = 42843,
-	SPELL_ENRAGE                   = 63227,
-	SPELL_ONGOLONGO_SMASH          = 79875,
-	SPELL_SLAM                     = 90325,
-	SPELL_CHAIN_R                  = 79806,
-	SPELL_CHAIN_L                  = 79807,
-	QUEST_ONGOLONGOS_REVENGE_H     = 26367,
-	QUEST_ONGOLONGOS_REVENGE_A     = 26515
+    SPELL_ENRAGE                   = 63227,
+    SPELL_ONGOLONGO_SMASH          = 79875,
+    SPELL_SLAM                     = 90325,
+    SPELL_CHAIN_R                  = 79806,
+    SPELL_CHAIN_L                  = 79807,
+    QUEST_ONGOLONGOS_REVENGE_H     = 26367,
+    QUEST_ONGOLONGOS_REVENGE_A     = 26515
 };
 
 class npc_ongolongo : public CreatureScript
@@ -375,62 +375,62 @@ public:
     {
         npc_ongolongoAI(Creature* pCreature) : npc_escortAI(pCreature) {}
 
-		uint32 Slam_Timer;
+        uint32 Slam_Timer;
 
-		void Reset()
+        void Reset()
         {
             Slam_Timer = 5000;
-			me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
-			me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_ATTACKABLE_1);
+            me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
+            me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_ATTACKABLE_1);
         }
 
-		void EnterCombat(Unit* who)
-		{
-			me->MonsterSay("Leave Ongo'longo ALONE!", LANG_UNIVERSAL, 0);
-			me->CastSpell(me,SPELL_ENRAGE,true);
-		}
+        void EnterCombat(Unit* who)
+        {
+            me->MonsterSay("Leave Ongo'longo ALONE!", LANG_UNIVERSAL, 0);
+            me->CastSpell(me,SPELL_ENRAGE,true);
+        }
 
-		void DamageTaken(Unit* done_by, uint32 &damage)
-		{
-			if (me->HealthBelowPctDamaged(3, damage))
+        void DamageTaken(Unit* done_by, uint32 &damage)
+        {
+            if (me->HealthBelowPctDamaged(3, damage))
             {
-				me->RemoveUnitMovementFlag(UNIT_FLAG_DISABLE_MOVE);
-				me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
-				me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_ATTACKABLE_1);
-				me->RemoveAllAuras();
-				me->MonsterYell("NO MORE! ONGOLONGO GO HOME!",LANG_UNIVERSAL, 0);
-				if (done_by && done_by->ToPlayer()->GetQuestStatus(QUEST_ONGOLONGOS_REVENGE_H))
+                me->RemoveUnitMovementFlag(UNIT_FLAG_DISABLE_MOVE);
+                me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
+                me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_ATTACKABLE_1);
+                me->RemoveAllAuras();
+                me->MonsterYell("NO MORE! ONGOLONGO GO HOME!",LANG_UNIVERSAL, 0);
+                if (done_by && done_by->ToPlayer()->GetQuestStatus(QUEST_ONGOLONGOS_REVENGE_H))
                     done_by->ToPlayer()->CompleteQuest(QUEST_ONGOLONGOS_REVENGE_H);
                 if (done_by && done_by->ToPlayer()->GetQuestStatus(QUEST_ONGOLONGOS_REVENGE_A))
                     done_by->ToPlayer()->CompleteQuest(QUEST_ONGOLONGOS_REVENGE_A);
-				if (Creature* RShack = me->FindNearestCreature(NPC_ONGOLONGOS_RIGHT_SHACKLE, 10)) 
-					RShack->DisappearAndDie();
-				if (Creature* LShack = me->FindNearestCreature(NPC_ONGOLONGOS_LEFT_SHACKLE, 10)) 
-					LShack->DisappearAndDie();
-				me->GetMotionMaster()->MovePath(42815, false);
-			}
-		}
+                if (Creature* RShack = me->FindNearestCreature(NPC_ONGOLONGOS_RIGHT_SHACKLE, 10)) 
+                    RShack->DisappearAndDie();
+                if (Creature* LShack = me->FindNearestCreature(NPC_ONGOLONGOS_LEFT_SHACKLE, 10)) 
+                    LShack->DisappearAndDie();
+                me->GetMotionMaster()->MovePath(42815, false);
+            }
+        }
 
-		void WaypointReached(uint32 i){}
+        void WaypointReached(uint32 i){}
 
         void MoveInLineOfSight(Unit* who)
         {
             ScriptedAI::MoveInLineOfSight(who);
 
             if (who->GetEntry() == NPC_VILEBRANCH_HANDLER && me->IsWithinDistInMap(who, 2.0f))
-			{
-				 who->ToCreature()->MonsterSay("You get back in dat pen!", LANG_UNIVERSAL, 0);
-				 me->CastSpell(who,SPELL_ONGOLONGO_SMASH,true);
-			     me->ToCreature()->MonsterYell("PUNY TROLLS NOT STOP ONGOLONGO!",LANG_UNIVERSAL, 0);
-			}
+            {
+                 who->ToCreature()->MonsterSay("You get back in dat pen!", LANG_UNIVERSAL, 0);
+                 me->CastSpell(who,SPELL_ONGOLONGO_SMASH,true);
+                 me->ToCreature()->MonsterYell("PUNY TROLLS NOT STOP ONGOLONGO!",LANG_UNIVERSAL, 0);
+            }
         }
 
-		void UpdateAI(const uint32 diff)
+        void UpdateAI(const uint32 diff)
         {
             if (!UpdateVictim())
                 return;
 
-			if (Slam_Timer <= diff)
+            if (Slam_Timer <= diff)
             {
                 me->CastSpell(me->getVictim(), SPELL_SLAM,false);
                 Slam_Timer = 5000;
@@ -446,10 +446,68 @@ public:
     }
 };
 
+enum GryphonChow
+{
+    SPELL_FEED_TRAINED_RAZORBEAK = 80782,
+    NPC_TRAINED_RAZORBEAK_KC     = 43236
+};
+class npc_trained_razorbeak : public CreatureScript
+{
+public:
+    npc_trained_razorbeak() : CreatureScript("npc_trained_razorbeak") { }
+
+    CreatureAI* GetAI(Creature* creature) const
+    {
+        return new npc_trained_razorbeakAI(creature);
+    }
+
+    struct npc_trained_razorbeakAI : public npc_escortAI
+    {
+        npc_trained_razorbeakAI(Creature* creature) : npc_escortAI(creature) { }
+
+        void SpellHit(Unit* hitter, const SpellInfo* spell)
+        {
+            if (!hitter || !spell)
+                return;
+
+            if (spell->Id != SPELL_FEED_TRAINED_RAZORBEAK)
+                return;
+
+            if (hitter->ToPlayer())
+            {
+                hitter->ToPlayer()->KilledMonsterCredit(NPC_TRAINED_RAZORBEAK_KC, 0);
+                me->SetFlying(true);
+                me->StopMoving();
+                me->GetMotionMaster()->MoveIdle();
+                me->AddUnitMovementFlag(MOVEMENTFLAG_FLYING | MOVEMENTFLAG_CAN_FLY);
+                InitWaypoint();
+                Start(false, false);
+            }
+        }
+
+        void InitWaypoint()
+        {
+            AddWaypoint(0, me->GetPositionX(), me->GetPositionY(),me->GetPositionZ());
+            AddWaypoint(1, me->GetPositionX(), me->GetPositionY(),me->GetPositionZ()+70);
+        }
+
+        void WaypointReached(uint32 i)
+        {
+            switch(i)
+            {
+              case 1:
+                  me->DisappearAndDie();
+            }
+        }
+
+    };
+};
+
 
 void AddSC_hinterlands()
 {
     new npc_00x09hl();
     new npc_rinji();
-	new npc_ongolongo();
+    new npc_ongolongo();
+    new npc_trained_razorbeak();
 }

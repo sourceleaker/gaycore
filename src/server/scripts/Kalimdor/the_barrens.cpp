@@ -772,6 +772,1044 @@ public:
 };
 
 
+/*######
+## npc_gorgal
+######*/
+
+enum eGorgal
+{
+    SAY_GORGAL_1    = -1934634,
+    SAY_GORGAL_2    = -1934635,
+    SAY_GORGAL_3    = -1934636,
+    SAY_GORGAL_4    = -1934637,
+    SAY_GORGAL_5    = -1934638,
+    SAY_GORGAL_6    = -1934639,
+
+    QUEST_KING_OF_CENTAUR_MOUNTAIN      = 13995,
+    NPC_KOLKAR_WRANGLER                 = 3273,
+    NPC_KURAK                           = 34635,
+
+    SPELL_PLANT_HORDE_BANNER            = 65804
+};
+
+class npc_gorgal : public CreatureScript
+{
+    public:
+
+    npc_gorgal(): CreatureScript("npc_gorgal") {}
+
+    bool OnQuestAccept(Player* player, Creature* creature, Quest const* quest)
+        {
+            if (quest->GetQuestId() == QUEST_KING_OF_CENTAUR_MOUNTAIN)
+            {
+                DoScriptText(SAY_GORGAL_1, creature, player);
+                if (npc_escortAI* pEscortAI = CAST_AI(npc_gorgalAI, (creature->AI())))
+                    pEscortAI->Start(false, false, player->GetGUID(), quest);
+
+            }
+            return true;
+        }
+
+        CreatureAI* GetAI(Creature* pCreature) const
+        {
+            return new npc_gorgalAI (pCreature);
+        }
+
+        struct npc_gorgalAI : public npc_escortAI
+        {
+            npc_gorgalAI(Creature *c) : npc_escortAI(c) {}
+
+			void Reset()
+			{
+				me->SetRespawnTime(10);
+			}
+            void WaypointReached(uint32 uiPointId)
+            {
+                Player* pPlayer = GetPlayerForEscort();
+
+                if (!pPlayer)
+                    return;
+
+                switch(uiPointId)
+                {
+                case 0:SetRun(); break;
+                case 5:me->CastSpell(me,SPELL_PLANT_HORDE_BANNER,true); break;
+                case 6:DoScriptText(SAY_GORGAL_2, me);break;
+                case 7:
+                {
+                    me->SummonCreature(NPC_KOLKAR_WRANGLER, -1161.58f, -2943.18f, 94.29f, 1.0f, TEMPSUMMON_CORPSE_DESPAWN, 0);
+                    me->SummonCreature(NPC_KOLKAR_WRANGLER, -1173.41f, -2955.49f, 93.62f, 1.0f, TEMPSUMMON_CORPSE_DESPAWN, 0);
+                    break;
+                }
+                case 8:
+                {
+                    DoScriptText(SAY_GORGAL_3, me, pPlayer);
+                    me->SummonCreature(NPC_KOLKAR_WRANGLER, -1161.58f, -2943.18f, 94.29f, 1.0f, TEMPSUMMON_CORPSE_DESPAWN, 0);
+                    me->SummonCreature(NPC_KOLKAR_WRANGLER, -1173.41f, -2955.49f, 93.62f, 1.0f, TEMPSUMMON_CORPSE_DESPAWN, 0);
+                    break;
+                }
+                case 9:
+                {
+                    DoScriptText(SAY_GORGAL_4, me, pPlayer);
+                    me->SummonCreature(NPC_KURAK, -1163.27f, -2949.18f, 94.09f, 1.0f, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 120000);
+                    break;
+                }
+                case 10:
+                {
+                    if(Creature* Kurak = me->FindNearestCreature(NPC_KURAK,35.0f,false))
+                    {   
+                        if(Kurak->isAlive())
+                            SetEscortPaused(true);
+                        else
+                        {
+                            DoScriptText(SAY_GORGAL_5, me, pPlayer);
+                            SetEscortPaused(false);
+                        }
+                    }
+                    break;
+                }
+                case 11: DoScriptText(SAY_GORGAL_6, me, pPlayer);
+                        me->ForcedDespawn();
+                        break;
+                }
+            }
+
+            void JustSummoned(Creature* pSummoned)
+            {
+                pSummoned->AI()->AttackStart(me);
+                pSummoned->Attack(me,true);
+				pSummoned->SetReactState(REACT_AGGRESSIVE);
+            }
+            void UpdateAI(const uint32 diff)
+            {
+                npc_escortAI::UpdateAI(diff);
+            }
+        };
+};
+
+enum eTwapp
+{
+    SPELL_SHRINK    = 66284,
+    SPELL_FILL_TWAP = 66286,
+    SPELL_SCHRECH   = 66282
+};
+
+class npc_twapp : public CreatureScript
+{
+
+public:
+
+    npc_twapp() : CreatureScript("npc_twapp") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_twappAI(pCreature);
+    }
+
+    struct npc_twappAI : public ScriptedAI
+    {
+        npc_twappAI(Creature* pCreature) : ScriptedAI(pCreature){}
+
+        uint32 TwapTimer;
+
+        void Reset()
+        {
+            TwapTimer = 4000;
+        }
+
+        void UpdateAI(uint32 const diff)
+        {
+            if (TwapTimer <= diff)
+            {
+                me->CastSpell(me,SPELL_SCHRECH,false);
+                TwapTimer = 4000;
+            }else TwapTimer -= diff;
+        }
+    };
+};
+
+/*######
+## npc_baron_longshore
+######*/
+
+enum eBaron
+{
+    SAY_BARON_END = -1934640 
+};
+#define GOSSIP_BARON_1 "Never, you two-timing dog!"
+#define GOSSIP_BARON_2 "<Break Longshore's manacles and free him.>"
+
+class npc_baron_longshore : public CreatureScript
+{
+public:
+    npc_baron_longshore() : CreatureScript("npc_baron_longshore") { }
+
+    bool OnGossipSelect(Player* pPlayer, Creature* pCreature, uint32 /*uiSender*/, uint32 uiAction)
+    {
+        pPlayer->PlayerTalkClass->ClearMenus();
+        switch(uiAction)
+        {
+            case GOSSIP_ACTION_INFO_DEF: pPlayer->CLOSE_GOSSIP_MENU(); break; 
+            case GOSSIP_ACTION_INFO_DEF+1: DoScriptText(SAY_BARON_END, pCreature, pPlayer); pPlayer->CompleteQuest(14046); pPlayer->CLOSE_GOSSIP_MENU(); break;
+        }
+        return true;
+    }
+
+    bool OnGossipHello(Player* pPlayer, Creature* pCreature)
+    {
+        if (pCreature->isQuestGiver())
+            pPlayer->PrepareQuestMenu(pCreature->GetGUID());
+
+        if (pPlayer->GetQuestStatus(14046) == QUEST_STATUS_INCOMPLETE)
+        {
+            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_BARON_1, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF);
+            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_BARON_2, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+1);
+        }
+        pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pCreature), pCreature->GetGUID());
+        return true;       
+    }
+};
+
+/*######
+## go_treasure
+######*/
+
+enum eTreasure
+{
+    SAY_BARON_YELL = -1934642  //Hold it, $C! I promised told ye when the treasure is but never promised ye could keep it!
+};
+
+class go_treasure : public GameObjectScript
+{
+public:
+    go_treasure() : GameObjectScript("go_treasure") { }
+
+	bool OnGossipHello(Player *pPlayer, GameObject *pGO)
+    {
+        pPlayer->SendLoot(pGO->GetGUID(), LOOT_CORPSE);
+		pGO->Use(pPlayer);	
+
+        if (pPlayer->GetQuestStatus(14050) == QUEST_STATUS_INCOMPLETE)
+        {
+            pGO->SummonCreature(3467, -1160.66f, -3623.4f, 95.66f, 1.5f, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 0);
+            pGO->SummonCreature(3383, -1165.51f, -3617.19f, 94.46f, 1.59f, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 0);
+
+        std::list<Creature*> baron;
+        pPlayer->GetCreatureListWithEntryInGrid(baron, 3467, 40.0f);
+        baron.sort(Trinity::ObjectDistanceOrderPred(pPlayer));
+        for(std::list<Creature*>::iterator itr = baron.begin(); itr != baron.end(); itr++)
+        {
+            if((*itr)->isAlive() && (*itr)->GetTypeId() == TYPEID_UNIT)
+            {
+                (*itr)->AI()->AttackStart(pPlayer);
+                (*itr)->setFaction(14);
+                (*itr)->SetStandState(UNIT_STAND_STATE_STAND);
+                DoScriptText(SAY_BARON_YELL,(*itr),pPlayer);
+                
+            }
+        }
+
+        }return  true; 
+    }
+};
+
+enum eTonga
+{
+    SAY_TONGA_1 = -1034623,
+    SAY_TONGA_2 = -1034624,
+    SAY_TONGA_3 = -1034625,
+    SAY_TONGA_4 = -1034626,
+    SAY_TONGA_5 = -1034627
+};
+
+class npc_tonga_spirit : public CreatureScript
+{
+
+public:
+
+    npc_tonga_spirit() : CreatureScript("npc_tonga_spirit") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_tonga_spiritAI(pCreature);
+    }
+
+    struct npc_tonga_spiritAI : public ScriptedAI
+    {
+        npc_tonga_spiritAI(Creature* pCreature) : ScriptedAI(pCreature){}
+
+        uint8 Phase;
+        uint32 AriveTimer;
+        uint64 PlayerGUID;
+        bool bArive;
+        bool bRepeat;
+
+        void Reset()
+        {
+            Phase = 0;
+            PlayerGUID = 0;
+            AriveTimer = 3000;
+            bArive = false;
+            bRepeat = false;
+        }
+
+        void MoveInLineOfSight(Unit* pWho)
+        {
+            ScriptedAI::MoveInLineOfSight(pWho);
+
+            if (pWho->GetTypeId() != TYPEID_UNIT)
+                return;
+
+            if (pWho->GetEntry() == 34615 && me->IsWithinDistInMap(pWho, 10.0f))
+            {
+                if (Unit* pOwner = pWho->GetOwner())
+                {
+                    if (pOwner->GetTypeId() == TYPEID_PLAYER)
+                    {
+                        if (pOwner->HasAura(65753))
+                        {
+                            CAST_PLR(pOwner)->KilledMonsterCredit(34631,NULL); 
+                            if(!bRepeat)
+                            {
+                                me->CastSpell(me,65763,true);
+                                bRepeat = true;
+                            }
+                            bArive=true;
+                        }
+                    }
+                }
+            }
+        }
+
+        void UpdateAI(uint32 const diff)
+        {
+            if(bArive)
+            {
+                if(Creature* Tonga = me->FindNearestCreature(34623,70.0f,true))
+                {
+                    if(AriveTimer <= diff)
+                    {
+                        switch(Phase)
+                        {
+                            case 0: DoScriptText(SAY_TONGA_1,Tonga); AriveTimer = 5000; Phase++; break;
+                            case 1: Tonga->GetMotionMaster()->MovePoint(0,-1486.84f,-3320.28f,212.34f); AriveTimer = 12000; Phase++; break;
+                            case 2: DoScriptText(SAY_TONGA_2,Tonga); Tonga->CastSpell(Tonga,66772,true); Tonga->HandleEmoteCommand(25); AriveTimer = 4000; Phase++; break;
+                            case 3: DoScriptText(SAY_TONGA_3,Tonga); Tonga->GetMotionMaster()->MovePoint(1,-1494.53f,-3306.23f,210.34f); AriveTimer = 16000; Phase++; break;
+                            case 4: DoScriptText(SAY_TONGA_4,Tonga); AriveTimer = 7000; Tonga->HandleEmoteCommand(22); Phase++; break; 
+                            case 5: Tonga->GetMotionMaster()->MovePoint(2,-1496.02f,-3299.61f,210.75f); AriveTimer = 6000; Phase++; break;
+                            case 6: Tonga->GetMotionMaster()->MovePoint(3,-1481.65f,-3301.23f,210.76f); AriveTimer = 6000; Phase++; break;
+                            case 7: DoScriptText(SAY_TONGA_5,Tonga); AriveTimer = 8000; Phase++; break;
+                            case 8: Tonga->CastSpell(Tonga,64446,true); AriveTimer = 1000; Phase++; break;
+                            case 9: Tonga->ForcedDespawn(); break;
+                            default: break;
+                        }
+                    }else AriveTimer -= diff;
+                }
+            }
+        }
+    };
+};
+
+class go_bubbling_fissure : public GameObjectScript
+{
+public:
+    go_bubbling_fissure() : GameObjectScript("go_bubbling_fissure") { }
+
+	bool OnGossipHello(Player *pPlayer, GameObject *pGO)
+    {
+		pGO->Use(pPlayer);	
+
+        if (pPlayer->GetQuestStatus(877) == QUEST_STATUS_INCOMPLETE)
+        {
+            pPlayer->CompleteQuest(877);
+        }
+        return true;
+    }
+};
+
+class npc_limpet_mine : public CreatureScript
+{
+public:
+
+    npc_limpet_mine() : CreatureScript("npc_limpet_mine") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_limpet_mineAI(pCreature);
+    }
+
+    struct npc_limpet_mineAI : public ScriptedAI
+    {
+        npc_limpet_mineAI(Creature* pCreature) : ScriptedAI(pCreature){}
+
+        uint8 Phase;
+        uint32 TickingTimer;
+
+        void Reset()
+        {
+            TickingTimer = 1000;
+        }
+
+        void UpdateAI(uint32 const diff)
+        {
+            if(TickingTimer <= diff)
+            {
+                switch(Phase)
+                {
+                    case 0: me->MonsterTextEmote("5",NULL,true); TickingTimer = 1000; Phase++; break;
+                    case 1: me->MonsterTextEmote("4",NULL,true); TickingTimer = 1000; Phase++; break;
+                    case 2: me->MonsterTextEmote("3",NULL,true); TickingTimer = 1000; Phase++; break;
+                    case 3: me->MonsterTextEmote("2",NULL,true); TickingTimer = 1000; Phase++; break;
+                    case 4: me->MonsterTextEmote("1",NULL,true); TickingTimer = 1000; Phase++; break;
+                    case 5: me->CastSpell(me,65779,true); TickingTimer = 1000; Phase++; break;
+                    case 6: me->ForcedDespawn(); break;
+                    default: break;
+                }
+            }else TickingTimer -= diff;
+        }
+    };
+};
+
+enum eAttack
+{
+    NPC_KOLKAR_STORMSEER            = 9523,
+    NPC_KOLKAR_INVADER              = 9524,
+    NPC_CHIEF                       = 9456,
+    NPC_DEFENDER                    = 9457,
+    QUEST_COUNTERATTACK             = 4021,
+
+    SAY_RETHGAR         = -1934643,
+    SAY_RETHGAR_FALL    = -1934644,
+
+};
+
+float FirstWavePositions[][5] = {
+    {NPC_KOLKAR_INVADER, -319.29f, -1865.61f, 93.87f, 0.0f},
+    {NPC_KOLKAR_INVADER, -331.54f, -1869.58f, 93.79f, 0.0f},
+    {NPC_KOLKAR_INVADER, -330.97f, -1855.23f, 94.45f, 0.0f},
+    {NPC_KOLKAR_INVADER, -320.59f, -1849.29f, 95.26f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -302.95f, -1853.68f, 93.60f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -299.94f, -1835.3f, 94.44f, 0.0f},
+    {NPC_DEFENDER, -296.77f, -1882.52f, 91.90f, 0.0f},
+    {NPC_DEFENDER, -292.23f, -1882.55f, 92.45f, 0.0f},
+    {NPC_DEFENDER, -282.23f, -1882.64f, 92.59f, 0.0f},
+    {NPC_DEFENDER, -275.12f, -1881.46f, 92.29f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -278.72f, -1860.92f, 92.64f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -284.71f, -1848.79f, 92.50f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -268.45f, -1857.25f, 93.18f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -267.05f, -1843.16f, 93.26f, 0.0f},
+};
+
+float SecondWavePositions[][5] = {
+    {NPC_KOLKAR_INVADER, -319.29f, -1865.61f, 93.87f, 0.0f},
+    {NPC_KOLKAR_INVADER, -331.54f, -1869.58f, 93.79f, 0.0f},
+    {NPC_KOLKAR_INVADER, -330.97f, -1855.23f, 94.45f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -320.59f, -1849.29f, 95.26f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -302.95f, -1853.68f, 93.60f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -299.94f, -1835.3f, 94.44f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -278.72f, -1860.92f, 92.64f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -284.71f, -1848.79f, 92.50f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -268.45f, -1857.25f, 93.18f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -267.05f, -1843.16f, 93.26f, 0.0f},
+};
+
+float FinalWavePositions[][5] = {
+    {NPC_KOLKAR_INVADER, -319.29f, -1865.61f, 93.87f, 0.0f},
+    {NPC_KOLKAR_INVADER, -331.54f, -1869.58f, 93.79f, 0.0f},
+    {NPC_KOLKAR_INVADER, -330.97f, -1855.23f, 94.45f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -320.59f, -1849.29f, 95.26f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -302.95f, -1853.68f, 93.60f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -299.94f, -1835.3f, 94.44f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -278.72f, -1860.92f, 92.64f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -284.71f, -1848.79f, 92.50f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -268.45f, -1857.25f, 93.18f, 0.0f},
+    {NPC_KOLKAR_STORMSEER, -267.05f, -1843.16f, 93.26f, 0.0f},
+    {NPC_CHIEF, -291.80f, -1861.41f, 92.52f, 0.0f},
+};
+
+class npc_counterattack : public CreatureScript
+{
+public:
+
+    npc_counterattack() : CreatureScript("npc_counterattack") { }
+
+    bool OnQuestAccept(Player* pPlayer, Creature* pCreature, Quest const *pQuest)
+    {
+        if(pCreature && pCreature->isAlive())
+        {
+            if (pQuest->GetQuestId() == QUEST_COUNTERATTACK)
+            {
+                if(!CAST_AI(npc_counterattack::npc_counterattackAI, pCreature->AI())->AttackStart)
+                {
+                    CAST_AI(npc_counterattack::npc_counterattackAI, pCreature->AI())->AttackStart = true;
+                    CAST_AI(npc_counterattack::npc_counterattackAI, pCreature->AI())->StartShout();
+                    return true;              
+                }
+            }
+        }return true;
+    }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_counterattackAI(pCreature);
+    }
+
+    struct npc_counterattackAI : public ScriptedAI
+    {
+        npc_counterattackAI(Creature* pCreature) : ScriptedAI(pCreature){}
+
+        uint8 Phase;
+        uint32 WaveTimer;
+        bool AttackStart;
+
+
+        void Reset()
+        {
+            AttackStart = false;
+            WaveTimer = 10000;
+            Phase = 0;
+        }
+
+        void StartShout()
+        {
+            if(Player *pPlayer = me->FindNearestPlayer(7.0f, true))
+            {
+                DoScriptText(-1934643, me, pPlayer);
+            }
+        }
+        void SummonFirstWave()
+        {
+            for(int i = 0; i < 14; i++)
+                me->SummonCreature(FirstWavePositions[i][0], FirstWavePositions[i][1], FirstWavePositions[i][2], FirstWavePositions[i][3], FirstWavePositions[i][4], TEMPSUMMON_CORPSE_TIMED_DESPAWN, 60000);
+        }
+
+        void SummonSecondWave()
+        {
+            for(int i = 0; i < 10; i++)
+                me->SummonCreature(SecondWavePositions[i][0], SecondWavePositions[i][1], SecondWavePositions[i][2], SecondWavePositions[i][3], SecondWavePositions[i][4], TEMPSUMMON_CORPSE_TIMED_DESPAWN, 60000);
+        }
+
+        void SummonFinalWave()
+        {
+            for(int i = 0; i < 11; i++)
+                me->SummonCreature(FinalWavePositions[i][0], FinalWavePositions[i][1], FinalWavePositions[i][2], FinalWavePositions[i][3], FinalWavePositions[i][4], TEMPSUMMON_CORPSE_TIMED_DESPAWN, 60000);
+        }
+
+        void UpdateAI(uint32 const diff)
+        {
+            if(AttackStart)
+            {
+                if(WaveTimer <= diff)
+                {
+                    switch(Phase)
+                    {
+                        case 0: SummonFirstWave(); WaveTimer = 60000; Phase++; break;
+                        case 1: SummonSecondWave(); WaveTimer = 60000; Phase++; break;
+                        case 2: SummonFinalWave(); WaveTimer = 60000; Phase++; break;
+                        case 3: Reset(); break;
+                        default: break;
+                    }
+                }else WaveTimer -= diff;
+            }
+
+            std::list<Creature*> defender;
+            me->GetCreatureListWithEntryInGrid(defender, 9457, 200.0f);
+            defender.sort(Trinity::ObjectDistanceOrderPred(me));
+            for(std::list<Creature*>::iterator itr = defender.begin(); itr != defender.end(); itr++)
+            {
+                if((*itr)->isDead() && (*itr)->GetTypeId() == TYPEID_UNIT)
+                {               
+                    DoScriptText(SAY_RETHGAR_FALL, me, NULL);               
+                }
+            }
+        }
+    };
+};
+
+enum eTony
+{
+    QUEST_MUTINY_MON    = 14063,
+
+    SAY_TONY_YELL       = -1934645,
+    SAY_TONY_1          = -1934646,
+    SAY_TONY_2          = -1934647,
+    SAY_TONY_3          = -1934648,
+    SAY_TONY_4          = -1934649,
+};
+
+class npc_tony_two : public CreatureScript
+{
+public:
+    npc_tony_two() : CreatureScript("npc_tony_two") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_tony_twoAI (pCreature);
+    }
+
+    struct npc_tony_twoAI : public ScriptedAI
+    {
+       npc_tony_twoAI(Creature *c) : ScriptedAI(c) {}
+
+            uint8 Phase;
+            uint32 HelpTimer;
+
+            void Reset()
+            {
+                Phase = 0;
+                me->SetFlag(UNIT_NPC_FLAGS,UNIT_NPC_FLAG_QUESTGIVER);
+                HelpTimer = 2000;            
+            }
+
+            void UpdateAI(uint32 const diff)
+            {
+                if(HelpTimer <= diff)
+                {
+                    if(GameObject* pMaiden = me->FindNearestGameObject(3001617,45.0f))
+                    {                       
+                        switch(Phase)
+                        {
+                            case 0:
+                            {
+                                DoScriptText(SAY_TONY_YELL,me,0);
+                                me->HandleEmoteCommand(0);
+                                me->RemoveFlag(UNIT_NPC_FLAGS,UNIT_NPC_FLAG_QUESTGIVER);
+                                me->GetMotionMaster()->MovePoint(0, -1680.06f, -4373.19f, 10.6f); HelpTimer = 3500; Phase++; break;
+                            }
+                            case 1: DoScriptText(SAY_TONY_1,me,0); me->GetMotionMaster()->MovePoint(1, -1659.00f, -4377.39f, 10.36f); HelpTimer = 4000; Phase++; break;
+                            case 2: me->GetMotionMaster()->MovePoint(2, -1658.58f, -4389.16f, 5.3f); HelpTimer = 3000; Phase++; break;
+                            case 3: me->GetMotionMaster()->MovePoint(3, -1668.75f, -4386.70f, 5.3f); HelpTimer = 2500; Phase++; break;
+                            case 4: DoScriptText(SAY_TONY_2,me,0); me->GetMotionMaster()->MovePoint(4, -1669.73f, -4375.21f, 5.3f); HelpTimer = 4000; Phase++; break;
+                            case 5: me->GetMotionMaster()->MovePoint(5, -1649.51f, -4380.79f, 5.3f); HelpTimer = 4000; Phase++; break;
+                            case 6: 
+                            {
+                                    if(Creature *Alicia = me->FindNearestCreature(34782,15.0f,true))
+                                    {
+                                        me->AI()->AttackStart(Alicia);
+                                        me->HandleEmoteCommand(0);
+                                        HelpTimer = 25000;
+                                        Phase++;
+                                    }
+                            }break;
+                            case 7: me->HandleEmoteCommand(0); DoScriptText(SAY_TONY_3,me,0); HelpTimer = 4000; Phase++; break;
+                            case 8: me->HandleEmoteCommand(0); DoScriptText(SAY_TONY_4,me,0); HelpTimer = 2000; Phase++; break;
+                            case 9: me->ForcedDespawn();
+                            default: break;
+                        }  
+                    }
+                }else HelpTimer -= diff;
+
+                DoMeleeAttackIfReady();
+            }
+        };
+};
+
+/*######
+## npc_trapped_wolf
+######*/
+
+enum eTrappedWolf
+{
+SPELL_CHAINED_TO_STABLE = 65072,
+    NPC_TRAPPED_WOLF = 34285,
+    NPC_CHAIN_ORIGIN = 34287,
+    GO_WOLF_CHAIN = 195001
+};
+
+class npc_trapped_wolf : public CreatureScript
+{
+public:
+    npc_trapped_wolf() : CreatureScript("npc_trapped_wolf") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_trapped_wolfAI (pCreature);
+    }
+
+    struct npc_trapped_wolfAI : public ScriptedAI
+    {
+       npc_trapped_wolfAI(Creature *c) : ScriptedAI(c) {}
+
+       uint8 Phase;
+       uint32 RunTimer;
+       bool StartRun;
+       
+       void Reset()
+       {
+           Phase = 0;
+           RunTimer = 2000;
+           StartRun = false; 
+
+           if(Creature* Chain = me->FindNearestCreature(NPC_CHAIN_ORIGIN,15.0f,true))
+           {
+               Chain->CastSpell(me,SPELL_CHAINED_TO_STABLE,true);
+           }
+       }
+
+       void UpdateAI(const uint32 diff)
+       {
+           if(!me->HasAura(65072))
+           {
+               if(RunTimer <= diff)
+               {
+                   switch(Phase)
+                   {
+                       case 0: me->GetMotionMaster()->MoveCharge(0, -6.69f, -3630.72f, 27.36f); RunTimer = 2000; Phase++; break;
+                       case 1: me->GetMotionMaster()->MoveCharge(1, 5.07f, -3616.61f, 27.23f); RunTimer = 2500; Phase++; break;
+                       case 2: me->DisappearAndDie();
+                       default : break;
+                   }
+               }else RunTimer -= diff;
+            }
+       }
+
+    };
+};
+/*######
+## go_wolf_chain
+######*/
+
+enum eWolfChain
+{};
+
+class go_wolf_chain : public GameObjectScript
+{
+public:
+    go_wolf_chain() : GameObjectScript("go_wolf_chain") { }
+
+	bool OnGossipHello(Player *pPlayer, GameObject *pGO)
+    {
+		pGO->Use(pPlayer);	
+
+        if (pPlayer->GetQuestStatus(13878) == QUEST_STATUS_INCOMPLETE)
+        {
+            if(Creature* Origin = pGO->FindNearestCreature(34287,5.0f,true))
+            {
+                    Origin->CastStop();
+                    pPlayer->KilledMonsterCredit(34285,0);             
+            }
+        }return  true;
+    }
+};
+
+/*######
+## npc_dragged_razormane
+######*/
+enum eDragged
+{
+    SPELL_DRAGGING_RAZOMANE = 65601,
+    SPELL_RAZORMANE_ROPE    = 65596,
+    SPELL_DRAGGING_AURA     = 65608,
+    SPELL_SUMMON_HOGTIED    = 65595,
+    NPC_RAZOMANE_PILLAGER   = 34503
+};
+
+#define GOSSIP_DRAG_RAZORMANE "<Pound it and drag Razormane>"
+
+class npc_dragged_razormane : public CreatureScript
+{
+public:
+    npc_dragged_razormane() : CreatureScript("npc_dragged_razormane") { }
+
+    bool OnGossipHello(Player* pPlayer, Creature* pCreature)
+    {    
+        if (pPlayer->GetQuestStatus(13961) == QUEST_STATUS_INCOMPLETE)
+            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_DRAG_RAZORMANE, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
+
+        pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pCreature), pCreature->GetGUID());
+
+        return true;
+    }
+
+    bool OnGossipSelect(Player* pPlayer, Creature* pCreature, uint32 /*uiSender*/, uint32 uiAction)
+    {
+        pPlayer->PlayerTalkClass->ClearMenus();
+        if (uiAction == GOSSIP_ACTION_INFO_DEF + 1)
+        {
+            pPlayer->CastSpell(pCreature,SPELL_SUMMON_HOGTIED,false);
+            pCreature->DisappearAndDie();
+            pPlayer->CastSpell(pPlayer,SPELL_DRAGGING_RAZOMANE,true);
+        }return true;
+    }
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_dragged_razormaneAI (pCreature);
+    }
+
+    struct npc_dragged_razormaneAI : public ScriptedAI
+    {
+        npc_dragged_razormaneAI(Creature *c) : ScriptedAI(c) {}
+
+        void Reset() {}
+        void SpellHit(Unit *Hitter, const SpellInfo *Spell)
+        {
+            if (Spell->Id == 65580)
+            {
+                me->setFaction(35);
+                me->CombatStop(true);
+                me->AttackStop();
+            }
+        }
+    };
+
+};
+/*######
+## npc_hogtied_razormane
+######*/
+
+class npc_hogtied_razormane : public CreatureScript
+{
+public:
+    npc_hogtied_razormane() : CreatureScript("npc_hogtied_razormane") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_hogtied_razormaneAI (pCreature);
+    }
+
+    struct npc_hogtied_razormaneAI : public ScriptedAI
+    {
+       npc_hogtied_razormaneAI(Creature *c) : ScriptedAI(c) {}
+
+       uint32 CheckTimer;
+       uint32 DragTimer;
+
+       bool bDone;
+
+       void Reset()
+       {
+           DragTimer = 2000;
+           CheckTimer = 1000; 
+           bDone = false;
+       }
+
+       void UpdateAI(uint32 const diff)
+       {
+           if(DragTimer <= diff)
+           {
+               me->CastSpell(me,SPELL_DRAGGING_AURA,true);
+               DragTimer = 2000;
+           }
+           else DragTimer -= diff;
+           if(CheckTimer <= diff)
+           {
+               if(Player* pPlayer = me->GetCharmerOrOwnerPlayerOrPlayerItself())
+               {
+                   if(!bDone)
+                   {
+                       me->SetStandState(UNIT_STAND_STATE_DEAD);
+                       pPlayer->CastSpell(me,65596,true);
+                       me->GetMotionMaster()->MoveFollow(pPlayer,5.0f,2.2f);
+                       bDone=true;
+                   }
+               }
+           }else CheckTimer -= diff;
+       }
+    };
+};
+/*######
+## npc_togrik
+######*/
+
+#define GOSSIP_CAPTURED "Togrik, can you let me talk with the prisoner again?"
+
+class npc_togrik : public CreatureScript
+{
+public:
+    npc_togrik() : CreatureScript("npc_togrik") { }
+    
+    bool OnGossipSelect(Player* pPlayer, Creature* pCreature, uint32 /*uiSender*/, uint32 uiAction)
+    {
+        pPlayer->PlayerTalkClass->ClearMenus();
+        if (uiAction == GOSSIP_ACTION_INFO_DEF)
+        {
+            pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pCreature), pCreature->GetGUID());
+            pCreature->SummonCreature(34523, 284.98f, -3050.89f, 95.84f, 0.25f, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 90000);
+        }
+        return true;
+    }
+
+    bool OnGossipHello(Player* pPlayer, Creature* pCreature)
+    {
+        if (pCreature->isQuestGiver())
+            pPlayer->PrepareQuestMenu(pCreature->GetGUID());
+
+        if (pPlayer->GetQuestStatus(13963) == QUEST_STATUS_INCOMPLETE)
+            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_CAPTURED, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF);
+
+        pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pCreature), pCreature->GetGUID());
+        return true;
+    }
+
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_togrikAI (pCreature);
+    }
+
+    struct npc_togrikAI : public ScriptedAI
+    {
+        npc_togrikAI(Creature* pCreature) : ScriptedAI(pCreature) {}
+
+        void MoveInLineOfSight(Unit* pWho)
+        {
+            ScriptedAI::MoveInLineOfSight(pWho);
+
+            if (pWho->GetTypeId() != TYPEID_UNIT)
+                return;
+
+            if (pWho->GetEntry() == 34514 && me->IsWithinDistInMap(pWho, 10.0f))
+            {
+                if (Player* pOwner = pWho->GetOwner()->ToPlayer())
+                {
+                    if (pOwner->HasAura(SPELL_DRAGGING_RAZOMANE))
+                    {
+                        pOwner->CompleteQuest(13961);
+                        pWho->ToCreature()->DisappearAndDie();
+                    }
+                }
+            }
+        }
+    };
+};
+
+/*######
+## npc_halga
+######*/
+
+enum eHalga
+{
+    SAY_CARAVAN_START = -1034258 /*Mount up, $N. Do not fail me!*/
+};
+#define GOSSIP_CARAVAN "Yes. I'm ready. Let's do this thing!"
+
+class npc_halga : public CreatureScript
+{
+public:
+    npc_halga() : CreatureScript("npc_halga") { }
+
+    bool OnGossipSelect(Player* pPlayer, Creature* pCreature, uint32 /*uiSender*/, uint32 uiAction)
+    {
+        pPlayer->PlayerTalkClass->ClearMenus();
+        if (uiAction == GOSSIP_ACTION_INFO_DEF)
+        {
+            pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pCreature), pCreature->GetGUID());
+            pCreature->HandleEmoteCommand(3);
+            pCreature->SummonCreature(34431, 311.32f, -3679.29f, 27.18f, 6.25f, TEMPSUMMON_CORPSE_DESPAWN, 0);
+            pCreature->SummonCreature(34430, 318.24f, -3676.88f, 27.18f, 1.55f, TEMPSUMMON_CORPSE_DESPAWN, 0);
+            DoScriptText(SAY_CARAVAN_START, pCreature, pPlayer);
+        }
+        return true;
+    }
+
+    bool OnGossipHello(Player* pPlayer, Creature* pCreature)
+    {
+        if (pCreature->isQuestGiver())
+            pPlayer->PrepareQuestMenu(pCreature->GetGUID());
+
+        if (pPlayer->GetQuestStatus(13949) == QUEST_STATUS_INCOMPLETE)
+            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_CARAVAN, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF);
+
+        pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pCreature), pCreature->GetGUID());
+        return true;
+    }
+};
+/*#########################
+##npc_captured_razormane###
+#########################*/
+
+enum eCaptured
+{
+    SPELL_NASTY             = 65629,
+    SPELL_SAINTLY           = 65628,
+    SPELL_HIT_ME            = 65600,
+    SPELL_KICK_ME           = 65619,
+    NPC_CAPTURED_RAZORMANE  = 34523,
+
+    SAY_NOTHING             = -1034523,
+    SAY_KICK                = -1034524,
+    SAY_KICK_1              = -1034525,
+    SAY_PUNCH               = -1034526,
+    SAY_PUNCH_1             = -1034527,
+    SAY_KICK_2              = -1034528,
+    SAY_FOOD                = -1034529,
+    SAY_CREDIT_1            = -1034530,
+    SAY_TIME                = -1034531
+};
+
+#define GOSSIP_SNORT "Who sent you!"
+#define GOSSIP_PUNCH "<Punch him in the mouth.>"
+#define GOSSIP_KICK  "<Kick him in his big fat face.>"
+#define GOSSIP_FOOD  "<Offer food.>"
+#define GOSSIP_TIME  "<Tickle Time!>"
+
+class npc_captured_razormane : public CreatureScript
+{
+public:
+    npc_captured_razormane() : CreatureScript("npc_captured_razormane") { }
+
+    bool OnGossipHello(Player* pPlayer, Creature* pCreature)
+    {    
+        if (pPlayer->GetQuestStatus(13963) == QUEST_STATUS_INCOMPLETE)
+        {
+            if(!pPlayer->HasAura(65629))
+            {
+                pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_SNORT, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
+                pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_PUNCH, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 2);
+                pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_KICK, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 3);
+                pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_FOOD, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 4);
+                pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_TIME, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 5);
+            } 
+            else
+            {
+                pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_SNORT, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
+                pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_PUNCH, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 2);
+                pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_KICK, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 3);
+            }
+            pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pCreature), pCreature->GetGUID());
+        }    
+        return true;
+    }
+
+    bool OnGossipSelect(Player* pPlayer, Creature* pCreature, uint32 /*uiSender*/, uint32 uiAction)
+    {
+        pPlayer->PlayerTalkClass->ClearMenus();
+        switch(uiAction)
+        {
+            case GOSSIP_ACTION_INFO_DEF + 1: DoScriptText(SAY_NOTHING, pCreature, pPlayer); break; 
+            case GOSSIP_ACTION_INFO_DEF + 2:
+            {
+                pPlayer->CastSpell(pPlayer,SPELL_HIT_ME,true);
+                pPlayer->CastSpell(pPlayer,SPELL_NASTY,true);
+                DoScriptText(RAND(SAY_PUNCH,SAY_PUNCH_1), pCreature);
+            } break;
+            case GOSSIP_ACTION_INFO_DEF + 3:
+            {
+                pPlayer->CastSpell(pPlayer,65619,true);
+                pPlayer->CastSpell(pPlayer,SPELL_NASTY,true);
+                DoScriptText(RAND(SAY_KICK,SAY_KICK_1,SAY_KICK_2), pCreature);
+            } break;
+            case GOSSIP_ACTION_INFO_DEF + 4:
+            {
+                DoScriptText(SAY_FOOD,pCreature,pPlayer);
+                DoScriptText(SAY_CREDIT_1,pCreature,pPlayer);
+                pPlayer->CastSpell(pPlayer,SPELL_SAINTLY,true);
+                pPlayer->KilledMonsterCredit(34529,0);
+            } break;
+            case GOSSIP_ACTION_INFO_DEF + 5:
+            {
+                DoScriptText(SAY_TIME,pCreature,pPlayer);
+                DoScriptText(SAY_CREDIT_1,pCreature,pPlayer);
+                pPlayer->CastSpell(pPlayer,SPELL_SAINTLY,true);
+                pPlayer->KilledMonsterCredit(34529,0);
+            } break;
+        }
+        return true;
+    }
+};
+
+
+
 void AddSC_the_barrens()
 {
     new npc_beaten_corpse();
@@ -780,5 +1818,21 @@ void AddSC_the_barrens()
     new npc_taskmaster_fizzule();
     new npc_twiggy_flathead();
     new npc_wizzlecrank_shredder();
+    new npc_trapped_wolf();
+    new go_wolf_chain();
+    new npc_dragged_razormane();
+    new npc_hogtied_razormane();
+    new npc_togrik();
+    new npc_halga();
+    new npc_captured_razormane();
     new npc_sabresnout();
+	new npc_gorgal();
+    new npc_twapp();
+    new npc_baron_longshore();
+    new go_treasure();
+	new npc_tonga_spirit();
+    new go_bubbling_fissure();
+    new npc_limpet_mine();
+    new npc_counterattack();
+    new npc_tony_two();
 }

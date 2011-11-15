@@ -1207,6 +1207,24 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                     m_caster->SendMessageToSet(&data, true);
                     return;
                 }
+                case 66282:                                 // Waptor Twap Scweech
+                {                                           // creature_entry: 3256,44164
+
+                    std::list<Creature*> raptors;
+                    m_caster->GetCreatureListWithEntryInGrid(raptors, 3256, 20.0f);
+                    m_caster->GetCreatureListWithEntryInGrid(raptors, 44164, 20.0f);
+                    raptors.sort(Trinity::ObjectDistanceOrderPred(m_caster));
+                    for(std::list<Creature*>::iterator itr = raptors.begin(); itr != raptors.end(); itr++)
+                    {
+                        if((*itr)->isAlive() && (*itr)->GetTypeId() == TYPEID_UNIT)
+                        {
+                            (*itr)->AI()->AttackStart(m_caster);
+                            m_caster->CastSpell((*itr), 66284, false);
+                            (*itr)->GetMotionMaster()->MovePoint(0, m_caster->GetPositionX(), m_caster->GetPositionY(), m_caster->GetPositionZ());
+                            (*itr)->setFaction(m_caster->getFaction());
+                        }
+                    }
+                }
                 case 62430:                                 // Absorb Fire
                 {
                     if(!unitTarget)

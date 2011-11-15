@@ -5124,6 +5124,21 @@ void AuraEffect::HandleAuraDummy(AuraApplication const* aurApp, uint8 mode, bool
                                 target->CastSpell(target, 61286, true);
                                 target->CastSpell(target, 58601, true);
                             break;
+                        case 65213:									// Throw Oil Aura
+                        {
+                            if(caster->GetTypeId() != TYPEID_PLAYER)
+                                return;
+
+                            if(caster->ToPlayer()->GetQuestStatus(13890) != QUEST_STATUS_INCOMPLETE)
+                                return;
+
+                            if(!caster->ToPlayer()->HasItemCount(46366, 1))
+                                return;
+
+                            caster->CastSpell(caster, 65203, true);
+                            caster->ToPlayer()->KilledMonsterCredit(34329, 0);
+                            break;
+                        }
                     }
                     break;
                 case SPELLFAMILY_MAGE:

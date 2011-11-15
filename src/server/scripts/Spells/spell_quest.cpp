@@ -1116,6 +1116,59 @@ public:
     };
 };
 
+// 80469 Ritual of Shadra
+enum eQuest26531_26558Data
+{
+    NPC_SHADRAALOR_NORTHWEST_ALTAR_BUNNY        = 43067,
+    NPC_SHADRAALOR_EAST_ALTAR_BUNNY             = 43069,
+    NPC_SHADRAALOR_SOUTHWEST_ALTAR_BUNNY        = 43068
+
+};
+
+class spell_q26531_26558_ritual_of_shadra : public SpellScriptLoader
+{
+public:
+    spell_q26531_26558_ritual_of_shadra() : SpellScriptLoader("spell_q26531_26558_ritual_of_shadra") { }
+
+    class spell_q26531_26558_ritual_of_shadra_SpellScript : public SpellScript
+    {
+    public:
+        PrepareSpellScript(spell_q26531_26558_ritual_of_shadra_SpellScript)
+        void HandleDummy(SpellEffIndex /*effIndex*/)
+        {
+            Unit* caster = GetCaster();
+            if (Player* player = caster->ToPlayer())
+            {
+               if (Creature* pCreatureTarget = GetHitCreature())
+               {
+                  switch (pCreatureTarget->GetEntry())
+                  {
+                         case NPC_SHADRAALOR_NORTHWEST_ALTAR_BUNNY:
+                              player->KilledMonsterCredit(NPC_SHADRAALOR_NORTHWEST_ALTAR_BUNNY,0); 
+                              break;
+                         case NPC_SHADRAALOR_EAST_ALTAR_BUNNY:						 
+                              player->KilledMonsterCredit(NPC_SHADRAALOR_EAST_ALTAR_BUNNY,0); 
+                              break;
+                         case NPC_SHADRAALOR_SOUTHWEST_ALTAR_BUNNY:
+                              player->KilledMonsterCredit(NPC_SHADRAALOR_SOUTHWEST_ALTAR_BUNNY,0); 
+                              break;
+                  }
+               }
+            }
+        }
+
+        void Register()
+        {
+            OnEffectHitTarget += SpellEffectFn(spell_q26531_26558_ritual_of_shadra_SpellScript::HandleDummy, EFFECT_0, SPELL_EFFECT_DUMMY);
+        }
+    };
+
+    SpellScript* GetSpellScript() const
+    {
+        return new spell_q26531_26558_ritual_of_shadra_SpellScript();
+    }
+};
+
 
 
 
@@ -1145,4 +1198,5 @@ void AddSC_quest_spell_scripts()
     new spell_q14112_14145_chum_the_water();
     new spell_q24813_place_territorial_fetish();
     new spell_q26240_revantusk_drums();
+    new spell_q26531_26558_ritual_of_shadra();
 }

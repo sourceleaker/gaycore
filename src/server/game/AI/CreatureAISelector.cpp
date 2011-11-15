@@ -137,14 +137,14 @@ namespace FactorySelector
 
         //scriptname in db
         if (!ai_factory)
-            if (GameObjectAI* scriptedAI = sScriptMgr->GetGameObjectAI(go));
+           if (GameObjectAI* scriptedAI = sScriptMgr->GetGameObjectAI(go))
+           {
+                // todo...
+               // future goAI types go here
+           }
 
-        //future goAI types go here
-
-        std::string ainame = ((!ai_factory || go->GetScriptId() > 0 ) ? "NullGameObjectAI" : ai_factory->key());
-
+        std::string ainame = (ai_factory == NULL || go->GetScriptId()) ? "NullGameObjectAI" : ai_factory->key();
         sLog->outDebug(LOG_FILTER_TSCR, "GameObject %u used AI is %s.", go->GetGUIDLow(), ainame.c_str());
-
         return (ai_factory == NULL ? new NullGameObjectAI(go) : ai_factory->Create(go));
     }
 }

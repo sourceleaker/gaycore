@@ -1,4 +1,4 @@
-ALTER TABLE `world_db_version` CHANGE  `required_36_creature_bats_trisfal` `required_37_quest_templates_trisfal_glades_and_silverpine_forest_for_horde`  BIT(1);
+ALTER TABLE `world_db_version` CHANGE  `required_36_creature_bats_trisfal` `required_37_quest_templates_tg_and_sf_horde`  BIT(1);
 -- Escaped from Gilneas --
 UPDATE `quest_template` SET `OfferRewardText` = 'Hmm... yes, that makes sense.  Since the worgen have come streaming out of Gilneas, I knew it would only be a matter of time before they arrived here in Tirisfal.  ' WHERE `entry` = 24978;
 	

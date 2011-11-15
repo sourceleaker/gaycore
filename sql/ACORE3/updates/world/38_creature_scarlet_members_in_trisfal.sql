@@ -1,4 +1,4 @@
-ALTER TABLE `world_db_version` CHANGE  `required_37_quest_templates_trisfal_glades_and_silverpine_forest_for_horde` `required_38_creature_scarlet_members_in_trisfal`  BIT(1);
+ALTER TABLE `world_db_version` CHANGE  `required_37_quest_templates_tg_and_sf_horde` `required_38_creature_scarlet_members_in_trisfal`  BIT(1);
 -- DELETE --
 DELETE FROM `creature_text` WHERE `entry` IN (1535,1536,1537,1538,1539,1540,1934);
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (1535,1536,1537,1538,1539,1540,1934,39086,39087);

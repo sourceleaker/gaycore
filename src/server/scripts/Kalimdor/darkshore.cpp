@@ -427,13 +427,12 @@ public:
 
         void AquireQuestComplete()
         {
-        if(PlayerGuid != 0)
-        {
-        if(Player* pPlayer = me->GetPlayer(*me, PlayerGuid))
-            pPlayer->KilledMonsterCredit(34371, NULL);
-        }
+            if(Player* pPlayer = me->GetPlayer(*me, PlayerGuid))
+            {
+                pPlayer->KilledMonsterCredit(34371, NULL);
+            }
             else
-        {
+            {
                 std::list<Player*> players;
                 Trinity::AnyPlayerInObjectRangeCheck checker(me, 35.0f);
                 Trinity::PlayerListSearcher<Trinity::AnyPlayerInObjectRangeCheck> searcher(me, players, checker);
@@ -441,7 +440,7 @@ public:
 
                 for (std::list<Player*>::const_iterator itr = players.begin(); itr != players.end(); ++itr)
                     (*itr)->KilledMonsterCredit(34371, NULL);
-        }
+            }
         }
 
         void UpdateAI(const uint32 diff)

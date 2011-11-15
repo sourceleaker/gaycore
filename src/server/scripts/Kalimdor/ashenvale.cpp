@@ -474,10 +474,102 @@ class go_naga_brazier : public GameObjectScript
         }
 };
 
+/*######
+# npc_spirit_gorat
+######*/
+
+enum eGorat
+{
+    SAY_GORAT_1 = -1934658,
+    SAY_GORAT_2 = -1934659,
+    SAY_GORAT_3 = -1934660,
+    SAY_GORAT_4 = -1934661,
+    SAY_GORAT_5 = -1934662,
+    SAY_GORAT_6 = -1934663,
+    SAY_GORAT_7 = -1934664,
+    SAY_ELENDILAD_1 = -1934665,
+    SAY_ELENDILAD_2 = -1934666,
+
+    QUEST_GORAT_VENGEANCE = 13621,
+    SPELL_GORAT_BOW = 62792,
+    SPELL_SUMMON_GORAT_SPIRIT = 62772,
+    NPC_CAPTAIN_ELENDILAD = 33302
+};
+
+class npc_spirit_gorat : public CreatureScript
+{
+
+public:
+
+    npc_spirit_gorat() : CreatureScript("npc_spirit_gorat") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_spirit_goratAI(pCreature);
+    }
+
+    struct npc_spirit_goratAI : public ScriptedAI
+    {
+        npc_spirit_goratAI(Creature* pCreature) : ScriptedAI(pCreature){}
+
+        uint8 Phase;
+        uint32 MoveTimer;
+        uint64 PlayerGUID;
+
+        void Reset()
+        {
+            DoScriptText(SAY_GORAT_1,me,0);
+            MoveTimer = 4000;
+            Phase = 0;
+            PlayerGUID = 0;
+        }
+
+        void UpdateAI(uint32 const diff)
+        {
+                if(Player* pPlayer = me->GetCharmerOrOwnerPlayerOrPlayerItself())
+                {
+                    if(MoveTimer <= diff)
+                    {
+                        switch(Phase)
+                        {
+                            case 0: DoScriptText(SAY_GORAT_2,me,pPlayer); MoveTimer = 3000; Phase++; break;
+                            case 1: DoScriptText(SAY_GORAT_3,me,pPlayer); MoveTimer = 3000; Phase++; break;
+                            case 2: DoScriptText(SAY_GORAT_4,me,pPlayer); MoveTimer = 2000; Phase++; break;
+                            case 3: me->GetMotionMaster()->MovePoint(0, 1433.32f, -2016.22f, 93.61f); MoveTimer = 4000; Phase++; break;
+                            case 4: me->GetMotionMaster()->MovePoint(1, 1465.11f, -2049.95f, 93.25f); DoScriptText(SAY_GORAT_5,me,pPlayer); MoveTimer = 6000; Phase++; break;
+                            case 5: me->GetMotionMaster()->MovePoint(2, 1476.53f, -2074.07f, 92.86f); DoScriptText(SAY_GORAT_6,me,pPlayer); MoveTimer = 5000; Phase++; break;
+                            case 6: me->GetMotionMaster()->MovePoint(3, 1504.26f, -2087.99f, 90.63f); DoScriptText(SAY_GORAT_7,me,pPlayer); MoveTimer = 6000; Phase++; break;
+                            case 7: me->SetFacing(4.90f,0); MoveTimer = 1000; Phase++; break;
+                            case 8: me->CastSpell(me,SPELL_GORAT_BOW,false); MoveTimer = 5000; Phase++; break;
+                            case 9: me->SummonCreature(NPC_CAPTAIN_ELENDILAD, 1514.61f, -2144.20f, 88.52f, 1.69f, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 90000); MoveTimer = 60000; Phase++; break;
+                            case 10: me->ForcedDespawn();
+                            default: break;
+                        }
+                    }else MoveTimer -= diff;
+                }  
+                DoMeleeAttackIfReady();
+        }
+
+        void JustSummoned(Creature* pSummoned)
+        {
+            DoScriptText(SAY_ELENDILAD_1,pSummoned,me);
+            me->Attack(pSummoned,true);
+            me->CombatStart(pSummoned,true);
+            pSummoned->CastSpell(pSummoned,78823,false);
+
+            if(!pSummoned->isAlive())
+            {
+                DoScriptText(SAY_ELENDILAD_2,pSummoned,me);
+            }
+        }
+    };
+};
+
 void AddSC_ashenvale()
 {
     new npc_torek();
     new npc_ruul_snowhoof();
     new npc_muglash();
     new go_naga_brazier();
+    new npc_spirit_gorat();
 }

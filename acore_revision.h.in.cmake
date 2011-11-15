@@ -1,8 +1,8 @@
 #ifndef __ACORE_REVISION_H__
 #define __ACORE_REVISION_H__
-#define ACORE_REVISION "70"
+#define ACORE_REVISION "71"
 
-#define ACORE_DB_WORLD    "required_69_Summoning_Shadra`"
+#define ACORE_DB_WORLD    "required_71_Ashenvale`"
 #define ACORE_DB_CHAR     "required_03_db_version"
 #define ACORE_DB_AUTH     "required_03_db_version"
 #endif // __ACORE_REVISION_H__

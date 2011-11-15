@@ -1067,6 +1067,57 @@ public:
     };
 };
 
+enum revantuskdrums
+{
+    NPC_REVANTUSK_STALKER  = 42536,
+    SPELL_RECENTLY_ENRAGED = 95966,
+    SPELL_ENRAGE           = 56646
+
+};
+
+// 79402 Revantusk Drums
+class spell_q26240_revantusk_drums : public SpellScriptLoader
+{
+public:
+    spell_q26240_revantusk_drums() : SpellScriptLoader("spell_q26240_revantusk_drums") { }
+
+    class spell_q26240_revantusk_drums_SpellScript : public SpellScript
+    {
+        PrepareSpellScript(spell_q26240_revantusk_drums_SpellScript);
+
+        void HandleDummy(SpellEffIndex /*effIndex*/)
+        {
+
+            Unit* caster = GetCaster();
+            if (Player* player = caster->ToPlayer())
+            {
+               if (Creature* target =  GetHitCreature()->ToCreature())
+               {
+                  if (target->HasAura(SPELL_RECENTLY_ENRAGED))
+                     return;
+
+                  target->CastSpell(target, SPELL_ENRAGE, true);
+                  target->CastSpell(target, SPELL_RECENTLY_ENRAGED, true);
+                  player->KilledMonsterCredit(NPC_REVANTUSK_STALKER,0);
+
+               }
+            }
+        }
+
+        void Register()
+        {
+            OnEffectHitTarget += SpellEffectFn(spell_q26240_revantusk_drums_SpellScript::HandleDummy, EFFECT_0, SPELL_EFFECT_DUMMY);
+        }
+    };
+
+    SpellScript* GetSpellScript() const
+    {
+        return new spell_q26240_revantusk_drums_SpellScript();
+    };
+};
+
+
+
 
 void AddSC_quest_spell_scripts()
 {
@@ -1093,4 +1144,5 @@ void AddSC_quest_spell_scripts()
     new spell_q13280_13283_plant_battle_standard();
     new spell_q14112_14145_chum_the_water();
     new spell_q24813_place_territorial_fetish();
+    new spell_q26240_revantusk_drums();
 }

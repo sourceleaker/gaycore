@@ -48,12 +48,13 @@ public:
             {
                 TCorrupter->setFaction(14);
                 TCorrupter->SetMaxHealth(832750);
+			}
             
             if (Unit* CorrupterSpeaker = player->SummonCreature(1,player->GetPositionX(),player->GetPositionY(),player->GetPositionZ()-1,0,TEMPSUMMON_TIMED_DESPAWN,15000))
             {
                 CorrupterSpeaker->SetName("Twilight Corrupter");
                 CorrupterSpeaker->SetVisible(true);
-                CorrupterSpeaker->MonsterYell("Come, $N. See what the Nightmare brings...",0,pPlayer->GetGUID());
+                CorrupterSpeaker->MonsterYell("Come, $N. See what the Nightmare brings...",0,player->GetGUID());
             }
         }
         return false;

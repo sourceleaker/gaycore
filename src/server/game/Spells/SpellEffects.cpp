@@ -433,6 +433,33 @@ void Spell::EffectSchoolDMG(SpellEffIndex effIndex)
                         if (!unitTarget->HasAura(27825))
                             return;
                         break;
+                    case 62644:
+                    {
+                        if(!m_caster || m_caster->GetTypeId() != TYPEID_PLAYER)
+                            return;
+
+                        if(m_caster->ToPlayer()->GetQuestStatus(13613) != QUEST_STATUS_INCOMPLETE)
+                            return;
+
+                        if((!unitTarget) || unitTarget->GetEntry() != 33266)
+                            return;
+
+                        switch(m_caster->ToPlayer()->getClass())
+                        {
+                            case CLASS_WARRIOR: unitTarget->MonsterSay("Many thanks, warrior!", 0, 0); break;
+                            case CLASS_PALADIN: unitTarget->MonsterSay("Many thanks, paladin!", 0, 0); break;
+                            case CLASS_HUNTER: unitTarget->MonsterSay("Many thanks, hunter!", 0, 0); break;
+                            case CLASS_ROGUE: unitTarget->MonsterSay("Many thanks, rogue!", 0, 0); break;
+                            case CLASS_PRIEST: unitTarget->MonsterSay("Many thanks, priest!", 0, 0); break;
+                            case CLASS_DEATH_KNIGHT: unitTarget->MonsterSay("Many thanks, death knight!", 0, 0); break;
+                            case CLASS_SHAMAN: unitTarget->MonsterSay("Many thanks, shaman!", 0, 0); break;
+                            case CLASS_MAGE: unitTarget->MonsterSay("Many thanks, mage!", 0, 0); break;
+                            case CLASS_WARLOCK: unitTarget->MonsterSay("Many thanks, warlock!", 0, 0); break;
+                            case CLASS_DRUID: unitTarget->MonsterSay("Many thanks, druid!", 0, 0); break;
+                            default: break;
+                        }
+                        m_caster->ToPlayer()->KilledMonsterCredit(unitTarget->GetEntry(), 0);
+                    } break;
                     // Cataclysmic Bolt
                     case 38441:
                     {

@@ -3359,6 +3359,14 @@ void SpellMgr::LoadSpellCustomAttr()
             case 72787: // Empowered Flare (Blood Prince Council)
                 spellInfo->AttributesEx3 |= SPELL_ATTR3_NO_DONE_BONUS;
                 break;
+		    case 62517:
+                spellInfo->Effects[0].TargetA = TARGET_UNIT_TARGET_ENEMY;
+                spellInfo->Effects[0].TargetB = TARGET_UNIT_TARGET_ENEMY;
+                break;
+            case 62518:
+                spellInfo->Effects[1].TargetA = TARGET_UNIT_TARGET_ENEMY;
+                spellInfo->Effects[1].TargetB = TARGET_UNIT_TARGET_ENEMY;
+                break;
             case 71266: // Swarming Shadows
             case 72890: // Swarming Shadows
                 spellInfo->AreaGroupId = 0; // originally, these require area 4522, which is... outside of Icecrown Citadel

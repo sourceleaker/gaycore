@@ -5721,6 +5721,18 @@ void Spell::EffectScriptEffect(SpellEffIndex effIndex)
                     }
                     return;
                 }
+                case 79416: // Despawn GS-9x Multibot
+                {
+                    if(m_caster->GetTypeId() == TYPEID_PLAYER)
+                    {
+                        if(Unit* minion = m_caster->GetCharm())
+                        {
+                            if(minion->GetEntry() == 42598)
+                                minion->ToTempSummon()->UnSummon();
+                        }
+                    }
+                    return;
+                }
                 case 60123: // Lightwell
                 {
                     if (m_caster->GetTypeId() != TYPEID_UNIT || !m_caster->ToCreature()->isSummon())

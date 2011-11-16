@@ -1147,6 +1147,16 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                         if (target->GetTypeId() == TYPEID_PLAYER)
                             target->ToPlayer()->RemoveSpellCooldown(20252, true);
                         break;
+					case 70016: // Goblin start zone - Bilgewater Buccaneer Quest
+                        if (target->GetTypeId() != TYPEID_PLAYER) 
+						{
+                            target->NearTeleportTo(-8249.12f, 1484.26f, 41.3055f, 3.0337f, false);
+                            target->AddUnitMovementFlag(MOVEMENTFLAG_ROOT);
+                        }
+                        /*else if (target->GetTypeId() == TYPEID_PLAYER) {
+                            CreaturyDoBicia *summon = target->SummonCreature(
+                        }*/
+                        break;
                 }
                 break;
             case SPELLFAMILY_DRUID:

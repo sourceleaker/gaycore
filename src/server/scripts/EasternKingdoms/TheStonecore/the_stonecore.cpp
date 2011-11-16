@@ -119,14 +119,16 @@ class mob_crystalspawn_giant : public CreatureScript
 public:
     mob_crystalspawn_giant() : CreatureScript("mob_crystalspawn_giant") { }
 
-    CreatureAI* GetAI(Creature* creature) const
+    CreatureAI* GetAI(Creature* pCreature) const
     {
-        return new mob_crystalspawn_giantAI(creature);
+        return new mob_crystalspawn_giantAI(pCreature);
     }
 
     struct mob_crystalspawn_giantAI : public ScriptedAI
     {
-        mob_crystalspawn_giantAI(Creature* creature) : ScriptedAI(creature) { }
+        mob_crystalspawn_giantAI(Creature *c) : ScriptedAI(c)
+        {
+        }
 
         EventMap events;
 
@@ -152,7 +154,7 @@ public:
 
             while (uint32 eventId = events.ExecuteEvent())
             {
-                switch (eventId)
+                switch(eventId)
                 {
                     case EVENT_QUAKE:
                         DoCast(me->getVictim(), SPELL_QUAKE);
@@ -172,14 +174,16 @@ class mob_impp : public CreatureScript
 public:
     mob_impp() : CreatureScript("mob_impp") { }
 
-    CreatureAI* GetAI(Creature* creature) const
+    CreatureAI* GetAI(Creature* pCreature) const
     {
-        return new mob_imppAI(creature);
+        return new mob_imppAI(pCreature);
     }
 
     struct mob_imppAI : public ScriptedAI
     {
-        mob_imppAI(Creature* creature) : ScriptedAI(creature) {}
+        mob_imppAI(Creature *c) : ScriptedAI(c)
+        {
+        }
 
         EventMap events;
 
@@ -205,11 +209,11 @@ public:
 
             while (uint32 eventId = events.ExecuteEvent())
             {
-                switch (eventId)
+                switch(eventId)
                 {
                     case EVENT_FELL_FIREBALL:
-                        if (Unit *target = SelectTarget(SELECT_TARGET_RANDOM, 0))
-                            DoCast(target, SPELL_FELL_FIREBALL);
+                        if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
+                            DoCast(pTarget, SPELL_FELL_FIREBALL);
                         events.RescheduleEvent(EVENT_FELL_FIREBALL, 1000);
                         return;
                 }
@@ -226,14 +230,16 @@ class mob_rock_borer : public CreatureScript
 public:
     mob_rock_borer() : CreatureScript("mob_rock_borer") { }
 
-    CreatureAI* GetAI(Creature* creature) const
+    CreatureAI* GetAI(Creature* pCreature) const
     {
-        return new mob_rock_borerAI(creature);
+        return new mob_rock_borerAI(pCreature);
     }
 
     struct mob_rock_borerAI : public ScriptedAI
     {
-        mob_rock_borerAI(Creature* creature) : ScriptedAI(creature) {}
+        mob_rock_borerAI(Creature *c) : ScriptedAI(c)
+        {
+        }
 
         EventMap events;
 
@@ -259,11 +265,11 @@ public:
 
             while (uint32 eventId = events.ExecuteEvent())
             {
-                switch (eventId)
+                switch(eventId)
                 {
                     case EVENT_ROCK_BORE:
-                        if (Unit *target = SelectTarget(SELECT_TARGET_RANDOM, 0))
-                            DoCast(target, SPELL_ROCK_BORE);
+                        if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
+                            DoCast(pTarget, SPELL_ROCK_BORE);
                         events.RescheduleEvent(EVENT_ROCK_BORE, 1000);
                         return;
                 }
@@ -280,14 +286,16 @@ class mob_millhouse_manastorm : public CreatureScript
 public:
     mob_millhouse_manastorm() : CreatureScript("mob_millhouse_manastorm") { }
 
-    CreatureAI* GetAI(Creature* creature) const
+    CreatureAI* GetAI(Creature* pCreature) const
     {
-        return new mob_millhouse_manastormAI(creature);
+        return new mob_millhouse_manastormAI(pCreature);
     }
 
     struct mob_millhouse_manastormAI : public ScriptedAI
     {
-        mob_millhouse_manastormAI(Creature* creature) : ScriptedAI(creature) {}
+        mob_millhouse_manastormAI(Creature *c) : ScriptedAI(c)
+        {
+        }
 
         EventMap events;
 
@@ -317,11 +325,11 @@ public:
 
             while (uint32 eventId = events.ExecuteEvent())
             {
-                switch (eventId)
+                switch(eventId)
                 {
                     case EVENT_MILL_FEAR:
-                        if (Unit *target = SelectTarget(SELECT_TARGET_RANDOM, 0))
-                            DoCast(target, SPELL_MILL_FEAR);
+                        if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
+                            DoCast(pTarget, SPELL_MILL_FEAR);
                         events.RescheduleEvent(EVENT_MILL_FEAR, 10000);
                         return;
                     case EVENT_SHADOW_BOLT:
@@ -329,18 +337,18 @@ public:
                         events.RescheduleEvent(EVENT_SHADOWBOLT, 1000);
                         return;
                     case EVENT_FROSTBOLT_VOLLEY:
-                        if (Unit *target = SelectTarget(SELECT_TARGET_RANDOM, 0))
-                            DoCast(target, SPELL_FROSTBOLT_VOLLEY);
+                        if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
+                            DoCast(pTarget, SPELL_FROSTBOLT_VOLLEY);
                         events.RescheduleEvent(EVENT_FROSTBOLT_VOLLEY, rand()%15000);
                         return;
                     case EVENT_IMPENDING_DOOM:
-                        if (Unit *target = SelectTarget(SELECT_TARGET_RANDOM, 0))
-                            DoCast(target, SPELL_IMPENDING_DOOM);
+                        if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
+                            DoCast(pTarget, SPELL_IMPENDING_DOOM);
                         events.RescheduleEvent(EVENT_IMPENDING_DOOM, rand()%15000);
                         return;
                     case EVENT_SHADOWFURY:
-                        if (Unit *target = SelectTarget(SELECT_TARGET_RANDOM, 0))
-                            DoCast(target, SPELL_SHADOWFURY);
+                        if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
+                            DoCast(pTarget, SPELL_SHADOWFURY);
                         events.RescheduleEvent(SPELL_SHADOWFURY, 5000 + rand()%15000);
                         return;
                 }

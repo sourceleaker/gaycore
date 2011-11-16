@@ -53,13 +53,13 @@ public:
             uiAltairus = 0;
             uiAsaad = 0;
 
-        for (uint8 i=0; i < ENCOUNTERS; ++i)
+        for(uint8 i=0; i < ENCOUNTERS; ++i)
                 uiEncounter[i] = NOT_STARTED;
         }
 
         bool IsEncounterInProgress() const
         {
-            for (uint8 i=0; i < ENCOUNTERS; ++i)
+            for(uint8 i=0; i < ENCOUNTERS; ++i)
             {
                 if (uiEncounter[i] == IN_PROGRESS)
                     return true;
@@ -68,25 +68,25 @@ public:
             return false;
         }
 
-        void OnCreatureCreate(Creature* creature, bool)
+        void OnCreatureCreate(Creature* pCreature, bool)
         {
-            switch (creature->GetEntry())
+            switch(pCreature->GetEntry())
             {
                 case BOSS_GRAND_VIZIER_ERTAN:
-                    uiGrandVizierErtan = creature->GetGUID();
+                    uiGrandVizierErtan = pCreature->GetGUID();
                     break;
                 case BOSS_ALTAIRUS:
-                    uiAltairus = creature->GetGUID();
+                    uiAltairus = pCreature->GetGUID();
                     break;
                 case BOSS_ASAAD:
-                    uiAsaad = creature->GetGUID();
+                    uiAsaad = pCreature->GetGUID();
                     break;
             }
         }
 
-	    uint64 GetData64(uint32 identifier)
+        uint64 GetData64(uint32 identifier)
         {
-            switch (identifier)
+            switch(identifier)
             {
                 case DATA_GRAND_VIZIER_ERTAN:
                     return uiGrandVizierErtan;
@@ -100,7 +100,7 @@ public:
 
         void SetData(uint32 type, uint32 data)
         {
-            switch (type)
+            switch(type)
             {
                 case DATA_GRAND_VIZIER_ERTAN:
                     uiEncounter[0] = data;
@@ -119,7 +119,7 @@ public:
 
         uint32 GetData(uint32 type)
         {
-            switch (type)
+            switch(type)
             {
                 case DATA_GRAND_VIZIER_ERTAN:
                     return uiEncounter[0];
@@ -166,7 +166,7 @@ public:
                 uiEncounter[1] = data1;
                 uiEncounter[2] = data2;
 
-                for (uint8 i=0; i < ENCOUNTERS; ++i)
+                for(uint8 i=0; i < ENCOUNTERS; ++i)
                     if (uiEncounter[i] == IN_PROGRESS)
                         uiEncounter[i] = NOT_STARTED;
             }

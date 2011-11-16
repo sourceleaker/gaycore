@@ -41,85 +41,85 @@ public:
     {
         instance_grim_batol_InstanceMapScript(InstanceMap* map) : InstanceScript(map) {}
 
-        uint32 Encounter[ENCOUNTERS];
+        uint32 uiEncounter[ENCOUNTERS];
 
-        uint64 GeneralUmbriss;
-        uint64 ForgemasterThrongus;
-        uint64 DrahgaShadowburner;
-        uint64 Erudax;
-        uint64 TeamInInstance;
+        uint64 uiGeneralUmbriss;
+        uint64 uiForgemasterThrongus;
+        uint64 uiDrahgaShadowburner;
+        uint64 uiErudax;
+        uint64 uiTeamInInstance;
 
         void Initialize()
         {
-            GeneralUmbriss        = 0;
-            ForgemasterThrongus   = 0;
-            DrahgaShadowburner    = 0;
-            Erudax                = 0;
+            uiGeneralUmbriss = 0;
+            uiForgemasterThrongus = 0;
+            uiDrahgaShadowburner = 0;
+            uiErudax = 0;
 
-            for (uint8 i = 0 ; i<ENCOUNTERS; ++i)
-                Encounter[i] = NOT_STARTED;
+            for(uint8 i=0 ; i<ENCOUNTERS; ++i)
+                uiEncounter[i] = NOT_STARTED;
         }
 
         bool IsEncounterInProgress() const
         {
-            for (uint8 i = 0; i < ENCOUNTERS; ++i)
+            for(uint8 i=0; i < ENCOUNTERS; ++i)
             {
-                if (Encounter[i] == IN_PROGRESS)
+                if (uiEncounter[i] == IN_PROGRESS)
                     return true;
             }
             return false;
         }
 
-        void OnCreatureCreate(Creature* creature, bool )
+        void OnCreatureCreate(Creature* pCreature, bool )
         {
-            switch (creature->GetEntry())
+            switch(pCreature->GetEntry())
             {
                  case BOSS_GENERAL_UMBRISS:
-                     GeneralUmbriss = creature->GetGUID();
+                     uiGeneralUmbriss = pCreature->GetGUID();
                      break;
                  case BOSS_FORGEMASTER_THRONGUS:
-                     ForgemasterThrongus = creature->GetGUID();
+                     uiForgemasterThrongus = pCreature->GetGUID();
                      break;
                  case BOSS_DRAHGA_SHADOWBURNER:
-                     DrahgaShadowburner = creature->GetGUID();
+                     uiDrahgaShadowburner = pCreature->GetGUID();
                      break;
                  case BOSS_ERUDAX:
-                     Erudax = creature->GetGUID();
+                     uiErudax = pCreature->GetGUID();
                      break;
             }
         }
 
         uint64 getData64(uint32 identifier)
         {
-            switch (identifier)
+            switch(identifier)
             {
                 case DATA_GENERAL_UMBRISS:
-                    return GeneralUmbriss;
+                    return uiGeneralUmbriss;
                 case DATA_FORGEMASTER_THRONGUS:
-                    return ForgemasterThrongus;
+                    return uiForgemasterThrongus;
                 case DATA_DRAHGA_SHADOWBURNER:
-                    return DrahgaShadowburner;
+                    return uiDrahgaShadowburner;
                 case DATA_ERUDAX:
-                    return Erudax;
+                    return uiErudax;
             }
             return 0;
         }
 
         void SetData(uint32 type, uint32 data)
         {
-            switch (type)
+            switch(type)
             {
                 case DATA_GENERAL_UMBRISS_EVENT:
-                    Encounter[0] = data;
+                    uiEncounter[0] = data;
                     break;
                 case DATA_FORGEMASTER_THRONGUS_EVENT:
-                    Encounter[1] = data;
+                    uiEncounter[1] = data;
                     break;
                 case DATA_DRAHGA_SHADOWBURNER_EVENT:
-                    Encounter[2] = data;
+                    uiEncounter[2] = data;
                     break;
                 case DATA_ERUDAX_EVENT:
-                    Encounter[3] = data;
+                    uiEncounter[3] = data;
                     break;
             }
 
@@ -129,16 +129,16 @@ public:
 
         uint32 GetData(uint32 type)
         {
-            switch (type)
+            switch(type)
             {
                 case DATA_GENERAL_UMBRISS_EVENT:
-                    return Encounter[0];
+                    return uiEncounter[0];
                 case DATA_FORGEMASTER_THRONGUS_EVENT:
-                    return Encounter[1];
+                    return uiEncounter[1];
                 case DATA_DRAHGA_SHADOWBURNER_EVENT:
-                    return Encounter[2];
+                    return uiEncounter[2];
                 case DATA_ERUDAX_EVENT:
-                    return Encounter[3];
+                    return uiEncounter[3];
             }
             return 0;
         }
@@ -149,7 +149,7 @@ public:
 
             std::string str_data;
             std::ostringstream saveStream;
-            saveStream << "G B" << Encounter[0] << " " << Encounter[1]  << " " << Encounter[2]  << " " << Encounter[3];
+            saveStream << "G B" << uiEncounter[0] << " " << uiEncounter[1]  << " " << uiEncounter[2]  << " " << uiEncounter[3];
             str_data = saveStream.str();
 
             OUT_SAVE_INST_DATA_COMPLETE;
@@ -174,14 +174,14 @@ public:
 
             if (dataHead1 == 'G' && dataHead2 == 'B')
             {
-                Encounter[0] = data0;
-                Encounter[1] = data1;
-                Encounter[2] = data2;
-                Encounter[3] = data3;
+                uiEncounter[0] = data0;
+                uiEncounter[1] = data1;
+                uiEncounter[2] = data2;
+                uiEncounter[3] = data3;
 
-                for (uint8 i=0; i < ENCOUNTERS; ++i)
-                    if (Encounter[i] == IN_PROGRESS)
-                        Encounter[i] = NOT_STARTED;
+                for(uint8 i=0; i < ENCOUNTERS; ++i)
+                    if (uiEncounter[i] == IN_PROGRESS)
+                        uiEncounter[i] = NOT_STARTED;
             }
             else OUT_LOAD_INST_DATA_FAIL;
 

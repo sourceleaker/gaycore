@@ -53,12 +53,32 @@ enum CreatureIds
     NPC_NEPTULON                = 40792,
     NPC_THRONE_TELEPORTER_1     = 51395,
     NPC_THRONE_TELEPORTER_2     = 51391,
+    // Lady Naz'jar
+    NPC_SUMMONED_WITCH          = 40634, // 2 of them
+    NPC_SUMMONED_GUARD          = 40633,
+    NPC_SUMMONED_WATERSPOUT     = 48571,
+    // Commander Ulthok
+    NPC_DARK_FISSURE            = 40784,
+    // Erunak Stonespeaker & Mindbender Ghur'sha
+    NPC_EARTH_SHARD             = 45469,
+    NPC_MIND_FOG                = 40861,
+    // Ozumat
+    NPC_DEEP_MURLOC             = 44658,
+    NPC_MINDLASHER              = 44715,
+    NPC_BEHEMOTH                = 44648,
+    NPC_SAPPER                  = 44752,
+    NPC_BEAST                   = 44841
 };
 
 enum GameObjectIds
 {
-    GO_NEPUTOLON_CACHE          = 205216,
-    GO_STRANGE_FOUNTAIN         = 207406,
+    GO_STRANGE_FOUNTAIN               = 207406,
+    GO_LADY_NAZJAR_DOOR               = 204338,
+    GO_COMMANDER_ULTHOK_DOOR          = 204339,
+    GO_ERUNAK_STONESPEAKER_DOOR       = 204340,
+    GO_OZUMAT_DOOR                    = 204341,
+    GO_OZUMAT_CHEST_NORMAL            = 205216,
+    GO_OZUMAT_CHEST_HEROIC            = 320000,
 };
 
 #endif

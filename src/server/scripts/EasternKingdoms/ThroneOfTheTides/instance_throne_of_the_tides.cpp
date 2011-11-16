@@ -42,94 +42,95 @@ public:
     {
         instance_throne_of_the_tides_InstanceMapScript(InstanceMap* map): InstanceScript(map) { }
 
-        uint32 Encounter[ENCOUNTERS];
+        uint32 uiEncounter[ENCOUNTERS];
 
-        uint64 LadyNazjar;
-        uint64 CommanderUlthok;
-        uint64 ErunakStonespeaker;
-        uint64 MindbenderGhrusha;
-        uint64 Ozumat;
+        uint64 uiLadyNazjar;
+        uint64 uiCommanderUlthok;
+        uint64 uiErunakStonespeaker;
+        uint64 uiMindbenderGhrusha;
+        uint64 uiOzumat;
 
         void Initialize()
         {
-            LadyNazjar = 0;
-            CommanderUlthok = 0;
-            ErunakStonespeaker = 0;
-            MindbenderGhrusha = 0;
-            Ozumat = 0;
+            uiLadyNazjar = 0;
+            uiCommanderUlthok = 0;
+            uiErunakStonespeaker = 0;
+            uiMindbenderGhrusha = 0;
+            uiOzumat = 0;
 
-            for (uint8 i=0; i < ENCOUNTERS; ++i)
-                Encounter[i] = NOT_STARTED;
+            for(uint8 i=0; i < ENCOUNTERS; ++i)
+                uiEncounter[i] = NOT_STARTED;
         }
 
         bool IsEncounterInProgress() const
         {
-            for (uint8 i=0; i < ENCOUNTERS; ++i)
+            for(uint8 i=0; i < ENCOUNTERS; ++i)
             {
-                if (Encounter[i] == IN_PROGRESS)
+                if (uiEncounter[i] == IN_PROGRESS)
                     return true;
             }
             return false;
         }
 
-        void OnCreatureCreate(Creature* creature, bool )
+        void OnCreatureCreate(Creature* pCreature, bool )
         {
-            switch (creature->GetEntry())
+            switch(pCreature->GetEntry())
             {
                  case BOSS_LADY_NAZJAR:
-                     LadyNazjar = creature->GetGUID();
+                     uiLadyNazjar = pCreature->GetGUID();
                      break;
                  case BOSS_COMMANDER_ULTHOK:
-                     CommanderUlthok = creature->GetGUID();
+                     uiCommanderUlthok = pCreature->GetGUID();
                      break;
                  case BOSS_ERUNAK_STONESPEAKER:
-                     ErunakStonespeaker = creature->GetGUID();
+                     uiErunakStonespeaker = pCreature->GetGUID();
                      break;
                  case BOSS_MINDBENDER_GHURSHA:
-                     MindbenderGhrusha = creature->GetGUID();
+                     uiMindbenderGhrusha = pCreature->GetGUID();
                      break;
                  case BOSS_OZUMAT:
-                     Ozumat = creature->GetGUID();
+                     uiOzumat = pCreature->GetGUID();
                      break;
             }
         }
 
         uint64 getData64(uint32 identifier)
         {
-            switch (identifier)
+            switch(identifier)
             {
                 case DATA_LADY_NAZJAR:
-                    return LadyNazjar;
+                    return uiLadyNazjar;
                 case DATA_COMMANDER_ULTHOK:
-                    return CommanderUlthok;
+                    return uiCommanderUlthok;
                 case DATA_ERUNAK_STONESPEAKER:
-                    return ErunakStonespeaker;
+                    return uiErunakStonespeaker;
                 case DATA_MINDBENDER_GHURSHA:
-                    return MindbenderGhrusha;
+                    return uiMindbenderGhrusha;
                 case DATA_OZUMAT:
-                    return Ozumat;
+                    return uiOzumat;
             }
             return 0;
         }
 
+
         void SetData(uint32 type, uint32 data)
         {
-            switch (type)
+            switch(type)
             {
                 case DATA_LADY_NAZJAR:
-                    Encounter[0] = data;
+                    uiEncounter[0] = data;
                     break;
                 case DATA_COMMANDER_ULTHOK:
-                    Encounter[1] = data;
+                    uiEncounter[1] = data;
                     break;
                 case DATA_ERUNAK_STONESPEAKER:
-                    Encounter[2] = data;
+                    uiEncounter[2] = data;
                     break;
                 case DATA_MINDBENDER_GHURSHA:
-                    Encounter[3] = data;
+                    uiEncounter[3] = data;
                     break;
                 case DATA_OZUMAT:
-                    Encounter[4] = data;
+                    uiEncounter[4] = data;
                     break;
             }
 
@@ -139,18 +140,18 @@ public:
 
         uint32 GetData(uint32 type)
         {
-            switch (type)
+            switch(type)
             {
                 case DATA_LADY_NAZJAR_EVENT:
-                    return Encounter[0];
+                    return uiEncounter[0];
                 case DATA_COMMANDER_ULTHOK_EVENT:
-                    return Encounter[1];
+                    return uiEncounter[1];
                 case DATA_ERUNAK_STONESPEAKER_EVENT:
-                    return Encounter[2];
+                    return uiEncounter[2];
                 case DATA_MINDBENDER_GHURSHA_EVENT:
-                    return Encounter[3];
+                    return uiEncounter[3];
                 case DATA_OZUMAT_EVENT:
-                    return Encounter[4];
+                    return uiEncounter[4];
             }
             return 0;
         }
@@ -161,7 +162,7 @@ public:
 
             std::string str_data;
             std::ostringstream saveStream;
-            saveStream << "T H" << Encounter[0] << " " << Encounter[1]  << " " << Encounter[2]  << " " << Encounter[3] << " " << Encounter[4];
+            saveStream << "T H" << uiEncounter[0] << " " << uiEncounter[1]  << " " << uiEncounter[2]  << " " << uiEncounter[3] << " " << uiEncounter[4];
             str_data = saveStream.str();
 
             OUT_SAVE_INST_DATA_COMPLETE;
@@ -186,15 +187,15 @@ public:
 
             if (dataHead1 == 'T' && dataHead2 == 'H')
             {
-                Encounter[0] = data0;
-                Encounter[1] = data1;
-                Encounter[2] = data2;
-                Encounter[3] = data3;
-                Encounter[4] = data4;
+                uiEncounter[0] = data0;
+                uiEncounter[1] = data1;
+                uiEncounter[2] = data2;
+                uiEncounter[3] = data3;
+                uiEncounter[4] = data4;
 
-                for (uint8 i=0; i<ENCOUNTERS; ++i)
-                    if (Encounter[i] == IN_PROGRESS)
-                        Encounter[i] = NOT_STARTED;
+                for(uint8 i=0; i<ENCOUNTERS; ++i)
+                    if (uiEncounter[i] == IN_PROGRESS)
+                        uiEncounter[i] = NOT_STARTED;
             }
             else OUT_LOAD_INST_DATA_FAIL;
 
@@ -202,6 +203,7 @@ public:
         }
     };
 };
+
 
 void AddSC_instance_throne_of_the_tides()
 {

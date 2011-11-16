@@ -1,5 +1,6 @@
-/*
- * Copyright (C) 2010-2011 Project SkyFire <http://www.projectskyfire.org/>
+/* 
+ * Copyright (C) 2010-2011 VoragineCore <http://www.projectvoragine.com/>
+ * Copyright (C) 2009-2011 CataProject
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -50,6 +51,7 @@ public:
         uint64 uiAugh;
         uint64 uiSiamat;
         uint64 uiTeamInInstance;
+        uint64 SiamatFloorGUID;
 
         void Initialize()
         {
@@ -58,48 +60,64 @@ public:
             uiLockmaw = 0;
             uiAugh = 0;
             uiSiamat = 0;
-
-            for (uint8 i=0 ; i<ENCOUNTERS; ++i)
+            SiamatFloorGUID = 0;
+            
+            for(uint8 i=0 ; i<ENCOUNTERS; ++i)
                 uiEncounter[i] = NOT_STARTED;
+ 
         }
-
+    
         bool IsEncounterInProgress() const
         {
-            for (uint8 i=0; i<ENCOUNTERS; ++i)
+            for(uint8 i=0; i<ENCOUNTERS; ++i)
             {
                 if (uiEncounter[i] == IN_PROGRESS)
                     return true;
-            }
+            }            
             return false;
         }
 
-        void OnCreatureCreate(Creature* creature, bool )
+        void OnCreatureCreate(Creature* pCreature, bool )
         {
-            switch (creature->GetEntry())
+            switch(pCreature->GetEntry())
             {
                  case BOSS_GENERAL_HUSAM:
-                     uiGeneralHusam = creature->GetGUID();
+                     uiGeneralHusam = pCreature->GetGUID();
                      break;
                  case BOSS_HIGH_PROPHET_BARIM:
-                     uiHighProphetBarim = creature->GetGUID();
+                     uiHighProphetBarim = pCreature->GetGUID();
                      break;
                  case BOSS_LOCKMAW:
-                     uiLockmaw = creature->GetGUID();
+                     uiLockmaw = pCreature->GetGUID();
                      break;
                  case BOSS_AUGH:
-                     uiAugh = creature->GetGUID();
+                     uiAugh = pCreature->GetGUID();
                      break;
                  case BOSS_SIAMAT:
-                     uiSiamat = creature->GetGUID();
+                     uiSiamat = pCreature->GetGUID();
                      break;
+            }
+        }
+
+        void OnGameObjectCreate(GameObject* go)
+        {
+            switch (go->GetEntry())
+            {
+                case GO_SIAMAT_FLOOR:
+                    SiamatFloorGUID = go->GetGUID();
+                    if (GetData(DATA_GENERAL_HUSAM) == DONE && GetData(DATA_HIGH_PROPHET_BARIM) == DONE && GetData(DATA_LOCKMAW) == DONE)
+                    {
+                            go->TakenDamage(10000000);
+                    }
+                    break;
             }
         }
 
         uint64 getData64(uint32 identifier)
         {
-            switch (identifier)
+            switch(identifier)
             {
-                case DATA_GENERAL_HUSAM:
+                case DATA_GENERAL_HUSAM: 
                     return uiGeneralHusam;
                 case DATA_HIGH_PROPHET_BARIM:
                     return uiHighProphetBarim;
@@ -115,7 +133,7 @@ public:
 
         void SetData(uint32 type, uint32 data)
         {
-            switch (type)
+            switch(type)
             {
                 case DATA_GENERAL_HUSAM_EVENT:
                     uiEncounter[0] = data;
@@ -140,7 +158,7 @@ public:
 
         uint32 GetData(uint32 type)
         {
-            switch (type)
+            switch(type)
             {
                 case DATA_GENERAL_HUSAM_EVENT:
                     return uiEncounter[0];
@@ -193,7 +211,7 @@ public:
                 uiEncounter[3] = data3;
                 uiEncounter[4] = data4;
 
-                for (uint8 i=0; i<ENCOUNTERS; ++i)
+                for(uint8 i=0; i<ENCOUNTERS; ++i)
                     if (uiEncounter[i] == IN_PROGRESS)
                         uiEncounter[i] = NOT_STARTED;
             }
@@ -201,6 +219,7 @@ public:
 
             OUT_LOAD_INST_DATA_COMPLETE;
         }
+
     };
 };
 

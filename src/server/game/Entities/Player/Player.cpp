@@ -240,18 +240,23 @@ bool PlayerTaxi::LoadTaxiDestinationsFromString(const std::string& values, uint3
     if (m_TaxiDestinations.size() < 2)
         return false;
 
-    for (size_t i = 1; i < m_TaxiDestinations.size(); ++i)
+    for (size_t i = 0; i < m_TaxiDestinations.size(); i++)
     {
+        //sLog->outDetail("Loading PathNode: m_taxisource[%i]: %i, m_taxiDestination[%i]: %i", i, m_TaxiDestinations[i], i, m_TaxiDestinations[i+1]);
         uint32 cost;
         uint32 path;
-        sObjectMgr->GetTaxiPath(m_TaxiDestinations[i-1], m_TaxiDestinations[i], path, cost);
+        sObjectMgr->GetTaxiPath(m_TaxiDestinations[i], m_TaxiDestinations[i+1], path, cost);
         if (!path)
-            return false;
+        {
+            sLog->outError("LoadTaxiDestinationsFromString: Path Don't Exist");
+        } return false;
     }
 
     // can't load taxi path without mount set (quest taxi path?)
     if (!sObjectMgr->GetTaxiMountDisplayId(GetTaxiSource(), team, true))
-        return false;
+    {
+        sLog->outError("LoadTaxiDestinationsFromString: No mount");
+    } return false;
 
     return true;
 }
@@ -263,8 +268,11 @@ std::string PlayerTaxi::SaveTaxiDestinationsToString()
 
     std::ostringstream ss;
 
-    for (size_t i=0; i < m_TaxiDestinations.size(); ++i)
-        ss << m_TaxiDestinations[i] << ' ';
+    for (size_t i=0; i < m_TaxiDestinations.size(); i++)
+    {
+        sLog->outDetail("SaveTaxiDestinationsToString: Point[%i]: %i", i, m_TaxiDestinations[i]);
+        ss << m_TaxiDestinations[i] << " ";
+    }
 
     return ss.str();
 }
@@ -20773,9 +20781,11 @@ bool Player::ActivateTaxiPathTo(std::vector<uint32> const& nodes, Creature* npc 
 
     uint32 prevnode = sourcenode;
     uint32 lastnode = 0;
+	m_taxi.AddTaxiDestination(nodes[0]);
 
     for (uint32 i = 1; i < nodes.size(); ++i)
     {
+        //sLog->outDetail("ActivateTaxiTo StartPointNode[%i], PathEndNode[%i], FinalNode[%i]", nodes[i - 1], nodes[i], nodes[nodes.size()-1]);
         uint32 path, cost;
 
         lastnode = nodes[i];
@@ -20793,6 +20803,7 @@ bool Player::ActivateTaxiPathTo(std::vector<uint32> const& nodes, Creature* npc 
             sourcepath = path;
 
         m_taxi.AddTaxiDestination(lastnode);
+        //sLog->outDetail("LastNode: %i", lastnode);
 
         prevnode = lastnode;
     }
@@ -20882,7 +20893,10 @@ void Player::ContinueTaxiFlight()
 {
     uint32 sourceNode = m_taxi.GetTaxiSource();
     if (!sourceNode)
+    {
+        sLog->outDetail("No Source Node in Player::ContinueTaxiFlight()");
         return;
+    }    
 
     sLog->outDebug(LOG_FILTER_UNITS, "WORLD: Restart character %u taxi flight", GetGUIDLow());
 

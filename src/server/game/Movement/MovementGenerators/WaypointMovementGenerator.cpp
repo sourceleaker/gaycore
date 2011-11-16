@@ -289,7 +289,7 @@ bool FlightPathMovementGenerator::Update(Player &player, const uint32 diff)
                 {
                     DoEventIfAny(player, (*i_path)[i_currentNode], true);
 
-                    sLog->outStaticDebug("loading node %u for player %s", i_currentNode, player.GetName());
+                    sLog->outStaticDebug("loading Path: %u .Node %u/%u for %s", (*i_path)[i_currentNode].path, i_currentNode, (*i_path).size(), player.GetName());
                     if ((*i_path)[i_currentNode].mapid == curMap)
                     {
                         // do not send movement, it was sent already
@@ -301,8 +301,9 @@ bool FlightPathMovementGenerator::Update(Player &player, const uint32 diff)
                         PreloadEndGrid();
 
                     return true;
-                }
-                else player.CleanupAfterTaxiFlight();
+                } //else if(player.m_taxi.GetTaxiFinalDestination() != player.m_taxi.GetCurrentTaxiPath())
+                else
+                    player.CleanupAfterTaxiFlight();
             }
             else
                 return true;

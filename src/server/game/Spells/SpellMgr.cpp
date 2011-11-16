@@ -3357,6 +3357,9 @@ void SpellMgr::LoadSpellCustomAttr()
             case 72289: // Frost Infusion Quest Credit (Sindragosa)
                 spellInfo->Effects[0].RadiusEntry = sSpellRadiusStore.LookupEntry(28);   // another missing radius
                 break;
+            case 92633: // Last Chance Yacht Boarding Mortar
+                spellInfo->RangeEntry = sSpellRangeStore.LookupEntry(4);
+                break;
             case 71708: // Empowered Flare (Blood Prince Council)
             case 72785: // Empowered Flare (Blood Prince Council)
             case 72786: // Empowered Flare (Blood Prince Council)

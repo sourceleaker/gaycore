@@ -516,10 +516,52 @@ public:
     };
 };
 
+class npc_runaway_shredder : public CreatureScript
+{
+public:
+    npc_runaway_shredder() : CreatureScript("npc_runaway_shredder") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_runaway_shredderAI (pCreature);
+    }
+
+    struct npc_runaway_shredderAI : public ScriptedAI
+    {
+        npc_runaway_shredderAI(Creature *c) : ScriptedAI(c)  { }
+
+        void Reset()
+        {
+            me->RemoveFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_SPELLCLICK);
+        }
+
+        void DamageTaken(Unit* done_by, uint32 &damage)
+        {
+            if (me->HealthBelowPctDamaged(5, damage))
+            {
+                me->RemoveAllAuras();
+                me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
+                me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_ATTACKABLE_1);
+                me->setFaction(35);
+                me->CombatStop(true);
+                me->DeleteThreatList();
+                me->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_SPELLCLICK);
+                me->MonsterSay("Syntax Error Line 14, Sequence: Flee for Life. Entering passive mode. *Click!*", LANG_UNIVERSAL, 0);
+            }
+        }
+
+        void UpdateAI(const uint32 diff)
+        {
+            DoMeleeAttackIfReady();
+        }
+    };
+};
+
 void AddSC_azshara()
 {
     new mobs_spitelashes();
     new npc_loramus_thalipedes();
     new mob_rizzle_sprysprocket();
     new mob_depth_charge();
+    new npc_runaway_shredder();
 }

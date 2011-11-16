@@ -3397,6 +3397,9 @@ void SpellMgr::LoadSpellCustomAttr()
                 spellInfo->Effects[0].TargetB = TARGET_UNIT_TARGET_ANY;
                 spellInfo->Effects[1].Effect = 0;
                 break;
+			case 79416: // Multi-bot Aura Periodic
+               spellInfo->RangeEntry = sSpellRangeStore.LookupEntry(11);
+               break;
             case 68282: // Charge (ToC mount)
                 spellInfo->AttributesCu |= SPELL_EFFECT_SCHOOL_DAMAGE;
                 spellInfo->AttributesCu |= SPELL_EFFECT_CHARGE;

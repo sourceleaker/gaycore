@@ -1345,24 +1345,6 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                     }
                     return;
                 }
-                case 79416:
-                {
-                    if(Creature* pToxic = m_caster->FindNearestCreature(42563, 10.0f))
-                    if(GameObject* pGo = m_caster->FindNearestGameObject(203975, 5.0f))
-                    {
-                        m_caster->MonsterSay("Initiating cleanup ... ...", 0, 0);
-
-                        if(m_caster->GetDisplayId() == 37146)
-                            m_caster->SetDisplayId(37140);
-
-                        uint32 SpellId[2] = {79424, 94516};
-                        m_caster->CastSpell(pToxic, SpellId[urand(0,1)], true);
-                        pToxic->ForcedDespawn(750);
-
-                        m_caster->CastSpell(m_caster, 79422, true);
-                        pGo->DestroyForNearbyPlayers();
-                    }
-                } return;
                 case 79751:                                 // Destroy Mechano-Tank
                 {
                     if (m_caster->GetTypeId() != TYPEID_PLAYER)

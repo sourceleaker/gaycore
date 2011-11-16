@@ -2445,7 +2445,7 @@ namespace Trinity
 template<typename Elem, typename Node>
 inline void Unit::SendMonsterMoveByPath(Path<Elem, Node> const& path, uint32 start, uint32 end)
 {
-    uint32 traveltime = uint32(path.GetTotalLength(start, end) *32);
+    uint32 traveltime = uint32(path.GetTotalLength(start, end) * 31.5);
     uint32 pathSize = end - start;
     WorldPacket data(SMSG_MONSTER_MOVE, 12+4+1+4+4+4+12+GetPackGUID().size());
     data.append(GetPackGUID());
@@ -2453,9 +2453,9 @@ inline void Unit::SendMonsterMoveByPath(Path<Elem, Node> const& path, uint32 sta
     data << GetPositionX() << GetPositionY() << GetPositionZ();
     data << getMSTime();
     data << uint8(0);
-    //if(GetUnitMovementFlags() & MOVEMENTFLAG_LEVITATING)
-        //data << uint32(SPLINEFLAG_FLYING | SPLINEFLAG_WALKING);
-    if(isInFlight())
+    if(GetUnitMovementFlags() & MOVEMENTFLAG_LEVITATING)
+        data << uint32(SPLINEFLAG_FLYING | SPLINEFLAG_WALKING);
+    else if(isInFlight())
         data << uint32((SPLINEFLAG_FINAL_POINT | SPLINEFLAG_UNKNOWN31 | SPLINEFLAG_UNKNOWN32 | SPLINEFLAG_FLYING | SPLINEFLAG_WALKING | SPLINEFLAG_CATMULL_ROM)+255);
     else data << uint32(SPLINEFLAG_WALKING + 255);
 

@@ -163,12 +163,81 @@ public:
     }
 };
 
-/*######
-## AddSC
-######*/
+enum eBoulderslide
+{
+    SPELL_WHIP_EM      = 78315,
+    SPELL_WHIPPED_1    = 78317,
+    SPELL_WHIPPED_2    = 78327,
+    NPC_SUBDUED_KOBOLD = 42024
+
+};
+
+class npc_boulderslide_kobold : public CreatureScript
+{
+public:
+    npc_boulderslide_kobold() : CreatureScript("npc_boulderslide_kobold") { }
+    
+    struct npc_boulderslide_koboldAI : public ScriptedAI
+    {
+        npc_boulderslide_koboldAI(Creature *pCreature) : ScriptedAI(pCreature) {}
+
+        uint64 PlayerGUID;
+        uint32 SpellHited;
+
+        void Reset()
+        {
+            PlayerGUID = NULL;
+            SpellHited = 0;
+        }
+
+        void JustDied(Unit * Killer)
+        {
+            if (SpellHited>0)
+            {
+              Killer->CastSpell(Killer,SPELL_WHIPPED_2,true);
+              Killer->ToPlayer()->KilledMonsterCredit(NPC_SUBDUED_KOBOLD,0);
+              if (Creature* Kobold = me->FindNearestCreature(NPC_SUBDUED_KOBOLD, 2.0f)) 
+              {
+                  Kobold->MonsterSay("Please no whip me! Me help Horde!", LANG_UNIVERSAL, 0);
+                  Kobold->setFaction(35);
+                  Kobold->CombatStop(true);
+                  Kobold->DeleteThreatList();
+                  me->DisappearAndDie();
+               }
+            }
+        }
+
+        void SpellHit(Unit* hitter, const SpellEntry* spell)
+        {
+           if (spell->Id != SPELL_WHIP_EM)
+                return;
+
+            SpellHited++;
+            me->CastSpell(me,SPELL_WHIPPED_1,0);
+            PlayerGUID = hitter->GetGUID();
+        }	
+        
+
+        void UpdateAI(const uint32 uiDiff)
+        {  
+             if(SpellHited == 1)
+             {
+                 sCreatureTextMgr->SendChat(me, 0, PlayerGUID);
+                 SpellHited++;
+             }
+
+        }
+
+    };
+    CreatureAI *GetAI(Creature *creature) const
+    {
+        return new npc_boulderslide_koboldAI(creature);
+    }
+};
 
 void AddSC_stonetalon_mountains()
 {
     new npc_braug_dimspirit();
     new npc_kaya_flathoof();
+    new npc_boulderslide_kobold();
 }

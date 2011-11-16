@@ -2445,7 +2445,7 @@ namespace Trinity
 template<typename Elem, typename Node>
 inline void Unit::SendMonsterMoveByPath(Path<Elem, Node> const& path, uint32 start, uint32 end)
 {
-    uint32 traveltime = uint32(path.GetTotalLength(start, end) * 31.5);
+    uint32 traveltime = uint32(path.GetTotalLength(start, end) * 31.6);
     uint32 pathSize = end - start;
     WorldPacket data(SMSG_MONSTER_MOVE, 12+4+1+4+4+4+12+GetPackGUID().size());
     data.append(GetPackGUID());

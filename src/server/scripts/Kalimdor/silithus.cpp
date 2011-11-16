@@ -1481,6 +1481,85 @@ class go_wind_stone : public GameObjectScript
         }
 };
 
+class npc_silitist_mob : public CreatureScript
+{
+public:
+    npc_silitist_mob() : CreatureScript("npc_silitist_mob") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_silitist_mobAI (pCreature);
+    }
+
+struct npc_silitist_mobAI : public ScriptedAI
+    {
+        npc_silitist_mobAI(Creature* pCreature) : ScriptedAI(pCreature) {}
+
+        void MoveInLineOfSight(Unit* pWho)
+        {
+            ScriptedAI::MoveInLineOfSight(pWho);
+
+            if (pWho->GetTypeId() == TYPEID_PLAYER)
+            {
+                if (pWho->HasAura(29519))
+                {
+                    if(pWho->ToPlayer()->GetTeam() == HORDE)
+                    {
+                        pWho->ToPlayer()->KilledMonsterCredit(18199,0);
+                        pWho->RemoveAura(29519);
+                        me->CastSpell(pWho,29534,true);
+                    }
+                    if(pWho->ToPlayer()->GetTeam() == ALLIANCE)
+                    {
+                        pWho->ToPlayer()->KilledMonsterCredit(17090,0);
+                        pWho->RemoveAura(29519);
+                        me->CastSpell(pWho,29534,true);
+                    }
+                }
+            }
+        }
+    };
+};
+
+/*######
+## go_hive_crystal
+######*/
+
+#define GOSSIP_HIVE_1 "<Use the transcription device to gather a rubbing.>"
+
+class go_hive_crystal : public GameObjectScript
+{
+public:
+    go_hive_crystal() : GameObjectScript("go_hive_crystal") { }
+
+    bool OnGossipHello(Player *pPlayer, GameObject *pGO)
+    {
+        if (pPlayer->GetQuestStatus(8309) == QUEST_STATUS_INCOMPLETE)
+        {
+
+            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_HIVE_1, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF);
+            pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pGO), pGO->GetGUID());
+        }
+        return true;
+    }
+
+    bool OnGossipSelect(Player *pPlayer, GameObject *pGO, uint32 /*uiSender*/, uint32 uiAction)
+    {
+        pPlayer->PlayerTalkClass->ClearMenus();
+        switch(uiAction)
+        {
+            case GOSSIP_ACTION_INFO_DEF:
+            {
+                pPlayer->AddItem(20456,1);
+                pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_HIVE_1, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+2);
+                pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pGO), pGO->GetGUID());
+            }
+            break;
+        }
+        return true;
+    }
+};
+
 void AddSC_silithus()
 {
     new go_crystalline_tear();
@@ -1490,4 +1569,6 @@ void AddSC_silithus()
     new npc_highlord_demitrian();
     new npcs_rutgar_and_frankal();
     new go_wind_stone();
+    new npc_silitist_mob();
+    new go_hive_crystal();
 }

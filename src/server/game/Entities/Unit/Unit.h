@@ -769,7 +769,7 @@ enum SplineFlags
     SPLINEFLAG_PITCH_DOWN     = 0x00000080,
     SPLINEFLAG_DONE           = 0x00000100,
     SPLINEFLAG_FALLING        = 0x00000200,
-    SPLINEFLAG_NO_SPLINE      = 0x00000400,
+    SPLINEFLAG_NO_SPLINE      = 0x00000400, // Casue Teleport to last point of road and jumping
     SPLINEFLAG_TRAJECTORY     = 0x00000800,
     SPLINEFLAG_WALKING        = 0x00001000,
     SPLINEFLAG_FLYING         = 0x00002000,
@@ -2445,27 +2445,27 @@ namespace Trinity
 template<typename Elem, typename Node>
 inline void Unit::SendMonsterMoveByPath(Path<Elem, Node> const& path, uint32 start, uint32 end)
 {
-    uint32 traveltime = uint32(path.GetTotalLength(start, end) * 32);
+    uint32 traveltime = uint32(path.GetTotalLength(start, end)/* / (isInFlight() == 1? GetSpeed(MOVE_FLIGHT) : GetSpeed(MOVE_WALK))*/);
     uint32 pathSize = end - start;
-    WorldPacket data(SMSG_MONSTER_MOVE, (GetPackGUID().size()+1+4+4+4+4+1+4+4+4+pathSize*4*3));
+    WorldPacket data(SMSG_MONSTER_MOVE, 12+4+1+4+4+4+12+GetPackGUID().size());
     data.append(GetPackGUID());
     data << uint8(0);
-    data << GetPositionX();
-    data << GetPositionY();
-    data << GetPositionZ();
-    data << uint32(getMSTime());
+    data << GetPositionX() << GetPositionY() << GetPositionZ();
+    data << getMSTime();
     data << uint8(0);
-    data << uint32(((GetUnitMovementFlags() & MOVEMENTFLAG_LEVITATING) || isInFlight()) ? (SPLINEFLAG_FLYING|SPLINEFLAG_WALKING) : SPLINEFLAG_WALKING);
+    //if(GetUnitMovementFlags() & MOVEMENTFLAG_LEVITATING)
+        //data << uint32(SPLINEFLAG_FLYING | SPLINEFLAG_WALKING);
+    //else if(isInFlight())
+        data << uint32(SPLINEFLAG_FINAL_POINT | SPLINEFLAG_UNKNOWN31 | SPLINEFLAG_UNKNOWN32 | SPLINEFLAG_FLYING | SPLINEFLAG_WALKING);
+    //else data << uint32(SPLINEFLAG_WALKING);
+
     data << uint32(traveltime);
     data << uint32(pathSize);
 
     for (uint32 i = start; i < end; ++i)
     {
-        data << float(path[i].x);
-        data << float(path[i].y);
-        data << float(path[i].z);
+        data << float(path[i].x) << float(path[i].y) << float(path[i].z);
     }
-
     SendMessageToSet(&data, true);
 }
 

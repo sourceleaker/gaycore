@@ -1,0 +1,2 @@
+ALTER TABLE `world_db_version` CHANGE  `required_83_Silithus` `required_86_World_Quest_13526`  BIT(1);
+UPDATE `gameobject_loot_template` SET `ChanceOrQuestChance`='-100' WHERE (`entry`='194100') AND (`item`='44850');

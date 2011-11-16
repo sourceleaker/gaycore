@@ -251,13 +251,13 @@ void FlightPathMovementGenerator::Initialize(Player &player)
 {
     player.getHostileRefManager().setOnlineOfflineState(false);
     player.AddUnitState(UNIT_STAT_IN_FLIGHT);
-    player.SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_TAXI_FLIGHT);
+    player.SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_TAXI_FLIGHT | UNIT_FLAG_DISABLE_MOVE);
     Traveller<Player> traveller(player);
     // do not send movement, it was sent already
     i_destinationHolder.SetDestination(traveller, (*i_path)[i_currentNode].x, (*i_path)[i_currentNode].y, (*i_path)[i_currentNode].z, false);
     // For preloading end grid
     InitEndGridInfo();
-    player.SetSpeed(MOVE_FLIGHT, 3.2f, true);
+    //player.SetSpeed(MOVE_FLIGHT, 3.2f, true);
     player.SendMonsterMoveByPath(GetPath(), GetCurrentNode(), GetPathAtMapEnd());
 }
 

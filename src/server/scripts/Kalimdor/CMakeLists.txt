@@ -63,20 +63,18 @@ set(scripts_STAT_SRCS
   Kalimdor/orgrimmar.cpp
   Kalimdor/desolace.cpp
   Kalimdor/feralas.cpp
-  #Kalimdor/LostCityOfTheTolvir/instance_lost_city_of_the_tolvir.cpp
-  #Kalimdor/LostCityOfTheTolvir/lost_city_of_the_tolvir.cpp
-  #Kalimdor/LostCityOfTheTolvir/lost_city_of_the_tolvir.h
-  #Kalimdor/LostCityOfTheTolvir/boss_lockmaw.cpp
-  #Kalimdor/LostCityOfTheTolvir/boss_high_prophet_barim.cpp  
-  Kalimdor/HallsOfOrigination/instance_halls_of_origination.cpp
-  Kalimdor/HallsOfOrigination/halls_of_origination.h
-  Kalimdor/HallsOfOrigination/boss_temple_guardian_anhuur.cpp
-  Kalimdor/HallsOfOrigination/boss_earthrager_ptah.cpp
-  Kalimdor/HallsOfOrigination/boss_anraphet.cpp 
+  Kalimdor/LostCityOfTheTolvir/instance_lost_city_of_the_tolvir.cpp
+  Kalimdor/LostCityOfTheTolvir/lost_city_of_the_tolvir.cpp
+  Kalimdor/LostCityOfTheTolvir/lost_city_of_the_tolvir.h
+  Kalimdor/LostCityOfTheTolvir/boss_lockmaw.cpp
+  Kalimdor/LostCityOfTheTolvir/boss_high_prophet_barim.cpp  
   Kalimdor/HallsOfOrigination/boss_ammunae.cpp
-  Kalimdor/HallsOfOrigination/boss_setesh.cpp
-  Kalimdor/HallsOfOrigination/boss_rajh.cpp
+  Kalimdor/HallsOfOrigination/boss_anraphet.cpp
+  Kalimdor/HallsOfOrigination/boss_earthrager_ptah.cpp
   Kalimdor/HallsOfOrigination/boss_isiset.cpp
+  Kalimdor/HallsOfOrigination/boss_rajh.cpp
+  Kalimdor/HallsOfOrigination/boss_setesh.cpp
+  Kalimdor/HallsOfOrigination/boss_temple_guardian_anhuur.cpp
   Kalimdor/Maraudon/boss_princess_theradras.cpp
   Kalimdor/Maraudon/boss_landslide.cpp
   Kalimdor/Maraudon/boss_celebras_the_cursed.cpp
@@ -93,8 +91,8 @@ set(scripts_STAT_SRCS
   Kalimdor/TempleOfAhnQiraj/boss_skeram.cpp
   Kalimdor/TempleOfAhnQiraj/boss_ouro.cpp
   Kalimdor/TempleOfAhnQiraj/boss_bug_trio.cpp
-  #Kalimdor/TheVortexPinnacle/the_vortex_pinnacle.h
-  #Kalimdor/TheVortexPinnacle/instance_the_vortex_pinnacle.cpp  
+  Kalimdor/TheVortexPinnacle/the_vortex_pinnacle.h
+  Kalimdor/TheVortexPinnacle/instance_the_vortex_pinnacle.cpp  
   Kalimdor/darkshore.cpp
   Kalimdor/RuinsOfAhnQiraj/boss_buru.cpp
   Kalimdor/RuinsOfAhnQiraj/instance_ruins_of_ahnqiraj.cpp

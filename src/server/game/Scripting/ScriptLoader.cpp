@@ -223,6 +223,14 @@ void AddSC_boss_priestess_azil();
 void AddSC_boss_ozruk();
 void AddSC_boss_slabhide();
 void AddSC_boss_corborus();
+void AddSC_instance_halls_of_origination();  //Halls of Origination 
+void AddSC_boss_ammunae();
+void AddSC_boss_anraphet();
+void AddSC_boss_earthrager_ptah();
+void AddSC_boss_isiset();
+void AddSC_boss_rajh();
+void AddSC_boss_setesh();
+void AddSC_boss_temple_guardian_anhuur();
 void AddSC_boss_magistrate_barthilas();      //Stratholme
 void AddSC_boss_maleki_the_pallid();
 void AddSC_boss_nerubenkan();
@@ -900,6 +908,14 @@ void AddEasternKingdomsScripts()
     AddSC_boss_ozruk();
     AddSC_boss_slabhide();
     AddSC_boss_corborus();
+    AddSC_instance_halls_of_origination();  //Halls of Origination 
+    AddSC_boss_ammunae();
+    AddSC_boss_anraphet();
+    AddSC_boss_earthrager_ptah();
+    AddSC_boss_isiset();
+    AddSC_boss_rajh();
+    AddSC_boss_setesh();
+    AddSC_boss_temple_guardian_anhuur();
     AddSC_boss_magistrate_barthilas();      //Stratholme
     AddSC_boss_maleki_the_pallid();
     AddSC_boss_nerubenkan();

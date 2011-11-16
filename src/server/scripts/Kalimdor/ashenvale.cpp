@@ -565,6 +565,264 @@ public:
     };
 };
 
+enum eBrutusk
+{
+    NPC_BRUTUSK         = 33386,
+    NPC_AMBUSHER        = 33394,
+    SPELL_RIDE_BRUTUSK  = 62885,
+    SPELL_STOMP         = 62944,
+    SPELL_KILL_CREDIT   = 62890,
+    VEHICLE_ID          = 209,
+};
+
+class npc_brutusk : public CreatureScript
+{
+public:
+    npc_brutusk() : CreatureScript("npc_brutusk"){}
+
+    struct npc_brutuskAI : public ScriptedAI
+    {
+        npc_brutuskAI(Creature* creature) : ScriptedAI(creature) {}
+
+        bool bSummoned;
+        bool itemCheck;
+        uint8 Phase;
+        uint32 BrutuskTimer;
+        uint64 PlayerGUID;
+        uint64 AmbusherGUID;
+        uint64 Ambusher1GUID;
+        uint64 Ambusher2GUID;
+        uint64 Ambusher3GUID;
+
+        void Reset()
+        {
+            itemCheck = false;
+            bSummoned = false;
+            Phase = 0;
+            BrutuskTimer = 1500;
+            PlayerGUID = 0;
+            AmbusherGUID = 0;
+            Ambusher1GUID = 0;
+            Ambusher2GUID = 0;
+            Ambusher3GUID = 0;
+        }
+
+        void Ambush()
+        {
+            if(!bSummoned)
+            {
+                if(Creature* Ambusher = me->SummonCreature(NPC_AMBUSHER, 1383.12f, -2257.68f, 89.91f, 3.23f, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 15000))
+                if(Creature* Ambusher1 = me->SummonCreature(NPC_AMBUSHER, 1392.16f, -2256.95f, 89.92f, 3.22f, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 15000))
+                if(Creature* Ambusher2 = me->SummonCreature(NPC_AMBUSHER, 1387.01f, -2251.47f, 90.11f, 3.22f, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 15000))
+                if(Creature* Ambusher3 = me->SummonCreature(NPC_AMBUSHER, 1387.86f, -2265.04f, 90.43f, 3.22f, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 15000))   
+                {
+                    AmbusherGUID = Ambusher->GetGUID();
+                    Ambusher1GUID = Ambusher1->GetGUID();
+                    Ambusher2GUID = Ambusher2->GetGUID();
+                    Ambusher3GUID = Ambusher3->GetGUID();
+                    bSummoned = true;
+                }
+            }
+        }
+
+        void UpdateAI(const uint32 diff)
+        {
+            if(me->HasFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_SPELLCLICK))
+            {
+                if(BrutuskTimer <= diff)
+                {
+                    switch(Phase)
+                    {
+                        case 0: me->GetMotionMaster()->MovePoint(0, 1262.94f, -2221.60f, 91.97f); BrutuskTimer = 9740; Phase++; break;
+                        case 1: me->GetMotionMaster()->MovePoint(1, 1313.53f, -2240.48f, 91.73f); BrutuskTimer = 7000; Phase++; break;
+                        case 2: me->GetMotionMaster()->MovePoint(2, 1329.94f, -2257.60f, 91.07f); BrutuskTimer = 2340; Phase++; break;
+                        case 3: me->GetMotionMaster()->MovePoint(3, 1360.79f, -2257.60f, 89.96f); Ambush(); BrutuskTimer = 7000; Phase++; break;
+                        case 4:
+                        {
+                            if(Creature* pAmbusher = me->FindNearestCreature(NPC_AMBUSHER,25.0f,true))
+                            {
+                                me->CastSpell(pAmbusher,82101,true);
+                                BrutuskTimer = 2000;
+                                Phase++;
+                            }
+                        }break;
+                        case 5:
+                        {
+                            std::list<Creature*> ambushers;
+                            me->GetCreatureListWithEntryInGrid(ambushers, 33394, 25.0f);
+                            ambushers.sort(Trinity::ObjectDistanceOrderPred(me));
+                            for(std::list<Creature*>::iterator itr = ambushers.begin(); itr != ambushers.end(); itr++)
+                            {
+                                if((*itr)->GetTypeId() == TYPEID_UNIT)
+                                {
+                                    (*itr)->CastSpell((*itr),SPELL_STOMP,true);
+                                }
+                            }
+                            BrutuskTimer = 2000;
+                            Phase++;
+                        }break;
+                        case 6: me->GetMotionMaster()->MovePoint(4, 1419.55f, -2259.52f, 90.16f); BrutuskTimer = 5800; Phase++; break;
+                        case 7: me->GetMotionMaster()->MovePoint(5, 1496.33f, -2373.28f, 93.76f); BrutuskTimer = 14900; Phase++; break;
+                        case 8: me->GetMotionMaster()->MovePoint(6, 1579.60f, -2449.60f, 97.99f); BrutuskTimer = 15820; Phase++; break;
+                        case 9: me->GetMotionMaster()->MovePoint(7, 1576.38f, -2485.07f, 98.00f); BrutuskTimer = 5030; Phase++; break;
+                        case 10: me->ForcedDespawn(); break;
+                        default: break;
+                    }
+                }else BrutuskTimer -= diff;
+            } 
+        }
+    };
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_brutuskAI(pCreature);
+    }
+};
+
+/*######
+## npc_kadrakk
+######*/
+
+enum eKadrakk
+{
+    SAY_KADRAKK = -1934667 
+};
+#define GOSSIP_KADRAKK "Truum is in need of lumber from the Warsong Camp. I need to use Brutusk to haul it."
+
+
+class npc_kadrakk : public CreatureScript
+{
+public:
+    npc_kadrakk() : CreatureScript("npc_kadrakk") { }
+
+    bool OnGossipSelect(Player* pPlayer, Creature* pCreature, uint32 /*uiSender*/, uint32 uiAction)
+    {
+        pPlayer->PlayerTalkClass->ClearMenus();
+        switch(uiAction)
+        {
+            case GOSSIP_ACTION_INFO_DEF: DoScriptText(SAY_KADRAKK, pCreature, pPlayer); pPlayer->AddItem(45051,1); pPlayer->CLOSE_GOSSIP_MENU(); break;
+        }
+        return true;
+    }
+
+    bool OnGossipHello(Player* pPlayer, Creature* pCreature)
+    {
+        if (pCreature->isQuestGiver())
+            pPlayer->PrepareQuestMenu(pCreature->GetGUID());
+
+        if (pPlayer->GetQuestStatus(13628) == QUEST_STATUS_INCOMPLETE)
+        {
+            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_KADRAKK, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF);
+        }
+        pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pCreature), pCreature->GetGUID());
+        return true;       
+    }
+};
+
+enum ePeon
+{
+    GO_WOOD                 = 194349,
+    SPELL_SUMMON_WOOD       = 63043,
+    NPC_DEMORALIZED_PEON    = 33440,
+    EMOTE_DIGGING           = 173,
+    NPC_PEON_WOOD_BUNNY     = 33446,
+
+    SAY_CHOP_1              = -1934668,
+    SAY_CHOP_2              = -1934669,
+    SAY_CHOP_3              = -1934670
+};
+
+#define GOSSIP_DEMORALIZED_PEON "Come now, friend. You chop and I will protect you from the elves, ok?"
+
+
+class npc_dem_peon : public CreatureScript
+{
+public:
+    npc_dem_peon() : CreatureScript("npc_dem_peon"){}
+
+    bool OnGossipSelect(Player* pPlayer, Creature* pCreature, uint32 /*uiSender*/, uint32 uiAction)
+    {
+        pPlayer->PlayerTalkClass->ClearMenus();       
+        if(uiAction == GOSSIP_ACTION_INFO_DEF && pPlayer->GetQuestStatus(13640) == QUEST_STATUS_INCOMPLETE)
+        {
+                DoScriptText(SAY_CHOP_1, pCreature, pPlayer); 
+                CAST_AI(npc_dem_peon::npc_dem_peonAI, pCreature->AI())->bChop = true;
+                CAST_AI(npc_dem_peon::npc_dem_peonAI, pCreature->AI())->PlayerGUID = pPlayer->GetGUID(); 
+                pPlayer->CLOSE_GOSSIP_MENU(); 
+        }
+        return true;
+    }
+
+    bool OnGossipHello(Player* pPlayer, Creature* pCreature)
+    {
+        if (pPlayer->GetQuestStatus(13640) == QUEST_STATUS_INCOMPLETE)
+        {
+            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_DEMORALIZED_PEON, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF);
+        }
+        pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pCreature), pCreature->GetGUID());
+        return true;       
+    }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_dem_peonAI (pCreature);
+    }
+
+    struct npc_dem_peonAI : public ScriptedAI
+    {
+        npc_dem_peonAI(Creature* creature) : ScriptedAI(creature) {}
+
+        bool bChop;
+        uint8 Phase;
+        uint32 ChopTimer;
+        uint64 PlayerGUID;
+
+        void Reset()
+        {
+            bChop = false;
+            ChopTimer = 3000;
+            PlayerGUID = 0;
+            Phase = 0;
+            me->HandleEmoteCommand(431);
+            me->SetRespawnTime(30);
+        }
+
+        void UpdateAI(uint32 const diff)
+        {
+            if(bChop)
+            {
+                if(ChopTimer <= diff)
+                {
+                    if(Player* pPlayer = me->GetPlayer(*me, PlayerGUID))
+                    {
+                        switch(Phase)
+                        {
+                            case 0:
+                            {
+                                if(Creature * pBunny = me->FindNearestCreature(NPC_PEON_WOOD_BUNNY,25.0f))
+                                {
+                                    me->GetMotionMaster()->MovePoint(1, pBunny->GetPositionX()-1, pBunny->GetPositionY()-1, pBunny->GetPositionZ());
+                                    me->HandleEmoteCommand(0);
+                                    ChopTimer = 3500;
+                                    Phase++;
+                                }
+                            }break;
+                            case 1: DoScriptText(SAY_CHOP_2, me, pPlayer); ChopTimer = 2500; Phase++; break;
+                            case 2: me->HandleEmoteCommand(EMOTE_DIGGING); ChopTimer = 3000; Phase++; break;
+                            case 3: DoScriptText(SAY_CHOP_3, me, pPlayer);  me->CastSpell(me, SPELL_SUMMON_WOOD, true); ChopTimer = 3500; Phase++; break;
+                            case 4: me->ForcedDespawn(1000); break;
+                            default: break;
+
+                        }
+                    }             
+                }else ChopTimer -= diff;
+            }
+        }
+    };
+};
+
+
+
 void AddSC_ashenvale()
 {
     new npc_torek();
@@ -572,4 +830,7 @@ void AddSC_ashenvale()
     new npc_muglash();
     new go_naga_brazier();
     new npc_spirit_gorat();
+    new npc_brutusk();
+    new npc_kadrakk();
+    new npc_dem_peon();
 }

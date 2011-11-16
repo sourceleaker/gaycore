@@ -252,10 +252,61 @@ public:
         }
     };
 };
+enum eRejuvenatedThunderLizard
+{
+    NPC_BLOODFILLED_LEECH   = 36059,
+    SPELL_LEECH_INFESTATION = 68290
+};
+
+class npc_rejuvenated_thunder_lizard : public CreatureScript
+{
+public:
+    npc_rejuvenated_thunder_lizard() : CreatureScript("npc_rejuvenated_thunder_lizard") { }
+    
+    struct npc_rejuvenated_thunder_lizardAI : public ScriptedAI
+    {
+        npc_rejuvenated_thunder_lizardAI(Creature *pCreature) : ScriptedAI(pCreature) {}
+
+        void Reset()
+        {
+        }
+
+        void SpellHit(Unit* hitter, const SpellInfo* spell)
+        {
+            if (spell->Id != SPELL_LEECH_INFESTATION)
+                return;
+
+            AttackStart(hitter);
+        }
+
+        void JustDied(Unit * Killer)
+        {
+            if(me->HasAura(SPELL_LEECH_INFESTATION))
+            {
+                 Creature *BLeech = me->SummonCreature(NPC_BLOODFILLED_LEECH, float(me->GetPositionX() + irand(-4, 4)), me->GetPositionY(), me->GetPositionZ(), 0, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 10000);
+                 BLeech->GetMotionMaster()->MoveForward(3, 0);
+                 me->RemoveAurasDueToSpell(SPELL_LEECH_INFESTATION);
+            }
+
+        }        
+
+        void UpdateAI(const uint32 uiDiff)
+        {  
+            DoMeleeAttackIfReady();
+        }
+
+    };
+    CreatureAI *GetAI(Creature *creature) const
+    {
+        return new npc_rejuvenated_thunder_lizardAI(creature);
+    }
+};
+
 
 void AddSC_desolace()
 {
     new npc_aged_dying_ancient_kodo();
     new go_iruxos();
     new npc_dalinda();
+    new npc_rejuvenated_thunder_lizard();
 }

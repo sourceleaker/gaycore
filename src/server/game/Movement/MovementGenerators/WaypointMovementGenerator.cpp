@@ -257,7 +257,6 @@ void FlightPathMovementGenerator::Initialize(Player &player)
     i_destinationHolder.SetDestination(traveller, (*i_path)[i_currentNode].x, (*i_path)[i_currentNode].y, (*i_path)[i_currentNode].z, false);
     // For preloading end grid
     InitEndGridInfo();
-    //player.SetSpeed(MOVE_FLIGHT, 3.2f, true);
     player.SendMonsterMoveByPath(GetPath(), GetCurrentNode(), GetPathAtMapEnd());
 }
 
@@ -303,7 +302,7 @@ bool FlightPathMovementGenerator::Update(Player &player, const uint32 diff)
 
                     return true;
                 }
-                //else HasArrived()
+                else player.CleanupAfterTaxiFlight();
             }
             else
                 return true;

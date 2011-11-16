@@ -76,6 +76,7 @@ void AddSC_item_scripts();
 void AddSC_npc_professions();
 void AddSC_npc_innkeeper();
 void AddSC_npcs_special();
+void AddSC_npc_spell_click_spells();
 void AddSC_npc_taxi();
 void AddSC_achievement_scripts();
 
@@ -757,6 +758,7 @@ void AddWorldScripts()
     AddSC_npc_professions();
     AddSC_npc_innkeeper();
     AddSC_npcs_special();
+    AddSC_npc_spell_click_spells()
     AddSC_npc_taxi();
     AddSC_achievement_scripts();
     AddSC_chat_log();
@@ -1095,7 +1097,7 @@ void AddKalimdorScripts()
     AddSC_dustwallow_marsh();
     AddSC_felwood();
     AddSC_feralas();
-	AddSC_kezan();
+    AddSC_kezan();
     AddSC_moonglade();
     AddSC_mulgore();
     AddSC_orgrimmar();

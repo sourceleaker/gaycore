@@ -1168,9 +1168,72 @@ public:
         return new spell_q26531_26558_ritual_of_shadra_SpellScript();
     }
 };
+// 84964 Rayne's Seed
+// TODO: Zrobiæ ¿eby mobki z aura sie poruszyly (need sniff)
+enum eQuest274218Data
+{
+    NPC_NECROPOLIS_FLOWER_CONTROLLER_SE       = 45486,
+    NPC_NECROPOLIS_FLOWER_CONTROLLER_NE       = 45487,
+    NPC_NECROPOLIS_FLOWER_CONTROLLER_W        = 45488,
+    SPELL_FLOWER_AURA                         = 84961
 
+};
 
+class spell_q27421_raynes_seed : public SpellScriptLoader
+{
+public:
+    spell_q27421_raynes_seed() : SpellScriptLoader("spell_q27421_raynes_seed") { }
 
+    class spell_q27421_raynes_seed_SpellScript : public SpellScript
+    {
+    public:
+        PrepareSpellScript(spell_q27421_raynes_seed_SpellScript)
+        void HandleDummy(SpellEffIndex /*effIndex*/)
+        {
+            Unit* caster = GetCaster();
+            if (Player* player = caster->ToPlayer())
+            {
+               if (Creature* target = GetHitCreature())
+               {
+                  if (target->HasAura(SPELL_FLOWER_AURA))
+                      return;
+
+                  switch (target->GetEntry())
+                  {
+                         case NPC_NECROPOLIS_FLOWER_CONTROLLER_SE:
+                              player->KilledMonsterCredit(NPC_NECROPOLIS_FLOWER_CONTROLLER_SE,0); 
+							  target->AddAura(SPELL_FLOWER_AURA,target);
+                              target->DespawnOrUnsummon(10000);
+                              target->SetRespawnDelay(1);
+                              break;
+                         case NPC_NECROPOLIS_FLOWER_CONTROLLER_NE:						 
+                              player->KilledMonsterCredit(NPC_NECROPOLIS_FLOWER_CONTROLLER_NE,0); 
+							  target->AddAura(SPELL_FLOWER_AURA,target);
+                              target->DespawnOrUnsummon(10000);
+                              target->SetRespawnDelay(1);
+                              break;
+                         case NPC_NECROPOLIS_FLOWER_CONTROLLER_W:
+                              player->KilledMonsterCredit(NPC_NECROPOLIS_FLOWER_CONTROLLER_W,0); 
+							  target->AddAura(SPELL_FLOWER_AURA,target);
+                              target->DespawnOrUnsummon(10000);
+                              target->SetRespawnDelay(1);
+                              break;
+                  }
+               }
+            }
+        }
+
+        void Register()
+        {
+            OnEffectHitTarget += SpellEffectFn(spell_q27421_raynes_seed_SpellScript::HandleDummy, EFFECT_0, SPELL_EFFECT_DUMMY);
+        }
+    };
+
+    SpellScript* GetSpellScript() const
+    {
+        return new spell_q27421_raynes_seed_SpellScript();
+    }
+};
 
 void AddSC_quest_spell_scripts()
 {
@@ -1199,4 +1262,5 @@ void AddSC_quest_spell_scripts()
     new spell_q24813_place_territorial_fetish();
     new spell_q26240_revantusk_drums();
     new spell_q26531_26558_ritual_of_shadra();
+	new spell_q27421_raynes_seed();
 }

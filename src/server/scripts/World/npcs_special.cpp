@@ -2041,15 +2041,15 @@ enum eTrainingDummy
 {
     NPC_ADVANCED_TARGET_DUMMY                  = 2674,
     NPC_TARGET_DUMMY                           = 2673,
-	NPC_CATACLYSM_TARGET_DUMMY                 = 44548,
- 	
- 	SPELL_CHARGE                               = 100,
- 	SPELL_IMMOLATE                             = 348,
- 	SPELL_EVISCERATE                           = 2098,
- 	SPELL_STEADY_SHOT                          = 56641,
- 	SPELL_ARCANE_MISSILES                      = 5143,
- 	SPELL_JUDGEMENT                            = 20271,
- 	SPELL_PRIMAL_STRIKE                        = 73899
+    NPC_CATACLYSM_TARGET_DUMMY                 = 44548,
+    
+    SPELL_CHARGE                               = 100,
+    SPELL_IMMOLATE                             = 348,
+    SPELL_EVISCERATE                           = 2098,
+    SPELL_STEADY_SHOT                          = 56641,
+    SPELL_ARCANE_MISSILES                      = 5143,
+    SPELL_JUDGEMENT                            = 20271,
+    SPELL_PRIMAL_STRIKE                        = 73899
 };
 
 class npc_training_dummy : public CreatureScript
@@ -2084,8 +2084,8 @@ public:
 
             Reset();
         }
-		
-		void SpellHit(Unit* pCaster, SpellEntry const* pSpell)
+        
+        void SpellHit(Unit* pCaster, SpellEntry const* pSpell)
         {
             if(pCaster->GetTypeId() != TYPEID_PLAYER)
                 return;
@@ -2762,6 +2762,52 @@ public:
    }
 };
 
+/*######
+# npc_robocik
+######*/
+#define KickFootbomb         70052
+
+class npc_robocik : public CreatureScript
+{
+public:
+    npc_robocik() : CreatureScript("npc_robocik") { }
+
+    struct npc_robocikAI : public ScriptedAI
+    {
+        npc_robocikAI(Creature* pCreature) : ScriptedAI(pCreature) {}
+        
+        void SpellHit(Unit* caster, const SpellEntry *Spell)
+        {
+            if (caster->GetTypeId() != TYPEID_PLAYER && Spell->Id == KickFootbomb)
+            {
+                Player* plr = me->FindNearestPlayer(80.0f, true);
+                if(plr->GetGUID() == me->GetCreatorGUID())
+                {
+                    plr->KilledMonsterCredit(37114, plr->GetGUID());
+                    me->DespawnOrUnsummon(0);
+                }
+            }
+        }
+        void UpdateAI(const uint32 /*diff*/)
+        { 
+            Player* plr = me->FindNearestPlayer(80.0f, true);
+            if(plr->GetGUID() == me->GetCreatorGUID())
+            {
+                me->SetSpeed(MOVE_RUN, 0.2f);
+                me->GetMotionMaster()->MovePoint(1,-8251.11, 1484.13, 41.4312);
+            }
+
+            DoMeleeAttackIfReady();
+        }
+    };
+
+    CreatureAI *GetAI(Creature *creature) const
+    {
+        return new npc_robocikAI(creature);
+    }
+};
+
+
 void AddSC_npcs_special()
 {
     new npc_air_force_bots;
@@ -2793,4 +2839,5 @@ void AddSC_npcs_special()
     new npc_tabard_vendor;
     new npc_experience;
     new npc_flame_orb;
+    new npc_robocik;
 }

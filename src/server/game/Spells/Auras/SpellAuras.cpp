@@ -1147,15 +1147,31 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                         if (target->GetTypeId() == TYPEID_PLAYER)
                             target->ToPlayer()->RemoveSpellCooldown(20252, true);
                         break;
-					case 70016: // Goblin start zone - Bilgewater Buccaneer Quest
-                        if (target->GetTypeId() != TYPEID_PLAYER) 
-						{
-                            target->NearTeleportTo(-8249.12f, 1484.26f, 41.3055f, 3.0337f, false);
+                    case 70016: // Goblin start zone - Bilgewater Buccaneer Quest
+                        // Vehicle flags
+                        if (target->GetTypeId() != TYPEID_PLAYER) {
+                            target->NearTeleportTo(-8251.11f, 1484.13f, 41.4312f, 3.171410f, false);
                             target->AddUnitMovementFlag(MOVEMENTFLAG_ROOT);
                         }
-                        /*else if (target->GetTypeId() == TYPEID_PLAYER) {
-                            CreaturyDoBicia *summon = target->SummonCreature(
-                        }*/
+                        // Player who directs vehicle
+                        else if (target->GetTypeId() == TYPEID_PLAYER) {
+                            TempSummon *robocik = caster->SummonCreature(37114, -8288.914063f, 1484.573242f, 43.845234f, 0.007740f);                            
+                            robocik->SetCreatorGUID(target->GetGUID());
+                            TempSummon *robocik2 = target->SummonCreature(37114, -8288.813477f, 1489.702637f, 43.878368f, 6.251657f);
+                            robocik2->SetCreatorGUID(target->GetGUID());
+                            TempSummon *robocik3 = target->SummonCreature(37114, -8288.761719f, 1479.212158f, 43.749966f, 6.255581f);
+                            robocik3->SetCreatorGUID(target->GetGUID());
+                            TempSummon *robocik4 = target->SummonCreature(37114, -8288.859375f, 1476.176636f, 43.834030f, 6.267362f);
+                            robocik4->SetCreatorGUID(target->GetGUID());
+                            TempSummon *robocik5 = target->SummonCreature(37114, -8293.665039f, 1476.480957f, 44.059387f, 0.035228f);
+                            robocik5->SetCreatorGUID(target->GetGUID());
+                            TempSummon *robocik6 = target->SummonCreature(37114, -8293.660156f, 1480.443115f, 44.062019f, 6.255583f);
+                            robocik6->SetCreatorGUID(target->GetGUID());
+                            TempSummon *robocik7 = target->SummonCreature(37114, -8293.401367f, 1485.329224f, 44.095272f, 6.228095f);
+                            robocik7->SetCreatorGUID(target->GetGUID());
+                            TempSummon *robocik8 = target->SummonCreature(37114, -8293.126953f, 1491.272949f, 44.124962f, 6.235949f);
+                            robocik8->SetCreatorGUID(target->GetGUID());                            
+                        }
                         break;
                 }
                 break;

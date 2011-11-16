@@ -6362,6 +6362,10 @@ void AuraEffect::HandlePeriodicTriggerSpellAuraTick(Unit* target, Unit* caster) 
                     case 39857:
                         triggerSpellId = 39856;
                         break;
+                    // Kick Footbomb 
+                    case 70051:
+                        triggerSpellId = 70052;
+                        break;
                     // Personalized Weather
                     case 46736:
                         triggerSpellId = 46737;

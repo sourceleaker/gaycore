@@ -3217,6 +3217,10 @@ void SpellMgr::LoadSpellCustomAttr()
             case 63163: // Apply Enchanted Bridle (Argent Tournament)
                spellInfo->Effects[0].DieSides = 0;
                 break;
+            case 70052: // Goblin Start Location :: Kick Footbomb
+                spellInfo->Effects[0].RadiusEntry = sSpellRadiusStore.LookupEntry(12);
+                spellInfo->MaxAffectedTargets = 1;
+                break;
             case 19970: // Entangling Roots (Rank 6) -- Nature's Grasp Proc
             case 19971: // Entangling Roots (Rank 5) -- Nature's Grasp Proc
             case 19972: // Entangling Roots (Rank 4) -- Nature's Grasp Proc

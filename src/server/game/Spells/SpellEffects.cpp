@@ -952,6 +952,23 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                         m_caster->CastSpell(m_caster, 56373, false, NULL);
                     return;
                 }
+                case 71349:                                  // Capture Lasher Seed
+                {
+                    if (m_caster->GetTypeId() != TYPEID_PLAYER)
+                        return;
+
+                    Player* player = (Player*)m_caster;
+
+                    if (player && player->GetQuestStatus(24686) == QUEST_STATUS_INCOMPLETE)
+                    {
+                        if(Creature *creature = player->FindNearestCreature(38202, 10))
+                        {
+                           player->CastSpell(player, 71353, false);
+                           creature->DisappearAndDie();
+                        }
+                    }
+                    return;
+                }
                 case 26074:                                 // Holiday Cheer
                     // implemented at client side
                     return;

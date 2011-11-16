@@ -395,17 +395,14 @@ public:
     {
         npc_restless_earthAI(Creature *c) : ScriptedAI(c) {}
 
-        uint64 PlayerGUID;
 
-        void Reset()
-        {
-            PlayerGUID = 0;
-        }
+        void Reset() { }
+
         void SpellHit(Unit* Hitter, const SpellInfo *Spellkind)
         {
             if (Spellkind->Id == 69453)
             {
-                Hitter->ToPlayer()->KilledMonsterCredit(36872,PlayerGUID);
+                Hitter->ToPlayer()->KilledMonsterCredit(36872,0);
                 me->ForcedDespawn(1500);
             }
         } 

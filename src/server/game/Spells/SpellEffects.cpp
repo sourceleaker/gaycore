@@ -1269,6 +1269,51 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                         }
                     }
                 }
+                case 66298: //Honk Horn
+                {
+                    if (!unitTarget || !unitTarget->ToCreature() || !m_caster->IsVehicle())
+                    return;
+
+                    Unit *rider = m_caster->GetVehicleKit()->GetPassenger(0);
+                    if (!rider)
+                    return;
+
+                
+                    if (unitTarget->HasAuraEffect(66392, EFFECT_0))
+                    return;
+
+                    m_caster->PlayDirectSound(22491,0);
+
+                }
+                case 66299: //Radio
+                {
+                    if (!unitTarget || !unitTarget->ToCreature() || !m_caster->IsVehicle())
+                    return;
+
+                    Unit *rider = m_caster->GetVehicleKit()->GetPassenger(0);
+                    if (!rider)
+                    return;
+                
+                    if (unitTarget->HasAuraEffect(66392, EFFECT_0))
+                    {
+                        m_caster->PlayDirectSound(23406,0);
+                    }
+                    if(unitTarget->HasAura(66299))
+                    return;
+
+                }
+                case 67682: // Liberate Kaja Cola Bomb
+                {
+                    if(m_caster->GetTypeId() != TYPEID_PLAYER)
+                        return;
+
+                    if (unitTarget->GetEntry() != 35818)
+                        return;
+                 
+                    m_caster->SummonGameObject(195492, m_caster->GetPositionX()-0.1, m_caster->GetPositionY()-0.1, m_caster->GetPositionZ(), m_caster->GetOrientation(), 0, 0, 0, 0, 100);
+                    m_caster->SummonGameObject(195492, m_caster->GetPositionX()+0.2, m_caster->GetPositionY()+0.2, m_caster->GetPositionZ(), m_caster->GetOrientation(), 0, 0, 0, 0, 100);
+                    m_caster->SummonGameObject(195492, m_caster->GetPositionX()+0.6, m_caster->GetPositionY()+0.6, m_caster->GetPositionZ(), m_caster->GetOrientation(), 0, 0, 0, 0, 100);
+                }
                 case 62430:                                 // Absorb Fire
                 {
                     if(!unitTarget)

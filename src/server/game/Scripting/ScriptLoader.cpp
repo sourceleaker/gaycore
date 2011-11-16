@@ -405,6 +405,7 @@ void AddSC_echo_isles();
 void AddSC_dustwallow_marsh();
 void AddSC_felwood();
 void AddSC_feralas();
+void AddSC_kezan();
 void AddSC_moonglade();
 void AddSC_mulgore();
 void AddSC_orgrimmar();
@@ -1094,6 +1095,7 @@ void AddKalimdorScripts()
     AddSC_dustwallow_marsh();
     AddSC_felwood();
     AddSC_feralas();
+	AddSC_kezan();
     AddSC_moonglade();
     AddSC_mulgore();
     AddSC_orgrimmar();

@@ -123,6 +123,7 @@ set(scripts_STAT_SRCS
   Kalimdor/winterspring.cpp
   Kalimdor/thousand_needles.cpp
   Kalimdor/ashenvale.cpp
+  Kalimdor/kezan.cpp
   Kalimdor/teldrassil.cpp
   Kalimdor/OnyxiasLair/boss_onyxia.cpp
   Kalimdor/OnyxiasLair/onyxias_lair.h

@@ -476,6 +476,32 @@ public:
     }
 };
 
+/*#####
+# item_kromgar_flame_thrower
+#####*/
+
+class item_kromgar_flame_thrower : public ItemScript
+{
+public:
+    item_kromgar_flame_thrower() : ItemScript("item_kromgar_flame_thrower") { }
+
+    bool OnUse(Player *pPlayer, Item *pItem, SpellCastTargets const & /*targets*/)
+    {
+        if (pPlayer->GetQuestStatus(26010) == QUEST_STATUS_INCOMPLETE)
+        {
+            if (GameObject* pGo = pPlayer->FindNearestGameObject(203431, 15.0f))
+           {
+                pPlayer->CastSpell(pPlayer, 78141, true, NULL); 
+                pGo->SetGoState(GO_STATE_ACTIVE_ALTERNATIVE);
+                pPlayer->KilledMonsterCredit(41936, 0);
+                return true;
+
+          }
+        }
+        return false;
+    }
+};
+
 void AddSC_item_scripts()
 {
     new item_only_for_flight();
@@ -491,4 +517,5 @@ void AddSC_item_scripts()
     new item_trident_of_nazjan();
     new item_captured_frog();
     new item_tiki_torch();
+	new item_kromgar_flame_thrower();
 }

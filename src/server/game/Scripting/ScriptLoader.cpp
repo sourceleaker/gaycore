@@ -155,7 +155,7 @@ void AddSC_gnomeregan();                     //Gnomeregan
 void AddSC_instance_gnomeregan();
 void AddSC_boss_general_umbriss();           //Grimbatol
 void AddSC_boss_forgemaster_throngus();
-void AddSC_boss_drahga_shadowburner();
+//void AddSC_boss_drahga_shadowburner();
 void AddSC_boss_erudax();
 void AddSC_instance_grim_batol();
 void AddSC_boss_attumen();                   //Karazhan
@@ -224,7 +224,7 @@ void AddSC_boss_priestess_azil();
 void AddSC_boss_ozruk();
 void AddSC_boss_slabhide();
 void AddSC_boss_corborus();
-void AddSC_instance_halls_of_origination();  //Halls of Origination 
+//void AddSC_instance_halls_of_origination();  //Halls of Origination 
 void AddSC_boss_ammunae();
 void AddSC_boss_anraphet();
 void AddSC_boss_earthrager_ptah();
@@ -256,11 +256,11 @@ void AddSC_boss_muru();
 void AddSC_boss_kiljaeden();
 void AddSC_sunwell_plateau();
 void AddSC_instance_throne_of_the_tides();   //Abyssal Maw: Throne of the Tides
-void AddSC_boss_ozumat();
+//void AddSC_boss_ozumat();
 void AddSC_boss_ghursha();
-void AddSC_boss_nazjar();
+//void AddSC_boss_nazjar();
 void AddSC_boss_erunak_stonespeaker();
-void AddSC_boss_ulthok();
+//void AddSC_boss_ulthok();
 void AddSC_boss_archaedas();                 //Uldaman
 void AddSC_boss_ironaya();
 void AddSC_uldaman();
@@ -349,7 +349,7 @@ void AddSC_boss_meathook();
 void AddSC_culling_of_stratholme();
 void AddSC_instance_culling_of_stratholme();
 //void AddSC_npc_pusillin();                   //Dire maul
-void AddSC_instance_halls_of_origination();  //Halls of Origination
+//void AddSC_instance_halls_of_origination();  //Halls of Origination
 void AddSC_boss_temple_guardian_anhuur();
 void AddSC_boss_earthrager_ptah();
 void AddSC_boss_anraphet();
@@ -762,7 +762,7 @@ void AddWorldScripts()
     AddSC_npc_professions();
     AddSC_npc_innkeeper();
     AddSC_npcs_special();
-    AddSC_npc_spell_click_spells()
+    AddSC_npc_spell_click_spells();
     AddSC_npc_taxi();
     AddSC_achievement_scripts();
     AddSC_chat_log();
@@ -846,7 +846,7 @@ void AddEasternKingdomsScripts()
     AddSC_instance_gnomeregan();
     AddSC_boss_general_umbriss();           //Grimbatol
     AddSC_boss_forgemaster_throngus();
-    AddSC_boss_drahga_shadowburner();
+    //AddSC_boss_drahga_shadowburner();
     AddSC_boss_erudax();
     AddSC_instance_grim_batol();
     AddSC_boss_attumen();                   //Karazhan
@@ -915,7 +915,7 @@ void AddEasternKingdomsScripts()
     AddSC_boss_ozruk();
     AddSC_boss_slabhide();
     AddSC_boss_corborus();
-    AddSC_instance_halls_of_origination();  //Halls of Origination 
+    //AddSC_instance_halls_of_origination();  //Halls of Origination 
     AddSC_boss_ammunae();
     AddSC_boss_anraphet();
     AddSC_boss_earthrager_ptah();
@@ -947,11 +947,11 @@ void AddEasternKingdomsScripts()
     AddSC_boss_kiljaeden();
     AddSC_sunwell_plateau();
     AddSC_instance_throne_of_the_tides();   //Abyssal Maw: Throne of the Tides
-    AddSC_boss_ozumat();
+    //AddSC_boss_ozumat();
     AddSC_boss_ghursha();
-    AddSC_boss_nazjar();
+    //AddSC_boss_nazjar();
     AddSC_boss_erunak_stonespeaker();
-    AddSC_boss_ulthok();
+    //AddSC_boss_ulthok();
     AddSC_boss_archaedas();                 //Uldaman
     AddSC_boss_ironaya();
     AddSC_uldaman();
@@ -1044,7 +1044,7 @@ void AddKalimdorScripts()
     AddSC_culling_of_stratholme();
     AddSC_instance_culling_of_stratholme();
     //AddSC_npc_pusillin();                   //Dire maul
-    AddSC_instance_halls_of_origination();  //Halls of Origination
+    //AddSC_instance_halls_of_origination();  //Halls of Origination
     AddSC_boss_temple_guardian_anhuur();
     AddSC_boss_earthrager_ptah();
     AddSC_boss_anraphet();

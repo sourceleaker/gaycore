@@ -44,7 +44,7 @@ public:
 
             if (fireball<= diff)
             {
-                if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
+                if (Unit *pTarget = SelectTarget(SELECT_TARGET_RANDOM, 0))
                                                 DoCast(pTarget, spell_fireball);
                 fireball   = 3000; 
             }
@@ -53,7 +53,7 @@ public:
 
             if (invo<= diff)
             {
-                if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
+                if (Unit *pTarget = SelectTarget(SELECT_TARGET_RANDOM, 0))
                                                 DoCast(pTarget, spell_invo);
                 invo   = 5000; 
             }
@@ -107,7 +107,7 @@ public:
 
             if (nova<= diff)
             {
-                if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
+                if (Unit *pTarget = SelectTarget(SELECT_TARGET_RANDOM, 0))
                                                 DoCast(pTarget, spell_nova);
                 nova   = 5000; 
             }
@@ -162,7 +162,7 @@ public:
 
             if (flamme<= diff)
             {
-                if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
+                if (Unit *pTarget = SelectTarget(SELECT_TARGET_RANDOM, 0))
                                                 DoCast(pTarget, IsHeroic() ? spell_devorante_H : spell_flamme);
                 flamme   = 10000; 
             }
@@ -171,7 +171,7 @@ public:
 
             if (coup<= diff)
             {
-                if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
+                if (Unit *pTarget = SelectTarget(SELECT_TARGET_RANDOM, 0))
                                                 DoCast(pTarget, spell_coup);
                 coup   = 2000; 
             }

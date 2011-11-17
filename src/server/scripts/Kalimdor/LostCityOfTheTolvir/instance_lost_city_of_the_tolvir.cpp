@@ -107,7 +107,8 @@ public:
                     SiamatFloorGUID = go->GetGUID();
                     if (GetData(DATA_GENERAL_HUSAM) == DONE && GetData(DATA_HIGH_PROPHET_BARIM) == DONE && GetData(DATA_LOCKMAW) == DONE)
                     {
-                            go->TakenDamage(10000000);
+                        go->DestroyForNearbyPlayers();
+                                
                     }
                     break;
             }

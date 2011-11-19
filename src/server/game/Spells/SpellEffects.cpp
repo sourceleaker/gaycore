@@ -825,7 +825,7 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                     unitTarget->ToCreature()->setDeathState(JUST_ALIVED);
                     return;
                 }
-				case 42411:
+                case 42411:
                 {
                     unitTarget->ToCreature()->ForcedDespawn(500);
                 }
@@ -3574,9 +3574,20 @@ void Spell::EffectSummonType(SpellEffIndex effIndex)
                     float radius = m_spellInfo->Effects[effIndex].CalcRadius();
 
                     uint32 amount = damage > 0 ? damage : 1;
-                    if (m_spellInfo->Id == 18662 || // Curse of Doom
-                        properties->Id == 2081)     // Mechanical Dragonling, Arcanite Dragonling, Mithril Dragonling TODO: Research on meaning of basepoints
-                        amount = 1;
+                    
+                    switch (m_spellInfo->Id)
+                     {
+                        case 62160:
+                        case 62152:
+                        case 62155:
+                        case 62149:
+                        case 2081: // Mechanical Dragonling, Arcanite Dragonling, Mithril Dragonling TODO: Research on meaning of basepoints
+                        case 18662: // Curse of Doom
+                            amount = 1;
+                            break;
+                        default:
+                            break;
+                     }
 
                     if ((properties->Id == 2081 || m_spellInfo->Id == 13258 || m_spellInfo->Id == 13166) && !m_CastItem)
                         return;
@@ -6928,7 +6939,7 @@ void Spell::EffectSendTaxi(SpellEffIndex effIndex)
 
     if (!unitTarget || unitTarget->GetTypeId() != TYPEID_PLAYER)
         return;
-	    int32 MountModelId = 0;
+        int32 MountModelId = 0;
 
     if(TaxiPathEntry const * pTaxi = sTaxiPathStore.LookupEntry(m_spellInfo->EffectMiscValue[effIndex]))
     {
@@ -6951,7 +6962,7 @@ void Spell::EffectSendTaxi(SpellEffIndex effIndex)
         return;
 
     unitTarget->ToPlayer()->Mount(MountModelId);
-	unitTarget->ToPlayer()->GetMotionMaster()->MoveTaxiFlight(m_spellInfo->Effects[effIndex].MiscValue, 0);
+    unitTarget->ToPlayer()->GetMotionMaster()->MoveTaxiFlight(m_spellInfo->Effects[effIndex].MiscValue, 0);
 }
 
 void Spell::EffectPullTowards(SpellEffIndex effIndex)

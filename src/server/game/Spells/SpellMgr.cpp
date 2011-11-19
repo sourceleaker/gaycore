@@ -3199,6 +3199,9 @@ void SpellMgr::LoadSpellCustomAttr()
             case 53246: // Marked for Death (Rank 5)
                 spellInfo->Effects[0].SpellClassMask = flag96(423937, 276955137, 2049);
                 break;
+			case 14792: // Venomhide Poison
+			    spellInfo->Effects[1].Effect = SPELL_EFFECT_NONE;
+			    break;
             case 70728: // Exploit Weakness (needs target selection script)
             case 70840: // Devious Minds (needs target selection script)
                 spellInfo->Effects[0].TargetA = TARGET_UNIT_CASTER;

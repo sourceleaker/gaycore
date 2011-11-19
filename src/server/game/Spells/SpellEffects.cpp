@@ -6941,18 +6941,22 @@ void Spell::EffectSendTaxi(SpellEffIndex effIndex)
         return;
         int32 MountModelId = 0;
 
-    if(TaxiPathEntry const * pTaxi = sTaxiPathStore.LookupEntry(m_spellInfo->EffectMiscValue[effIndex]))
+    SpellEffectEntry const *spellEffect = sSpellEffectStore.LookupEntry(m_spellInfo->Id);
+    if(!spellEffect)
+        return;
+
+    if(TaxiPathEntry const * pTaxi = sTaxiPathStore.LookupEntry(spellEffect->EffectMiscValue))
     {
         if(TaxiNodesEntry const* pNode = sTaxiNodesStore.LookupEntry(pTaxi->from))
         {
             if((pNode->MountCreatureID[1] != 0) || (pNode->MountCreatureID[2] == 0) || (pNode->MountCreatureID[1] == pNode->MountCreatureID[2]))
             {
-                if(CreatureInfo const* pCreature = sObjectMgr->GetCreatureTemplate(pNode->MountCreatureID[1]))
+                if(CreatureTemplate const* pCreature = sObjectMgr->GetCreatureTemplate(pNode->MountCreatureID[1]))
                     MountModelId = pCreature->Modelid1;
             }
             else
             {
-                if(CreatureInfo const* pCreature = sObjectMgr->GetCreatureTemplate(pNode->MountCreatureID[2]))
+                if(CreatureTemplate const* pCreature = sObjectMgr->GetCreatureTemplate(pNode->MountCreatureID[2]))
                     MountModelId = pCreature->Modelid1;
             }
         }

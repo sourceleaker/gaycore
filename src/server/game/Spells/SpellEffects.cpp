@@ -6913,7 +6913,7 @@ void Spell::EffectSendTaxi(SpellEffIndex effIndex)
     if (!unitTarget || unitTarget->GetTypeId() != TYPEID_PLAYER)
         return;
 
-    unitTarget->ToPlayer()->ActivateTaxiPathTo(m_spellInfo->Effects[effIndex].MiscValue, m_spellInfo->Id);
+	unitTarget->ToPlayer()->GetMotionMaster()->MoveTaxiFlight(m_spellInfo->Effects[effIndex].MiscValue, 0);
 }
 
 void Spell::EffectPullTowards(SpellEffIndex effIndex)

@@ -6912,7 +6912,29 @@ void Spell::EffectSendTaxi(SpellEffIndex effIndex)
 
     if (!unitTarget || unitTarget->GetTypeId() != TYPEID_PLAYER)
         return;
+	    int32 MountModelId = 0;
 
+    if(TaxiPathEntry const * pTaxi = sTaxiPathStore.LookupEntry(m_spellInfo->EffectMiscValue[effIndex]))
+    {
+        if(TaxiNodesEntry const* pNode = sTaxiNodesStore.LookupEntry(pTaxi->from))
+        {
+            if((pNode->MountCreatureID[1] != 0) || (pNode->MountCreatureID[2] == 0) || (pNode->MountCreatureID[1] == pNode->MountCreatureID[2]))
+            {
+                if(CreatureInfo const* pCreature = sObjectMgr->GetCreatureTemplate(pNode->MountCreatureID[1]))
+                    MountModelId = pCreature->Modelid1;
+            }
+            else
+            {
+                if(CreatureInfo const* pCreature = sObjectMgr->GetCreatureTemplate(pNode->MountCreatureID[2]))
+                    MountModelId = pCreature->Modelid1;
+            }
+        }
+    }
+
+    if(MountModelId == 0)
+        return;
+
+    unitTarget->ToPlayer()->Mount(MountModelId);
 	unitTarget->ToPlayer()->GetMotionMaster()->MoveTaxiFlight(m_spellInfo->Effects[effIndex].MiscValue, 0);
 }
 

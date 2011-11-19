@@ -1,8 +1,8 @@
 #ifndef __ACORE_REVISION_H__
 #define __ACORE_REVISION_H__
-#define ACORE_REVISION "151"
+#define ACORE_REVISION "152"
 
-#define ACORE_DB_WORLD    "required_149_quest_26146"
+#define ACORE_DB_WORLD    "required_152_Bitter_Rivals"
 #define ACORE_DB_CHAR     "required_03_db_version"
 #define ACORE_DB_AUTH     "required_03_db_version"
 #endif // __ACORE_REVISION_H__

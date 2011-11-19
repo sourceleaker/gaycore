@@ -5174,6 +5174,22 @@ void Spell::EffectScriptEffect(SpellEffIndex effIndex)
                         }
                     }
                     break;
+                case 68167:                                     // Naga Disguise
+                {
+                    if (!unitTarget || unitTarget->GetTypeId() != TYPEID_PLAYER)
+                        return;
+
+                    unitTarget->RemoveAurasByType(SPELL_AURA_TRANSFORM);
+
+                    int32 SpellId = 0;
+
+                    if(unitTarget->getGender() == GENDER_MALE ? SpellId = 68086 : SpellId = 68165)
+                    {
+                        if(SpellId != 0)
+                            unitTarget->CastSpell(unitTarget, SpellId, true);
+                    }
+                    break;
+                }
                 case 48025:                                     // Headless Horseman's Mount
                 {
                     if (!unitTarget || unitTarget->GetTypeId() != TYPEID_PLAYER)

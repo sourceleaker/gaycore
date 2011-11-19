@@ -825,6 +825,10 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                     unitTarget->ToCreature()->setDeathState(JUST_ALIVED);
                     return;
                 }
+				case 42411:
+                {
+                    unitTarget->ToCreature()->ForcedDespawn(500);
+                }
                 case 12162:                                 // Deep wounds
                 case 12850:                                 // (now good common check for this spells)
                 case 12868:

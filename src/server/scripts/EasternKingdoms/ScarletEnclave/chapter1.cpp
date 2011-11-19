@@ -894,11 +894,12 @@ public:
             }
         }
 
-        void PassengerBoarded(Unit* /*who*/, int8 /*seatId*/, bool apply)
+        void PassengerBoarded(Unit* who, int8 /*seatId*/, bool apply)
         {
             if (!apply)
                 if (Creature* miner = Unit::GetCreature(*me, minerGUID))
                     miner->DisappearAndDie();
+                    who->ToPlayer()->setFaction(2095);
         }
     };
 };
@@ -1003,6 +1004,15 @@ public:
                         car->Relocate(car->GetPositionX(), car->GetPositionY(), me->GetPositionZ() + 1);
                         car->SendMonsterStop();
                         car->RemoveAura(SPELL_CART_DRAG);
+
+                        std::list<Player*> players;
+
+                        Trinity::AnyPlayerInObjectRangeCheck checker(me, 10.0f);
+                        Trinity::PlayerListSearcher<Trinity::AnyPlayerInObjectRangeCheck> searcher(me, players, checker);
+                        me->VisitNearbyWorldObject(20.0f, searcher);
+
+                        for (std::list<Player*>::const_iterator itr = players.begin(); itr != players.end(); ++itr)
+                            (*itr)->RestoreFaction();
                     }
                     me->MonsterSay(SAY_SCARLET_MINER2, LANG_UNIVERSAL, 0);
                     break;

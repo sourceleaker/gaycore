@@ -848,6 +848,83 @@ public:
     }
 };
 
+enum eCapturedTotem
+{
+    SPELL_TOTEM_PERIODIC_SPELL       = 42464,
+    NPC_CAPTURED_TOTEM_CREDIT        = 23811,
+    QUEST_GRIMTOTEM_WEAPON           = 27336,
+    NPC_MOTTLED_DRYWALLOW_CROCOLISK  = 4344,
+    NPC_DRYWALLOW_DAGGERMAW          = 4345 // TODO
+};
+
+class npc_captured_totem : public CreatureScript
+{
+public:
+    npc_captured_totem() : CreatureScript("npc_captured_totem") { }
+    
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_captured_totemAI(pCreature);
+    }
+
+    struct npc_captured_totemAI : public ScriptedAI
+    {
+        npc_captured_totemAI(Creature* pCreature) : ScriptedAI(pCreature) 
+        {
+            me->AddUnitMovementFlag(UNIT_FLAG_DISABLE_MOVE);
+            me->SetReactState(REACT_PASSIVE);
+        
+        }
+
+        uint32 castTime;
+        bool started;
+
+        void Reset()
+        {
+            castTime = 0;
+            started = false;
+        }
+
+        void UpdateAI(uint32 const uiDiff)
+        {
+            if (me->isSummon()) 
+            {
+                Player* pOwner = ((TempSummon*)me)->GetSummoner()->ToPlayer();
+                if (pOwner->GetQuestStatus(QUEST_GRIMTOTEM_WEAPON) == QUEST_STATUS_INCOMPLETE)
+                {
+                    if (castTime <= uiDiff)
+                    {
+                        if (Creature* crocko = me->FindNearestCreature(NPC_MOTTLED_DRYWALLOW_CROCOLISK, 8.0f, true))
+                        {
+                            if (started == true)
+                            {
+                                while (Creature* crocko = me->FindNearestCreature(NPC_MOTTLED_DRYWALLOW_CROCOLISK, 8.0f, true))
+                                {
+                                    pOwner -> KilledMonsterCredit(NPC_CAPTURED_TOTEM_CREDIT, 0);
+
+                                    crocko -> setDeathState(JUST_DIED);
+                                }
+                                started = false;
+                            }
+                            else
+                            {
+                                DoCast(me, SPELL_TOTEM_PERIODIC_SPELL, true);
+                                started = true;
+                            }
+                        }
+                        else
+                            started = false;						
+                        castTime = 3600;
+                    } 
+                    else 
+                        castTime -= uiDiff;
+                }
+            }
+         }
+       
+    };
+};
+
 void AddSC_dustwallow_marsh()
 {
     new mobs_risen_husk_spirit();
@@ -862,4 +939,5 @@ void AddSC_dustwallow_marsh()
     new spell_ooze_zap_channel_end();
     new spell_energize_aoe();
     new go_blackhoof_cage();
+	new npc_captured_totem();
 }

@@ -149,7 +149,7 @@ INSERT INTO `vehicle_template_accessory` (`entry`, `accessory_entry`, `seat_id`,
 
 -- Subdued Forest Ettin - waypoints --
 INSERT INTO `waypoints` (`entry`, `pointid`, `position_x`, `position_y`, `position_z`, `point_comment`) VALUES
-(44737, 1, 1339.9, 962.944, 54.5992, 'Subdued Forest Ettin'),
+(44737, 1, 1481.31, 640.555, 46.933, 'Subdued Forest Ettin'),
 (44737, 2, 1465.33, 655.43, 46.6836, 'Subdued Forest Ettin'),
 (44737, 3, 1443.06, 685.084, 47.124, 'Subdued Forest Ettin'),
 (44737, 4, 1431.95, 700.646, 47.124, 'Subdued Forest Ettin'),
@@ -282,14 +282,7 @@ INSERT INTO `waypoints` (`entry`, `pointid`, `position_x`, `position_y`, `positi
 (44737, 131, -8.47254, 1204.27, 64.5497, 'Subdued Forest Ettin'),
 (44737, 132, -18.3127, 1200.61, 64.4378, 'Subdued Forest Ettin'),
 (44737, 133, -31.4329, 1195.73, 64.2796, 'Subdued Forest Ettin'),
-(44737, 134, -37.9929, 1193.28, 64.2268, 'Subdued Forest Ettin'),
-(44737, 135, -47.8331, 1189.62, 64.1114, 'Subdued Forest Ettin'),
-(44737, 136, -54.3932, 1187.18, 64.0111, 'Subdued Forest Ettin'),
-(44737, 137, -63.9095, 1183.92, 63.9814, 'Subdued Forest Ettin'),
-(44737, 138, -73.7041, 1182.69, 64.0004, 'Subdued Forest Ettin'),
-(44737, 139, -83.7963, 1181.64, 63.8596, 'Subdued Forest Ettin'),
-(44737, 140, -94.2957, 1181.53, 63.5454, 'Subdued Forest Ettin'),
-(44737, 141, -103.262, 1181.43, 63.1657, 'Subdued Forest Ettin');
+(44737, 134, -37.9929, 1193.28, 64.2268, 'Subdued Forest Ettin');
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --

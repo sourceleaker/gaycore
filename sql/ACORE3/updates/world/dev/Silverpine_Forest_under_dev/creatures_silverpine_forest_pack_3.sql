@@ -60,7 +60,7 @@ INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entr
 (50463, 0, 0, 0, 0, 0, 36797, 0, 0, 0, 'Franny Mertz', 'Bat Handler', '', 0, 85, 85, 3, 68, 68, 8193, 1, 1, 1, 1, 530, 713, 0, 827, 4.6, 2000, 0, 1, 0, 2048, 0, 0, 0, 0, 0, 399, 559, 169, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 3, 3, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 50463, 613097436, 0, '', 14480);
 
 -- Franny Mertz - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (50463, 1117, 0, 0);
 
 -- Franny Mertz - addon --
@@ -77,7 +77,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- -- -- -- -- -- -- -- -- --
 
 -- Karos Razok - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (2226, 5303, 0, 0);
 
 -- Karos Razok - addon --
@@ -105,7 +105,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Fenwick Thatros - new template --
 
 -- Fenwick Thatros - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (47008, 1117, 0, 0);
 
 -- Fenwick Thatros - addon --
@@ -130,7 +130,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Killian Sanatha - new template --
 
 -- Killian Sanatha - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (5748, 1117, 0, 0);
 
 -- Killian Sanatha - addon --
@@ -149,7 +149,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Bolgaff - new template --
 
 -- Bolgaff - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (47003, 0, 0, 61967);
 
 -- Bolgaff - addon --
@@ -172,7 +172,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Admiral Hatchet - new template --
 
 -- Admiral Hatchet - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (44916, 11763, 11762, 0);
 
 -- Admiral Hatchet - addon --
@@ -193,7 +193,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Warlord Torok - new template --
 
 -- Warlord Torok - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (44917, 0, 0, 0);
 
 -- Warlord Torok - addon --
@@ -214,7 +214,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Advisor Sorrelon - new template --
 
 -- Advisor Sorrelon - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (16288, 0, 0, 0);
 
 -- Advisor Sorrelon - addon --
@@ -233,7 +233,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Alexandre Lefevre - new template --
 
 -- Alexandre Lefevre - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (3552, 2184, 0, 0);
 
 -- Alexandre Lefevre - addon --
@@ -252,7 +252,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Andrea Boynton - new template --
 
 -- Andrea Boynton - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (3554, 5281, 0, 0);
 
 -- Andrea Boynton - addon --
@@ -271,7 +271,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Andrew Hilbert - new template --
 
 -- Andrew Hilbert - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (3556, 2184, 0, 0);
 
 -- Andrew Hilbert - addon --
@@ -290,7 +290,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Angela  Hipple - new template --
 
 -- Angela  Hipple - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (49870, 10616, 10616, 0);
 
 -- Angela  Hipple - addon --
@@ -309,7 +309,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Apothecary Renferrel - new template --
 
 -- Apothecary Renferrel - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (1937, 2200, 0, 0);
 
 -- Apothecary Renferrel - addon --
@@ -328,7 +328,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Bee Bruxworthy - new template --
 
 -- Bee Bruxworthy - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (49718, 11343, 0, 0);
 
 -- Bee Bruxworthy - addon --
@@ -345,7 +345,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Commander Hickley - new template --
 
 -- Commander Hickley - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (45496, 2179, 18166, 0);
 
 -- Commander Hickley - addon --
@@ -364,7 +364,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Innkeeper Bates - new template --
 
 -- Innkeeper Bates - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (6739, 5278, 0, 0);
 
 -- Innkeeper Bates - addon --
@@ -383,7 +383,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Dark Cleric Pordon - new template --
 
 -- Dark Cleric Pordon - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (49715, 2813, 0, 0);
 
 -- Dark Cleric Pordon - addon --
@@ -402,7 +402,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Eugene Daller - new template --
 
 -- Eugene Daller - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (49720, 57762, 0, 0);
 
 -- Eugene Daller - addon --
@@ -421,7 +421,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Elemental Servitor - new template --
 
 -- Elemental Servitor - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (45711, 0, 0, 0);
 
 -- Elemental Servitor - addon --
@@ -478,7 +478,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Guillaume Sorouy - new template --
 
 -- Guillaume Sorouy - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (3557, 1903, 0, 0);
 
 -- Guillaume Sorouy - addon --
@@ -497,7 +497,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Johan Focht - new template --
 
 -- Johan Focht - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (3555, 1910, 0, 0);
 
 -- Johan Focht - addon --
@@ -516,7 +516,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Patrice Dwyer - new template --
 
 -- Patrice Dwyer - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (3551, 2201, 3694, 0);
 
 -- Patrice Dwyer - addon --
@@ -535,7 +535,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Mura Runetotem - new template --
 
 -- Mura Runetotem - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (8385, 6334, 0, 0);
 
 -- Mura Runetotem - addon --
@@ -554,7 +554,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 --  Deathguard Podrig - new template --
 
 --  Deathguard Podrig - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (6389, 1905, 0, 0);
 
 --  Deathguard Podrig - addon --
@@ -573,7 +573,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- High Executor Hadrec - new template --
 
 -- High Executor Hadrec - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (1952, 2183, 0, 0);
 
 -- High Executor Hadrec - addon --
@@ -592,7 +592,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Sebastian Meloche - new template --
 
 -- Sebastian Meloche - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (3553, 1903, 0, 0);
 
 -- Sebastian Meloche - addon --
@@ -611,7 +611,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Shadow Priest Allister - new template --
 
 -- Shadow Priest Allister - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (2121, 2176, 0, 0);
 
 -- Shadow Priest Allister - addon --
@@ -630,7 +630,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Nadia Vernon - new template --
 
 -- Nadia Vernon - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (9553, 0, 0, 5259);
 
 -- Nadia Vernon - addon --
@@ -649,7 +649,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Thom Denger - new template --
 
 -- Thom Denger - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (49716, 5277, 0, 0);
 
 -- Thom Denger - addon --
@@ -668,7 +668,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Astor Hadren - new template --
 
 -- Astor Hadren - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (6497, 0, 0, 0);
 
 -- Astor Hadren - addon --
@@ -687,7 +687,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Hobbes - new template --
 
 -- Hobbes - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (49960, 0, 0, 0);
 
 -- Hobbes - addon --
@@ -706,7 +706,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Matt Bruxworthy - new template --
 
 -- Matt Bruxworthy - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (49958, 56807, 0, 52692);
 
 -- Matt Bruxworthy - addon --
@@ -725,7 +725,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Sarah Goode - new template --
 
 -- Sarah Goode - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (9979, 11424, 0, 0);
 
 -- Sarah Goode - addon --
@@ -744,7 +744,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Dalar Dawnweaver - new template --
 
 -- Dalar Dawnweaver - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (1938, 1908, 0, 0);
 
 -- Dalar Dawnweaver - addon --

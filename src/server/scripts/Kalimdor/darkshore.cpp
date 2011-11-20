@@ -499,6 +499,70 @@ public:
     };
 };
 
+class npc_shattertusk_trigger : public CreatureScript
+{
+public:
+    npc_shattertusk_trigger() : CreatureScript("npc_shattertusk_trigger") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_shattertusk_triggerAI(pCreature);
+    }
+
+    struct npc_shattertusk_triggerAI : public ScriptedAI
+    {
+        npc_shattertusk_triggerAI(Creature *c) : ScriptedAI(c) {}
+
+
+        void Reset()
+        {
+        }
+
+        void SpellHit(Unit *caster, const SpellInfo *spell)
+        {
+            if (spell->Id == 63996)
+            {
+                if(me->HasAura(64043))
+                    return;
+
+                me->AddAura(64043,me);
+                TriggerList(me);
+
+                if (caster->IsVehicle())
+                if (Unit* player = caster->GetVehicleKit()->GetPassenger(0))
+                     player->ToPlayer()->KilledMonsterCredit(33913, 0);
+
+            }
+        }
+
+        void TriggerList(Unit* me)
+        {
+          me->FindNearestCreature(33913, 20.0f);
+
+          std::list<Creature*> pTriggerList;
+          Trinity::AllCreaturesOfEntryInRange checker(me, 33913, 20.0f);
+          Trinity::CreatureListSearcher<Trinity::AllCreaturesOfEntryInRange> searcher(me, pTriggerList, checker);
+          me->VisitNearbyObject(20.0f, searcher);
+
+          if(pTriggerList.empty())
+              return;
+
+          std::list<Creature*>::iterator itr = pTriggerList.begin();
+          uint32 rnd = rand()%pTriggerList.size();
+
+          for(uint32 i = 0; i < rnd; ++i)
+              ++itr;
+
+          (*itr)->AddAura(64043,(*itr));
+        }
+
+        void UpdateAI(const uint32 diff)
+        {
+        }
+    };
+};
+
+
 void AddSC_darkshore()
 {
     new npc_kerlonian();
@@ -506,4 +570,5 @@ void AddSC_darkshore()
     new npc_threshwackonator();
     new npc_SoothingTotem();
     new npc_Tidal_Spirit();
+    new npc_shattertusk_trigger();
 }

@@ -1,8 +1,8 @@
 #ifndef __ACORE_REVISION_H__
 #define __ACORE_REVISION_H__
-#define ACORE_REVISION "201"
+#define ACORE_REVISION "202"
 
-#define ACORE_DB_WORLD    "required_201_Keeping_the_Enemy_at_Bay"
+#define ACORE_DB_WORLD    "required_202_Some_NPCs_added_to_Desolace"
 #define ACORE_DB_CHAR     "required_03_db_version"
 #define ACORE_DB_AUTH     "required_03_db_version"
 #endif // __ACORE_REVISION_H__

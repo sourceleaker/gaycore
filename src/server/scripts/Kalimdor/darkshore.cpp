@@ -32,6 +32,7 @@ EndContentData */
 #include "ScriptPCH.h"
 #include "ScriptedEscortAI.h"
 #include "ScriptedFollowerAI.h"
+#include "Vehicle.h"
 
 /*####
 # npc_kerlonian

@@ -1,4 +1,4 @@
-ALTER TABLE `world_db_version` CHANGE  `required_189_darkshore_missing_npc_object` `required_190_darkshore_missing_npc_object`  BIT(1);
+ALTER TABLE `world_db_version` CHANGE  `required_189_darkshore_missing_npc_object` `required_190_Q_13882`  BIT(1);
 
 DELETE FROM `gossip_menu_option` WHERE `menu_id`=10490;
 INSERT INTO `gossip_menu_option` (`menu_id`, `id`, `option_icon`, `option_text`, `option_id`, `npc_option_npcflag`, `action_menu_id`, `action_poi_id`, `action_script_id`, `box_coded`, `box_money`, `box_text`) VALUES

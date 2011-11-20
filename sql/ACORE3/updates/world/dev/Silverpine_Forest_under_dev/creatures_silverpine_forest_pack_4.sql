@@ -10,10 +10,10 @@
 -- -------- --
 --  DELETE  --
 -- -------- --
-DELETE FROM `creature_equip_template` WHERE `entry` IN (44786,44778,44784,44789,44790);
-DELETE FROM `creature_template_addon` WHERE `entry` IN (44786,44778,44784,44789,44790);
-DELETE FROM `creature` WHERE `id` IN (44786,44778,44784,44789,44790);
-DELETE FROM `creature_template` WHERE `entry` IN (44786,44778,44784,44789,44790);
+DELETE FROM `creature_equip_template` WHERE `entry` IN (44786,44778,44784,44789,44790,45490);
+DELETE FROM `creature_template_addon` WHERE `entry` IN (44786,44778,44784,44789,44790,45490);
+DELETE FROM `creature` WHERE `id` IN (44786,44778,44784,44789,44790,45490);
+DELETE FROM `creature_template` WHERE `entry` IN (44786,44778,44784,44789,44790,45490);
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -122,7 +122,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 
 -- Apothecary Marry - new template --
 INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES 
-(45490, 0, 0, 0, 0, 0, 34075, 0, 0, 0,  'Apothecary Marry',  'Trade Supplies',  '', 0, 1, 1, 0, 35, 35, 0, 1, 1.14286, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '', 0, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,  ''), 
+(45490, 0, 0, 0, 0, 0, 34075, 0, 0, 0,  'Apothecary Marry',  'Trade Supplies',  '', 0, 1, 1, 0, 35, 35, 0, 1, 1.14286, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '', 0, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,  '');
 
 -- Apothecary Marry - spawn --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES

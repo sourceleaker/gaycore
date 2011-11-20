@@ -32,8 +32,8 @@
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (SELECT -`guid` FROM `creature` WHERE `id` = 44913) AND `source_type` = 0;
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (44923,44920,45196,44912,45498,46483,44911,44632) AND `source_type` = 0;
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (4549800,4648300,4648300,4648301,4648302,4648303,4648304,4648305,4648306,4648307,4648308,4648309,4648310,4648311,4648311,4648312,4648313,4648314,4648315) AND `source_type` = 9;
-DELETE FROM `creature_equip_template` WHERE `entry` IN (44923,44920,45196,44632,46483,44793,44912);
-DELETE FROM `creature_template_addon` WHERE `entry` IN (44923,44920,45196,46483,44632,44793);
+DELETE FROM `creature_equip_template` WHERE `entry` IN (44913,44923,44920,45196,44632,46483,44793,44912);
+DELETE FROM `creature_template_addon` WHERE `entry` IN (44913,44923,44920,45196,46483,44632,44793);
 DELETE FROM `creature_addon` WHERE `guid` IN (SELECT `guid` FROM `creature` WHERE `id` = 44913);
 DELETE FROM `creature_addon` WHERE `guid` IN (SELECT `guid` FROM `creature` WHERE `id` = 44911);
 DELETE FROM `waypoints` WHERE `entry` IN (SELECT `guid`*10 FROM `creature` WHERE `id` = 44911);
@@ -157,7 +157,15 @@ SET @GUID20 = (SELECT MAX(guid)+20 FROM `creature`);
 -- -- -- -- -- -- -- -- -- --
 
 -- Orc Sea Dog - new template --
-UPDATE `creature_template` SET `AIName` = 'SmartAI' WHERE `entry` = 44913; -- zmniejszyc speed
+UPDATE `creature_template` SET `AIName` = 'SmartAI' WHERE `entry` = 44913;
+
+-- Orc Sea Dog - equip --
+INSERT INTO `creature_equip_template` (`entry`, `ItemEntry1`, `ItemEntry2`, `ItemEntry3`) VALUES
+(44913, 0, 0, 0);
+
+-- Orc Sea Dog - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(44913, 0, 0, 0, 0, 0, NULL);
 
 -- Orc Sea Dog - spawns --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
@@ -182,82 +190,46 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 (@GUID19, 44913, 0, 1, 1, 0, 0, 1081.37, 1592.4, 27.9108, 4.75621, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (@GUID20, 44913, 0, 1, 1, 0, 0, 1074.23, 1568.82, 28.1164, 6.05629, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
--- Orc Sea Dog - addon --
-INSERT INTO `creature_addon` (`guid`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES 
-(@GUID1, 0, 0, 3, 0, 0, '83831 0'),
-(@GUID2, 0, 0, 3, 0, 0, '83831 0'),
-(@GUID3, 0, 0, 0, 0, 0, '83829 0'),
-(@GUID4, 0, 0, 3, 0, 0, '83831 0'),
-(@GUID5, 0, 0, 0, 0, 0, '83829 0'),
-(@GUID6, 0, 0, 0, 0, 0, '83829 0'),
-(@GUID7, @GUID7*10, 0, 0, 0, 0, '83832 0'),
-(@GUID8, 0, 0, 0, 0, 0, ''), -- need sniffs
-(@GUID9, 0, 0, 0, 0, 0, '83829 0'),
-(@GUID10, 0, 0, 0, 0, 0, '83829 0'),
-(@GUID11, @GUID11*10, 0, 0, 0, 0, '83832 0'),
-(@GUID12, @GUID12*10, 0, 0, 0, 0, '83832 0'),
-(@GUID13, 0, 0, 3, 0, 0, '83831 0'),
-(@GUID14, 0, 0, 1, 0, 0, ''),
-(@GUID15, 0, 0, 1, 0, 0, ''),
-(@GUID16, 0, 0, 1, 0, 0, ''),
-(@GUID17, 0, 0, 0, 0, 0, '83829 0'),
-(@GUID18, 0, 0, 3, 0, 0, '83831 0'),
-(@GUID19, 0, 0, 1, 0, 0, ''),
-(@GUID20, 0, 0, 0, 0, 0, '83829 0');
-
--- Orc Sea Dog - waypoints --
-INSERT INTO `waypoint_data` (`id`, `point`, `position_x`, `position_y`, `position_z`, `delay`, `move_flag`, `action`, `action_chance`, `wpguid`) VALUES
-(@GUID12, 5, 1043.85, 1570.14, 28.0391, 0, 0, 0, 100, 0),
-(@GUID12, 7, 1045.79, 1569.45, 28.0619, 0, 0, 0, 100, 0),
-(@GUID12, 8, 1045.69, 1568.97, 28.0845, 0, 0, 0, 100, 0),
-(@GUID12, 6, 1044.69, 1570.22, 28.0308, 0, 0, 0, 100, 0),
-(@GUID12, 1, 1044.68, 1567.06, 28.1769, 0, 0, 0, 100, 0),
-(@GUID12, 4, 1042.94, 1568.63, 28.1103, 0, 0, 0, 100, 0),
-(@GUID12, 3, 1042.94, 1568.18, 28.1316, 0, 0, 0, 100, 0),
-(@GUID12, 2, 1044.1, 1566.9, 28.1852, 0, 0, 0, 100, 0),
-(@GUID11, 8, 1042.37, 1574.2, 27.8993, 0, 0, 0, 100, 0),
-(@GUID11, 1, 1043, 1573.82, 27.9128, 0, 0, 0, 100, 0),
-(@GUID11, 2, 1043.09, 1572.56, 27.9516, 0, 0, 0, 100, 0),
-(@GUID11, 3, 1042.74, 1571.72, 27.9805, 0, 0, 0, 100, 0),
-(@GUID11, 4, 1041, 1571.52, 27.988, 0, 0, 0, 100, 0),
-(@GUID11, 7, 1041.25, 1574.56, 27.8863, 0, 0, 0, 100, 0),
-(@GUID11, 5, 1040.19, 1572.17, 27.9631, 0, 0, 0, 100, 0),
-(@GUID11, 6, 1040.15, 1573.79, 27.9078, 0, 0, 0, 100, 0),
-(@GUID7, 1, 1036.91, 1564.22, 28.397, 0, 0, 0, 100, 0),
-(@GUID7, 2, 1036.77, 1563.62, 28.3987, 0, 0, 0, 100, 0),
-(@GUID7, 3, 1035.97, 1562.71, 28.4028, 0, 0, 0, 100, 0),
-(@GUID7, 4, 1035.07, 1563.07, 28.4045, 0, 0, 0, 100, 0),
-(@GUID7, 5, 1034.49, 1564.6, 28.4015, 0, 0, 0, 100, 0),
-(@GUID7, 6, 1034.64, 1565.17, 28.3985, 0, 0, 0, 100, 0),
-(@GUID7, 8, 1036.59, 1565.28, 28.3955, 0, 0, 0, 100, 0),
-(@GUID7, 7, 1035.74, 1565.57, 28.3955, 0, 0, 0, 100, 0);
-
 -- Orc Sea Dog - texts --
 INSERT INTO `creature_text` (`entry`, `groupid`, `id`, `text`, `type`, `language`, `probability`, `emote`, `duration`, `sound`, `comment`) VALUES
 (44913, 0, 0, 'Forshaken do... that''sh who...It''sh sho big... Look at it''sh big shtupid neck. I jusht want to choke it to death!', 0, 0, 100, 0, 0, 0, 'Orc Sea Dog 1'),
-(44913, 1, 0, 'I need a drink!', 0, 0, 100, 0, 0, 0, 'Orc Sea Dog 2'),
-(44913, 2, 0, 'It''sh makin'' me hungry... why''s it shooo big? You shome kind of idiot or shomething? Makin'' a chicken sho big... Who doesh that?', 0, 0, 100, 0, 0, 0, 'Orc Sea Dog 3'),
-(44913, 3, 0, 'Thank you, friend. Let''s kill us some overgrown... spiders. Sounded better in my head.', 0, 0, 100, 0, 0, 0, 'Orc Sea Dog 4'),
-(44913, 4, 0, 'We gotta find the matriarch of this operation and end her!', 0, 0, 100, 0, 0, 0, 'Orc Sea Dog 5'),
-(44913, 5, 0, 'Welcome to the party, $Glady:pal!', 0, 0, 100, 0, 0, 0, 'Orc Sea Dog 6'),
-(44913, 6, 0, 'What''sh with the huuuuge bush chick-a-doodle?', 0, 0, 100, 0, 0, 0, 'Orc Sea Dog 7');
+(44913, 1, 0, 'It''sh makin'' me hungry... why''s it shooo big? You shome kind of idiot or shomething? Makin'' a chicken sho big... Who doesh that?', 0, 0, 100, 0, 0, 0, 'Orc Sea Dog 2'),
+(44913, 2, 0, 'What''sh with the huuuuge bush chick-a-doodle?', 0, 0, 100, 0, 0, 0, 'Orc Sea Dog 3');
 
 -- Orc Sea Dog - SAI --
 INSERT INTO `smart_scripts` (`entryorguid`,`source_type`,`id`,`link`,`event_type`,`event_phase_mask`,`event_chance`,`event_flags`,`event_param1`,`event_param2`,`event_param3`,`event_param4`,`action_type`,`action_param1`,`action_param2`,`action_param3`,`action_param4`,`action_param5`,`action_param6`,`target_type`,`target_param1`,`target_param2`,`target_param3`,`target_x`,`target_y`,`target_z`,`target_o`,`comment`) VALUES 
-(-@GUID14, 0, 0, 0, 1, 0, 100, 0, 1, 1, 5000, 5000, 11, 42871, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, "Orc Sea Dog - drink"), 
-(-@GUID15, 0, 0, 0, 1, 0, 100, 0, 1, 1, 5000, 5000, 11, 42871, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, "Orc Sea Dog - drink"), 
-(-@GUID16, 0, 0, 0, 1, 0, 100, 0, 1, 1, 5000, 5000, 11, 42871, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, "Orc Sea Dog - drink"), 
-(-@GUID19, 0, 0, 0, 1, 0, 100, 0, 1, 1, 5000, 5000, 11, 42871, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, "Orc Sea Dog - drink"), 
-(-@GUID9, 0, 0, 0, 1, 0, 100, 0, 1, 1, 70000, 70000, 11, 83885, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, "Orc Sea Dog - visual SICK"), 
-(-@GUID10, 0, 0, 0, 1, 0, 100, 0, 1, 1, 70000, 70000, 11, 83885, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, "Orc Sea Dog - visual SICK"), 
-(-@GUID17, 0, 0, 0, 1, 0, 100, 0, 1, 1, 70000, 70000, 11, 83885, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, "Orc Sea Dog - visual SICK"), 
-(-@GUID3, 0, 0, 0, 1, 0, 100, 0, 1, 1, 70000, 70000, 11, 83885, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, "Orc Sea Dog - visual SICK"), 
-(-@GUID5, 0, 0, 0, 1, 0, 100, 0, 0, 0, 200000, 200000, 1, 6, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, "Orc Sea Dog 1 - taking with Apothecary Wormcrud - text 1"), 
-(-@GUID5, 0, 1, 0, 1, 0, 100, 0, 4000, 4000, 200000, 200000, 11, 48349, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, "Orc Sea Dog 1 - taking with Apothecary Wormcrud - emote point"), 
-(-@GUID20, 0, 0, 0, 1, 0, 100, 0, 8000, 8000, 200000, 200000, 1, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, "Orc Sea Dog 2 - taking with Apothecary Wormcrud - text 1"), 
-(-@GUID20, 0, 1, 0, 1, 0, 100, 0, 12000, 12000, 200000, 200000, 11, 79506, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, "Orc Sea Dog 2 - taking with Apothecary Wormcrud - emote talk"), 
-(-@GUID6, 0, 0, 0, 1, 0, 100, 0, 16000, 16000, 200000, 200000, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, "Orc Sea Dog 3 - taking with Apothecary Wormcrud - text 1"), 
-(-@GUID6, 0, 1, 0, 1, 0, 100, 0, 20000, 20000, 200000, 200000, 11, 48350, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, "Orc Sea Dog 3 - taking with Apothecary Wormcrud - emote roar");
+(-@GUID1, 0, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 87, 4491300, 4491301, 4491302, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - call random timed actionlist on reset'),
+(-@GUID2, 0, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 87, 4491300, 4491301, 4491302, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - call random timed actionlist on reset'),
+(-@GUID3, 0, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 80, 4491303, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - call random timed actionlist on reset'),
+(-@GUID4, 0, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 87, 4491300, 4491301, 4491302, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - call random timed actionlist on reset'),
+(-@GUID8, 0, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 80, 4491304, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - call random timed actionlist on reset'),
+(-@GUID9, 0, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 80, 4491303, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - call random timed actionlist on reset'),
+(-@GUID7, 0, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 87, 4491300, 4491301, 4491302, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - call random timed actionlist on reset'),
+(-@GUID11, 0, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 87, 4491300, 4491301, 4491302, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - call random timed actionlist on reset'),
+(-@GUID10, 0, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 80, 4491303, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - call random timed actionlist on reset'),
+(-@GUID12, 0, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 87, 4491300, 4491301, 4491302, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - call random timed actionlist on reset'),
+(-@GUID13, 0, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 87, 4491300, 4491301, 4491302, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - call random timed actionlist on reset'),
+(-@GUID14, 0, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 87, 4491300, 4491301, 4491302, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - call random timed actionlist on reset'),
+(-@GUID15, 0, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 87, 4491300, 4491301, 4491302, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - call random timed actionlist on reset'),
+(-@GUID16, 0, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 87, 4491300, 4491301, 4491302, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - call random timed actionlist on reset'),
+(-@GUID17, 0, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 80, 4491303, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - call random timed actionlist on reset'),
+(-@GUID18, 0, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 87, 4491300, 4491301, 4491302, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - call random timed actionlist on reset'),
+(-@GUID19, 0, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 87, 4491300, 4491301, 4491302, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - call random timed actionlist on reset'),
+(4491300, 9, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 90, 3, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - emote sleep'),
+(4491300, 9, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 83831, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - cast Drunken Seadog'),
+(4491301, 9, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 83832, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - cast Drunken Seadog'),
+(4491301, 9, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 53, 0, 4491301, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - walking around'),
+(4491302, 9, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 90, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - emote sit'),
+(4491302, 9, 1, 0, 1, 0, 100, 0, 0, 0, 5000, 5000, 11, 42871, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - drink'),
+(4491303, 9, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 83829, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - Drunken Seadog'),
+(4491303, 9, 1, 0, 0, 0, 100, 0, 0, 0, 70000, 70000, 11, 83885, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - SICK!'),
+(4491304, 9, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 83885, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog - yyyy'),
+(-@GUID5, 0, 0, 0, 1, 0, 100, 0, 0, 0, 200000, 200000, 1, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog 1 - taking with Apothecary Wormcrud - text 1'), 
+(-@GUID5, 0, 1, 0, 1, 0, 100, 0, 4000, 4000, 200000, 200000, 11, 48349, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog 1 - taking with Apothecary Wormcrud - emote point'), 
+(-@GUID20, 0, 0, 0, 1, 0, 100, 0, 8000, 8000, 200000, 200000, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog 2 - taking with Apothecary Wormcrud - text 1'), 
+(-@GUID20, 0, 1, 0, 1, 0, 100, 0, 12000, 12000, 200000, 200000, 11, 79506, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog 2 - taking with Apothecary Wormcrud - emote talk'), 
+(-@GUID6, 0, 0, 0, 1, 0, 100, 0, 16000, 16000, 200000, 200000, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog 3 - taking with Apothecary Wormcrud - text 1'), 
+(-@GUID6, 0, 1, 0, 1, 0, 100, 0, 20000, 20000, 200000, 200000, 11, 48350, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Orc Sea Dog 3 - taking with Apothecary Wormcrud - emote roar');
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --

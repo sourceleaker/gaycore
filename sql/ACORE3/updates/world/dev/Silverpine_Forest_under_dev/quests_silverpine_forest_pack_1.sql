@@ -41,24 +41,24 @@
 -- -------- --
 --  DELETE  --
 -- -------- --
-DELETE FROM `smart_scripts` WHERE `entryorguid` IN (44825,44615,44592,44593,45197,44636,44629,44640,44615,44365,44630,44954,44966) AND `source_type` = 0;
-DELETE FROM `smart_scripts` WHERE `entryorguid` IN (8000000,4461500,4436500,4462900,4495400,4495401,4495402,4495403,4495404,4495405,4496600,4496601,4496602,4496603,4496604,4496605,4463000,4463001,4463002) AND `source_type` = 9;
+DELETE FROM `smart_scripts` WHERE `entryorguid` IN (44608,44825,44615,44592,44593,45197,44636,44629,44640,44615,44365,44630,44954,44966) AND `source_type` = 0;
+DELETE FROM `smart_scripts` WHERE `entryorguid` IN (4460800,8000000,4461500,4436500,4462900,4495400,4495401,4495402,4495403,4495404,4495405,4496600,4496601,4496602,4496603,4496604,4496605,4463000,4463001,4463002) AND `source_type` = 9;
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (205099) AND `source_type` = 1;
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (SELECT -`guid` FROM `creature` WHERE `id` = 44630) AND `source_type` = 0;
 DELETE FROM `creature_text` WHERE `entry` IN (44821,44629,44640,44365,44825);
 DELETE FROM `waypoints` WHERE `entry` IN (44640,44608);
-DELETE FROM `creature_equip_template` WHERE `entry` IN (44825,44615,45197,44629,44636,44640,44954,44966,4495400,4495401,4495402,4495403,4495404,4495405,4496600,4496601,4496602,4496603,4496604,4496605);
+DELETE FROM `creature_equip_template` WHERE `entry` IN (44365,44630,44825,44615,45197,44629,44636,44640,44954,44966,4495400,4495401,4495402,4495403,4495404,4495405,4496600,4496601,4496602,4496603,4496604,4496605);
 DELETE FROM `npc_spellclick_spells` WHERE `npc_entry` = 45197;
 DELETE FROM `pickpocketing_loot_template` WHERE `entry` = 45197;
-DELETE FROM `creature_template_addon` WHERE `entry` IN (44825,44636,44615,45197,44608,44951,45104,46034,49213,49044,45583,45609,45625,45802,49128,45105,46033,45775,45761,45584,45610,45626,44609,45318,45473,45555,46032,45106,49129,45314,45585,45611,45627,44610,44608);
-DELETE FROM `creature` WHERE `id` IN (44367,44636,44954,44966,44608,44951,45104,46034,49213,49044,45583,45609,45625,45802,49128,45105,46033,45775,45761,45584,45610,45626,44609,45318,45473,45555,46032,45106,49129,45314,45585,45611,45627,44610,44365,44592,44593,44629,44640,44630,44615);
+DELETE FROM `creature_template_addon` WHERE `entry` IN (44365,44630,44825,44636,44615,45197,44608,44951,45104,46034,49213,49044,45583,45609,45625,45802,49128,45105,46033,45775,45761,45584,45610,45626,44609,45318,45473,45555,46032,45106,49129,45314,45585,45611,45627,44610,44608);
+DELETE FROM `creature` WHERE `id` IN (44630,44825,44367,44636,44954,44966,44608,44951,45104,46034,49213,49044,45583,45609,45625,45802,49128,45105,46033,45775,45761,45584,45610,45626,44609,45318,45473,45555,46032,45106,49129,45314,45585,45611,45627,44610,44365,44592,44593,44629,44640,44630,44615);
 DELETE FROM `creature` WHERE `id` = 39605 AND `map` = 0;
 DELETE FROM `spell_area` WHERE `area` IN (5369,928,305,239);
-DELETE FROM `creature_template` WHERE `entry` IN (44893,44894,44883,44882,44884,44825,44821);
+DELETE FROM `creature_template` WHERE `entry` IN (44893,44894,44883,44882,44884,44825,44821,44630,44365);
 DELETE FROM `gameobject_template` WHERE `entry` IN (205143,205099);
-DELETE FROM `npc_text` WHERE `id` IN (16683);
-DELETE FROM `gossip_menu` WHERE `entry` IN (11892);
-DELETE FROM `gossip_menu_option` WHERE `menu_id` IN (11892);
+DELETE FROM `npc_text` WHERE `id` IN (16683,16575);
+DELETE FROM `gossip_menu` WHERE `entry` IN (11892,11823);
+DELETE FROM `gossip_menu_option` WHERE `menu_id` IN (11892,11823);
 DELETE FROM `gameobject_questrelation` WHERE `id` IN (205143);
 DELETE FROM `gameobject_involvedrelation` WHERE `id` IN (205143);
 DELETE FROM `conditions` WHERE `SourceGroup` IN (11892);
@@ -142,20 +142,21 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 (NULL, 45197, 0, 1, 1, 0, 0, 228.467, 1543.09, 118.064, 5.11381, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
--- ----------- --
---  Variables  --
--- ----------- --
-SET @GUID1 = (SELECT MAX(guid)+1 FROM `creature`);
-SET @GUID2 = (SELECT MAX(guid)+2 FROM `creature`);
-SET @GUID3 = (SELECT MAX(guid)+3 FROM `creature`);
-
-
 -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- Portal from Orgrimmar   (ID: 44630) --
 -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- Portal from Orgrimmar - update template --
-UPDATE `creature_template` SET `unit_flags` = '33554432', `AIName` = 'SmartAI', `flags_extra` = '2' WHERE `entry` = 44630;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(44630, 0, 0, 0, 0, 0, 32698, 0, 0, 0, 'Portal from Orgrimmar', '', '', 0, 1, 1, 0, 35, 35, 0, 1, 1.14286, 1, 0, 2, 2, 0, 24, 1, 0, 0, 1, 33554432, 0, 0, 0, 0, 0, 0, 1, 1, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 2, '', 1);
+
+-- Portal from Orgrimmar - equip --
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
+(44630, 0, 0, 0);
+
+-- Portal from Orgrimmar - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(44630, 0, 0, 0, 0, 0, '');
 
 -- Portal from Orgrimmar - SAI --
 INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
@@ -167,25 +168,50 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- Lady Sylvanas Windrunner - update template --
-UPDATE `creature_template` SET `AIName` = 'SmartAI' WHERE `entry` = 44365;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(44365, 0, 0, 0, 0, 0, 28213, 0, 0, 0, 'Lady Sylvanas Windrunner', 'Banshee Queen', '', 11823, 88, 88, 3, 118, 118, 3, 1, 1, 1, 3, 650, 856, 0, 2000, 35, 2000, 0, 2, 33600, 2048, 0, 0, 0, 0, 0, 0, 0, 0, 7, 2124, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 3, 255.05, 144.481, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44365, 1073741823, 0, '', 0);
+
+-- Lady Sylvanas Windrunner - equip --
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
+(44365, 2179, 0, 42775);
+
+-- Lady Sylvanas Windrunner - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(44365, 0, 29257, 0, 1, 0, '');
+
+-- Lady Sylvanas Windrunner - gossip menu --
+INSERT INTO `gossip_menu` (`entry`, `text_id`) VALUES 
+(11823, 16575);
+
+-- Lady Sylvanas Windrunner - npc text --
+INSERT INTO `npc_text` (`ID`, `text0_0`, `text0_1`, `lang0`, `prob0`, `em0_0`, `em0_1`, `em0_2`, `em0_3`, `em0_4`, `em0_5`, `text1_0`, `text1_1`, `lang1`, `prob1`, `em1_0`, `em1_1`, `em1_2`, `em1_3`, `em1_4`, `em1_5`, `text2_0`, `text2_1`, `lang2`, `prob2`, `em2_0`, `em2_1`, `em2_2`, `em2_3`, `em2_4`, `em2_5`, `text3_0`, `text3_1`, `lang3`, `prob3`, `em3_0`, `em3_1`, `em3_2`, `em3_3`, `em3_4`, `em3_5`, `text4_0`, `text4_1`, `lang4`, `prob4`, `em4_0`, `em4_1`, `em4_2`, `em4_3`, `em4_4`, `em4_5`, `text5_0`, `text5_1`, `lang5`, `prob5`, `em5_0`, `em5_1`, `em5_2`, `em5_3`, `em5_4`, `em5_5`, `text6_0`, `text6_1`, `lang6`, `prob6`, `em6_0`, `em6_1`, `em6_2`, `em6_3`, `em6_4`, `em6_5`, `text7_0`, `text7_1`, `lang7`, `prob7`, `em7_0`, `em7_1`, `em7_2`, `em7_3`, `em7_4`, `em7_5`, `WDBVerified`) VALUES
+(16575, 'In death, we are reborn.', '', 0, 1, 0, 1, 0, 6, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 0, 1);
 
 -- Lady Sylvanas Windrunner - texts --
 INSERT INTO `creature_text` (`entry`, `groupid`, `id`, `text`, `type`, `language`, `probability`, `emote`, `duration`, `sound`, `comment`) VALUES
-(44365, 0, 0, 'Where is that Orge headed buffoon?', 0, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 1'),
-(44365, 1, 0, 'Ah, speak of the devil...', 0, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 2'),
-(44365, 2, 0, 'Warchief, so glad you could make it.', 0, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 3'),
-(44365, 3, 0, 'With the death of the Lich King, many of the more intelligent Scourge became...unemployed. Those ''fiends,'' as you so delicately put it, are called val''kyr. They are under my command now...', 0, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 4'),
-(44365, 4, 0, '...and they are part of the reason that I asked to see you.', 0, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 5'),
-(44365, 5, 0, 'Very well, Warchief. I have solved the plight of the Forsaken!', 0, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 6'),
-(44365, 6, 0, 'As a race, we Forsaken are unable to procreate.', 0, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 7'),
-(44365, 7, 0, 'With the aid of the val''kyr, we are now able to take the corpses of the fallen and create new Forsaken.', 0, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 8'),
-(44365, 8, 0, 'Agatha, show the Warchief!', 0, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 9'),
-(44365, 9, 0, 'Warchief, without these new Forsaken my people would die out...Out hold upon Gilneas and northern Lordaeron would crumble.', 0, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 10'),
-(44365, 10, 0, 'Isn''t it obvious, Warchief? I serve the Horde. ', 0, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 11');
+(44365, 0, 0, 'Where is that Orge headed buffoon?', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 1'),
+(44365, 1, 0, 'Ah, speak of the devil...', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 2'),
+(44365, 2, 0, 'Warchief, so glad you could make it.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 3'),
+(44365, 3, 0, 'With the death of the Lich King, many of the more intelligent Scourge became...unemployed. Those ''fiends,'' as you so delicately put it, are called val''kyr. They are under my command now...', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 4'),
+(44365, 4, 0, '...and they are part of the reason that I asked to see you.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 5'),
+(44365, 5, 0, 'Very well, Warchief. I have solved the plight of the Forsaken!', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 6'),
+(44365, 6, 0, 'As a race, we Forsaken are unable to procreate.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 7'),
+(44365, 7, 0, 'With the aid of the val''kyr, we are now able to take the corpses of the fallen and create new Forsaken.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 8'),
+(44365, 8, 0, 'Agatha, show the Warchief!', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 9'),
+(44365, 9, 0, 'Warchief, without these new Forsaken my people would die out...Out hold upon Gilneas and northern Lordaeron would crumble.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 10'),
+(44365, 10, 0, 'Isn''t it obvious, Warchief? I serve the Horde. ', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 11');
 
 -- Lady Sylvanas Windrunner - spawn --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
 (NULL, 44365, 0, 1, 6, 0, 0, 1381.7, 1041.26, 54.3171, 4.02848, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+
+-- ----------- --
+--  Variables  --
+-- ----------- --
+SET @AGATHA1 = (SELECT MAX(guid)+1 FROM `creature`);
+SET @PORTAL1 = (SELECT MAX(guid)+2 FROM `creature`);
+
 
 -- Lady Sylvanas Windrunner - SAI --
 INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
@@ -198,7 +224,7 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (4436500, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44630, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1393.27, 1021.2, 53.22253, 0, 'Sylvanas Windrunner - The Warchief Cometh - spawn Portal to Orgrimmar'),
 (4436500, 9, 6, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44630, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1358.62, 1054.72, 53.12003, 0, 'Sylvanas Windrunner - The Warchief Cometh - spawn Portal to Orgrimmar'),
 (4436500, 9, 7, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20460, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - sound 2'),
-(4436500, 9, 8, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1357.85, 1050.12, 52.99823, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
+(4436500, 9, 8, 0, 0, 0, 100, 1, 2000, 2000, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1357.85, 1050.12, 52.99823, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
 (4436500, 9, 9, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1359.1, 1046.55, 52.97053, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
 (4436500, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1360.75, 1048.84, 53.12893, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
 (4436500, 9, 11, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0,1360.89, 1051.81, 53.19793, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
@@ -214,9 +240,9 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (4436500, 9, 21, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1388.16, 1020.88, 53.25523, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
 (4436500, 9, 22, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1389.79, 1024.51, 53.20833, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
 (4436500, 9, 23, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1391.1, 1027.73, 53.20483, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
-(4436500, 9, 24, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44629, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1401.2, 1065.524, 60.479, 3.848, 'Sylvanas Windrunner - The Warchief Cometh - spawn Garrosh Hellscream'),
+(4436500, 9, 24, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44629, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1379.41, 1043.7, 54.145, 3.745, 'Sylvanas Windrunner - The Warchief Cometh - spawn Garrosh Hellscream'),
 (4436500, 9, 25, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44640, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1403.3, 1071.4242, 60.479, 1.281524, 'Sylvanas Windrunner - The Warchief Cometh - spawn High Warlord Cromush'),
-(4436500, 9, 26, 0, 0, 0, 100, 1, 0, 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 9, 44630, 50, 75, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - set orientation to Portal to Orgrimmar'),
+(4436500, 9, 26, 0, 0, 0, 100, 1, 0, 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 10, @PORTAL1, 44630, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - set orientation to Portal to Orgrimmar'),
 (4436500, 9, 27, 0, 0, 0, 100, 1, 4000, 4000, 0, 0, 66, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - set home orientation'),
 (4436500, 9, 28, 0, 0, 0, 100, 1, 33000, 33000, 0, 0, 66, 0, 0, 0, 0, 0, 0, 9, 44629, 0, 25, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - set orientation to Garrosh Hellscream'),
 (4436500, 9, 29, 0, 0, 0, 100, 1, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - text 3'),
@@ -234,12 +260,19 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (4436500, 9, 41, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20466, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - sound 8'),
 (4436500, 9, 42, 0, 0, 0, 100, 0, 8000, 8000, 0, 0, 1, 8, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - text 9'),
 (4436500, 9, 43, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20467, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - sound 9'),
-(4436500, 9, 44, 0, 0, 0, 100, 0, 4000, 4000, 0, 0, 11, 0, 0, 0, 0, 0, 0, 9, 44608, 0, 50, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - this is Agatha moment, her moment!'),
+(4436500, 9, 44, 0, 0, 0, 100, 0, 4000, 4000, 0, 0, 75, 94688, 0, 0, 0, 0, 0, 10, @AGATHA1, 44608, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - this is Agatha moment, her moment!'),
 (4436500, 9, 45, 0, 0, 0, 100, 0, 36000, 36000, 0, 0, 1, 9, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - text 10'),
 (4436500, 9, 46, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20468, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - sound 10'),
 (4436500, 9, 47, 0, 0, 0, 100, 0, 22000, 20000, 0, 0, 1, 10, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - text 11'),
 (4436500, 9, 48, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20469, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - sound 11');
 
+-- Portal from Orgrimmar - spawn as trigger for Sylvanas --
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(@PORTAL1, 44630, 0, 1, 4096, 0, 0, 1403.228, 1062.7825, 60.4785, 4, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+-- Agatha - spawn --
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(@AGATHA1, 44608, 0, 1, 2, 0, 0, 1364.1, 1028.6, 58.4662, 0.715585, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- -- -- -- -- -- -- -- -- -- --
 -- Fallen Human   (ID: 44592) --
@@ -247,6 +280,10 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 
 -- Fallen Human - update template --
 UPDATE `creature_template` SET `dynamicflags` = '32', `type_flags` = '0', `AIName` = 'SmartAI' WHERE `entry` = 44592;
+
+-- Fallen Human - equip --
+
+-- Fallen Human - addon --
 
 -- Fallen Human - SAI --
 INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES 
@@ -274,6 +311,10 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Fallen Human - update template --
 UPDATE `creature_template` SET `dynamicflags` = '32', `type_flags` = '0', `AIName` = 'SmartAI' WHERE `entry` = 44593;
 
+-- Fallen Human - equip --
+
+-- Fallen Human - addon --
+
 -- Fallen Human - SAI --
 INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES 
 (44593, 0, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 75, 79153, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, "Fallen Human - visual death");
@@ -297,17 +338,19 @@ UPDATE `creature_template` SET `AIName` = 'SmartAI', `InhabitType` = '1', `speed
 INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES 
 (44629, 28773, 0, 0);
 
+-- Garrosh Hellcream - addon --
+
 -- Garrosh Hellcream - texts --
 INSERT INTO `creature_text` (`entry`, `groupid`, `id`, `text`, `type`, `language`, `probability`, `emote`, `duration`, `sound`, `comment`) VALUES
-(44629, 0, 0, 'This better be important, Sylvanas. You know how I detest this place and its foul stench. Why have you called for me?', 0, 0, 100, 0, 0, 0, 'Garrosh Hellscream 1'),
-(44629, 1, 0, 'And more importantly, what are those Scourge fiends doing here?', 0, 0, 100, 0, 0, 0, 'Garrosh Hellscream 2'),
-(44629, 2, 0, 'Get on with it, Sylvanas.', 0, 0, 100, 0, 0, 0, 'Garrosh Hellscream 3'),
-(44629, 3, 0, 'What you have done here, Sylvanas... it goes against the laws of nature. Disgusting is the only word I have to describe it.', 0, 0, 100, 0, 0, 0, 'Garrosh Hellscream 4'),
-(44629, 4, 0, 'Have you given any thought to what this means, Sylvanas?', 0, 0, 100, 0, 0, 0, 'Garrosh Hellscream 5'),
-(44629, 5, 0, 'What difference is there between you and the Lich King now?', 0, 0, 100, 0, 0, 0, 'Garrosh Hellscream 6'),
-(44629, 6, 0, 'Watch your clever mouth, bitch.', 0, 0, 100, 0, 0, 0, 'Garrosh Hellscream 7'),
-(44629, 7, 0, 'Cromush, you stay behind and make sure the Banshee Queen is well "guarded." I will be expecting a full report when next we meet.', 0, 0, 100, 0, 0, 0, 'Garrosh Hellscream 8'),
-(44629, 8, 0, 'Remember, Sylvanas, eventually we all have to stand before our maker and face judgment. Your day may come sooner than others''....', 0, 0, 100, 0, 0, 0, 'Garrosh Hellscream 9');
+(44629, 0, 0, 'This better be important, Sylvanas. You know how I detest this place and its foul stench. Why have you called for me?', 12, 0, 100, 0, 0, 0, 'Garrosh Hellscream 1'),
+(44629, 1, 0, 'And more importantly, what are those Scourge fiends doing here?', 12, 0, 100, 0, 0, 0, 'Garrosh Hellscream 2'),
+(44629, 2, 0, 'Get on with it, Sylvanas.', 12, 0, 100, 0, 0, 0, 'Garrosh Hellscream 3'),
+(44629, 3, 0, 'What you have done here, Sylvanas... it goes against the laws of nature. Disgusting is the only word I have to describe it.', 12, 0, 100, 0, 0, 0, 'Garrosh Hellscream 4'),
+(44629, 4, 0, 'Have you given any thought to what this means, Sylvanas?', 12, 0, 100, 0, 0, 0, 'Garrosh Hellscream 5'),
+(44629, 5, 0, 'What difference is there between you and the Lich King now?', 12, 0, 100, 0, 0, 0, 'Garrosh Hellscream 6'),
+(44629, 6, 0, 'Watch your clever mouth, bitch.', 12, 0, 100, 0, 0, 0, 'Garrosh Hellscream 7'),
+(44629, 7, 0, 'Cromush, you stay behind and make sure the Banshee Queen is well "guarded." I will be expecting a full report when next we meet.', 12, 0, 100, 0, 0, 0, 'Garrosh Hellscream 8'),
+(44629, 8, 0, 'Remember, Sylvanas, eventually we all have to stand before our maker and face judgment. Your day may come sooner than others''....', 12, 0, 100, 0, 0, 0, 'Garrosh Hellscream 9');
 
 -- Garrosh Hellscream - SAI --
 INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
@@ -362,17 +405,11 @@ UPDATE `creature_template` SET `AIName` = 'SmartAI', `equipment_id` = '44640' WH
 INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES 
 (44640, 18871, 0, 0);
 
+-- High Warlord Cromush - addon --
+
 -- High Warlord Cromush - texts --
 INSERT INTO `creature_text` (`entry`, `groupid`, `id`, `text`, `type`, `language`, `probability`, `emote`, `duration`, `sound`, `comment`) VALUES
-(44640, 0, 0, 'FOR THE HORDE!!!', 1, 0, 100, 0, 0, 0, 'High Warlord Cromush 1'),
-(44640, 1, 0, 'ABBERATION!', 0, 0, 100, 0, 0, 0, 'High Warlord Cromush 2'),
-(44640, 2, 0, 'As you command, Warchief!', 0, 0, 100, 0, 0, 0, 'High Warlord Cromush 3'),
-(44640, 3, 0, 'Be warned, Belmont. If I find out that you''re lying...', 0, 0, 100, 0, 0, 0, 'High Warlord Cromush 4'),
-(44640, 4, 0, 'For the Horde...', 0, 0, 100, 0, 0, 0, 'High Warlord Cromush 5'),
-(44640, 5, 0, 'The coward...killed them...poisoned...me...', 0, 0, 100, 0, 0, 0, 'High Warlord Cromush 6'),
-(44640, 6, 0, 'Then I''m sure you won''t mind if I accompany you on your mission.', 0, 0, 100, 0, 0, 0, 'High Warlord Cromush 7'),
-(44640, 7, 0, 'Unless I''m mistaken, the Warchief explicity forbids using the full plague, no matter the circumstance.', 0, 0, 100, 0, 0, 0, 'High Warlord Cromush 8'),
-(44640, 8, 0, 'You''ll see the Warchief''s wrath firsthand.', 0, 0, 100, 0, 0, 0, 'High Warlord Cromush 9');
+(44640, 0, 0, 'As you command, Warchief!', 12, 0, 100, 0, 0, 0, 'High Warlord Cromush 1');
 
 -- High Warlord Cromush - SAI --
 INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
@@ -434,9 +471,17 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (45627, 0, 0, 50331648, 1, 0, ''),
 (44610, 0, 0, 50331648, 1, 0, '');
 
+-- Agatha - SAI --
+INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
+(44608, 0, 0, 0, 23, 0, 100, 0, 94688, 1, 0, 0, 80, 4460800, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Agatha - call timed actionlist when has aura'),
+(4460800, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 28, 94688, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Agatha - remove aura from spell'),
+(4460800, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 0, 44608, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Agatha - start wp'),
+(4460800, 9, 2, 0, 0, 0, 100, 1, 11000, 11000, 0, 0, 54, 8000, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Agatha - pause at wp 2'),
+(4460800, 9, 3, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 83173, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Agatha - cast Raise Forsaken'),
+(4460800, 9, 6, 0, 0, 0, 100, 1, 13000, 13000, 0, 0, 66, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Agatha - set home orientation');
+
 -- Agatha & Daschla & Arthura - spawns --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 44608, 0, 1, 2, 0, 0, 1364.1, 1028.6, 58.4662, 0.715585, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (NULL, 44608, 0, 1, 4, 0, 0, 1364.02, 1028.54, 55.9914, 0.855211, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (NULL, 44609, 0, 1, 6, 0, 0, 1365.73, 1024.98, 57.0244, 1.13446, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (NULL, 44610, 0, 1, 6, 0, 0, 1360.81, 1030.57, 56.874, 0.645772, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
@@ -446,9 +491,9 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 
 -- Agatha - waypoints --
 INSERT INTO `waypoints` (`entry`, `pointid`, `position_x`, `position_y`, `position_z`, `point_comment`) VALUES 
-(44608, 0, 1364.064, 1028.712, 71.34, 'Agatha 1'),
-(44608, 1, 135.42, 1033.81, 50.6522, 'Agatha 2'),
-(44608, 2, 1364.1, 1028.6, 58.466, 'Agatha 3');
+(44608, 1, 1364.064, 1028.712, 71.34, 'Agatha 1'),
+(44608, 2, 1370.70, 1032.824, 58.75, 'Agatha 2'),
+(44608, 3, 1364.1, 1028.6, 58.466, 'Agatha 3');
 
 
 -- -- -- -- -- -- -- -- --
@@ -476,10 +521,6 @@ INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `ite
 INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
 (44615, 0, 0, 0, 0, 0, NULL);
 
--- Grand Executor Mortuus - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 44615, 0, 1, 6, 0, 0, 1383.47, 1038.86, 54.3172, 3.89889, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
 -- Grand Executor Mortuus - SAI --
 INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
 (44615, 0, 0, 0, 19, 0, 100, 0, 26965, 0, 0, 0, 22, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Grand Executor Mortuus - set event phase 2 when The Warchief Cometh is activated'),
@@ -487,6 +528,10 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (44615, 0, 2, 0, 25, 0, 100, 0, 0, 0, 0, 0, 22, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Grand Executor Mortuus - set event phase 1 on reset'),
 (4461500, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 75, 94688, 0, 0, 0, 0, 0, 9, 44365, 0, 25, 0, 0, 0, 0, 'Grand Executor Mortuus - The Warchief Cometh - information for Sylvanas the quest is activated'),
 (4461500, 9, 1, 0, 0, 0, 100, 1, 192000, 192000, 0, 0, 22, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Grand Executor Mortuus - The Warchief Cometh - return to event phase 1 after end of event');
+
+-- Grand Executor Mortuus - spawn --
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44615, 0, 1, 6, 0, 0, 1383.47, 1038.86, 54.3172, 3.89889, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -564,6 +609,8 @@ INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `ite
 (4495403, 25587, 13604, 0),
 (4495404, 1906, 0, 0),
 (4495405, 2703, 0, 0);
+
+-- Hillsbrad Refugee - addon --
 
 -- Hillsbrad Refugee - SAI --
 INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
@@ -669,8 +716,8 @@ INSERT INTO `gossip_menu` (`entry`, `text_id`) VALUES
 
 -- Bat Hangler Maggotbreath - gossip menu option --
 INSERT INTO `gossip_menu_option` (`menu_id`, `id`, `option_icon`, `option_text`, `option_id`, `npc_option_npcflag`, `action_menu_id`, `action_poi_id`, `action_script_id`, `box_coded`, `box_money`, `box_text`) VALUES 
-(11892, 0, 0, 'I need to take a bat to the Dawning Isles.', 8193, 0, 0, 0, 0, 0, 0, NULL), 
-(11892, 1, 2, 'Show me where I can fly.', 8192, 8193, 0, 0, 0, 0, 0, NULL);
+(11892, 0, 0, 'I need to take a bat to the Dawning Isles.', 1, 8193, 0, 0, 0, 0, 0, NULL), 
+(11892, 1, 2, 'Show me where I can fly.', 4, 8193, 0, 0, 0, 0, 0, NULL);
 
 -- Bat Hangler Maggotbreath - npc text --
 INSERT INTO `npc_text` (`ID`, `text0_0`, `text0_1`, `lang0`, `prob0`, `em0_0`, `em0_1`, `em0_2`, `em0_3`, `em0_4`, `em0_5`, `text1_0`, `text1_1`, `lang1`, `prob1`, `em1_0`, `em1_1`, `em1_2`, `em1_3`, `em1_4`, `em1_5`, `text2_0`, `text2_1`, `lang2`, `prob2`, `em2_0`, `em2_1`, `em2_2`, `em2_3`, `em2_4`, `em2_5`, `text3_0`, `text3_1`, `lang3`, `prob3`, `em3_0`, `em3_1`, `em3_2`, `em3_3`, `em3_4`, `em3_5`, `text4_0`, `text4_1`, `lang4`, `prob4`, `em4_0`, `em4_1`, `em4_2`, `em4_3`, `em4_4`, `em4_5`, `text5_0`, `text5_1`, `lang5`, `prob5`, `em5_0`, `em5_1`, `em5_2`, `em5_3`, `em5_4`, `em5_5`, `text6_0`, `text6_1`, `lang6`, `prob6`, `em6_0`, `em6_1`, `em6_2`, `em6_3`, `em6_4`, `em6_5`, `text7_0`, `text7_1`, `lang7`, `prob7`, `em7_0`, `em7_1`, `em7_2`, `em7_3`, `em7_4`, `em7_5`, `WDBVerified`) VALUES
@@ -678,7 +725,7 @@ INSERT INTO `npc_text` (`ID`, `text0_0`, `text0_1`, `lang0`, `prob0`, `em0_0`, `
 
 -- Bat Handler Maggotbreath - texts --
 INSERT INTO `creature_text` (`entry`, `groupid`, `id`, `text`, `type`, `language`, `probability`, `emote`, `duration`, `sound`, `comment`) VALUES
-(44825, 0, 0, 'You better bring that bat back in one piece, $N!', 0, 0, 100, 0, 0, 0, 'Bat Hangler Maggotbreath 1');
+(44825, 0, 0, 'You better bring that bat back in one piece, $N!', 12, 0, 100, 0, 0, 0, 'Bat Hangler Maggotbreath 1');
 
 -- Bat Handler Maggotbreath - SAI --
 INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
@@ -770,8 +817,8 @@ Waypoint 31: X: 1409.315 Y: 589.131 Z: 131.5308
 
 -- Forsaken Bat - texts --
 INSERT INTO `creature_text` (`entry`, `groupid`, `id`, `text`, `type`, `language`, `probability`, `emote`, `duration`, `sound`, `comment`) VALUES
-(44821, 0, 0, 'Returning to Forsaken High Command!$B$B|r|TInterface\Icons\ACHIEVEMENT_ZONE_SILVERPINE_01.BLP:24|t', 0, 0, 100, 0, 0, 0, 'Forsaken Bat 1'),
-(44821, 1, 0, 'Eliminate all murlocs by using the Blight Concoction!$B$B|r|TInterface\Icons\INV_ALCHEMY_POTION_05.BLP:24|t', 0, 0, 100, 0, 0, 0, 'Forsaken Bat 2');
+(44821, 0, 0, 'Returning to Forsaken High Command!$B$B|r|TInterface\Icons\ACHIEVEMENT_ZONE_SILVERPINE_01.BLP:24|t', 41, 0, 100, 0, 0, 0, 'Forsaken Bat 1'),
+(44821, 1, 0, 'Eliminate all murlocs by using the Blight Concoction!$B$B|r|TInterface\Icons\INV_ALCHEMY_POTION_05.BLP:24|t', 41, 0, 100, 0, 0, 0, 'Forsaken Bat 2');
 
 -- Forsaken Bat - SAI --
 

@@ -796,7 +796,7 @@ void WorldSession::HandleAreaTriggerOpcode(WorldPacket& recv_data)
     uint32 triggerId;
     recv_data >> triggerId;
 
-    sLog->outDebug(LOG_FILTER_NETWORKIO, "CMSG_AREATRIGGER. Trigger ID: %u", triggerId);
+    sLog->outDetail("CMSG_AREATRIGGER. Trigger ID: %u", triggerId);
 
     Player* player = GetPlayer();
     if (player->isInFlight())
@@ -1624,6 +1624,18 @@ void WorldSession::HandleCancelMountAuraOpcode(WorldPacket & /*recv_data*/)
 
     _player->Unmount();
     _player->RemoveAurasByType(SPELL_AURA_MOUNTED);
+}
+
+void WorldSession::HandleMoveStartSwimCheat(WorldPacket & recv_data)
+{
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: MSG_MOVE_START_SWIM_CHEAT");
+    recv_data.hexlike();
+
+    if(_player->IsMounted())
+    {
+        _player->Unmount();
+        _player->RemoveAurasByType(SPELL_AURA_MOUNTED);
+    }
 }
 
 void WorldSession::HandleMoveSetCanFlyAckOpcode(WorldPacket & recv_data)

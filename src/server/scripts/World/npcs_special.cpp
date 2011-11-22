@@ -2794,7 +2794,7 @@ public:
             if(plr->GetGUID() == me->GetCreatorGUID())
             {
                 me->SetSpeed(MOVE_RUN, 0.2f);
-                me->GetMotionMaster()->MovePoint(1, -8251.11f, 1484.13f, 41.4312f);
+                me->GetMotionMaster()->MovePoint(1,-8251.11f, 1484.13f, 41.4312f);
             }
 
             DoMeleeAttackIfReady();

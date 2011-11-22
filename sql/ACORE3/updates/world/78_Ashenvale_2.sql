@@ -1,4 +1,4 @@
-ALTER TABLE `world_db_version` CHANGE  `required_77_TwinPeaks_Gates` `required_78_Ashenvale_2`  BIT(1);
+ALTER TABLE `world_db_version` CHANGE  `required_74_wolves_and_quest_protecing_our_own` `required_78_Ashenvale_2`  BIT(1);
 
 DELETE FROM npc_spellclick_spells WHERE npc_entry=33374;
 INSERT INTO npc_spellclick_spells (npc_entry, spell_id, quest_start, quest_start_active, quest_end, cast_flags, aura_required, aura_forbidden, user_type)VALUES

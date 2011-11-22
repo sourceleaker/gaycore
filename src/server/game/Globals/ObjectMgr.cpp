@@ -1973,11 +1973,6 @@ Player* ObjectMgr::GetPlayerByLowGUID(uint32 lowguid) const
     return ObjectAccessor::FindPlayer(guid);
 }
 
-Player* ObjectMgr::GetPlayer(uint64 guid) const
-{
-    return ObjectAccessor::FindPlayer(guid);
-}
-
 // name must be checked to correctness (if received) before call this function
 uint64 ObjectMgr::GetPlayerGUIDByName(std::string name) const
 {

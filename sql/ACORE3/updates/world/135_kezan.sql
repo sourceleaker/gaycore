@@ -409,7 +409,7 @@ INSERT INTO spell_linked_spell (spell_trigger, spell_effect, TYPE, COMMENT)VALUE
 
 UPDATE creature_template SET ScriptName='npc_liberate_chunk' WHERE entry=35818;
 
-DELETE FROM conditions WHERE SourceTypeOrReferenceId=13 AND SourceEntry=35818;
+DELETE FROM conditions WHERE SourceTypeOrReferenceId=13 AND SourceEntry=67682;
 INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `ElseGroup`, `ConditionTypeOrReference`, `ConditionValue1`, `ConditionValue2`, `ConditionValue3`, `ErrorTextId`, `ScriptName`, `Comment`) VALUES
 ('13','0','67682','0','18','1','35818','2','0','0','test liberate kajacola');
 

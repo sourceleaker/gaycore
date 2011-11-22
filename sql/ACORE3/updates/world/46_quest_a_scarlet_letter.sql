@@ -47,7 +47,7 @@ INSERT INTO `waypoints` (`entry`, `pointid`, `position_x`, `position_y`, `positi
 (39002, 6, 2441.78, 1597.64, 72.1558, 'Scarlet Lieutenant Gebler');
 
 -- Gebler - Equip_template --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `ItemEntry1`, `ItemEntry2`, `ItemEntry3`) VALUES
 (39002, 59550, 0, 0);
 
 -- Gebler - spellclick for Lilian (can't be used by player) --
@@ -114,7 +114,7 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (38999, 0, 0, 0, 1, 0, '');
 
 -- Lilian Voss - Equip_template --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `ItemEntry1`, `ItemEntry2`, `ItemEntry3`) VALUES
 (38999, 0, 0, 0);
 
 -- Conditions --

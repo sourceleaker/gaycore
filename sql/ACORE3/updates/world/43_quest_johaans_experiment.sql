@@ -18,7 +18,7 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (1931, 0, 0, 0, 1, 431, '');
 
 -- Creature - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES
+INSERT INTO `creature_equip_template` (`entry`, `ItemEntry1`, `ItemEntry2`, `ItemEntry3`) VALUES
 (1931, 0, 0, 0);
 
 -- Texts for Captured Scarlet Zealot --

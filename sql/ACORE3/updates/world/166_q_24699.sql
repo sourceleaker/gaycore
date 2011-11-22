@@ -43,7 +43,7 @@ INSERT INTO conditions (SourceTypeOrReferenceId, SourceGroup, SourceEntry, ElseG
 
 DELETE FROM `conditions` WHERE `SourceTypeOrReferenceID`=13 AND `SourceEntry`=71978 AND `SourceGroup`=0;
 INSERT INTO `conditions` (`SourceTypeOrReferenceId`,`SourceGroup`,`SourceEntry`,`ConditionTypeOrReference`,`elseGroup`,`ConditionValue1`,`ConditionValue2`,`ConditionValue3`,`ErrorTextId`,`Comment`) VALUES
-(13,0,71978,18,0,2,38307,0,0,'Dummy effect from Scrape Sticky Tar hit dead Gormashh'),
+(13,0,71978,18,0,2,38307,0,0,'Dummy effect from Scrape Sticky Tar hit dead Gormashh');
 
 UPDATE `creature_template` SET `AIName`='SmartAI' WHERE `entry`=38307;
 DELETE FROM `smart_scripts` WHERE `entryorguid`=6517 AND `source_type`=0;

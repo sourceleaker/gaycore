@@ -7,8 +7,8 @@ INSERT INTO `gameobject_template` (`entry`,`type`,`displayId`,`name`,`castBarCap
 
 DELETE FROM `gameobject` WHERE `id` IN (207321,207320);
 INSERT INTO `gameobject`(`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`position_x`,`position_y`,`position_z`,`orientation`,`rotation0`,`rotation1`,`rotation2`,`rotation3`,`spawntimesecs`,`animprogress`,`state`) VALUES 
-(NULL,207320,0,1,1,-4937.462,-914.8524,501.4554,5.393069,0,0,0,-0.4305105,0.9025856,60,100,1),
-(NULL,207320,1,1,1,9951.521,2496.556,1317.266,5.131269,0,0,0,-0.5446386,0.8386708,60,100,1);
+(NULL,207320,0,1,1,-4937.462,-914.8524,501.4554,5.393069,0,0,-0.4305105,0.9025856,60,100,1),
+(NULL,207321,1,1,1,9951.521,2496.556,1317.266,5.131269,0,0,-0.5446386,0.8386708,60,100,1);
 
 DELETE FROM `gameobject_questrelation` WHERE `id` IN (207321,207320);
 INSERT INTO `gameobject_questrelation`(`id`,`quest`) VALUES 

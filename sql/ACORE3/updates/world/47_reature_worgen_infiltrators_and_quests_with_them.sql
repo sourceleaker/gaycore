@@ -16,7 +16,7 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (38976, 0, 2, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 81464, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Worgen Dust Bunny - Invisibility (7)');
 
 -- Worgen Dust Bunny - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES 
+INSERT INTO `creature_equip_template` (`entry`, `ItemEntry1`, `ItemEntry2`, `ItemEntry3`) VALUES
 (38976, 0, 0, 0);
 
 -- Worgen Infiltrators - update templates --
@@ -24,7 +24,7 @@ UPDATE `creature_template` SET `minlevel` = '7', `maxlevel` = '8', `faction_A` =
 UPDATE `creature_template` SET `minlevel` = '7', `maxlevel` = '8', `faction_A` = '7', `faction_H` = '7', `mindmg` = '4', `maxdmg` = '9', `attackpower` = '44', `baseattacktime` = '2000', `AIName` = 'SmartAI', `MovementType` = '1', `equipment_id` = '38967' WHERE `entry` = 38967;
 
 -- Worgen Infiltrators - equip --
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES 
+INSERT INTO `creature_equip_template` (`entry`, `ItemEntry1`, `ItemEntry2`, `ItemEntry3`) VALUES
 (38949, 14151, 0, 0),
 (38967, 14151, 0, 0);
 

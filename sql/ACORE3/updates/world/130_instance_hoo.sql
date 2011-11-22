@@ -160,7 +160,7 @@ DELETE FROM `smart_scripts` WHERE `entryorguid`=@ENTRY AND `source_type`=@SOURCE
 UPDATE creature_template SET AIName="",  ScriptName ='boss_temple_guardian_anhuur' WHERE entry=@ENTRY LIMIT 1;
 UPDATE `creature_template` SET `equipment_id` = 39425 WHERE `entry` = 39425;
 DELETE FROM `creature_equip_template` WHERE (`entry`=39425);
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES (39425, 55064, '0', '0');
+INSERT INTO `creature_equip_template` (`entry`, `ItemEntry1`, `ItemEntry2`, `ItemEntry3`) VALUES (39425, 55064, '0', '0');
 -- Temple Guardian Anhuur
 DELETE FROM `creature_loot_template` WHERE `entry`= 39425;
 INSERT INTO `creature_loot_template` (`entry`, `item`, `ChanceOrQuestChance`, `lootmode`, `groupid`, `mincountOrRef`, `maxcount`) VALUES

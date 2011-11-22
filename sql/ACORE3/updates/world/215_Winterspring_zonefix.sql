@@ -174,5 +174,5 @@ INSERT INTO creature_questrelation VALUES
 UPDATE creature_template SET npcflag=0 WHERE entry=7456;
 
 DELETE FROM creature WHERE id =10806;
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-('10806','1','1','1','0','0','7121.27','-4663.79','638.67','1.55504','120','0','0','3374','0','0','0','0','0','0');
+INSERT INTO `creature` (`id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+('10806','1','1','1','0','0','-7121.27','-4663.79','638.67','1.55504','120','0','0','3374','0','0','0','0','0','0');

@@ -1004,6 +1004,8 @@ public:
                         car->Relocate(car->GetPositionX(), car->GetPositionY(), me->GetPositionZ() + 1);
                         car->SendMonsterStop();
                         car->RemoveAura(SPELL_CART_DRAG);
+                        car->RestoreFaction();
+                        me->RestoreFaction();
 
                         std::list<Player*> players;
 

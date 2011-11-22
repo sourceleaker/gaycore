@@ -1318,15 +1318,29 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                     m_caster->SummonGameObject(195492, m_caster->GetPositionX()+0.2, m_caster->GetPositionY()+0.2, m_caster->GetPositionZ(), m_caster->GetOrientation(), 0, 0, 0, 0, 100);
                     m_caster->SummonGameObject(195492, m_caster->GetPositionX()+0.6, m_caster->GetPositionY()+0.6, m_caster->GetPositionZ(), m_caster->GetOrientation(), 0, 0, 0, 0, 100);
                 }
-                case 62430:                                 // Absorb Fire
-                {
-                    if(!unitTarget)
-                       return;
-    
-                    unitTarget->CastSpell(unitTarget, 65348, true);
-                    unitTarget->ToCreature()->ForcedDespawn(3000);
-                    return;
-                }
+                case 62624:                                 // Torch Shatterspear Supplies
+                 {
+                     if(!unitTarget)
+                        return;
+
+                     if(unitTarget->HasAura(71025))
+                         return;
+     
+                     m_caster->ToPlayer()->KilledMonsterCredit(33056,0);
+                     unitTarget->CastSpell(unitTarget, 71025, true);
+                     unitTarget->ToCreature()->ForcedDespawn(3000);
+                     unitTarget->ToCreature()->SetRespawnDelay(60);
+                     return;
+                 }
+                 case 62430:                                 // Absorb Fire
+                 {
+                     if(!unitTarget)
+                        return;
+     
+                     unitTarget->CastSpell(unitTarget, 65348, true);
+                     unitTarget->ToCreature()->ForcedDespawn(3000);
+                     return;
+                 }
                 case 68996:                                 // Two forms (worgen transformation spell)
                 {
                     if (m_caster->GetTypeId() == TYPEID_PLAYER && !m_caster->isInCombat())

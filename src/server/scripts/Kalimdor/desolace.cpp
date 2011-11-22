@@ -344,7 +344,7 @@ public:
                Kodo->GetMotionMaster()->MoveRandom(10);
                Kodo->ToCreature()->ForcedDespawn(10000);
                if (me->isSummon())
-                  if (Unit *summoner = CAST_SUM(me)->GetSummoner())
+				   if (Unit *summoner = me->ToTempSummon()->GetSummoner())
                       if (summoner->GetTypeId() == TYPEID_PLAYER)
                           summoner->ToPlayer()->KilledMonsterCredit(me->GetEntry(), 0);
     

@@ -1297,7 +1297,44 @@ public:
         return true;
     }
 };
+/*######
+## go_grovekeepers_incense
+######*/
 
+#define GOSSIP_ITEM_1 "Breathe in the smoke to entice visions of the great animal spirit."
+
+enum eGrovekeepersIncense
+{
+    QUEST_THE_RITUAL_BOND           = 13569,
+    SPELL_GROVEKEEPERS_TRANCE       = 64198,
+};
+
+class go_grovekeepers_incense : public GameObjectScript
+{
+public:
+    go_grovekeepers_incense() : GameObjectScript("go_grovekeepers_incense") { }
+
+    bool OnGossipHello(Player *pPlayer, GameObject *pGo)
+    {
+
+        if (pPlayer->GetQuestStatus(QUEST_THE_RITUAL_BOND) == QUEST_STATUS_INCOMPLETE)
+        {
+            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_1, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
+            pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pGo), pGo->GetGUID());
+        } return true;
+    }
+
+    bool OnGossipSelect(Player *pPlayer, GameObject *pGO, uint32 /*uiSender*/, uint32 uiAction)
+    {
+        pPlayer->PlayerTalkClass->ClearMenus();
+        if (uiAction == GOSSIP_ACTION_INFO_DEF +1)
+        {
+            pPlayer->CLOSE_GOSSIP_MENU();
+
+            pGO->CastSpell(pPlayer, SPELL_GROVEKEEPERS_TRANCE);
+        } return true;
+    }
+};
 
 void AddSC_go_scripts()
 {
@@ -1341,4 +1378,5 @@ void AddSC_go_scripts()
     new go_large_gjalerbron_cage;
     new go_makeshift_cage;
     new go_quilboar_cage;
+    new go_grovekeepers_incense;
 }

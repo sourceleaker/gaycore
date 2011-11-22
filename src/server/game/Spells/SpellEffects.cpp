@@ -1332,6 +1332,21 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                      unitTarget->ToCreature()->SetRespawnDelay(60);
                      return;
                  }
+                 case 72520:                                 // Throw Burning Rum
+                 {
+                    uint32 KillCredit = 0;
+                    switch(unitTarget->GetEntry())
+                    {
+                        case 38660: KillCredit = unitTarget->GetEntry(); break;
+                        case 38662: KillCredit = unitTarget->GetEntry(); break;
+                        case 38665: KillCredit = unitTarget->GetEntry(); break;
+                        default: break;
+                    }
+                    unitTarget->CastSpell(unitTarget, 71025, true);
+                    m_caster->ToPlayer()->KilledMonsterCredit(KillCredit, 0);
+                    unitTarget->ToCreature()->ForcedDespawn(3000);
+                    unitTarget->ToCreature()->SetRespawnDelay(60);
+                 }
                  case 62430:                                 // Absorb Fire
                  {
                      if(!unitTarget)

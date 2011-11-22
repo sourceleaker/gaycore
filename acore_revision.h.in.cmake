@@ -1,8 +1,8 @@
 #ifndef __ACORE_REVISION_H__
 #define __ACORE_REVISION_H__
-#define ACORE_REVISION "207"
+#define ACORE_REVISION "208"
 
-#define ACORE_DB_WORLD    "required_207_Winterspring_QuestLine"
+#define ACORE_DB_WORLD    "required_208_ShamanTauren_PCIS"
 #define ACORE_DB_CHAR     "required_03_db_version"
 #define ACORE_DB_AUTH     "required_03_db_version"
 #endif // __ACORE_REVISION_H__

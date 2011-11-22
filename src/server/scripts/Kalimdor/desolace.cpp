@@ -302,6 +302,57 @@ public:
     }
 };
 
+enum
+{
+    NPC_ENRAGED_KODO     = 36094
+};
+
+class npc_enraged_kodo_kc_bunny : public CreatureScript
+{
+public:
+    npc_enraged_kodo_kc_bunny() : CreatureScript("npc_enraged_kodo_kc_bunny") { }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_enraged_kodo_kc_bunnyAI (pCreature);
+    }
+
+    struct npc_enraged_kodo_kc_bunnyAI : public ScriptedAI
+    {
+        npc_enraged_kodo_kc_bunnyAI(Creature *c) : ScriptedAI(c) { }
+
+
+        void Reset()
+        {
+        }
+
+        void MoveInLineOfSight(Unit* who)
+        {
+            ScriptedAI::MoveInLineOfSight(who);
+
+            if (who->GetEntry() == NPC_ENRAGED_KODO && me->IsWithinDistInMap(who, 20.0f))
+                who->GetMotionMaster()->MovePoint(0, me->GetPositionX(), me->GetPositionY(), me->GetPositionZ());
+        }
+
+        void UpdateAI(const uint32 uiDiff)
+        {
+            if (Creature* Kodo = me->FindNearestCreature(NPC_ENRAGED_KODO, 2.0f)) 
+            {
+               Kodo->StopMoving();
+               me->DespawnOrUnsummon(10000);
+               Kodo->UpdateEntry(36113);
+               Kodo->GetMotionMaster()->MoveRandom(10);
+               Kodo->ToCreature()->ForcedDespawn(10000);
+               if (me->isSummon())
+                  if (Unit *summoner = CAST_SUM(me)->GetSummoner())
+                      if (summoner->GetTypeId() == TYPEID_PLAYER)
+                          summoner->ToPlayer()->KilledMonsterCredit(me->GetEntry(), 0);
+    
+            }
+        }
+    };
+};
+
 
 void AddSC_desolace()
 {
@@ -309,4 +360,5 @@ void AddSC_desolace()
     new go_iruxos();
     new npc_dalinda();
     new npc_rejuvenated_thunder_lizard();
+    new npc_enraged_kodo_kc_bunny();
 }

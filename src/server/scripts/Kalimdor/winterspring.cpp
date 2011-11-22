@@ -277,20 +277,20 @@ public:
     };
 };
 
-class npc_icicle : public CreatureScript
+class npc_icicle_winterspring : public CreatureScript
 {
 public:
 
-    npc_icicle() : CreatureScript("npc_icicle") { }
+    npc_icicle_winterspring() : CreatureScript("npc_icicle_winterspring") { }
 
     CreatureAI* GetAI(Creature* pCreature) const
     {
-        return new npc_icicleAI(pCreature);
+        return new npc_icicle_winterspringAI(pCreature);
     }
 
-    struct npc_icicleAI : public ScriptedAI
+    struct npc_icicle_winterspringAI : public ScriptedAI
     {
-        npc_icicleAI(Creature* pCreature) : ScriptedAI(pCreature){}
+        npc_icicle_winterspringAI(Creature* pCreature) : ScriptedAI(pCreature){}
 
         bool bEntered;
 
@@ -377,6 +377,6 @@ void AddSC_winterspring()
     new npc_kilram();
     new go_echo_three();
     new ice_yeti_ambusher();
-    new npc_icicle();
+    new npc_icicle_winterspring();
     new npc_seril();
 }

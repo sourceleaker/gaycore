@@ -73,7 +73,7 @@ DELETE FROM gameobject WHERE id=175927;
 UPDATE quest_template SET RequestItemsText='You must\'ve done something really bad to us or our friends, $N. At any rate, I\'m here to offer you a way to get our good graces back.\n
 As you know, Winterspring is quite cold. With so many of us goblins coming from other cities, we could use a hand keeping warm. Bring me some runecloth and coal and I\'ll put in the good word for ya. Be warned though, our enemies are not going to take kindly to your helping us. ' WHERE entry=9266;
 UPDATE creature_template SET ScriptName='npc_kilram' WHERE entry=11192;
-UPDATE creature_template SET VehicleId=622, Inhabittype=4, ScriptName='npc_icicle' WHERE entry=48916;
+UPDATE creature_template SET VehicleId=622, Inhabittype=4, ScriptName='npc_icicle_winterspring' WHERE entry=48916;
 UPDATE gameobject_template SET ScriptName='go_echo_three' WHERE entry=207291;
 
 DELETE FROM creature_template_addon WHERE entry = 48916;

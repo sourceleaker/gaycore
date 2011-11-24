@@ -42,19 +42,21 @@
 --  DELETE  --
 -- -------- --
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (44608,44825,44615,44592,44593,45197,44636,44629,44640,44615,44365,44630,44954,44966) AND `source_type` = 0;
-DELETE FROM `smart_scripts` WHERE `entryorguid` IN (4460800,8000000,4461500,4436500,4462900,4495400,4495401,4495402,4495403,4495404,4495405,4496600,4496601,4496602,4496603,4496604,4496605,4463000,4463001,4463002) AND `source_type` = 9;
+DELETE FROM `smart_scripts` WHERE `entryorguid` IN (4459200,4459201,4459202,4459203,4459204,4459205,4459206,4459207,4459208,4459209,4459210,4459300,4459301,4459302,4459303,4459200,4459201,4459202,4459203,4460800,8000000,4461500,4436500,4462900,4495400,4495401,4495402,4495403,4495404,4495405,4496600,4496601,4496602,4496603,4496604,4496605,4463000,4463001,4463002) AND `source_type` = 9;
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (205099) AND `source_type` = 1;
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (SELECT -`guid` FROM `creature` WHERE `id` = 44630) AND `source_type` = 0;
+DELETE FROM `smart_scripts` WHERE `entryorguid` IN (SELECT -`guid` FROM `creature` WHERE `id` = 44592) AND `source_type` = 0;
+DELETE FROM `smart_scripts` WHERE `entryorguid` IN (SELECT -`guid` FROM `creature` WHERE `id` = 44593) AND `source_type` = 0;
 DELETE FROM `creature_text` WHERE `entry` IN (44821,44629,44640,44365,44825);
-DELETE FROM `waypoints` WHERE `entry` IN (44640,44608);
-DELETE FROM `creature_equip_template` WHERE `entry` IN (44365,44630,44825,44615,45197,44629,44636,44640,44954,44966,4495400,4495401,4495402,4495403,4495404,4495405,4496600,4496601,4496602,4496603,4496604,4496605);
+DELETE FROM `waypoints` WHERE `entry` IN (446400,446080,445930,445931,445932,445933,445935,445920,445921,445922,445923,445924,445925,445926,445927,445928,445929);
+DELETE FROM `creature_equip_template` WHERE `entry` IN (44592,44593,44365,44630,44825,44615,45197,44629,44636,44640,44954,44966,4495400,4495401,4495402,4495403,4495404,4495405,4496600,4496601,4496602,4496603,4496604,4496605);
 DELETE FROM `npc_spellclick_spells` WHERE `npc_entry` = 45197;
 DELETE FROM `pickpocketing_loot_template` WHERE `entry` = 45197;
-DELETE FROM `creature_template_addon` WHERE `entry` IN (44365,44630,44825,44636,44615,45197,44608,44951,45104,46034,49213,49044,45583,45609,45625,45802,49128,45105,46033,45775,45761,45584,45610,45626,44609,45318,45473,45555,46032,45106,49129,45314,45585,45611,45627,44610,44608);
+DELETE FROM `creature_template_addon` WHERE `entry` IN (44592,44593,44365,44630,44825,44636,44615,45197,44608,44951,45104,46034,49213,49044,45583,45609,45625,45802,49128,45105,46033,45775,45761,45584,45610,45626,44609,45318,45473,45555,46032,45106,49129,45314,45585,45611,45627,44610,44608);
 DELETE FROM `creature` WHERE `id` IN (44630,44825,44367,44636,44954,44966,44608,44951,45104,46034,49213,49044,45583,45609,45625,45802,49128,45105,46033,45775,45761,45584,45610,45626,44609,45318,45473,45555,46032,45106,49129,45314,45585,45611,45627,44610,44365,44592,44593,44629,44640,44630,44615);
 DELETE FROM `creature` WHERE `id` = 39605 AND `map` = 0;
 DELETE FROM `spell_area` WHERE `area` IN (5369,928,305,239);
-DELETE FROM `creature_template` WHERE `entry` IN (44893,44894,44883,44882,44884,44825,44821,44630,44365);
+DELETE FROM `creature_template` WHERE `entry` IN (44893,44894,44883,44882,44884,44825,44821,44630,44365,44592,44593);
 DELETE FROM `gameobject_template` WHERE `entry` IN (205143,205099);
 DELETE FROM `npc_text` WHERE `id` IN (16683,16575);
 DELETE FROM `gossip_menu` WHERE `entry` IN (11892,11823);
@@ -203,7 +205,7 @@ INSERT INTO `creature_text` (`entry`, `groupid`, `id`, `text`, `type`, `language
 
 -- Lady Sylvanas Windrunner - spawn --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 44365, 0, 1, 6, 0, 0, 1381.7, 1041.26, 54.3171, 4.02848, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(NULL, 44365, 0, 1, 4102, 0, 0, 1381.7, 1041.26, 54.3171, 4.02848, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- ----------- --
@@ -219,35 +221,35 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (4436500, 9, 0, 0, 28, 0, 100, 1, 94688, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - remove aura'),
 (4436500, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - text 1'),
 (4436500, 9, 2, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20459, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - sound 1'),
-(4436500, 9, 3, 0, 0, 0, 100, 1, 8000, 8000, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - text 2'),
-(4436500, 9, 4, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44630, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1404.71, 1063.73, 60.56173, 0, 'Sylvanas Windrunner - The Warchief Cometh - spawn Portal to Orgrimmar'),
-(4436500, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44630, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1393.27, 1021.2, 53.22253, 0, 'Sylvanas Windrunner - The Warchief Cometh - spawn Portal to Orgrimmar'),
-(4436500, 9, 6, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44630, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1358.62, 1054.72, 53.12003, 0, 'Sylvanas Windrunner - The Warchief Cometh - spawn Portal to Orgrimmar'),
-(4436500, 9, 7, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20460, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - sound 2'),
-(4436500, 9, 8, 0, 0, 0, 100, 1, 2000, 2000, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1357.85, 1050.12, 52.99823, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
-(4436500, 9, 9, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1359.1, 1046.55, 52.97053, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
-(4436500, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1360.75, 1048.84, 53.12893, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
-(4436500, 9, 11, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0,1360.89, 1051.81, 53.19793, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
-(4436500, 9, 12, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1363.08, 1048.15, 53.22223, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
-(4436500, 9, 13, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1364.08, 1050.84, 53.29163, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
-(4436500, 9, 14, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1364.43, 1053.62, 53.29343, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
-(4436500, 9, 15, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1366.69, 1050.31, 53.34203, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
-(4436500, 9, 16, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1384.33, 1022.04, 53.28123, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
-(4436500, 9, 17, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1385.79, 1025.99, 53.22593, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
-(4436500, 9, 18, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1386.69, 1023.26, 53.24393, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
-(4436500, 9, 19, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1387.9, 1029.71, 53.21853, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
-(4436500, 9, 20, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1388.05, 1026.91, 53.20833, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
-(4436500, 9, 21, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1388.16, 1020.88, 53.25523, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
-(4436500, 9, 22, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1389.79, 1024.51, 53.20833, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
-(4436500, 9, 23, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1391.1, 1027.73, 53.20483, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
-(4436500, 9, 24, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44629, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1379.41, 1043.7, 54.145, 3.745, 'Sylvanas Windrunner - The Warchief Cometh - spawn Garrosh Hellscream'),
-(4436500, 9, 25, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44640, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1403.3, 1071.4242, 60.479, 1.281524, 'Sylvanas Windrunner - The Warchief Cometh - spawn High Warlord Cromush'),
-(4436500, 9, 26, 0, 0, 0, 100, 1, 0, 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 10, @PORTAL1, 44630, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - set orientation to Portal to Orgrimmar'),
-(4436500, 9, 27, 0, 0, 0, 100, 1, 4000, 4000, 0, 0, 66, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - set home orientation'),
-(4436500, 9, 28, 0, 0, 0, 100, 1, 33000, 33000, 0, 0, 66, 0, 0, 0, 0, 0, 0, 9, 44629, 0, 25, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - set orientation to Garrosh Hellscream'),
+(4436500, 9, 3, 0, 0, 0, 100, 1, 5000, 5000, 0, 0, 12, 44630, 3, 250000, 0, 0, 0, 8, 0, 0, 0, 1404.71, 1063.73, 60.56173, 0, 'Sylvanas Windrunner - The Warchief Cometh - spawn Portal to Orgrimmar'),
+(4436500, 9, 4, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44630, 3, 250000, 0, 0, 0, 8, 0, 0, 0, 1393.27, 1021.2, 53.22253, 0, 'Sylvanas Windrunner - The Warchief Cometh - spawn Portal to Orgrimmar'),
+(4436500, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44630, 3, 250000, 0, 0, 0, 8, 0, 0, 0, 1358.62, 1054.72, 53.12003, 0, 'Sylvanas Windrunner - The Warchief Cometh - spawn Portal to Orgrimmar'),
+(4436500, 9, 6, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 66, 0, 0, 0, 0, 0, 0, 10, @PORTAL1, 44630, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - set orientation to Portal to Orgrimmar'),
+(4436500, 9, 7, 0, 0, 0, 100, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - text 2'),
+(4436500, 9, 8, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20460, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - sound 2'),
+(4436500, 9, 9, 0, 0, 0, 100, 1, 3000, 3000, 0, 0, 12, 44636, 3, 120000, 0, 0, 0, 8, 0, 0, 0, 1357.85, 1050.12, 52.99823, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
+(4436500, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 210000, 0, 0, 0, 8, 0, 0, 0, 1359.1, 1046.55, 52.97053, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
+(4436500, 9, 11, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 210000, 0, 0, 0, 8, 0, 0, 0, 1360.75, 1048.84, 53.12893, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
+(4436500, 9, 12, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 210000, 0, 0, 0, 8, 0, 0, 0,1360.89, 1051.81, 53.19793, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
+(4436500, 9, 13, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 210000, 0, 0, 0, 8, 0, 0, 0, 1363.08, 1048.15, 53.22223, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
+(4436500, 9, 14, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 210000, 0, 0, 0, 8, 0, 0, 0, 1364.08, 1050.84, 53.29163, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
+(4436500, 9, 15, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 210000, 0, 0, 0, 8, 0, 0, 0, 1364.43, 1053.62, 53.29343, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
+(4436500, 9, 16, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 210000, 0, 0, 0, 8, 0, 0, 0, 1366.69, 1050.31, 53.34203, 5.253441, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
+(4436500, 9, 17, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 210000, 0, 0, 0, 8, 0, 0, 0, 1384.33, 1022.04, 53.28123, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
+(4436500, 9, 18, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 210000, 0, 0, 0, 8, 0, 0, 0, 1385.79, 1025.99, 53.22593, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
+(4436500, 9, 19, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 210000, 0, 0, 0, 8, 0, 0, 0, 1386.69, 1023.26, 53.24393, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
+(4436500, 9, 20, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 210000, 0, 0, 0, 8, 0, 0, 0, 1387.9, 1029.71, 53.21853, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
+(4436500, 9, 21, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 210000, 0, 0, 0, 8, 0, 0, 0, 1388.05, 1026.91, 53.20833, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
+(4436500, 9, 22, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 210000, 0, 0, 0, 8, 0, 0, 0, 1388.16, 1020.88, 53.25523, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
+(4436500, 9, 23, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 210000, 0, 0, 0, 8, 0, 0, 0, 1389.79, 1024.51, 53.20833, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
+(4436500, 9, 24, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44636, 3, 210000, 0, 0, 0, 8, 0, 0, 0, 1391.1, 1027.73, 53.20483, 2.827433, 'Sylvanas Windrunner - The Warchief Cometh - spawn Hellscream''s Elite'),
+(4436500, 9, 25, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44629, 3, 210000, 0, 0, 0, 8, 0, 0, 0, 1379.41, 1043.7, 54.145, 3.745, 'Sylvanas Windrunner - The Warchief Cometh - spawn Garrosh Hellscream'),
+(4436500, 9, 26, 0, 0, 0, 100, 1, 0, 0, 0, 0, 12, 44640, 3, 210000, 0, 0, 0, 8, 0, 0, 0, 1403.3, 1071.4242, 60.479, 1.281524, 'Sylvanas Windrunner - The Warchief Cometh - spawn High Warlord Cromush'),
+(4436500, 9, 27, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 66, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - set home orientation'),
+(4436500, 9, 28, 0, 0, 0, 100, 1, 22000, 22000, 0, 0, 66, 0, 0, 0, 0, 0, 0, 9, 44629, 0, 25, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - set orientation to Garrosh Hellscream'),
 (4436500, 9, 29, 0, 0, 0, 100, 1, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - text 3'),
 (4436500, 9, 30, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20461, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - sound 3'),
-(4436500, 9, 31, 0, 0, 0, 100, 1, 4000, 4000, 0, 0, 66, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - set home orientation'),
+(4436500, 9, 31, 0, 0, 0, 100, 1, 3000, 3000, 0, 0, 66, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - set home orientation'),
 (4436500, 9, 32, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 1, 3, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - text 4'),
 (4436500, 9, 33, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20462, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - sound 4'),
 (4436500, 9, 34, 0, 0, 0, 100, 1, 15000, 15000, 0, 0, 1, 4, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - text 5'),
@@ -258,12 +260,12 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (4436500, 9, 39, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20465, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - sound 7'),
 (4436500, 9, 40, 0, 0, 0, 100, 0, 5000, 5000, 0, 0, 1, 7, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - text 8'),
 (4436500, 9, 41, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20466, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - sound 8'),
-(4436500, 9, 42, 0, 0, 0, 100, 0, 8000, 8000, 0, 0, 1, 8, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - text 9'),
+(4436500, 9, 42, 0, 0, 0, 100, 0, 10000, 10000, 0, 0, 1, 8, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - text 9'),
 (4436500, 9, 43, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20467, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - sound 9'),
-(4436500, 9, 44, 0, 0, 0, 100, 0, 4000, 4000, 0, 0, 75, 94688, 0, 0, 0, 0, 0, 10, @AGATHA1, 44608, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - this is Agatha moment, her moment!'),
-(4436500, 9, 45, 0, 0, 0, 100, 0, 36000, 36000, 0, 0, 1, 9, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - text 10'),
+(4436500, 9, 44, 0, 0, 0, 100, 0, 3000, 3000, 0, 0, 75, 94688, 0, 0, 0, 0, 0, 10, @AGATHA1, 44608, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - this is Agatha moment, her moment!'),
+(4436500, 9, 45, 0, 0, 0, 100, 0, 30000, 30000, 0, 0, 1, 9, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - text 10'),
 (4436500, 9, 46, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20468, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - sound 10'),
-(4436500, 9, 47, 0, 0, 0, 100, 0, 22000, 20000, 0, 0, 1, 10, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - text 11'),
+(4436500, 9, 47, 0, 0, 0, 100, 0, 52000, 52000, 0, 0, 1, 10, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - text 11'),
 (4436500, 9, 48, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20469, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - sound 11');
 
 -- Portal from Orgrimmar - spawn as trigger for Sylvanas --
@@ -274,34 +276,222 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
 (@AGATHA1, 44608, 0, 1, 2, 0, 0, 1364.1, 1028.6, 58.4662, 0.715585, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
+
+-- ----------- --
+--  Variables  --
+-- ----------- --
+SET @FALLEN1 = (SELECT MAX(guid)+1 FROM `creature`);
+SET @FALLEN2 = (SELECT MAX(guid)+2 FROM `creature`);
+SET @FALLEN3 = (SELECT MAX(guid)+3 FROM `creature`);
+SET @FALLEN4 = (SELECT MAX(guid)+4 FROM `creature`);
+SET @FALLEN5 = (SELECT MAX(guid)+5 FROM `creature`);
+SET @FALLEN6 = (SELECT MAX(guid)+6 FROM `creature`);
+SET @FALLEN7 = (SELECT MAX(guid)+7 FROM `creature`);
+SET @FALLEN8 = (SELECT MAX(guid)+8 FROM `creature`);
+SET @FALLEN9 = (SELECT MAX(guid)+9 FROM `creature`);
+SET @FALLEN10 = (SELECT MAX(guid)+10 FROM `creature`);
+SET @FALLEN11 = (SELECT MAX(guid)+11 FROM `creature`);
+
+
 -- -- -- -- -- -- -- -- -- -- --
 -- Fallen Human   (ID: 44592) --
 -- -- -- -- -- -- -- -- -- -- --
 
 -- Fallen Human - update template --
-UPDATE `creature_template` SET `dynamicflags` = '32', `type_flags` = '0', `AIName` = 'SmartAI' WHERE `entry` = 44592;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(44592, 0, 0, 0, 0, 0, 33978, 33979, 33980, 33981, 'Fallen Human', '', '', 0, 13, 13, 0, 68, 68, 0, 1, 1, 1, 0, 18, 24, 0, 48, 1, 2000, 0, 1, 0, 32, 0, 0, 0, 0, 0, 12, 18, 1, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 7, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44592, 0, 0, '', 0);
 
 -- Fallen Human - equip --
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
+(44592, 0, 0, 0);
 
 -- Fallen Human - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(44592, 0, 0, 0, 0, 0, '');
 
 -- Fallen Human - SAI --
-INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES 
-(44592, 0, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 75, 79153, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, "Fallen Human - visual death");
+INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
+(-@FALLEN1, 0, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - visual death'),
+(-@FALLEN1, 0, 2, 0, 8, 0, 100, 0, 83173, 0, 0, 0, 80, 4459200, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - call timed actionlist on spellhit'),
+(-@FALLEN2, 0, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - visual death'),
+(-@FALLEN2, 0, 2, 0, 8, 0, 100, 0, 83173, 0, 0, 0, 80, 4459201, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - call timed actionlist on spellhit'),
+(-@FALLEN3, 0, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - visual death'),
+(-@FALLEN3, 0, 2, 0, 8, 0, 100, 0, 83173, 0, 0, 0, 80, 4459202, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - call timed actionlist on spellhit'),
+(-@FALLEN4, 0, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - visual death'),
+(-@FALLEN4, 0, 2, 0, 8, 0, 100, 0, 83173, 0, 0, 0, 80, 4459203, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - call timed actionlist on spellhit'),
+(-@FALLEN5, 0, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - visual death'),
+(-@FALLEN5, 0, 2, 0, 8, 0, 100, 0, 83173, 0, 0, 0, 80, 4459204, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - call timed actionlist on spellhit'),
+(-@FALLEN6, 0, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - visual death'),
+(-@FALLEN6, 0, 2, 0, 8, 0, 100, 0, 83173, 0, 0, 0, 80, 4459205, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - call timed actionlist on spellhit'),
+(-@FALLEN7, 0, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - visual death'),
+(-@FALLEN7, 0, 2, 0, 8, 0, 100, 0, 83173, 0, 0, 0, 80, 4459206, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - call timed actionlist on spellhit'),
+(-@FALLEN8, 0, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - visual death'),
+(-@FALLEN8, 0, 2, 0, 8, 0, 100, 0, 83173, 0, 0, 0, 80, 4459207, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - call timed actionlist on spellhit'),
+(-@FALLEN9, 0, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - visual death'),
+(-@FALLEN9, 0, 2, 0, 8, 0, 100, 0, 83173, 0, 0, 0, 80, 4459208, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - call timed actionlist on spellhit'),
+(-@FALLEN10, 0, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - visual death'),
+(-@FALLEN10, 0, 2, 0, 8, 0, 100, 0, 83173, 0, 0, 0, 80, 4459209, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - call timed actionlist on spellhit'),
+(-@FALLEN11, 0, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - visual death'),
+(-@FALLEN11, 0, 2, 0, 8, 0, 100, 0, 83173, 0, 0, 0, 80, 4459210, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - call timed actionlist on spellhit'),
+(4459200, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 28, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura Visual Death (death is only an illusion)'),
+(4459200, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 61971, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - add aura Permanent Feign Death (Drowned + Stunned + Raped)'),
+(4459200, 9, 2, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly (fly fly high!)'),
+(4459200, 9, 3, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 0, 445920, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - ascension!! oh my Jesus!!'),
+(4459200, 9, 4, 0, 0, 0, 100, 1, 8000, 8000, 0, 0, 28, 61971, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura from Permanent... this is too long for me :P'),
+(4459200, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly off (fly fly down!)'),
+(4459200, 9, 6, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 11, 83149, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - kaboooom! *Jesus don''t like them :(*'),
+(4459200, 9, 7, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - remove dynamic flag'),
+(4459200, 9, 8, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 83150, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - ressurected as Forsaken Trooper... '),
+(4459200, 9, 9, 0, 0, 0, 100, 1, 15000, 15000, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - good bye, despawn and go to Jesus, bitch'),
+(4459200, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 32, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - add dynamic flag'),
+(4459201, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 28, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura Visual Death (death is only an illusion)'),
+(4459201, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 61971, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - add aura Permanent Feign Death (Drowned + Stunned + Raped)'),
+(4459201, 9, 2, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly (fly fly high!)'),
+(4459201, 9, 3, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 0, 445921, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - ascension!! oh my Jesus!!'),
+(4459201, 9, 4, 0, 0, 0, 100, 1, 8000, 8000, 0, 0, 28, 61971, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura from Permanent... this is too long for me :P'),
+(4459201, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly off (fly fly down!)'),
+(4459201, 9, 6, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 11, 83149, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - kaboooom! *Jesus don''t like them :(*'),
+(4459201, 9, 7, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - remove dynamic flag'),
+(4459201, 9, 8, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 83150, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - ressurected as Forsaken Trooper... '),
+(4459201, 9, 9, 0, 0, 0, 100, 1, 15000, 15000, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - good bye, despawn and go to Jesus, bitch'),
+(4459201, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 32, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - add dynamic flag'),
+(4459202, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 28, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura Visual Death (death is only an illusion)'),
+(4459202, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 61971, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - add aura Permanent Feign Death (Drowned + Stunned + Raped)'),
+(4459202, 9, 2, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly (fly fly high!)'),
+(4459202, 9, 3, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 0, 445922, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - ascension!! oh my Jesus!!'),
+(4459202, 9, 4, 0, 0, 0, 100, 1, 8000, 8000, 0, 0, 28, 61971, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura from Permanent... this is too long for me :P'),
+(4459202, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly off (fly fly down!)'),
+(4459202, 9, 6, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 11, 83149, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - kaboooom! *Jesus don''t like them :(*'),
+(4459202, 9, 7, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - remove dynamic flag'),
+(4459202, 9, 8, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 83150, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - ressurected as Forsaken Trooper... '),
+(4459202, 9, 9, 0, 0, 0, 100, 1, 15000, 15000, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - good bye, despawn and go to Jesus, bitch'),
+(4459202, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 32, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - add dynamic flag'),
+(4459203, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 28, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura Visual Death (death is only an illusion)'),
+(4459203, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 61971, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - add aura Permanent Feign Death (Drowned + Stunned + Raped)'),
+(4459203, 9, 2, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly (fly fly high!)'),
+(4459203, 9, 3, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 0, 445923, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - ascension!! oh my Jesus!!'),
+(4459203, 9, 4, 0, 0, 0, 100, 1, 8000, 8000, 0, 0, 28, 61971, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura from Permanent... this is too long for me :P'),
+(4459203, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly off (fly fly down!)'),
+(4459203, 9, 6, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 11, 83149, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - kaboooom! *Jesus don''t like them :(*'),
+(4459203, 9, 7, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - remove dynamic flag'),
+(4459203, 9, 8, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 83150, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - ressurected as Forsaken Trooper... '),
+(4459203, 9, 9, 0, 0, 0, 100, 1, 15000, 15000, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - good bye, despawn and go to Jesus, bitch'),
+(4459203, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 32, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - add dynamic flag'),
+(4459204, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 28, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura Visual Death (death is only an illusion)'),
+(4459204, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 61971, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - add aura Permanent Feign Death (Drowned + Stunned + Raped)'),
+(4459204, 9, 2, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly (fly fly high!)'),
+(4459204, 9, 3, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 0, 445924, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - ascension!! oh my Jesus!!'),
+(4459204, 9, 4, 0, 0, 0, 100, 1, 8000, 8000, 0, 0, 28, 61971, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura from Permanent... this is too long for me :P'),
+(4459204, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly off (fly fly down!)'),
+(4459204, 9, 6, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 11, 83149, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - kaboooom! *Jesus don''t like them :(*'),
+(4459204, 9, 7, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - remove dynamic flag'),
+(4459204, 9, 8, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 83150, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - ressurected as Forsaken Trooper... '),
+(4459204, 9, 9, 0, 0, 0, 100, 1, 15000, 15000, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - good bye, despawn and go to Jesus, bitch'),
+(4459204, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 32, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - add dynamic flag'),
+(4459205, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 28, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura Visual Death (death is only an illusion)'),
+(4459205, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 61971, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - add aura Permanent Feign Death (Drowned + Stunned + Raped)'),
+(4459205, 9, 2, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly (fly fly high!)'),
+(4459205, 9, 3, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 0, 445925, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - ascension!! oh my Jesus!!'),
+(4459205, 9, 4, 0, 0, 0, 100, 1, 8000, 8000, 0, 0, 28, 61971, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura from Permanent... this is too long for me :P'),
+(4459205, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly off (fly fly down!)'),
+(4459205, 9, 6, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 11, 83149, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - kaboooom! *Jesus don''t like them :(*'),
+(4459205, 9, 7, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - remove dynamic flag'),
+(4459205, 9, 8, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 83150, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - ressurected as Forsaken Trooper... '),
+(4459205, 9, 9, 0, 0, 0, 100, 1, 15000, 15000, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - good bye, despawn and go to Jesus, bitch'),
+(4459205, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 32, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - add dynamic flag'),
+(4459206, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 28, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura Visual Death (death is only an illusion)'),
+(4459206, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 61971, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - add aura Permanent Feign Death (Drowned + Stunned + Raped)'),
+(4459206, 9, 2, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly (fly fly high!)'),
+(4459206, 9, 3, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 0, 445926, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - ascension!! oh my Jesus!!'),
+(4459206, 9, 4, 0, 0, 0, 100, 1, 8000, 8000, 0, 0, 28, 61971, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura from Permanent... this is too long for me :P'),
+(4459206, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly off (fly fly down!)'),
+(4459206, 9, 6, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 11, 83149, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - kaboooom! *Jesus don''t like them :(*'),
+(4459206, 9, 7, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - remove dynamic flag'),
+(4459206, 9, 8, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 83150, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - ressurected as Forsaken Trooper... '),
+(4459206, 9, 9, 0, 0, 0, 100, 1, 15000, 15000, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - good bye, despawn and go to Jesus, bitch'),
+(4459206, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 32, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - add dynamic flag'),
+(4459207, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 28, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura Visual Death (death is only an illusion)'),
+(4459207, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 61971, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - add aura Permanent Feign Death (Drowned + Stunned + Raped)'),
+(4459207, 9, 2, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly (fly fly high!)'),
+(4459207, 9, 3, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 0, 445927, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - ascension!! oh my Jesus!!'),
+(4459207, 9, 4, 0, 0, 0, 100, 1, 8000, 8000, 0, 0, 28, 61971, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura from Permanent... this is too long for me :P'),
+(4459207, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly off (fly fly down!)'),
+(4459207, 9, 6, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 11, 83149, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - kaboooom! *Jesus don''t like them :(*'),
+(4459207, 9, 7, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - remove dynamic flag'),
+(4459207, 9, 8, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 83150, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - ressurected as Forsaken Trooper... '),
+(4459207, 9, 9, 0, 0, 0, 100, 1, 15000, 15000, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - good bye, despawn and go to Jesus, bitch'),
+(4459207, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 32, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - add dynamic flag'),
+(4459208, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 28, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura Visual Death (death is only an illusion)'),
+(4459208, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 61971, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - add aura Permanent Feign Death (Drowned + Stunned + Raped)'),
+(4459208, 9, 2, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly (fly fly high!)'),
+(4459208, 9, 3, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 0, 445928, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - ascension!! oh my Jesus!!'),
+(4459208, 9, 4, 0, 0, 0, 100, 1, 8000, 8000, 0, 0, 28, 61971, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura from Permanent... this is too long for me :P'),
+(4459208, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly off (fly fly down!)'),
+(4459208, 9, 6, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 11, 83149, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - kaboooom! *Jesus don''t like them :(*'),
+(4459208, 9, 7, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - remove dynamic flag'),
+(4459208, 9, 8, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 83150, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - ressurected as Forsaken Trooper... '),
+(4459208, 9, 9, 0, 0, 0, 100, 1, 15000, 15000, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - good bye, despawn and go to Jesus, bitch'),
+(4459208, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 32, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - add dynamic flag'),
+(4459209, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 28, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura Visual Death (death is only an illusion)'),
+(4459209, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 61971, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - add aura Permanent Feign Death (Drowned + Stunned + Raped)'),
+(4459209, 9, 2, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly (fly fly high!)'),
+(4459209, 9, 3, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 0, 445929, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - ascension!! oh my Jesus!!'),
+(4459209, 9, 4, 0, 0, 0, 100, 1, 8000, 8000, 0, 0, 28, 61971, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura from Permanent... this is too long for me :P'),
+(4459209, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly off (fly fly down!)'),
+(4459209, 9, 6, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 11, 83149, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - kaboooom! *Jesus don''t like them :(*'),
+(4459209, 9, 7, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - remove dynamic flag'),
+(4459209, 9, 8, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 83150, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - ressurected as Forsaken Trooper... '),
+(4459209, 9, 9, 0, 0, 0, 100, 1, 15000, 15000, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - good bye, despawn and go to Jesus, bitch'),
+(4459209, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 32, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - add dynamic flag'),
+(4459210, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 28, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura Visual Death (death is only an illusion)'),
+(4459210, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 61971, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - add aura Permanent Feign Death (Drowned + Stunned + Raped)'),
+(4459210, 9, 2, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly (fly fly high!)'),
+(4459210, 9, 3, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 0, 445935, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - ascension!! oh my Jesus!!'),
+(4459210, 9, 4, 0, 0, 0, 100, 1, 8000, 8000, 0, 0, 28, 61971, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura from Permanent... this is too long for me :P'),
+(4459210, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly off (fly fly down!)'),
+(4459210, 9, 6, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 11, 83149, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - kaboooom! *Jesus don''t like them :(*'),
+(4459210, 9, 7, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - remove dynamic flag'),
+(4459210, 9, 8, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 83150, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - ressurected as Forsaken Trooper... '),
+(4459210, 9, 9, 0, 0, 0, 100, 1, 15000, 15000, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - good bye, despawn and go to Jesus, bitch'),
+(4459210, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 32, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - add dynamic flag');
+
 
 -- Fallen Human - spawns --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 44592, 0, 1, 6, 0, 0, 1372.98, 1041.06, 51.381, 0.226893, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44592, 0, 1, 6, 0, 0, 1378.16, 1031.71, 51.3717, 0.767945, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44592, 0, 1, 6, 0, 0, 1372.58, 1038.07, 50.9666, 0.890118, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44592, 0, 1, 6, 0, 0, 1375.42, 1033.81, 50.6522, 0.890118, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44592, 0, 1, 6, 0, 0, 1369.65, 1033.67, 50.9668, 0.698132, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44592, 0, 1, 6, 0, 0, 1367.33, 1035.38, 51.304, 0.890118, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44592, 0, 1, 6, 0, 0, 1370.66, 1030.82, 51.134, 0.890118, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44592, 0, 1, 6, 0, 0, 1374.14, 1036.35, 50.9217, 5.53269, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44592, 0, 1, 6, 0, 0, 1369.57, 1036.9, 50.998, 0.20944, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44592, 0, 1, 6, 0, 0, 1377.3, 1035.93, 51.0961, 3.14159, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44592, 0, 1, 6, 0, 0, 1373.35, 1031.58, 50.6189, 0.959931, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(@FALLEN1, 44592, 0, 1, 6, 0, 0, 1372.98, 1041.06, 51.381, 0.226893, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN2, 44592, 0, 1, 6, 0, 0, 1378.16, 1031.71, 51.3717, 0.767945, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN3, 44592, 0, 1, 6, 0, 0, 1372.58, 1038.07, 50.9666, 0.890118, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN4, 44592, 0, 1, 6, 0, 0, 1375.42, 1033.81, 50.6522, 0.890118, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN5, 44592, 0, 1, 6, 0, 0, 1369.65, 1033.67, 50.9668, 0.698132, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN6, 44592, 0, 1, 6, 0, 0, 1367.33, 1035.38, 51.304, 0.890118, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN7, 44592, 0, 1, 6, 0, 0, 1370.66, 1030.82, 51.134, 0.890118, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN8, 44592, 0, 1, 6, 0, 0, 1374.14, 1036.35, 50.9217, 5.53269, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN9, 44592, 0, 1, 6, 0, 0, 1369.57, 1036.9, 50.998, 0.20944, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN10, 44592, 0, 1, 6, 0, 0, 1377.3, 1035.93, 51.0961, 3.14159, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN11, 44592, 0, 1, 6, 0, 0, 1373.35, 1031.58, 50.6189, 0.959931, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+-- Fallen Human - waypoints --
+INSERT INTO `waypoints` (`entry`, `pointid`, `position_x`, `position_y`, `position_z`, `point_comment`) VALUES 
+(445920, 1, 1372.98, 1041.06, 56.38103, 'Fallen Human 1'),
+(445921, 1, 1378.16, 1031.71, 56.37173, 'Fallen Human 1'),
+(445922, 1, 1372.58, 1038.07, 55.96663, 'Fallen Human 1'),
+(445923, 1, 1375.42, 1033.81, 55.65223, 'Fallen Human 1'),
+(445924, 1, 1369.65, 1033.67, 55.96683, 'Fallen Human 1'),
+(445925, 1, 1367.33, 1035.38, 56.30403, 'Fallen Human 1'),
+(445926, 1, 1370.66, 1030.82, 56.13403, 'Fallen Human 1'),
+(445927, 1, 1374.14, 1036.35, 55.92173, 'Fallen Human 1'),
+(445928, 1, 1369.57, 1036.9, 55.99803, 'Fallen Human 1'),
+(445929, 1, 1377.3, 1035.93, 56.09613, 'Fallen Human 1'),
+(445935, 1, 1373.35, 1031.58, 55.61893, 'Fallen Human 1');
+
+
+-- ----------- --
+--  Variables  --
+-- ----------- --
+SET @FALLEN12 = (SELECT MAX(guid)+12 FROM `creature`);
+SET @FALLEN13 = (SELECT MAX(guid)+13 FROM `creature`);
+SET @FALLEN14 = (SELECT MAX(guid)+14 FROM `creature`);
+SET @FALLEN15 = (SELECT MAX(guid)+15 FROM `creature`);
 
 
 -- -- -- -- -- -- -- -- -- -- --
@@ -309,22 +499,85 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- -- -- -- -- -- -- -- -- -- --
 
 -- Fallen Human - update template --
-UPDATE `creature_template` SET `dynamicflags` = '32', `type_flags` = '0', `AIName` = 'SmartAI' WHERE `entry` = 44593;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(44593, 0, 0, 0, 0, 0, 33982, 33983, 33984, 33985, 'Fallen Human', '', '', 0, 13, 13, 0, 68, 68, 0, 1, 1, 1, 0, 18, 24, 0, 48, 1, 2000, 0, 1, 0, 32, 0, 0, 0, 0, 0, 12, 18, 1, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 7, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44593, 0, 0, '', 0);
 
 -- Fallen Human - equip --
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
+(44593, 0, 0, 0);
 
 -- Fallen Human - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(44593, 0, 0, 0, 0, 0, '');
 
 -- Fallen Human - SAI --
-INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES 
-(44593, 0, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 75, 79153, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, "Fallen Human - visual death");
+INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
+(-@FALLEN12, 0, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - visual death'),
+(-@FALLEN12, 0, 2, 0, 8, 0, 100, 0, 83173, 0, 0, 0, 80, 4459300, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - call timed actionlist on spellhit'),
+(-@FALLEN13, 0, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - visual death'),
+(-@FALLEN13, 0, 2, 0, 8, 0, 100, 0, 83173, 0, 0, 0, 80, 4459301, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - call timed actionlist on spellhit'),
+(-@FALLEN14, 0, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - visual death'),
+(-@FALLEN14, 0, 2, 0, 8, 0, 100, 0, 83173, 0, 0, 0, 80, 4459302, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - call timed actionlist on spellhit'),
+(-@FALLEN15, 0, 1, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - visual death'),
+(-@FALLEN15, 0, 2, 0, 8, 0, 100, 0, 83173, 0, 0, 0, 80, 4459303, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - call timed actionlist on spellhit'),
+(4459300, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 28, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura Visual Death (death is only an illusion)'),
+(4459300, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 61971, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - add aura Permanent Feign Death (Drowned + Stunned + Raped)'),
+(4459300, 9, 2, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly (fly fly high!)'),
+(4459300, 9, 3, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 0, 445930, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - ascension!! oh my Jesus!!'),
+(4459300, 9, 4, 0, 0, 0, 100, 1, 8000, 8000, 0, 0, 28, 61971, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura from Permanent... this is too long for me :P'),
+(4459300, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly off (fly fly down!)'),
+(4459300, 9, 6, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 11, 83149, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - kaboooom! *Jesus don''t like them :(*'),
+(4459300, 9, 7, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - remove dynamic flag'),
+(4459300, 9, 8, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 83150, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - ressurected as Forsaken Trooper... '),
+(4459300, 9, 9, 0, 0, 0, 100, 1, 15000, 15000, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - good bye, despawn and go to Jesus, bitch'),
+(4459300, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 32, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - add dynamic flag'),
+(4459301, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 28, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura Visual Death (death is only an illusion)'),
+(4459301, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 61971, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - add aura Permanent Feign Death (Drowned + Stunned + Raped)'),
+(4459301, 9, 2, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly (fly fly high!)'),
+(4459301, 9, 3, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 0, 445931, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - ascension!! oh my Jesus!!'),
+(4459301, 9, 4, 0, 0, 0, 100, 1, 8000, 8000, 0, 0, 28, 61971, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura from Permanent... this is too long for me :P'),
+(4459301, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly off (fly fly down!)'),
+(4459301, 9, 6, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 11, 83149, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - kaboooom! *Jesus don''t like them :(*'),
+(4459301, 9, 7, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - remove dynamic flag'),
+(4459301, 9, 8, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 83150, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - ressurected as Forsaken Trooper... '),
+(4459301, 9, 9, 0, 0, 0, 100, 1, 15000, 15000, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - good bye, despawn and go to Jesus, bitch'),
+(4459301, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 32, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - add dynamic flag'),
+(4459302, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 28, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura Visual Death (death is only an illusion)'),
+(4459302, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 61971, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - add aura Permanent Feign Death (Drowned + Stunned + Raped)'),
+(4459302, 9, 2, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly (fly fly high!)'),
+(4459302, 9, 3, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 0, 445932, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - ascension!! oh my Jesus!!'),
+(4459302, 9, 4, 0, 0, 0, 100, 1, 8000, 8000, 0, 0, 28, 61971, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura from Permanent... this is too long for me :P'),
+(4459302, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly off (fly fly down!)'),
+(4459302, 9, 6, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 11, 83149, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - kaboooom! *Jesus don''t like them :(*'),
+(4459302, 9, 7, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - remove dynamic flag'),
+(4459302, 9, 8, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 83150, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - ressurected as Forsaken Trooper... '),
+(4459302, 9, 9, 0, 0, 0, 100, 1, 15000, 15000, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - good bye, despawn and go to Jesus, bitch'),
+(4459302, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 32, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - add dynamic flag'),
+(4459303, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 28, 77619, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura Visual Death (death is only an illusion)'),
+(4459303, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 61971, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - add aura Permanent Feign Death (Drowned + Stunned + Raped)'),
+(4459303, 9, 2, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly (fly fly high!)'),
+(4459303, 9, 3, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 0, 445933, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - ascension!! oh my Jesus!!'),
+(4459303, 9, 4, 0, 0, 0, 100, 1, 8000, 8000, 0, 0, 28, 61971, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - remove aura from Permanent... this is too long for me :P'),
+(4459303, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Human - set fly off (fly fly down!)'),
+(4459303, 9, 6, 0, 0, 0, 100, 1, 1000, 1000, 0, 0, 11, 83149, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - kaboooom! *Jesus don''t like them :(*'),
+(4459303, 9, 7, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - remove dynamic flag'),
+(4459303, 9, 8, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 83150, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - ressurected as Forsaken Trooper... '),
+(4459303, 9, 9, 0, 0, 0, 100, 1, 15000, 15000, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - good bye, despawn and go to Jesus, bitch'),
+(4459303, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 32, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - add dynamic flag');
 
 -- Fallen Human - spawns --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 44593, 0, 1, 6, 0, 0, 1376, 1029.61, 50.9374, 0.890118, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44593, 0, 1, 6, 0, 0, 1369.71, 1040.19, 51.0212, 5.58505, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44593, 0, 1, 6, 0, 0, 1375.2, 1038.58, 51.2451, 4.55531, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44593, 0, 1, 6, 0, 0, 1372.08, 1034.98, 50.8489, 0.890118, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(@FALLEN12, 44593, 0, 1, 6, 0, 0, 1376, 1029.61, 50.9374, 0.890118, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN13, 44593, 0, 1, 6, 0, 0, 1369.71, 1040.19, 51.0212, 5.58505, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN14, 44593, 0, 1, 6, 0, 0, 1375.2, 1038.58, 51.2451, 4.55531, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN15, 44593, 0, 1, 6, 0, 0, 1372.08, 1034.98, 50.8489, 0.890118, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+-- Fallen Human - waypoints --
+INSERT INTO `waypoints` (`entry`, `pointid`, `position_x`, `position_y`, `position_z`, `point_comment`) VALUES 
+(445930, 1, 1376, 1029.61, 55.93743, 'Fallen Human 1'),
+(445931, 1, 1369.71, 1040.19, 56.02123, 'Fallen Human 1'),
+(445932, 1, 1375.2, 1038.58, 56.24513, 'Fallen Human 1'),
+(445933, 1, 1372.08, 1034.98, 55.84893, 'Fallen Human 1');
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -356,19 +609,17 @@ INSERT INTO `creature_text` (`entry`, `groupid`, `id`, `text`, `type`, `language
 INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
 (44629, 0, 0, 0, 1, 0, 100, 1, 0, 0, 0, 0, 80, 4462900, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Garrosh Hellscream - The Warchief Cometh - call timed actionlist on reset'),
 (4462900, 9, 0, 0, 1, 0, 100, 1, 0, 0, 0, 0, 11, 12980, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Garrosh Hellscream - cast Simple Teleport on reset'),
-(4462900, 9, 1, 0, 1, 0, 100, 1, 0, 0, 0, 0, 97, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 1379.96, 1043.65, 54.2032, 4.00257, 'Garrosh Hellscream - jump to Dark Lady'),
-(4462900, 9, 2, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 12980, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Garrosh Hellscream - cast Simple Teleport on reset'),
-(4462900, 9, 3, 0, 0, 0, 100, 1, 0, 0, 0, 0, 97, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 1379.96, 1043.65, 54.2032, 4.00257, 'Garrosh Hellscream - jump to Dark Lady'),
+(4462900, 9, 1, 0, 1, 0, 100, 1, 0, 0, 0, 0, 97, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 1378.002686, 1045.092773, 53.581989, 4.00257, 'Garrosh Hellscream - jump to Dark Lady'),
 (4462900, 9, 4, 0, 0, 0, 100, 1, 3000, 3000, 0, 0, 66, 0, 0, 0, 0, 0, 0, 9, 44635, 0, 25, 0, 0, 0, 0, 'Garrosh Hellscream - look at Sylvanas'),
 (4462900, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Garrosh Hellscream - text 1'),
 (4462900, 9, 6, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20496, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Garrosh Hellscream - sound 1'),
-(4462900, 9, 7, 0, 0, 0, 100, 1, 16000, 16000, 0, 0, 66, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Garrosh Hellscream - set home orientation'),
+(4462900, 9, 7, 0, 0, 0, 100, 1, 13000, 13000, 0, 0, 66, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Garrosh Hellscream - set home orientation'),
 (4462900, 9, 8, 0, 0, 0, 100, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Garrosh Hellscream - text 2'),
 (4462900, 9, 9, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20497, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Garrosh Hellscream - sound 2'),
 (4462900, 9, 10, 0, 0, 0, 100, 1, 500, 500, 0, 0, 11, 48349, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Garrosh Hellscream - emote point'),
 (4462900, 9, 11, 0, 0, 0, 100, 1, 30000, 30000, 0, 0, 1, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Garrosh Hellscream - text 3'),
 (4462900, 9, 12, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20498, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Garrosh Hellscream - sound 3'),
-(4462900, 9, 13, 0, 0, 0, 100, 1, 50000, 50000, 0, 0, 1, 3, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Garrosh Hellscream - text 4'),
+(4462900, 9, 13, 0, 0, 0, 100, 1, 45000, 45000, 0, 0, 1, 3, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Garrosh Hellscream - text 4'),
 (4462900, 9, 14, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20499, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Garrosh Hellscream - sound 4'),
 (4462900, 9, 15, 0, 0, 0, 100, 1, 28000, 28000, 0, 0, 1, 4, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Garrosh Hellscream - text 5'),
 (4462900, 9, 16, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20500, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Garrosh Hellscream - sound 5'),
@@ -417,13 +668,14 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 
 -- High Warlord Cromush - waypoints --
 INSERT INTO `waypoints` (`entry`, `pointid`, `position_x`, `position_y`, `position_z`, `point_comment`) VALUES 
-(44640, 0, 1375.83, 1046.41, 53.303, 'High Warlord Cromush 1'),
-(44640, 1, 1370.285, 1034.875, 53.18237, 'High Warlord Cromush 2'),
-(44640, 2, 1366.535, 1021.625, 53.18237, 'High Warlord Cromush 3'),
-(44640, 3, 1376.535, 1015.625, 53.93237, 'High Warlord Cromush 4'),
-(44640, 4, 1390.785, 1022.125, 59.68237, 'High Warlord Cromush 5'),
-(44640, 5, 1404.535, 1045.375, 60.43237, 'High Warlord Cromush 6'),
-(44640, 6, 1403.535, 1062.625, 60.18237, 'High Warlord Cromush 7');
+(446400, 0, 1408.146, 1081.673, 60.479, 'High Warlord Cromush 1'),
+(446400, 1, 1406.512, 1090.116, 60.479, 'High Warlord Cromush 2'),
+(446400, 2, 1396.526, 1091.166, 58.229, 'High Warlord Cromush 3'),
+(446400, 3, 1389.335, 1088.211, 54.888, 'High Warlord Cromush 4'),
+(446400, 4, 1380.581, 1079.219, 52.551, 'High Warlord Cromush 5'),
+(446400, 5, 1369.57, 1065.622, 53.054, 'High Warlord Cromush 6'),
+(446400, 6, 1369.633, 1054.702, 53.155, 'High Warlord Cromush 7'),
+(446400, 7, 1373.516, 1047.433, 53.222, 'High Warlord Cromush 8');
 
 
 -- -- -- -- -- -- -- -- -- -- --
@@ -475,25 +727,25 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
 (44608, 0, 0, 0, 23, 0, 100, 0, 94688, 1, 0, 0, 80, 4460800, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Agatha - call timed actionlist when has aura'),
 (4460800, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 28, 94688, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Agatha - remove aura from spell'),
-(4460800, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 0, 44608, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Agatha - start wp'),
-(4460800, 9, 2, 0, 0, 0, 100, 1, 11000, 11000, 0, 0, 54, 8000, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Agatha - pause at wp 2'),
+(4460800, 9, 1, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 0, 446080, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Agatha - start wp'),
+(4460800, 9, 2, 0, 0, 0, 100, 1, 9000, 9000, 0, 0, 54, 8000, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Agatha - pause at wp 2'),
 (4460800, 9, 3, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 83173, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Agatha - cast Raise Forsaken'),
 (4460800, 9, 6, 0, 0, 0, 100, 1, 13000, 13000, 0, 0, 66, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Agatha - set home orientation');
 
 -- Agatha & Daschla & Arthura - spawns --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
 (NULL, 44608, 0, 1, 4, 0, 0, 1364.02, 1028.54, 55.9914, 0.855211, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44609, 0, 1, 6, 0, 0, 1365.73, 1024.98, 57.0244, 1.13446, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44610, 0, 1, 6, 0, 0, 1360.81, 1030.57, 56.874, 0.645772, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44609, 0, 1, 6, 0, 0, 1365.73, 1024.98, 57.0244, 1.13446, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44610, 0, 1, 6, 0, 0, 1360.81, 1030.57, 56.874, 0.645772, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (NULL, 49044, 0, 1, 1, 0, 0, 1700.05, 1699.77, 135.463, 1.762, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 49128, 0, 1, 1, 0, 0, 1757.88, 1582, 114.622, 1.72788, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 49129, 0, 1, 1, 0, 0, 1725.54, 1681.13, 139.093, 4.90376, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(NULL, 49128, 0, 1, 1, 0, 0, 1757.88, 1582, 114.622, 1.72788, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 49129, 0, 1, 1, 0, 0, 1725.54, 1681.13, 139.093, 4.90376, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- Agatha - waypoints --
 INSERT INTO `waypoints` (`entry`, `pointid`, `position_x`, `position_y`, `position_z`, `point_comment`) VALUES 
-(44608, 1, 1364.064, 1028.712, 71.34, 'Agatha 1'),
-(44608, 2, 1370.70, 1032.824, 58.75, 'Agatha 2'),
-(44608, 3, 1364.1, 1028.6, 58.466, 'Agatha 3');
+(446080, 1, 1364.064, 1028.712, 71.34, 'Agatha 1'),
+(446080, 2, 1367, 1030.3, 63.18, 'Agatha 2'),
+(446080, 3, 1364.1, 1028.6, 58.466, 'Agatha 3');
 
 
 -- -- -- -- -- -- -- -- --

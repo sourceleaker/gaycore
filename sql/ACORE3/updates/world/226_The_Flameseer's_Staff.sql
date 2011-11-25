@@ -1,4 +1,4 @@
-ALTER TABLE `world_db_version` CHANGE  `required_225_Deposits_add_at_Uldum_Deepholm_LostIsles` `required_226_The_Flameseer's_Staff` BIT(1);
+ALTER TABLE `world_db_version` CHANGE  `required_225_Deposits_add_at_Uldum_Deepholm_LostIsles` `required_226_The_Flameseers_Staff` BIT(1);
 
 -- Fix for quest The Flameseers Staff
 UPDATE quest_template SET ObjectiveText1 = 'Charred Staff Fragment' WHERE entry = 25472;

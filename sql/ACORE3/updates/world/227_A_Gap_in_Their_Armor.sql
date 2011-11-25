@@ -1,4 +1,4 @@
-ALTER TABLE `world_db_version` CHANGE  `required_226_The_Flameseer's_Staff` `required_227_A_Gap_in_Their_Armor` BIT(1);
+ALTER TABLE `world_db_version` CHANGE  `required_226_The_Flameseers_Staff` `required_227_A_Gap_in_Their_Armor` BIT(1);
 
 -- Fix for quest A Gap in Their Armor
 UPDATE quest_template SET ObjectiveText1 = 'Twilight Armor Plate' WHERE entry = 25758;

@@ -1,8 +1,8 @@
 #ifndef __ACORE_REVISION_H__
 #define __ACORE_REVISION_H__
-#define ACORE_REVISION "231"
+#define ACORE_REVISION "232"
 
-#define ACORE_DB_WORLD    "required_230_In_the_Rear_With_the_Gear"
+#define ACORE_DB_WORLD    "required_231_Fix_for_GO_Lobster_Trap"
 #define ACORE_DB_CHAR     "required_03_db_version"
 #define ACORE_DB_AUTH     "required_03_db_version"
 #endif // __ACORE_REVISION_H__

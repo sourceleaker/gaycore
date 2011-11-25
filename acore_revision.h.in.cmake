@@ -1,8 +1,8 @@
 #ifndef __ACORE_REVISION_H__
 #define __ACORE_REVISION_H__
-#define ACORE_REVISION "227"
+#define ACORE_REVISION "228"
 
-#define ACORE_DB_WORLD    "required_226_The_Flameseer's_Staff"
+#define ACORE_DB_WORLD    "required_227_A_Gap_in_Their_Armor"
 #define ACORE_DB_CHAR     "required_03_db_version"
 #define ACORE_DB_AUTH     "required_03_db_version"
 #endif // __ACORE_REVISION_H__

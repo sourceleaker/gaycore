@@ -1,0 +1,1 @@
+ALTER TABLE `world_db_version` CHANGE  `required_237_Removal_of_old_Wetlands_NPCs` `required_239_synch_revision` BIT(1);

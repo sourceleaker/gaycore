@@ -18,12 +18,12 @@
 #include"ScriptPCH.h"
 #include"halls_of_origination.h"
 
-#define ENCOUNTERS 7
+#define ENCOUNTERS 11
 
 /* Boss Encounters
    Temple Guardian Anhuur
    Earthrager Ptah
-   Anraphet
+   Anraphet + 4 Wardens
    Isiset
    Ammunae
    Setesh
@@ -49,6 +49,10 @@ public:
         uint64 uiTempleGuardianAnhuur;
         uint64 uiEarthragerPtah;
         uint64 uiAnraphet;
+        uint64 uiFire;
+        uint64 uiWater;
+        uint64 uiAir;
+        uint64 uiEarth;
         uint64 uiIsiset;
         uint64 uiAmmunae;
         uint64 uiSetesh;
@@ -62,6 +66,10 @@ public:
             uiTempleGuardianAnhuur = 0;
             uiEarthragerPtah = 0;
             uiAnraphet = 0;
+            uiFire = 0;
+            uiWater = 0;
+            uiAir = 0;
+            uiEarth = 0;
             uiIsiset = 0;
             uiAmmunae = 0;
             uiSetesh = 0;
@@ -96,6 +104,18 @@ public:
                     break;
                 case BOSS_ANRAPHET:
                     uiAnraphet = pCreature->GetGUID();
+                    break;
+                case NPC_EARTH_WARDEN:
+                    uiEarth = pCreature->GetGUID();
+                    break;
+                case NPC_AIR_WARDEN:
+                    uiAir = pCreature->GetGUID();
+                    break;
+                case NPC_WATER_WARDEN:
+                    uiWater = pCreature->GetGUID();
+                    break;
+                case NPC_FLAME_WARDEN:
+                    uiFire = pCreature->GetGUID();
                     break;
                 case BOSS_ISISET:
                     uiIsiset = pCreature->GetGUID();
@@ -140,6 +160,14 @@ public:
                     return uiEarthragerPtah;
                 case DATA_ANRAPHET:
                     return uiAnraphet;
+                case DATA_EARTH_WARDEN:
+                    return uiEarth;
+                case DATA_AIR_WARDEN:
+                    return uiAir;
+                case DATA_WATER_WARDEN:
+                    return uiWater;
+                case DATA_FLAME_WARDEN:
+                    return uiFire;
                 case DATA_ISISET:
                     return uiIsiset;
                 case DATA_AMMUNAE:
@@ -165,17 +193,29 @@ public:
                 case DATA_ANRAPHET:
                     uiEncounter[2] = data;
                     break;
-                case DATA_ISISET:
+                case DATA_EARTH_WARDEN:
                     uiEncounter[3] = data;
                     break;
-                case DATA_AMMUNAE:
+                case DATA_AIR_WARDEN:
                     uiEncounter[4] = data;
                     break;
-                case DATA_SETESH:
+                case DATA_WATER_WARDEN:
                     uiEncounter[5] = data;
                     break;
-                case DATA_RAJH:
+                case DATA_FLAME_WARDEN:
                     uiEncounter[6] = data;
+                    break;
+                case DATA_ISISET:
+                    uiEncounter[7] = data;
+                    break;
+                case DATA_AMMUNAE:
+                    uiEncounter[8] = data;
+                    break;
+                case DATA_SETESH:
+                    uiEncounter[9] = data;
+                    break;
+                case DATA_RAJH:
+                    uiEncounter[10] = data;
                     break;
             }
          
@@ -193,14 +233,26 @@ public:
                     return uiEncounter[1];
                 case DATA_ANRAPHET:
                     return uiEncounter[2];
-                case DATA_ISISET:
+                case DATA_EARTH_WARDEN:
                     return uiEncounter[3];
-                case DATA_AMMUNAE:
+                    break;
+                case DATA_AIR_WARDEN:
                     return uiEncounter[4];
-                case DATA_SETESH:
+                    break;
+                case DATA_WATER_WARDEN:
                     return uiEncounter[5];
-                case DATA_RAJH:
+                    break;
+                case DATA_FLAME_WARDEN:
                     return uiEncounter[6];
+                    break;
+                case DATA_ISISET:
+                    return uiEncounter[7];
+                case DATA_AMMUNAE:
+                    return uiEncounter[8];
+                case DATA_SETESH:
+                    return uiEncounter[9];
+                case DATA_RAJH:
+                    return uiEncounter[10];
             }
             return 0;
         }
@@ -211,7 +263,7 @@ public:
 
             std::string str_data;
             std::ostringstream saveStream;
-            saveStream << "H O" << uiEncounter[0] << " " << uiEncounter[1]  << " " << uiEncounter[2]  << " " << uiEncounter[3] << " " << uiEncounter[4] << " " << uiEncounter[5] << " " << uiEncounter[6]; 
+            saveStream << "H O" << uiEncounter[0] << " " << uiEncounter[1]  << " " << uiEncounter[2]  << " " << uiEncounter[3] << " " << uiEncounter[4] << " " << uiEncounter[5] << " " << uiEncounter[6] << " " << uiEncounter[7] << " " << uiEncounter[8] << " " << uiEncounter[9] << " " << uiEncounter[10]; 
             str_data = saveStream.str();
 
             OUT_SAVE_INST_DATA_COMPLETE;
@@ -229,10 +281,10 @@ public:
             OUT_LOAD_INST_DATA(in);
 
             char dataHead1, dataHead2;
-            uint16 data0, data1, data2, data3, data4, data5, data6;
+            uint16 data0, data1, data2, data3, data4, data5, data6, data7, data8, data9, data10;
 
             std::istringstream loadStream(in);
-            loadStream >> dataHead1 >> dataHead2 >> data0 >> data1 >> data2 >> data3 >> data4 >> data5 >> data6;
+            loadStream >> dataHead1 >> dataHead2 >> data0 >> data1 >> data2 >> data3 >> data4 >> data5 >> data6 >> data7 >> data8 >> data9 >> data10;
 
             if (dataHead1 == 'H' && dataHead2 == 'O')
             {
@@ -243,6 +295,10 @@ public:
                 uiEncounter[4] = data4;
                 uiEncounter[5] = data5;
                 uiEncounter[6] = data6;
+                uiEncounter[7] = data7;
+                uiEncounter[8] = data8;
+                uiEncounter[9] = data9;
+                uiEncounter[10] = data10;
 
                 for(uint8 i=0; i<ENCOUNTERS; ++i)
                     if (uiEncounter[i] == IN_PROGRESS)

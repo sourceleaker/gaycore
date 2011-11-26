@@ -5232,6 +5232,26 @@ void AuraEffect::HandleAuraDummy(AuraApplication const* aurApp, uint8 mode, bool
                             caster->ToPlayer()->KilledMonsterCredit(34329, 0);
                             break;
                         }
+                        case 75592:
+                        {
+                            if (aurApp->GetRemoveMode() == AURA_REMOVE_BY_EXPIRE)
+                            {
+                                std::list<Unit*> unitList;
+                                target->GetPartyMemberInDist(unitList, 15);
+                                if (!unitList.empty())
+                                {
+                                    for (std::list<Unit*>::iterator iter = unitList.begin(); iter != unitList.end(); ++iter)
+                                    {
+                                        if ((*iter)->isAlive())
+                                        {
+                                            (*iter)->CastSpell((*iter), GetAmount(), true);
+                                            caster->ModifyHealth(GetAmount());
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        }
                     }
                     break;
                 case SPELLFAMILY_MAGE:

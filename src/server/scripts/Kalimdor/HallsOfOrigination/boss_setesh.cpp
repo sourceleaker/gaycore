@@ -19,16 +19,18 @@
  Made By: Jenova     
  Project: Atlantiss Core  
  SDName: boss_setesh
- SD%Complete: 75%
- SDComment: 
+ SD%Complete: 90%
+ SDComment: Tested and Fixed most bugs
  SDCategory: Halls Of Origination
  
  Known Bugs:
+ 1. Seed Of Chaos doesnt give buff
+ 2. Chaos Portal needs modelid
+ 3. Sentinel needs DB fixes
+ 4. Missing Choas Blast
 
  TODO:
- 1. Missing ScriptTexts
- 2. Needs testing
- 3. Check Timers
+ 1. Check Timers
  */
                              
 #include "ScriptMgr.h"
@@ -38,25 +40,31 @@
 enum Spells
 {
     //Setesh
-    SPELL_CHAOS_BOLT        = 77069,
-    SPELL_REIGN_OF_CHAOS    = 77026,
-    SPELL_CHAOS_BLAST       = 76681, //76676
-    SPELL_SEED_OF_CHAOS     = 76870,
-    SPELL_SUMMON_CHAOS_SEED = 76888,
+    SPELL_CHAOS_BOLT         = 77069,
+    SPELL_REIGN_OF_CHAOS     = 77023,
+    SPELL_CHAOS_BLAST        = 76681, //76676
+    SPELL_SEED_OF_CHAOS      = 76870,
+    SPELL_SUMMON_CHAOS_SEED  = 76888,
     
     //Sentinel
-    SPELL_VOID_BARRIER      = 63710,
-    SPELL_CHARGED_FISTS     = 77238,
+    SPELL_VOID_BARRIER       = 63710,
+    SPELL_CHARGED_FISTS      = 77238,
 
     //Seeker
-    SPELL_ANTIMAGIC_PRISON  = 76903
+    SPELL_ANTIMAGIC_PRISON   = 76903,
+
+    //Reign Of Chaos
+    SPELL_REIGN_OF_CHAOS_DMG = 77026
+
 };
 
 enum Texts
 {
     SAY_AGGRO = 0,
-    SAY_KILL = 1,
-    SAY_DEATH = 2
+    SAY_CHAOS = 1,
+    SAY_KILL_1 = 2,
+    SAY_KILL_2 = 2,
+    SAY_DEATH = 3
 };
 
 enum Gameobjects
@@ -69,7 +77,7 @@ enum NPCs
     NPC_VOID_SENTINEL       = 41208,
     NPC_VOID_SEEKER         = 41371,
     NPC_VOID_WURM           = 41374,
-    NPC_CHAOS_PORTAL        = 0
+    NPC_CHAOS_PORTAL        = 41055
 };
 
 enum Events
@@ -88,7 +96,7 @@ class boss_setesh : public CreatureScript
 
         struct boss_seteshAI : public BossAI
         {
-            boss_seteshAI(Creature* creature) : BossAI(creature, DATA_SETESH_EVENT)
+            boss_seteshAI(Creature* creature) : BossAI(creature, DATA_SETESH)
             {
                 instance = me->GetInstanceScript();
             }
@@ -98,23 +106,28 @@ class boss_setesh : public CreatureScript
             void Reset()
             {
                 if (instance)
-                    instance->SetData(DATA_SETESH_EVENT, NOT_STARTED);
+                    instance->SetData(DATA_SETESH, NOT_STARTED);
             }
 
             void EnterCombat(Unit* /*who*/)
             {
-                //DoScriptText(SAY_AGGRO, me);
+                DoScriptText(SAY_AGGRO, me);
 
                 if (instance)
-                    instance->SetData(DATA_SETESH_EVENT, IN_PROGRESS);
+                    instance->SetData(DATA_SETESH, IN_PROGRESS);
 
                 events.ScheduleEvent(EVENT_CHAOS_BOLT, 10000);
                 events.ScheduleEvent(EVENT_REIGN_OF_CHAOS, 15000);
                 events.ScheduleEvent(EVENT_CHAOS_BLAST, 12000);
-                events.ScheduleEvent(EVENT_SUMMON_SEED_OF_CHAOS, 25000);
+                events.ScheduleEvent(EVENT_SUMMON_SEED_OF_CHAOS, 20000);
                 events.ScheduleEvent(EVENT_SUMMON_CHAOS_PORTAL, 20000);
 
                 DoZoneInCombat();
+            }
+
+            void KilledUnit(Unit* victim)
+            {
+                Talk(RAND(SAY_KILL_1, SAY_KILL_2));
             }
 
             void UpdateAI(uint32 const diff)
@@ -131,30 +144,32 @@ class boss_setesh : public CreatureScript
                 {
                     switch(eventId)
                     {
-                        case EVENT_CHAOS_BOLT:
-                            if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM, true))
-                                DoCast(target, SPELL_CHAOS_BOLT);
-                            events.ScheduleEvent(EVENT_CHAOS_BOLT, 10000);
-                            break;
-                        case EVENT_REIGN_OF_CHAOS:
-                            DoCastAOE(SPELL_REIGN_OF_CHAOS);
-                            events.ScheduleEvent(EVENT_REIGN_OF_CHAOS, urand(15000, 22000));
-                            break;
-                        case EVENT_CHAOS_BLAST:
-                            if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM, true))
-                                DoCast(target, SPELL_CHAOS_BLAST);
-                            events.ScheduleEvent(EVENT_CHAOS_BLAST, 15000);
-                            break;
-                        case EVENT_SUMMON_SEED_OF_CHAOS:
-                            DoCast(SPELL_SUMMON_CHAOS_SEED);
-                            events.ScheduleEvent(EVENT_SUMMON_SEED_OF_CHAOS, 25000);
-                            break;
-                        case EVENT_SUMMON_CHAOS_PORTAL:
-                            me->SummonCreature(NPC_CHAOS_PORTAL, me->GetPositionX()+rand()%10, me->GetPositionY()+rand()%10, me->GetPositionZ());
-                            events.ScheduleEvent(EVENT_SUMMON_CHAOS_PORTAL, 30000);
-                            break;
-                        default:
-                            break;
+                            case EVENT_CHAOS_BOLT:                             
+                                if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM, true))
+                                    DoCast(target, SPELL_CHAOS_BOLT);
+                                events.ScheduleEvent(EVENT_CHAOS_BOLT, 10000);
+                                break;
+                            case EVENT_REIGN_OF_CHAOS:
+                                DoScriptText(SAY_CHAOS, me);
+                                DoCast(me, SPELL_REIGN_OF_CHAOS);
+                                events.ScheduleEvent(EVENT_REIGN_OF_CHAOS, urand(35000, 45000));
+                                break;
+                            /*case EVENT_CHAOS_BLAST:
+                                if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM, true))
+                                    DoCast(target, SPELL_CHAOS_BLAST);
+                                events.ScheduleEvent(EVENT_CHAOS_BLAST, 15000);
+                            break;*/
+                            case EVENT_SUMMON_SEED_OF_CHAOS:
+                                DoCast(SPELL_SUMMON_CHAOS_SEED);
+                                events.ScheduleEvent(EVENT_SUMMON_SEED_OF_CHAOS, 25000);
+                                break;
+                            case EVENT_SUMMON_CHAOS_PORTAL:
+                                if (Creature *chaos = me->SummonCreature(NPC_CHAOS_PORTAL, me->GetPositionX()+rand()%10, me->GetPositionY()+rand()%10, me->GetPositionZ()))
+                                    chaos->SetVisible(true);
+                                events.ScheduleEvent(EVENT_SUMMON_CHAOS_PORTAL, 30000);
+                                break;
+                            default:
+                                break;  
                     }
                 }
 
@@ -163,10 +178,10 @@ class boss_setesh : public CreatureScript
 
             void JustDied(Unit* /*who*/)
             {
-                //DoScriptText(SAY_DEATH, me);
+                DoScriptText(SAY_DEATH, me);
 
                 if (instance)
-                    instance->SetData(DATA_SETESH_EVENT, DONE);
+                    instance->SetData(DATA_SETESH, DONE);
             }
         };
 
@@ -197,18 +212,24 @@ public:
         InstanceScript* m_pInstance;
 
         SummonList Summons;
+        uint32 checkTimer;
 
         void Reset()
-        {
-            me->SetReactState(REACT_PASSIVE);
+        {   
+            DoCast(me, 76865);
+            me->SetReactState(REACT_AGGRESSIVE);
+            me->setFaction(14);
+            me->StopMoving();
+            checkTimer = 1000;
+            
         }
 
         void UpdateAI(uint32 const diff)
         {
             if (Unit* target = SelectTarget(SELECT_TARGET_NEAREST, true))
-                if (me->IsInRange(target, 0, 3))
+                if (me->IsWithinMeleeRange(target))
                 {
-                    DoCast(SPELL_SEED_OF_CHAOS);
+                    me->AddAura(SPELL_SEED_OF_CHAOS, target);
                     me->DisappearAndDie();
                 }
         }
@@ -244,17 +265,20 @@ public:
 
         SummonList Summons;
         uint32 SummonTimer;
+        uint32 CastTimer;
 
         void Reset()
         {
+            me->SetVisible(true);
             me->SetReactState(REACT_PASSIVE);
 
             if (!IsHeroic())
                 me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE | UNIT_FLAG_NOT_SELECTABLE | UNIT_FLAG_PACIFIED);
             else
                 me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE | UNIT_FLAG_NOT_SELECTABLE | UNIT_FLAG_PACIFIED);
-
-            SummonTimer = 1000;
+            
+            CastTimer = 1000;
+            SummonTimer = 5000;
             Summons.DespawnAll();
         }
         
@@ -280,6 +304,12 @@ public:
                 else
                     SummonTimer = 15000;
             } else SummonTimer -= diff;
+
+            if (CastTimer <= diff)
+            {
+                DoCast(me, 77607);
+                CastTimer = 2000;
+            } else CastTimer -= diff;
         }
 
         void IsSummonedBy(Unit* /*summoner*/)
@@ -412,6 +442,52 @@ public:
 
 };
 
+class mob_reign_of_chaos : public CreatureScript
+{
+public:
+    mob_reign_of_chaos() : CreatureScript("mob_reign_of_chaos") { }
+
+    CreatureAI* GetAI(Creature* creature) const
+    {
+        return new mob_reign_of_chaosAI(creature);
+    }
+
+    struct mob_reign_of_chaosAI : public Scripted_NoMovementAI
+    {
+        mob_reign_of_chaosAI(Creature* creature) : Scripted_NoMovementAI(creature), Summons(me)
+        {
+            m_pInstance = (InstanceScript*)creature->GetInstanceScript();
+            Reset();
+        }
+
+        InstanceScript* m_pInstance;
+        SummonList Summons;
+        uint32 DespawnTimer;
+
+        void Reset()
+        {   DespawnTimer = 6000;
+            DoCast(me, SPELL_REIGN_OF_CHAOS_DMG);
+            me->SetReactState(REACT_PASSIVE);
+        }
+
+        void UpdateAI(uint32 const diff)
+        {
+            if (DespawnTimer<= diff)
+            {
+                me->ForcedDespawn();
+            } else DespawnTimer -= diff;
+
+        }
+
+        void JustDied(Unit* /*killer*/)
+        {
+            // used to despawn corpse immediately
+            me->DespawnOrUnsummon();
+        }
+    };
+
+};
+
 void AddSC_boss_setesh()
 {
     new boss_setesh;
@@ -419,4 +495,5 @@ void AddSC_boss_setesh()
     new mob_seed_of_chaos;
     new mob_void_sentinel;
     new mob_void_seeker;
+    new mob_reign_of_chaos;
 }

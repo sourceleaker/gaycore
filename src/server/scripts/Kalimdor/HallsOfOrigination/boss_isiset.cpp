@@ -19,16 +19,14 @@
  Made By: Jenova     
  Project: Atlantiss Core  
  SDName: boss_isiset
- SD%Complete: 90%  
- SDComment: 
+ SD%Complete: 95%  
+ SDComment: Tested and Fixed most bugs
  SDCategory: Halls Of Origination
 
  Known Bugs:
 
  TODO:
- 1. Needs Testing
- 2. Missing ScriptTexts
- 3. Check Timers 
+ 1. Check Timers 
  */
 
 #include "ScriptMgr.h"
@@ -54,9 +52,9 @@ enum Texts
     SAY_AGGRO = 0,
     SAY_SUPERNOVA = 1,
     SAY_KILL_1 = 2,
-    SAY_KILL_2 = 3,
-    SAY_DEATH_1 = 4,
-    SAY_DEATH_2 = 5,
+    SAY_KILL_2 = 2,
+    SAY_DEATH_1 = 3,
+    SAY_DEATH_2 = 3
 };
 
 enum Spells
@@ -108,21 +106,22 @@ class boss_isiset : public CreatureScript
 
             void EnterCombat(Unit *who)
             {
-                //Talk(SAY_AGGRO, 0, 0);
+                Talk(SAY_AGGRO);
             }
 
             void KilledUnit(Unit* victim)
             {
-                //Talk(RAND(SAY_KILL_1, SAY_KILL_2));
+                Talk(RAND(SAY_KILL_1, SAY_KILL_2));
             }
 
             void JustDied(Unit* Killer)
             {
-                //Talk(RAND(SAY_DEATH_1, SAY_DEATH_2));
+                Talk(RAND(SAY_DEATH_1, SAY_DEATH_2));
             }
 
             void Reset()
             {
+                me->SetVisible(true);
                 RemoveSummons();
                 SupernovaTimer = 15000+rand()%5000;
                 AstralRainTimer = 10000;
@@ -141,18 +140,25 @@ class boss_isiset : public CreatureScript
 
             void SummonedCreatureDespawn(Creature* summon)
             {
-                switch(summon->GetEntry())
+                if (AstralRain == true && CelestialCall == true && VeilOfSky == true)
                 {
-                    case 39720: // Astral Rain
-                        AstralRain = false;
-                        break;
-                    case 39721: // Celestial Call
-                        CelestialCall = false;
-                        break;
-                    case 39722: // Veil of Sky
-                        VeilOfSky = false;
-                        break;
+                    switch(summon->GetEntry())
+                    {
+                        case 39720: // Astral Rain
+                            me->SetVisible(true);
+                            AstralRain = false;
+                            break;
+                        case 39721: // Celestial Call
+                            me->SetVisible(true);
+                            CelestialCall = false;
+                            break;
+                        case 39722: // Veil of Sky
+                            me->SetVisible(true);
+                            VeilOfSky = false;
+                            break;
+                    }
                 }
+                me->SetVisible(true);
                 RemoveSummons();
             }
 
@@ -192,6 +198,7 @@ class boss_isiset : public CreatureScript
                     me->SummonCreature(39720, pos, TEMPSUMMON_CORPSE_DESPAWN, 1000);
                     me->SummonCreature(39721, pos, TEMPSUMMON_CORPSE_DESPAWN, 1000);
                     me->SummonCreature(39722, pos, TEMPSUMMON_CORPSE_DESPAWN, 1000);
+                    me->SetVisible(false);
                 }
 
                 if ((me->GetHealth() * 100 / me->GetMaxHealth() <= 33) && Phase == 1)
@@ -206,6 +213,7 @@ class boss_isiset : public CreatureScript
                         me->SummonCreature(39721, pos, TEMPSUMMON_CORPSE_DESPAWN, 1000);
                     if (VeilOfSky == true)
                         me->SummonCreature(39722, pos, TEMPSUMMON_CORPSE_DESPAWN, 1000);
+                    me->SetVisible(false);
                 }
 
                 if (Phase == 0)
@@ -255,7 +263,7 @@ class boss_isiset : public CreatureScript
 
                 if (SupernovaTimer <= diff && Phased == false)
                 {
-                    //Talk(SAY_SUPERNOVA);
+                    Talk(SAY_SUPERNOVA);
                     DoCast(me->getVictim(), SPELL_SUPERNOVA);
                     SupernovaTimer = 15000+rand()%5000;
                 } else SupernovaTimer -= diff;

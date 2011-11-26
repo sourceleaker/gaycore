@@ -20,15 +20,15 @@
  Project: Atlantiss Core  
  SDName: boss_ammunae
  SD%Complete: 75%
- SDComment: 
+ SDComment: Tested and Fixed most bugs
  SDCategory: Halls Of Origination
 
  Known Bugs:
+ 1. Crashes...
+ 2. Invisible adds?!
 
  TODO:
- 1. Consume Life needs scripting
- 2. Check Timers
- 3. Needs testing
+ 1. Check Timers
  */
                                
 #include "ScriptMgr.h"
@@ -40,9 +40,12 @@ enum Spells
 {
     //Ammunae
     SPELL_WITHER                           = 76043,
-    SPELL_CONSUME_LIFE_DAMAGE_EFFECT       = 79767,
     SPELL_CONSUME_LIFE_ENERGIZE_EFFECT     = 75665,
-    SPELL_CONSUME_LIFE_POWER_BURN_EFFECT   = 75666,
+    SPELL_CONSUME_MANA                     = 101023,
+    SPELL_CONSUME_RAGE                     = 94960,
+    SPELL_CONSUME_FOCUS                    = 94958,
+    SPELL_CONSUME_ENERGY                   = 94961,
+    SPELL_CONSUME_RUNIC                    = 94959,
     SPELL_RAMPANT_GROWTH                   = 75790,   //Only with 100 energy
 
     //Seeding Pod
@@ -54,7 +57,10 @@ enum Spells
 
     //Spore
     SPELL_NOXIOUS_SPORE                    = 75702,    //Triggered by Spore Cloud
-    SPELL_SPORE_CLOUD                      = 75701
+    SPELL_SPORE_CLOUD                      = 75701,
+
+    //Stop Energy Regen
+    SPELL_NO_ENERGY_REGEN                  = 72242
 };
 
 enum NPCs
@@ -64,12 +70,13 @@ enum NPCs
     NPC_SPORE               = 40585
 };
 
-enum ScriptTexts
+enum Texts
 {
-    SAY_AGGRO                = 0,
-    SAY_GROWTH               = 1,
-    SAY_KILL                 = 2,
-    SAY_DEATH                = 3,
+    SAY_AGGRO = 0,
+    SAY_CONSUME = 1,
+    SAY_KILL_1 = 2,
+    SAY_KILL_2 = 2,
+    SAY_DEATH = 3
 };
 
 enum Gameobjects
@@ -102,7 +109,7 @@ class boss_ammunae : public CreatureScript
 
         struct boss_ammunaeAI : public BossAI
         {
-            boss_ammunaeAI(Creature* creature) : BossAI(creature, DATA_AMMUNAE_EVENT)
+            boss_ammunaeAI(Creature* creature) : BossAI(creature, DATA_AMMUNAE)
             {
                 instance = me->GetInstanceScript();
             }
@@ -112,15 +119,22 @@ class boss_ammunae : public CreatureScript
             void Reset()
             {
                 if (instance)
-                    instance->SetData(DATA_AMMUNAE_EVENT, NOT_STARTED);
+                    instance->SetData(DATA_AMMUNAE, NOT_STARTED);
+
+                me->setPowerType(POWER_ENERGY);
+                me->SetPower(POWER_ENERGY, 0);
+                DoCast(me, SPELL_NO_ENERGY_REGEN, true);
             }
 
             void EnterCombat(Unit* /*who*/)
             {
-                //DoScriptText(SAY_AGGRO, me);
+                Talk(SAY_AGGRO);
 
                 if (instance)
-                    instance->SetData(DATA_AMMUNAE_EVENT, IN_PROGRESS);
+                    instance->SetData(DATA_AMMUNAE, IN_PROGRESS);
+
+                me->setPowerType(POWER_ENERGY);
+                me->SetPower(POWER_ENERGY, 0);
 
                 events.ScheduleEvent(EVENT_WITHER, TIMER_WITHER);
                 events.ScheduleEvent(EVENT_CONSUME_LIFE, TIMER_CONSUME_LIFE);
@@ -131,6 +145,11 @@ class boss_ammunae : public CreatureScript
                 DoZoneInCombat();
             }
             
+            void KilledUnit(Unit* victim)
+            {
+                Talk(RAND(SAY_KILL_1, SAY_KILL_2));
+            }
+
             void RampartSummon(uint32 entry, float distance)
             {
                 std::list<Creature*> pCreatureList;
@@ -144,17 +163,34 @@ class boss_ammunae : public CreatureScript
                 uint32 count = pCreatureList.size();
                 for(std::list<Creature*>::iterator iter = pCreatureList.begin(); iter != pCreatureList.end(); ++iter)
                 {
-                    (*iter)->SummonCreature(NPC_BLOODPETAL_BLOSSOM, me->GetPositionX(), me->GetPositionY(), me->GetPositionZ());
+                    (*iter)->SummonCreature(NPC_BLOODPETAL_BLOSSOM, (*iter)->GetPositionX(), (*iter)->GetPositionY(), (*iter)->GetPositionZ());
                     (*iter)->ForcedDespawn();
                 }
             }
-
+            
             void DoRampartGrowth()
             {
-                //DoScriptText(SAY_GROWTH, me);
                 me->SetPower(POWER_ENERGY, 0);
                 DoCastAOE(SPELL_RAMPANT_GROWTH);
                 RampartSummon(NPC_SEEDING_POD, 100);
+            }
+
+            void DoConsume(Unit* target, Powers power)
+            {               
+                if (power == POWER_MANA)
+                    DoCast(target, SPELL_CONSUME_MANA);
+                
+                if (power == POWER_RAGE)
+                    DoCast(target, SPELL_CONSUME_RAGE);
+                
+                if (power == POWER_FOCUS)
+                    DoCast(target, SPELL_CONSUME_FOCUS);
+                
+                if (power == POWER_ENERGY)
+                    DoCast(target, SPELL_CONSUME_ENERGY);
+                
+                if (power == POWER_RUNIC_POWER)
+                    DoCast(target, SPELL_CONSUME_RUNIC);                   
             }
 
             void UpdateAI(uint32 const diff)
@@ -174,11 +210,13 @@ class boss_ammunae : public CreatureScript
                         case EVENT_WITHER:
                             if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM, true))
                                 DoCast(target, SPELL_WITHER);
-                                events.ScheduleEvent(EVENT_WITHER, 1000);
+                                events.ScheduleEvent(EVENT_WITHER, 15000);
                             break;
                         case EVENT_CONSUME_LIFE:
-                            DoCast(me->getVictim(), SPELL_CONSUME_LIFE_DAMAGE_EFFECT);
-                            events.ScheduleEvent(EVENT_CONSUME_LIFE, urand(15000, 22000));
+                            me->AddAura(SPELL_CONSUME_LIFE_ENERGIZE_EFFECT, me);
+                            if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM, true))
+                                DoConsume(target, target->getPowerType());
+                            events.ScheduleEvent(EVENT_CONSUME_LIFE, urand(30000, 35000));
                             break;
                         case EVENT_RAMPANT_GROWTH:
                             if (me->GetPower(POWER_ENERGY) == me->GetMaxPower(POWER_ENERGY))
@@ -191,7 +229,7 @@ class boss_ammunae : public CreatureScript
                             break;
                         case EVENT_SUMMON_SPORE:
                             me->SummonCreature(NPC_SPORE, me->GetPositionX()+rand()%10, me->GetPositionY()+rand()%10, me->GetPositionZ());
-                            events.ScheduleEvent(EVENT_SUMMON_SPORE, 20000);
+                            events.ScheduleEvent(EVENT_SUMMON_SPORE, 25000);
                             break;
                         default:
                             break;
@@ -203,10 +241,10 @@ class boss_ammunae : public CreatureScript
 
             void JustDied(Unit* /*who*/)
             {
-                //DoScriptText(SAY_DEATH, me);
+                Talk(SAY_DEATH);
 
                 if (instance)
-                    instance->SetData(DATA_AMMUNAE_EVENT, DONE);
+                    instance->SetData(DATA_AMMUNAE, DONE);
             }
         };
 
@@ -239,6 +277,7 @@ public:
 
         void Reset()
         {
+            me->SetVisible(true);
             SlashTimer = 5000;
         }
 
@@ -291,6 +330,7 @@ public:
 
         void Reset()
         {
+            me->SetVisible(true);
             me->SetReactState(REACT_PASSIVE);
 
             me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE | UNIT_FLAG_NOT_SELECTABLE | UNIT_FLAG_PACIFIED);
@@ -364,8 +404,10 @@ public:
 
         void Reset()
         {
+            me->setFaction(14);
             me->SetReactState(REACT_PASSIVE);
-
+            me->SetLevel(85);
+            DoCast(me, SPELL_SPORE_CLOUD);
             me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE | UNIT_FLAG_NOT_SELECTABLE | UNIT_FLAG_PACIFIED);
 
             SporeTimer = 1000;
@@ -374,11 +416,6 @@ public:
         
         void UpdateAI(uint32 const diff)
         {
-            if (SporeTimer <= diff)
-            {
-                DoCast(SPELL_SPORE_CLOUD);
-                //SporeTimer = 3000;
-            } else SporeTimer -= diff;
         }
 
         void JustDied(Unit* /*killer*/)

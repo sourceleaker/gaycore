@@ -20,16 +20,15 @@
  Project: Atlantiss Core  
  SDName: boss_anraphet
  SD%Complete: 80%
- SDComment: 
+ SDComment: Tested and Fixed most bugs
  SDCategory: Halls Of Origination
 
  Known Bugs:
+ 1. Alpha Beams Bugged
 
  TODO:
  1. Needs Testing
- 2. Missing enter Event
- 3. Missing ScriptTexts
- 4. Check Timers
+ 2. Check Timers
  */
                                
 #include "ScriptMgr.h"
@@ -42,10 +41,9 @@ enum ScriptTexts
     SAY_INTRO                  = 0,
     SAY_AGGRO                  = 1,
     SAY_KILL_1                 = 2,
-    SAY_KILL_2                 = 3,
-    SAY_OMEGA                  = 4,
-    SAY_DEATH                  = 5,
-    SAY_PROTOCOL               = 6
+    SAY_KILL_2                 = 2,
+    SAY_OMEGA                  = 3,
+    SAY_DEATH                  = 4,
 };
 
 enum Spells
@@ -53,7 +51,7 @@ enum Spells
     //Anraphet
 	SPELL_ALPHA_BEAMS          = 76184,
     SPELL_CRUMBLING_RUIN       = 75609,
-    SPELL_DESTRUCTION_PROTOCOL = 77437,
+    SPELL_DESTRUCTION_PROTOCOL = 77437,  //kills the boss...
     SPELL_NEMESIS_STRIKE       = 75604,
     SPELL_OMEGA_STANCE         = 75622,
 
@@ -69,12 +67,18 @@ enum Spells
     SPELL_BUBBLE_BOUND         = 77336
 };
 
-enum Cords
+enum Creatures
 {
-    //Cords for Anraphet intro
-    X = 0,
-    Y = 0,
-    Z = 0
+    NPC_TROGG_BRUTE = 40251,
+    NPC_TROGG_PILLAGER = 39804,
+    NPC_TROGG_ROCK = 40252
+};
+const Position MovePositions[4] =
+{    
+    {-111, 366, 89.789f}, //Get to door
+    {-135, 366, 89.789f}, //Next to stairs
+    {-142, 366, 89.789f}, //Stairs begin
+    {-197, 366, 75.871f} //END
 };
 
 enum Events
@@ -86,14 +90,6 @@ enum Events
     EVENT_OMEGA_STANCE         = 5
 };
 
-/*enum Timers
-{
-    TIMER_ALPHA_BEAMS      = 15000,
-    TIMER_NEMESIS_STRIKE   = 10000,
-    TIMER_OMEGA_STANCE     = 20000
-    //TIMER_RUIN,
-};*/
-
 class boss_anraphet : public CreatureScript
 {
     public:
@@ -101,12 +97,16 @@ class boss_anraphet : public CreatureScript
 
         struct boss_anraphetAI : public BossAI
         {
-            boss_anraphetAI(Creature* creature) : BossAI(creature, DATA_ANRAPHET_EVENT)
+            boss_anraphetAI(Creature* creature) : BossAI(creature, DATA_ANRAPHET)
             {
                 instance = me->GetInstanceScript();
+                me->ApplySpellImmune(0, IMMUNITY_ID, SPELL_DESTRUCTION_PROTOCOL, true);
             }
 
             InstanceScript* instance;
+            
+            uint32 AttackStartTimer;
+            uint8 Phase;
             uint8 wardenKilled;
 
             void Reset()
@@ -114,30 +114,49 @@ class boss_anraphet : public CreatureScript
                 events.Reset();
 
                 if (instance)
-                    instance->SetData(DATA_ANRAPHET_EVENT, NOT_STARTED);
+                    instance->SetData(DATA_ANRAPHET, NOT_STARTED);
+                if (instance)
+                    instance->DoRemoveAurasDueToSpellOnPlayers(SPELL_CRUMBLING_RUIN);
 
+                AttackStartTimer = 0;
+                Phase = 0;
                 wardenKilled = 0;
             }
 
             void EnterCombat(Unit* /*who*/)
             {
-                //DoScriptText(SAY_AGGRO, me);
+                Talk(SAY_AGGRO);
 
                 if (instance)
-                    instance->SetData(DATA_ANRAPHET_EVENT, IN_PROGRESS);
+                    instance->SetData(DATA_ANRAPHET, IN_PROGRESS);
 
                 events.ScheduleEvent(EVENT_ALPHA_BEAMS, 8000+rand()%2000);
                 events.ScheduleEvent(EVENT_CRUMBLING_RUIN, urand(10000, 16000));
                 events.ScheduleEvent(EVENT_NEMESIS_STRIKE, 12000);
                 events.ScheduleEvent(EVENT_OMEGA_STANCE, 10000);
-                instance->DoRemoveAurasDueToSpellOnPlayers(SPELL_CRUMBLING_RUIN);
-
                 DoZoneInCombat();
+            }
+
+            void KillTroggs(uint32 entry, float distance)
+            {
+                std::list<Creature*> pCreatureList;
+                Trinity::AllCreaturesOfEntryInRange checker(me, entry, distance);
+                Trinity::CreatureListSearcher<Trinity::AllCreaturesOfEntryInRange> searcher(me, pCreatureList, checker);
+                me->VisitNearbyObject(distance, searcher);
+                if(pCreatureList.empty())
+                    return;
+
+                std::list<Creature*>::iterator itr = pCreatureList.begin();
+                uint32 count = pCreatureList.size();
+                for(std::list<Creature*>::iterator iter = pCreatureList.begin(); iter != pCreatureList.end(); ++iter)
+                {
+                    (*iter)->ForcedDespawn();
+                }
             }
 
             void KilledUnit(Unit* /*Killed*/)
             {
-                //DoScriptText(RAND(SAY_KILL_1, SAY_KILL_2), me);
+                Talk(RAND(SAY_KILL_1, SAY_KILL_2));
             }
 
             void WardenKilled()
@@ -150,16 +169,55 @@ class boss_anraphet : public CreatureScript
 
             void preBattlePhase()
             {
-                //Enter the room and kill all troggs
-
-                //DoScriptText(SAY_INTRO, me);
-                //DoScriptText(SAY_PROTOCOL me);
-                //me->GetMotionMaster()->MovePoint(0, X, Y, Z);  //Find Room Cords
-                DoCast(SPELL_DESTRUCTION_PROTOCOL);
+                Phase = 1;
+                AttackStartTimer = 1000;
             }
 
             void UpdateAI(uint32 const diff)
             {
+               if (AttackStartTimer <= diff)
+                {
+                    switch (Phase)
+                    {
+                        case 1:
+                            {
+                            me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE | UNIT_FLAG_NOT_SELECTABLE | UNIT_FLAG_PACIFIED);
+                            GameObject* Door = me->FindNearestGameObject(202314, 200);
+                            if (Door)
+                                Door->SetGoState(GO_STATE_ACTIVE);
+                            me->GetMotionMaster()->MovePoint(0, MovePositions[0].GetPositionX(), MovePositions[0].GetPositionY(), MovePositions[0].GetPositionZ());
+                            AttackStartTimer = 15000;
+                            Phase = 2;
+                            break;
+                            }
+                        case 2:
+                            me->GetMotionMaster()->MovePoint(0, MovePositions[1].GetPositionX(), MovePositions[1].GetPositionY(), MovePositions[1].GetPositionZ());
+                            Phase = 3;
+                            AttackStartTimer = 7500;
+                            break;
+                        case 3:
+                            me->GetMotionMaster()->MovePoint(0, MovePositions[2].GetPositionX(), MovePositions[2].GetPositionY(), MovePositions[2].GetPositionZ());
+                            Phase = 4;
+                            AttackStartTimer = 5000;
+                            break;
+                        case 4:
+                            me->GetMotionMaster()->MovePoint(0, MovePositions[3].GetPositionX(), MovePositions[3].GetPositionY(), MovePositions[3].GetPositionZ());
+                            Phase = 5;
+                            AttackStartTimer = 15000;
+                            break;
+                        case 5:
+                            me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE | UNIT_FLAG_NOT_SELECTABLE | UNIT_FLAG_PACIFIED);
+                            DoCast(SPELL_DESTRUCTION_PROTOCOL);
+                            KillTroggs(NPC_TROGG_BRUTE,200);
+                            KillTroggs(NPC_TROGG_PILLAGER,200);
+                            KillTroggs(NPC_TROGG_ROCK,200);
+                            Phase = 6;
+                            break;
+                    }
+                }
+                else
+                    AttackStartTimer -= diff;
+
                 if (!UpdateVictim())
                    return;
 
@@ -175,6 +233,8 @@ class boss_anraphet : public CreatureScript
                         case EVENT_ALPHA_BEAMS:
                             if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM, true))
                                 DoCast(target, SPELL_ALPHA_BEAMS);
+                            else
+                                DoCast(SPELL_ALPHA_BEAMS);
                                 events.ScheduleEvent(EVENT_ALPHA_BEAMS, urand(8000, 12000));
                             break;
                         case EVENT_CRUMBLING_RUIN:
@@ -183,12 +243,12 @@ class boss_anraphet : public CreatureScript
                             break;
                         case EVENT_NEMESIS_STRIKE:
                             DoCast(me->getVictim(), SPELL_NEMESIS_STRIKE);
-                            events.ScheduleEvent(EVENT_NEMESIS_STRIKE, 2000);
+                            events.ScheduleEvent(EVENT_NEMESIS_STRIKE, 10000);
                             break;
                         case EVENT_OMEGA_STANCE:
                             //DoScriptText(SAY_OMEGA, me);
                             DoCast(me, SPELL_OMEGA_STANCE);
-                            events.ScheduleEvent(EVENT_OMEGA_STANCE, 14000);
+                            events.ScheduleEvent(EVENT_OMEGA_STANCE, 45000);
                             break;
                         default:
                             break;
@@ -200,10 +260,13 @@ class boss_anraphet : public CreatureScript
 
             void JustDied(Unit* /*who*/)
             {
-                //DoScriptText(SAY_DEATH, me);
+                Talk(SAY_DEATH);
 
                 if (instance)
-                    instance->SetData(DATA_ANRAPHET_EVENT, DONE);
+                    instance->DoRemoveAurasDueToSpellOnPlayers(SPELL_CRUMBLING_RUIN);
+
+                if (instance)
+                    instance->SetData(DATA_ANRAPHET, DONE);
             }
         };
 
@@ -384,13 +447,13 @@ class boss_earth_warden : public CreatureScript
                 if (RockTimer <= diff)
                 {
                     if(Unit *pTarget = (SelectTarget(SELECT_TARGET_RANDOM, 0, 0, true)))
-                        DoCast(pTarget, SPELL_WIND_SHEAR);
+                        DoCast(pTarget, SPELL_ROCKWAVE);
                     RockTimer = 20000+rand()%7500;
                 } else RockTimer -= diff;
 
                 if (ImpaleTimer <= diff)
                 {
-                    DoCast(me->getVictim(), SPELL_WIND_SHEAR);
+                    DoCast(me->getVictim(), SPELL_IMPALE);
                     ImpaleTimer = 7500+rand()%7500;
                 } else ImpaleTimer -= diff;
 

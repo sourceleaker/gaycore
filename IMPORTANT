@@ -1,0 +1,8 @@
+!!Pamietaj!!
+
+o zmianie revision w 
+
+acore_revision.h.in.cmake
+
+za kazdym razem, gdy wprowadzasz jakies zmiany
+w plikach serwera! Tyczy sie to takze samych zmian w core, bez wgrania plikow SQL.

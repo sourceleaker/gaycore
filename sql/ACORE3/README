@@ -1,0 +1,10 @@
+-- --- --
+-- SQL --
+-- --- --
+
+SQL:
+   - updates (folder z poprawkami stworzonymi przez Atlantiss Dev Team)
+   - base (czysta, podstawowa baza pod ACore3)
+   - under_dev (pliki SQL, ktora nadal sa rozwijane)
+   
+Struktura katalogow w folderze powinna byc zachowana wedlug powyzszego schematu.

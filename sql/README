@@ -1,0 +1,12 @@
+-- --- --
+-- SQL --
+-- --- --
+
+SQL:
+   - ACore3 (folder z poprawkami stworzonymi przez Atlantiss Dev Team)
+   - base (auth i characters dla ACore3)
+   - create (tworzenie baz dla ACore3)
+   - old (stare poprawki z Skyfire Rebase)
+   - updates (nowe poprawki z Skyfire Rebase)
+   
+Struktura katalogow w folderze powinna byc zachowana wedlug powyzszego schematu.

@@ -50,7 +50,7 @@ DELETE FROM `creature` WHERE `id` IN (45196,44912,44913,45497,45498,44911,44632,
 -- -- -- -- -- -- -- -- -- --
 
 -- Orc Sea Dog - new template --
-UPDATE `creature_template` SET `unit_flags` = '394118', `AIName` = 'SmartAI', `equipment_id` = '45196', `RegenHealth` = '0' WHERE `entry` = 45196;
+UPDATE `creature_template` SET `unit_flags` = '131462', `AIName` = 'SmartAI', `equipment_id` = '45196', `RegenHealth` = '0' WHERE `entry` = 45196;
 
 -- Orc Sea Dog - equip --
 INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES

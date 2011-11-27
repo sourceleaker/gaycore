@@ -56,7 +56,7 @@ DELETE FROM `creature_template_addon` WHERE `entry` IN (44629,44640,44592,44593,
 DELETE FROM `creature` WHERE `id` IN (45197,44630,44825,44367,44636,44954,44966,44608,44951,45104,46034,49213,49044,45583,45609,45625,45802,49128,45105,46033,45775,45761,45584,45610,45626,44609,45318,45473,45555,46032,45106,49129,45314,45585,45611,45627,44610,44365,44592,44593,44629,44640,44630,44615);
 DELETE FROM `creature` WHERE `id` = 39605 AND `map` = 0;
 DELETE FROM `spell_area` WHERE `area` IN (5369,928,305,239);
-DELETE FROM `creature_template` WHERE `entry` IN (44893,44894,44883,44882,44884,44825,44821,44630,44365,44592,44593,44629,44640,44615,44365,44636);
+DELETE FROM `creature_template` WHERE `entry` IN (44608,44609,44610,44893,44894,44883,44882,44884,44825,44821,44630,44365,44592,44593,44629,44640,44615,44365,44636);
 DELETE FROM `gameobject_template` WHERE `entry` IN (205143,205099);
 DELETE FROM `npc_text` WHERE `id` IN (16683,16575);
 DELETE FROM `gossip_menu` WHERE `entry` IN (11892,11823);
@@ -680,10 +680,10 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (4464000, 9, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0, 53, 1, 446400, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'High Warlord Cromush - run to Garrosh'),
 (4464000, 9, 1, 0, 0, 0, 100, 1, 8000, 8000, 0, 0, 66, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'High Warlord Cromush - set home orientation'),
 (4464000, 9, 2, 0, 0, 0, 100, 1, 83000, 83000, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'High Warlord Cromush - text 1'),
-(4464000, 9, 3, 0, 0, 0, 100, 1, 30000, 30000, 0, 0, 66, 0, 0, 0, 0, 0, 0, 9, 44629, 0, 25, 0, 0, 0, 0, 'High Warlord Cromush - look at Garrosh'),
+(4464000, 9, 3, 0, 0, 0, 100, 1, 50000, 50000, 0, 0, 66, 0, 0, 0, 0, 0, 0, 9, 44629, 0, 25, 0, 0, 0, 0, 'High Warlord Cromush - look at Garrosh'),
 (4464000, 9, 4, 0, 0, 0, 100, 1, 0, 0, 0, 0, 11, 6245, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'High Warlord Cromush - emore salute'),
 (4464000, 9, 5, 0, 0, 0, 100, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'High Warlord Cromush - text 2'),
-(4464000, 9, 6, 0, 0, 0, 100, 1, 50000, 50000, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'High Warlord Cromush - despawn');
+(4464000, 9, 6, 0, 0, 0, 100, 1, 30000, 30000, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'High Warlord Cromush - despawn');
 
 -- High Warlord Cromush - waypoints --
 INSERT INTO `waypoints` (`entry`, `pointid`, `position_x`, `position_y`, `position_z`, `point_comment`) VALUES 
@@ -702,12 +702,13 @@ INSERT INTO `waypoints` (`entry`, `pointid`, `position_x`, `position_y`, `positi
 -- -- -- -- -- -- -- -- -- -- --
 
 -- Agatha & Daschla & Arthura - new template --
-UPDATE `creature_template` SET `InhabitType` = '7' WHERE `entry` IN (44608,44951,45104,46034,49213,49044,45583,45609,45625);
-UPDATE `creature_template` SET `InhabitType` = '7' WHERE `entry` IN (45802,49128,45105,46033,45775,45761,45584,45610,45626,44609);
-UPDATE `creature_template` SET `InhabitType` = '7' WHERE `entry` IN (45318,45473,45555,46032,45106,49129,45314,45585,45611,45627,44610);
-
--- Agatha - new template --
-UPDATE `creature_template` SET `movementId` = '0' WHERE `entry` = 44608;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES 
+(44608, 0, 0, 0, 0, 0, 33996, 0, 0, 0, 'Agatha', '', '', 0, 15, 15, 0, 68, 68, 3, 1, 1, 1, 1, 20, 27, 0, 48, 1.7, 2000, 0, 2, 33536, 2048, 0, 0, 0, 0, 0, 14, 21, 2, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 7, 30, 20, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44608, 613097436, 0, '', 0),
+(44609, 0, 0, 0, 0, 0, 33997, 0, 0, 0, 'Daschla', '', '', 0, 15, 15, 0, 68, 68, 0, 1, 1, 1, 1, 20, 27, 0, 48, 1.7, 2000, 0, 2, 33536, 2048, 0, 0, 0, 0, 0, 14, 21, 2, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 7, 30, 20, 1, 0, 0, 0, 0, 0, 0, 0, 868, 1, 44609, 613097436, 0, '', 0),
+(44610, 0, 0, 0, 0, 0, 33997, 0, 0, 0, 'Arthura', '', '', 0, 15, 15, 0, 68, 68, 3, 1, 1, 1, 1, 20, 27, 0, 48, 1.7, 2000, 0, 2, 33536, 2048, 0, 0, 0, 0, 0, 14, 21, 2, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 7, 30, 20, 1, 0, 0, 0, 0, 0, 0, 0, 868, 1, 44610, 613097436, 0, '', 1);
+UPDATE `creature_template` SET `InhabitType` = '7' WHERE `entry` IN (44951,45104,46034,49213,49044,45583,45609,45625);
+UPDATE `creature_template` SET `InhabitType` = '7' WHERE `entry` IN (45802,49128,45105,46033,45775,45761,45584,45610,45626);
+UPDATE `creature_template` SET `InhabitType` = '7' WHERE `entry` IN (45318,45473,45555,46032,45106,49129,45314,45585,45611,45627);
 
 -- Agatha & Daschla & Arthura - addon --
 INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
@@ -812,7 +813,6 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- Hellscream's Elite - new template --
-
 INSERT INTO `creature_template` ( `entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES 
 (44636, 0, 0, 0, 0, 0, 34008, 0, 0, 0, 'Hellscream''s Elite', '', 'Directions', 0, 85, 85, 3, 29, 29, 0, 1.0, 1.14286, 1.0, 0, 2, 2, 0, 24, 1.0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2, 2, 24, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 3, 2.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44636, 0, 0, '', 0);
 
@@ -841,7 +841,7 @@ INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `IconNa
 
 -- Ferocious Doomweed - SAI --
 INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
-(205099, 1, 0, 0, 64, 0, 100, 1, 0, 0, 0, 0, 75, 83523, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 'Ferocious Doomweed - add aura on gossip_hello');
+(205099, 1, 0, 0, 64, 0, 100, 0, 0, 0, 0, 0, 75, 83523, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Ferocious Doomweed - call timed actionlist on gossip_hello');
 
 -- Ferocious Doomweed - spawns --
 INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`) VALUES
@@ -1033,7 +1033,7 @@ INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entr
 
 -- Armoire - spellclick --
 INSERT INTO `npc_spellclick_spells` (`npc_entry`, `spell_id`, `quest_start`, `quest_start_active`, `quest_end`, `cast_flags`, `aura_required`, `aura_forbidden`, `user_type`) VALUES 
-(44894, 83788, 27045, 1, 0, 3, 0, 0, 0);
+(44894, 83788, 27045, 1, 0, 1, 0, 0, 0);
 
 -- Armoire - SAI --
 

@@ -127,7 +127,7 @@ UPDATE `creature_template` SET `IconName` = 'vehichleCursor',`npcflag` = '167772
 
 -- Horde Hauler - spellclick --
 INSERT INTO `npc_spellclick_spells` (`npc_entry`, `spell_id`, `quest_start`, `quest_start_active`, `quest_end`, `cast_flags`, `aura_required`, `aura_forbidden`, `user_type`) VALUES 
-(44731, 86807, 'Subdued Forest Ettin', 0, 0, 2, 0, 0, 0);
+(44731, 86807, 0, 0, 0, 2, 0, 0, 0);
 
 -- Horde Haulder - vehicle_template_accessory --
 -- Player seat is 2 --
@@ -294,7 +294,7 @@ UPDATE `creature_template` SET `IconName` = 'vehichleCursor',`npcflag` = '167772
 
 -- Horde Coffin Hauler - spellclick --
 INSERT INTO `npc_spellclick_spells` (`npc_entry`, `spell_id`, `quest_start`, `quest_start_active`, `quest_end`, `cast_flags`, `aura_required`, `aura_forbidden`, `user_type`) VALUES 
-(44764, 86807, '', 0, 0, 2, 0, 0, 0);
+(44764, 86807, 0, 0, 0, 2, 0, 0, 0);
 
 -- Horde Coffin Hauler - formation --
 -- INSERT INTO `creature_formations` (`leaderGUID`, `memberGUID`, `dist`, `angle`, `groupAI`) VALUES 

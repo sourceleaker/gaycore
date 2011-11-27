@@ -1,7 +1,7 @@
 -- ------ --
 -- DELETE --
 -- ------ --
-DELETE FROM `quest_template` WHERE `entry` IN (26964,28568,26965,27039);
+DELETE FROM `quest_template` WHERE `entry` IN (26964,28568,26965,27039,27045);
 
 
 -- -------------------- -- 

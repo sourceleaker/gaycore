@@ -30,16 +30,20 @@
 --  DELETE  --
 -- -------- --
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (SELECT -`guid` FROM `creature` WHERE `id` = 44913) AND `source_type` = 0;
-DELETE FROM `smart_scripts` WHERE `entryorguid` IN (44923,44920,45196,44912,45498,46483,44911,44632) AND `source_type` = 0;
+DELETE FROM `smart_scripts` WHERE `entryorguid` IN (46573,46574,1908,1768,44923,44920,45196,44912,45498,46483,44911,44632) AND `source_type` = 0;
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (4491300,4491301,4491302,4491303,4491304,4549800,4648300,4648300,4648301,4648302,4648303,4648304,4648305,4648306,4648307,4648308,4648309,4648310,4648311,4648311,4648312,4648313,4648314,4648315) AND `source_type` = 9;
-DELETE FROM `creature_equip_template` WHERE `entry` IN (44913,44923,44920,45196,44632,46483,44793,44912);
-DELETE FROM `creature_template_addon` WHERE `entry` IN (44913,44923,44920,45196,46483,44632,44793);
+DELETE FROM `creature_equip_template` WHERE `entry` IN (44793,45196,44912,44913,45497,45498,44911,44632,50141,46483,44923,44920,44934,1908,1768,46573,46574,2173);
+DELETE FROM `creature_template_addon` WHERE `entry` IN (44793,45196,44912,44913,45497,45498,44911,44632,50141,46483,44923,44920,44934,1908,1768,46573,46574,2173);
 DELETE FROM `creature_addon` WHERE `guid` IN (SELECT `guid` FROM `creature` WHERE `id` = 44913);
 DELETE FROM `creature_addon` WHERE `guid` IN (SELECT `guid` FROM `creature` WHERE `id` = 44911);
 DELETE FROM `waypoints` WHERE `entry` IN (SELECT `guid`*10 FROM `creature` WHERE `id` = 44911);
 DELETE FROM `creature_formations` WHERE `leaderGUID` IN (SELECT `guid` FROM `creature` WHERE `id` = 44911);
 DELETE FROM `creature_text` WHERE `entry` IN (45196,44913,44912,45497,45498,44825);
 DELETE FROM `creature` WHERE `id` IN (45196,44912,44913,45497,45498,44911,44632,1953,50141,46483,44923,44920,44793,44792,44791,1870,1909,1927,1767,1958,1951,1950,44934,1908,46574,1768,2173);
+DELETE FROM `creature_template` WHERE `entry` IN (45196,44912,44913,45497,45498,44911,44632,50141,46483,44923,44920,44934,1908,1768,46573,46574,2173);
+DELETE FROM `npc_vendor` WHERE `entry` IN (45497);
+DELETE FROM `creature_loot_template` WHERE `entry` IN (1908,1768);
+DELETE FROM `creature_ai_scripts` WHERE `creature_id` IN (1908,1768);
 
 
 /* Set random HP - action 98 in SAI */
@@ -50,7 +54,8 @@ DELETE FROM `creature` WHERE `id` IN (45196,44912,44913,45497,45498,44911,44632,
 -- -- -- -- -- -- -- -- -- --
 
 -- Orc Sea Dog - new template --
-UPDATE `creature_template` SET `unit_flags` = '131462', `AIName` = 'SmartAI', `equipment_id` = '45196', `RegenHealth` = '0' WHERE `entry` = 45196;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(45196, 0, 0, 0, 0, 0, 34175, 34176, 34177, 34178, 'Orc Sea Dog', '', '', 0, 12, 13, 0, 29, 29, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 2000, 0, 4, 131462, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45196, 0, 0, '', 0);
 
 -- Orc Sea Dog - equip --
 INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
@@ -107,7 +112,8 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- Apothecary Wormcrud - new template --
-UPDATE `creature_template` SET `AIName` = 'SmartAI' WHERE `entry` = 44912;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(44912, 0, 0, 0, 0, 0, 34071, 0, 0, 0, 'Apothecary Wormcrud', '', '', 0, 13, 13, 0, 68, 68, 3, 1, 1, 1, 0, 17, 23, 0, 44, 1, 2000, 0, 2, 32768, 2048, 0, 0, 0, 0, 0, 11, 17, 1, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 3, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44912, 0, 0, '', 0);
 
 -- Apothecary Wormcrud - equip --
 INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
@@ -157,7 +163,8 @@ SET @GUID20 = (SELECT MAX(guid)+20 FROM `creature`);
 -- -- -- -- -- -- -- -- -- --
 
 -- Orc Sea Dog - new template --
-UPDATE `creature_template` SET `AIName` = 'SmartAI' WHERE `entry` = 44913;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(44913, 0, 0, 0, 0, 0, 34175, 34176, 34177, 34178, 'Orc Sea Dog', '', '', 0, 10, 14, 0, 29, 29, 0, 1, 1, 1, 0, 20, 27, 0, 50, 1, 2000, 0, 1, 33536, 2048, 0, 0, 0, 0, 0, 13, 20, 1, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44913, 0, 0, '', 0);
 
 -- Orc Sea Dog - equip --
 INSERT INTO `creature_equip_template` (`entry`, `ItemEntry1`, `ItemEntry2`, `ItemEntry3`) VALUES
@@ -237,7 +244,9 @@ INSERT INTO `smart_scripts` (`entryorguid`,`source_type`,`id`,`link`,`event_type
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- "Salty" Gorgar and "Salty" Rocka - new template --
-UPDATE `creature_template` SET `AIName` = 'SmartAI' WHERE `entry` IN (45497,45498);
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(45497, 0, 0, 0, 0, 0, 34615, 0, 0, 0, '"Salty" Gorgar', 'General Goods', '', 0, 14, 14, 0, 29, 29, 4737, 1, 1, 1, 0, 20, 27, 0, 50, 1, 2000, 0, 1, 32768, 2048, 0, 0, 0, 0, 0, 13, 20, 1, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 45497, 0, 0, '', 0),
+(45498, 0, 0, 0, 0, 0, 34616, 0, 0, 0, '"Salty" Rocka', 'Stable Master', '', 0, 14, 14, 0, 29, 29, 4194305, 1, 1, 1, 0, 20, 27, 0, 50, 1, 2000, 0, 1, 32768, 2048, 0, 0, 0, 0, 0, 13, 20, 1, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 45498, 0, 0, '', 0);
 
 -- "Salty" Gorgar - texts --
 INSERT INTO `creature_text` (`entry`, `groupid`, `id`, `text`, `type`, `language`, `probability`, `emote`, `duration`, `sound`, `comment`) VALUES
@@ -272,6 +281,35 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 (NULL, 45497, 0, 1, 1, 0, 0, 1036.46, 1581, 27.6597, 0, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (NULL, 45498, 0, 1, 1, 0, 0, 1084.7, 1578.18, 27.9124, 3.15905, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
+-- "Salty" Gorgar - vendor --
+INSERT INTO `npc_vendor` (`entry`, `slot`, `item`, `maxcount`, `incrtime`, `ExtendedCost`) VALUES
+(45497, 0, 159, 0, 0, 0),
+(45497, 0, 1179, 0, 0, 0),
+(45497, 0, 2320, 0, 0, 0),
+(45497, 0, 2321, 0, 0, 0),
+(45497, 0, 2324, 0, 0, 0),
+(45497, 0, 2604, 0, 0, 0),
+(45497, 0, 2605, 0, 0, 0),
+(45497, 0, 2678, 0, 0, 0),
+(45497, 0, 2880, 0, 0, 0),
+(45497, 0, 2901, 0, 0, 0),
+(45497, 0, 3371, 0, 0, 0),
+(45497, 0, 4289, 0, 0, 0),
+(45497, 0, 4470, 0, 0, 0),
+(45497, 0, 4496, 0, 0, 0),
+(45497, 0, 4498, 0, 0, 0),
+(45497, 0, 4540, 0, 0, 0),
+(45497, 0, 4541, 0, 0, 0),
+(45497, 0, 5042, 0, 0, 0),
+(45497, 0, 5956, 0, 0, 0),
+(45497, 0, 6217, 0, 0, 0),
+(45497, 0, 6256, 0, 0, 0),
+(45497, 0, 6260, 0, 0, 0),
+(45497, 0, 6529, 0, 0, 0),
+(45497, 0, 6530, 0, 0, 0),
+(45497, 0, 7005, 0, 0, 0),
+(45497, 0, 39354, 0, 0, 0);
+
 
 -- ----------- --
 --  Variables  --
@@ -297,7 +335,8 @@ SET @GUID14 = (SELECT MAX(guid)+14 FROM `creature`);
 -- -- -- -- -- -- -- -- -- --
 
 -- Dreadguard - new template --
-UPDATE `creature_template` SET `AIName` = 'SmartAI', `equipment_id` = '44911' WHERE `entry` = 44911;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(44911, 0, 0, 0, 0, 0, 34172, 34173, 34174, 0, 'Dreadguard', '', 'Directions', 0, 25, 25, 0, 71, 71, 0, 1, 1, 1, 0, 35, 48, 0, 86, 1, 2000, 0, 1, 32768, 2048, 0, 0, 0, 0, 0, 24, 36, 6, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 3, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44911, 0, 0, '', 0);
 
 -- Dreadguard - spawns --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
@@ -470,7 +509,9 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 -- -- -- -- -- -- -- -- -- --
 
 -- Dark Ranger - new template --
-UPDATE `creature_template` SET `AIName` = 'SmartAI', `equipment_id` = '44632' WHERE `entry` = 44632;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(44632, 0, 0, 0, 0, 0, 30072, 30071, 30073, 0, 'Dark Ranger', NULL, NULL
+, 0, 25, 25, 0, 71, 71, 0, 1, 1, 1, 0, 35, 48, 0, 86, 1, 2000, 0, 1, 32768, 2048, 0, 0, 0, 0, 0, 24, 36, 6, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 3, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44632, 0, 0, '', 1);
 
 -- Dark Ranger - equip --
 INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
@@ -522,11 +563,23 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Corpse-Fed Rat (ID: 50141) --
 -- -- -- -- -- -- -- -- -- --
 
+-- Corpse-Fed Rat - new template --
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(50141, 0, 0, 0, 0, 0, 1141, 1418, 0, 0, 'Corpse-Fed Rat', '', '', 0, 1, 1, 0, 31, 31, 0, 1, 1, 1, 0, 2, 2, 0, 24, 1, 2000, 0, 1, 0, 2048, 0, 0, 0, 0, 0, 1, 1, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 3, 0.2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 100, 1, 50141, 0, 0, '', 0);
+
+-- Corpse-Fed Rat - equip --
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
+(50141, 0, 0, 0);
+
+-- Corpse-Fed Rat - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(50141, 0, 0, 0, 0, 0, '');
+
 -- Corpse-Fed Rat - spawns --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 50141, 0, 1, 1, 0, 0, 535.3108, 1641.602, 104.8119, 2.69164, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 50141, 0, 1, 1, 0, 0, 535.4969, 1639.71, 104.8119, 3.444385, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 50141, 0, 1, 1, 0, 0, 537.1118, 1637.495, 104.8119, 0.9282057, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(NULL, 50141, 0, 1, 1, 0, 0, 535.3108, 1641.602, 104.8119, 2.69164, 300, 5, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 50141, 0, 1, 1, 0, 0, 535.4969, 1639.71, 104.8119, 3.444385, 300, 5, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 50141, 0, 1, 1, 0, 0, 537.1118, 1637.495, 104.8119, 0.9282057, 300, 5, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- ----------- --
@@ -555,11 +608,16 @@ SET @FORAPO16 = (SELECT MAX(guid)+16 FROM `creature`);
 -- -- -- -- -- -- -- -- -- -- -- -- -- 
 
 -- Forsaken Apothecary - new template --
-UPDATE `creature_template` SET `AIName` = 'SmartAI', `equipment_id` = '46483' WHERE `entry` = 46483;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(46483, 0, 0, 0, 0, 0, 34073, 34074, 34075, 34076, 'Forsaken Apothecary', NULL, NULL, 0, 10, 11, 0, 68, 68, 0, 1, 1, 1, 0, 14, 18, 0, 40, 1, 2000, 0, 2, 32768, 2048, 0, 0, 0, 0, 0, 9, 13, 0, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 3, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 46483, 0, 0, '', 0);
 
 -- Forsaken Apothecary - equip --
 INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
 (46483, 2716, 0, 0);
+
+-- Forsaken Apothecary - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(46483, 0, 0, 0, 0, 0, '');
 
 -- Forsaken Apothecary - SAI --
 INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
@@ -705,7 +763,8 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- North Tide's Invisible Stalker (Large) - new template --
-UPDATE `creature_template` SET `AIName` = 'SmartAI' WHERE `entry` = 44923;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(44923, 0, 0, 0, 0, 0, 1126, 15880, 0, 0, 'North Tide''s Invisible Stalker (Large)', NULL, NULL, 0, 1, 1, 0, 35, 35, 0, 1, 1, 1, 0, 2, 2, 0, 24, 1, 2000, 0, 1, 33555200, 2048, 0, 0, 0, 0, 0, 1, 1, 0, 10, 1048576, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44923, 0, 0, '', 0);
 
 -- North Tide's Invisible Stalker (Large) - equip --
 INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
@@ -749,7 +808,8 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- North Tide's Invisible Stalker - new template --
-UPDATE `creature_template` SET `AIName` = 'SmartAI' WHERE `entry` = 44920;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(44920, 0, 0, 0, 0, 0, 1126, 11686, 0, 0, 'North Tide''s Invisible Stalker', NULL, NULL, 0, 1, 1, 0, 35, 35, 0, 1, 1, 1, 0, 2, 2, 0, 24, 1, 2000, 0, 1, 33555200, 2048, 0, 0, 0, 0, 0, 1, 1, 0, 10, 1048576, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44920, 0, 0, '', 0);
 
 -- North Tide's Invisible Stalker - equip --
 INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
@@ -975,6 +1035,18 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Mutant Bush Chicken  (ID: 44934) --
 -- -- -- -- -- -- -- -- -- -- -- -- --
 
+-- Mutant Bush Chicken - new template --
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(44934, 0, 0, 0, 0, 0, 34189, 0, 0, 0, 'Mutant Bush Chicken', '', '', 0, 1, 1, 0, 189, 189, 0, 1, 1, 1, 0, 2, 2, 0, 24, 1, 2000, 0, 1, 33536, 2048, 0, 0, 0, 0, 0, 1, 1, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44934, 0, 0, '', 0);
+
+-- Mutant Bush Chicken - equip --
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
+(44934, 0, 0, 0);
+
+-- Mutant Bush Chicken - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(44934, 0, 0, 0, 0, 0, '');
+
 -- Mutant Bush Chicken - spawn --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
 (NULL, 44934, 0, 1, 1, 0, 0, 1079.24, 1567.11, 28.2029, 2.86234, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -983,6 +1055,26 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- Vile Fin Oracle   (ID: 46573) and (ID: 1908) --
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+-- Vile Fin Oracle - new template --
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(1908, 0, 0, 0, 0, 0, 540, 0, 0, 0, 'Vile Fin Oracle', NULL, NULL, 0, 10, 11, 0, 18, 18, 0, 1, 1, 1, 0, 14, 18, 0, 40, 1, 2000, 0, 2, 32768, 2048, 0, 0, 0, 0, 0, 9, 13, 0, 7, 0, 1908, 1908, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 29, 43, 'SmartAI', 1, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1908, 0, 0, '', 0),
+(46573, 0, 0, 0, 0, 0, 540, 0, 0, 0, 'Vile Fin Oracle', NULL, NULL, 0, 10, 11, 0, 18, 18, 0, 1, 1, 1, 0, 14, 18, 0, 40, 1, 2000, 0, 2, 32768, 2048, 0, 0, 0, 0, 0, 9, 13, 0, 7, 0, 46573, 46573, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 29, 43, 'SmartAI', 0, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 46573, 0, 0, '', 0);
+
+-- Vile Fin Oracle - equip --
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
+(1908, 0, 0, 0),
+(46573, 0, 0, 0);
+
+-- Vile Fin Oracle - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(1908, 0, 0, 0, 0, 0, ''),
+(46573, 0, 0, 0, 0, 0, '');
+
+-- Vile Fin Oracle -  SAI --
+INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
+(1908, 0, 0, 0, 0, 0, 100, 0, 1000, 1500, 3000, 5000, 11, 9734, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 'Vile Fin Oracle - cast Holy Smite'),
+(46573, 0, 0, 0, 0, 0, 100, 0, 1000, 1500, 3000, 5000, 11, 9734, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 'Vile Fin Oracle - cast Holy Smite');
 
 -- Vile Fin Oracle - spawns --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
@@ -1102,10 +1194,38 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 (NULL, 1908, 0, 1, 1, 0, 0, 727.997, 222.202, 38.8686, 6.09559, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (NULL, 1908, 0, 1, 1, 0, 0, 1111.93, 281.305, 34.2202, 1.26632, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
+-- Vile Fin Oracle - loot --
+INSERT INTO `creature_loot_template` (`entry`, `item`, `ChanceOrQuestChance`, `lootmode`, `groupid`, `mincountOrRef`, `maxcount`) VALUES
+(1908, 1179, 3, 1, 0, 1, 1),
+(1908, 2455, 6, 1, 0, 1, 1),
+(1908, 2996, 9, 1, 0, 3, 4),
+(1908, 5784, 9, 1, 0, 1, 1),
+(1908, 21071, 3, 1, 0, 1, 1);
+
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 -- Vile Fin Tidehunter  (ID: 46574) and (ID: 1768) --
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+
+-- Vile Fin Tidehunter - new template --
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(1768, 0, 0, 0, 0, 0, 346, 0, 0, 0, 'Vile Fin Tidehunter', NULL, NULL, 0, 11, 12, 0, 18, 18, 0, 1, 1, 1, 0, 16, 21, 0, 42, 1, 2000, 0, 2, 32768, 2048, 0, 0, 0, 0, 0, 10, 15, 0, 7, 0, 1768, 1768, 0, 0, 0, 0, 0, 0, 0, 12544, 12748, 4980, 0, 0, 0, 0, 0, 0, 0, 16, 26, 'SmartAI', 1, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1768, 0, 0, '', 0),
+(46574, 0, 0, 0, 1908, 0, 346, 0, 0, 0, 'Vile Fin Tidehunter', NULL, NULL, 0, 11, 12, 0, 18, 18, 0, 1, 1, 1, 0, 16, 21, 0, 42, 1, 2000, 0, 2, 32768, 2048, 0, 0, 0, 0, 0, 10, 15, 0, 7, 0, 46574, 46574, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 46574, 0, 0, '', 0);
+
+-- Vile Fin Tidehunter - equip --
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
+(1768, 2023, 0, 0),
+(46574, 2023, 0, 0);
+
+-- Vile Fin Tidehunter - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(1768, 0, 0, 0, 0, 0, ''),
+(46574, 0, 0, 0, 0, 0, '');
+
+-- Vile Fin Tidehunter - SAI --
+INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
+(1768, 0, 0, 0, 0, 0, 100, 0, 3000, 5000, 9000, 11000, 11, 78542, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 'Vile Fin Tidehunter - cast Splash'),
+(46574, 0, 0, 0, 0, 0, 100, 0, 3000, 5000, 9000, 11000, 11, 78542, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 'Vile Fin Tidehunter - cast Splash');
 
 -- Vile Fin Tidehunter - spawns --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
@@ -1225,9 +1345,66 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 (NULL, 1768, 0, 1, 1, 0, 0, 961.893, 208.287, 35.3404, 5.316, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (NULL, 1768, 0, 1, 1, 0, 0, 1160.28, 375.522, 35.0606, 5.97384, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
+-- Vile Fin Tidehunter - loot --
+INSERT INTO `creature_loot_template` (`entry`, `item`, `ChanceOrQuestChance`, `lootmode`, `groupid`, `mincountOrRef`, `maxcount`) VALUES
+(1768, 727, 0.04, 1, 0, -727, 1),
+(1768, 730, 52.8, 1, 0, 1, 1),
+(1768, 858, 0.5, 1, 0, 1, 1),
+(1768, 954, 0.2138, 1, 0, -954, 1),
+(1768, 1179, 2.7788, 1, 0, 1, 1),
+(1768, 1210, 1, 1, 0, 1, 1),
+(1768, 1497, 1, 1, 0, 1, 1),
+(1768, 1498, 15, 1, 0, -1498, 1),
+(1768, 1501, 0.5, 1, 0, 1, 1),
+(1768, 1503, 1, 1, 0, 1, 1),
+(1768, 1507, 1.6, 1, 0, 1, 1),
+(1768, 1512, 0.5, 1, 0, 1, 1),
+(1768, 1513, 0.5, 1, 0, 1, 1),
+(1768, 1514, 2.1, 1, 0, 1, 1),
+(1768, 1734, 0.5, 1, 0, 1, 1),
+(1768, 2073, 0.81, 1, 0, -2073, 1),
+(1768, 2075, 0.46, 1, 0, -2075, 1),
+(1768, 2079, 0.21, 1, 0, -2079, 1),
+(1768, 2406, 0.3564, 1, 0, -2406, 1),
+(1768, 2409, 0.0647, 1, 0, -2409, 1),
+(1768, 2632, 0.88, 1, 0, -2632, 1),
+(1768, 2763, 2.1, 1, 0, 1, 1),
+(1768, 2970, 0.32, 1, 0, -2970, 1),
+(1768, 2971, 1.8, 1, 0, -2971, 1),
+(1768, 2972, 1, 1, 0, 1, 1),
+(1768, 3213, 0.7, 1, 0, -3213, 1),
+(1768, 3258, -11, 1, 0, 1, 1),
+(1768, 3283, 0.88, 1, 0, -3283, 1),
+(1768, 3374, 1, 1, 0, 1, 1),
+(1768, 3651, 0.5, 1, 0, 1, 1),
+(1768, 4677, 0.5, 1, 0, 1, 1),
+(1768, 4690, 0.5, 1, 0, 1, 1),
+(1768, 5503, 0.0874, 1, 0, 1, 1),
+(1768, 5523, 53.9, 1, 0, 1, 1),
+(1768, 5574, 0.3, 1, 0, -5574, 1),
+(1768, 6268, 1, 1, 0, 1, 1),
+(1768, 6289, 5.2, 1, 0, 1, 2),
+(1768, 6550, 0.5, 1, 0, 1, 1),
+(1768, 9746, 1, 1, 0, 1, 1),
+(1768, 9752, 1, 1, 0, 1, 1),
+(1768, 15268, 0.5, 1, 0, 1, 1);
+
+
 -- -- -- -- -- -- -- -- -- -- 
 -- Reef Frezy   (ID: 2173) --
 -- -- -- -- -- -- -- -- -- -- 
+
+-- Reef Frezy - new template --
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(2173, 0, 0, 0, 0, 0, 245, 0, 0, 0, 'Reef Frenzy', NULL, NULL, 0, 14, 15, 0, 1878, 1878, 0, 1, 1, 1, 0, 22, 29, 0, 54, 1, 800, 0, 1, 32768, 2048, 0, 0, 0, 0, 0, 15, 22, 2, 1, 0, 2173, 0, 2173, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2173, 0, 0, '', 12340);
+
+-- Reef Frezy - equip --
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
+(2173, 0, 0, 0);
+
+-- Reef Frezy - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(2173, 0, 0, 0, 0, 0, '');
 
 -- Reef Frezy - spawns --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES

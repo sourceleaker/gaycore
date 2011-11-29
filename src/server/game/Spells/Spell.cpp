@@ -643,23 +643,24 @@ void Spell::InitExplicitTargets(SpellCastTargets const& targets)
         // try to select correct unit target if not provided by client or by serverside cast
         if (neededTargets & (TARGET_FLAG_UNIT_MASK))
         {
-            Unit* target = NULL;
+            Unit* unit = NULL;
             // try to use player selection as a target
             if (Player* playerCaster = m_caster->ToPlayer())
             {
                 // selection has to be found and to be valid target for the spell
                 if (Unit* selectedUnit = ObjectAccessor::GetUnit(*m_caster, playerCaster->GetSelection()))
                     if (m_spellInfo->CheckExplicitTarget(m_caster, selectedUnit) == SPELL_CAST_OK)
-                        target = selectedUnit;
+                        unit = selectedUnit;
             }
             // try to use attacked unit as a target
             else if ((m_caster->GetTypeId() == TYPEID_UNIT) && neededTargets & (TARGET_FLAG_UNIT_ENEMY | TARGET_FLAG_UNIT))
-                target = m_caster->getVictim();
-            // didn't find anything - let's use self as target
-            if (!target && neededTargets & (TARGET_FLAG_UNIT_RAID | TARGET_FLAG_UNIT_PARTY | TARGET_FLAG_UNIT_ALLY))
-                target = m_caster;
+                unit = m_caster->getVictim();
 
-            m_targets.SetUnitTarget(target);
+            // didn't find anything - let's use self as target
+            if (!unit && neededTargets & (TARGET_FLAG_UNIT_RAID | TARGET_FLAG_UNIT_PARTY | TARGET_FLAG_UNIT_ALLY))
+                unit = m_caster;
+
+            m_targets.SetUnitTarget(unit);
         }
     }
 
@@ -1220,11 +1221,11 @@ void Spell::DoAllEffectOnTarget(TargetInfo* target)
 
     if (spellHitTarget)
     {
-        SpellMissInfo missInfo = DoSpellHitOnUnit(spellHitTarget, mask, target->scaleAura);
-        if (missInfo != SPELL_MISS_NONE)
+        SpellMissInfo missInfo2 = DoSpellHitOnUnit(spellHitTarget, mask, target->scaleAura);
+        if (missInfo2 != SPELL_MISS_NONE)
         {
-            if (missInfo != SPELL_MISS_MISS)
-                m_caster->SendSpellMiss(unit, m_spellInfo->Id, missInfo);
+            if (missInfo2 != SPELL_MISS_MISS)
+                m_caster->SendSpellMiss(unit, m_spellInfo->Id, missInfo2);
             m_damage = 0;
             spellHitTarget = NULL;
         }
@@ -2768,6 +2769,11 @@ uint32 Spell::SelectEffectTargets(uint32 i, SpellImplicitTargetInfo const& cur)
                         maxSize = 3;
                         power = POWER_MANA;
                     }
+                    else if (m_spellInfo->Id == 81751) // Atonement
+                    {
+                        maxSize = 1;
+                        power = POWER_HEALTH;
+                    }
                     else
                         break;
 
@@ -3892,12 +3898,8 @@ void Spell::SendSpellGo()
             for (uint8 i = 0; i < MAX_RUNES; ++i)
             {
                 uint8 mask = (1 << i);
-                if (mask & runeMaskInitial && !(mask & runeMaskAfterCast))  // usable before andon cooldown now...
-                {
-                    // float casts ensure the division is performed on floats as we need float result
-                    float baseCd = float(player->GetRuneBaseCooldown(i));
-                    data << uint8((baseCd - float(player->GetRuneCooldown(i))) / baseCd * 255); // rune cooldown passed
-                }
+                float baseCd = float(player->GetRuneBaseCooldown(i));
+                data << uint8((baseCd - float(player->GetRuneCooldown(i))) / baseCd * 255); // rune cooldown passed
             }
         }
     }
@@ -4585,7 +4587,7 @@ void Spell::HandleThreatSpells()
 // Disclaimer: this function is needed and called on handle_finish_phase
 // due to the fact that the current spellsystem applyes power-based spellmods
 // taking the remaining power as base for its calculations, since holy power abilities
-// leaves no holy power on the player, its undoable to handle it either on CalculatePowerCost  or 
+// leaves no holy power on the player, its undoable to handle it either on CalculatePowerCost  or
 // TakePower functions.
 void Spell::HandleHolyPower(Player* caster)
 {
@@ -4607,7 +4609,7 @@ void Spell::HandleHolyPower(Player* caster)
             {
                 if (ihit->targetGUID == targetGUID)
                 {
-                    if (ihit->missCondition != SPELL_MISS_NONE) 
+                    if (ihit->missCondition != SPELL_MISS_NONE)
                     {
                         hit = false;
                         // Without this, the player will loose all charges of holy power on a failed hit.
@@ -6882,7 +6884,7 @@ void Spell::SelectTrajTargets()
     if (!dist2d)
         return;
 
-    float dz = m_targets.GetDst()->m_positionZ - m_targets.GetSrc()->m_positionZ;
+    float srcToDestDelta = m_targets.GetDst()->m_positionZ - m_targets.GetSrc()->m_positionZ;
 
     UnitList unitList;
     SearchAreaTarget(unitList, dist2d, PUSH_IN_THIN_LINE, SPELL_TARGETS_ANY);
@@ -6892,8 +6894,9 @@ void Spell::SelectTrajTargets()
     unitList.sort(Trinity::ObjectDistanceOrderPred(m_caster));
 
     float b = tangent(m_targets.GetElevation());
-    float a = (dz - dist2d * b) / (dist2d * dist2d);
-    if (a > -0.0001f) a = 0;
+    float a = (srcToDestDelta - dist2d * b) / (dist2d * dist2d);
+    if (a > -0.0001f)
+        a = 0;
     DEBUG_TRAJ(sLog->outError("Spell::SelectTrajTargets: a %f b %f", a, b);)
 
     float bestDist = m_spellInfo->GetMaxRange(false);
@@ -6921,9 +6924,14 @@ void Spell::SelectTrajTargets()
         }
 
 #define CHECK_DIST {\
-    DEBUG_TRAJ(sLog->outError("Spell::SelectTrajTargets: dist %f, height %f.", dist, height);)\
-    if (dist > bestDist) continue;\
-    if (dist < objDist2d + size && dist > objDist2d - size) { bestDist = dist; break; }\
+            DEBUG_TRAJ(sLog->outError("Spell::SelectTrajTargets: dist %f, height %f.", dist, height);)\
+            if (dist > bestDist)\
+                continue;\
+            if (dist < objDist2d + size && dist > objDist2d - size)\
+            {\
+                bestDist = dist;\
+                break;\
+            }\
         }
 
         if (!a)
@@ -7111,7 +7119,7 @@ bool Spell::CallScriptEffectHandlers(SpellEffIndex effIndex, SpellEffectHandleMo
                 break;
             default:
                 ASSERT(false);
-                break;
+                return false;
         }
         (*scritr)->_PrepareScriptCall(hookType);
         for (; effItr != effEndItr ; ++effItr)

@@ -501,70 +501,6 @@ class spell_dk_blood_boil : public SpellScriptLoader
         }
 };
 
-// 52284 - Will of the Necropolis
-class spell_dk_will_of_the_necropolis : public SpellScriptLoader
-{
-    public:
-        spell_dk_will_of_the_necropolis() : SpellScriptLoader("spell_dk_will_of_the_necropolis") { }
-
-        class spell_dk_will_of_the_necropolis_AuraScript : public AuraScript
-        {
-            PrepareAuraScript(spell_dk_will_of_the_necropolis_AuraScript);
-
-            bool Validate(SpellInfo const* spellEntry)
-            {
-                // can't use other spell than will of the necropolis due to spell_ranks dependency
-                if (sSpellMgr->GetFirstSpellInChain(DK_SPELL_WILL_OF_THE_NECROPOLIS_AURA_R1) != sSpellMgr->GetFirstSpellInChain(spellEntry->Id))
-                    return false;
-
-                uint8 rank = sSpellMgr->GetSpellRank(spellEntry->Id);
-                if (!sSpellMgr->GetSpellWithRank(DK_SPELL_WILL_OF_THE_NECROPOLIS_TALENT_R1, rank, true))
-                    return false;
-
-                return true;
-            }
-
-            uint32 absorbPct;
-
-            bool Load()
-            {
-                absorbPct = GetSpellInfo()->Effects[EFFECT_0].CalcValue(GetCaster());
-                return true;
-            }
-
-            void CalculateAmount(AuraEffect const* /*aurEff*/, int32 & amount, bool & /*canBeRecalculated*/)
-            {
-                // Set absorbtion amount to unlimited
-                amount = -1;
-            }
-
-            void Absorb(AuraEffect* /*aurEff*/, DamageInfo & dmgInfo, uint32 & absorbAmount)
-            {
-                // min pct of hp is stored in effect 0 of talent spell
-                uint32 rank = sSpellMgr->GetSpellRank(GetSpellInfo()->Id);
-                SpellInfo const* talentProto = sSpellMgr->GetSpellInfo(sSpellMgr->GetSpellWithRank(DK_SPELL_WILL_OF_THE_NECROPOLIS_TALENT_R1, rank));
-
-                int32 remainingHp = int32(GetTarget()->GetHealth() - dmgInfo.GetDamage());
-                int32 minHp = int32(GetTarget()->CountPctFromMaxHealth(talentProto->Effects[EFFECT_0].CalcValue(GetCaster())));
-
-                // Damage that would take you below [effect0] health or taken while you are at [effect0]
-                if (remainingHp < minHp)
-                    absorbAmount = CalculatePctN(dmgInfo.GetDamage(), absorbPct);
-            }
-
-            void Register()
-            {
-                 DoEffectCalcAmount += AuraEffectCalcAmountFn(spell_dk_will_of_the_necropolis_AuraScript::CalculateAmount, EFFECT_0, SPELL_AURA_SCHOOL_ABSORB);
-                 OnEffectAbsorb += AuraEffectAbsorbFn(spell_dk_will_of_the_necropolis_AuraScript::Absorb, EFFECT_0);
-            }
-        };
-
-        AuraScript* GetAuraScript() const
-        {
-            return new spell_dk_will_of_the_necropolis_AuraScript();
-        }
-};
-
 // 50365, 50371 Improved Blood Presence
 class spell_dk_improved_blood_presence : public SpellScriptLoader
 {
@@ -699,6 +635,40 @@ class spell_dk_festering_strike : public SpellScriptLoader
         }
 };
 
+// Chains Of Ice
+// Spell Id: 45524
+class spell_dk_chains_of_ice : public SpellScriptLoader
+{
+    public:
+        spell_dk_chains_of_ice() : SpellScriptLoader("spell_dk_chains_of_ice") { }
+
+        class spell_dk_chains_of_ice_SpellScript : public SpellScript
+        {
+            PrepareSpellScript(spell_dk_chains_of_ice_SpellScript);
+
+            void HandleEffect(SpellEffIndex /*eff*/)
+            {
+                if(Unit* target = GetHitUnit())
+                {
+                    if (GetCaster()->HasAura(50041)) // Chilblains Rank 2
+                        GetCaster()->CastSpell(target, 96294, true);
+                    else if (GetCaster()->HasAura(50040)) // Chilblains Rank 1
+                        GetCaster()->CastSpell(target, 96293, true);
+                }
+            }
+
+            void Register()
+            {
+                OnEffectHitTarget += SpellEffectFn(spell_dk_chains_of_ice_SpellScript::HandleEffect, EFFECT_2, SPELL_EFFECT_SCHOOL_DAMAGE);
+            }
+        };
+
+        SpellScript* GetSpellScript() const
+        {
+            return new spell_dk_chains_of_ice_SpellScript();
+        }
+};
+
 void AddSC_deathknight_spell_scripts()
 {
     new spell_dk_anti_magic_shell_raid();
@@ -711,8 +681,8 @@ void AddSC_deathknight_spell_scripts()
     new spell_dk_scourge_strike();
     new spell_dk_spell_deflection();
     new spell_dk_blood_boil();
-    new spell_dk_will_of_the_necropolis();
     new spell_dk_improved_blood_presence();
     new spell_dk_improved_unholy_presence();
     new spell_dk_festering_strike();
+    new spell_dk_chains_of_ice();
 }

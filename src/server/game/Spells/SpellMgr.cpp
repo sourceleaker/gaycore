@@ -312,6 +312,13 @@ int32 GetDiminishingReturnsLimitDuration(DiminishingGroup group, SpellInfo const
                return 120 * IN_MILLISECONDS;
             break;
         }
+        case SPELLFAMILY_DEATHKNIGHT:
+        {
+            // Hungering Cold - limit to 8 seconds in PvP
+            if (spellproto->Id == 51209)
+                return 8 * IN_MILLISECONDS;
+            break;
+        }
         default:
             break;
     }
@@ -1006,7 +1013,7 @@ SpellThreatEntry const* SpellMgr::GetSpellThreatEntry(uint32 spellID) const
     else
     {
         uint32 firstSpell = GetFirstSpellInChain(spellID);
-        SpellThreatMap::const_iterator itr = mSpellThreatMap.find(firstSpell);
+        itr = mSpellThreatMap.find(firstSpell);
         if (itr != mSpellThreatMap.end())
             return &itr->second;
     }

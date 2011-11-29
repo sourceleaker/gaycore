@@ -520,8 +520,6 @@ void Spell::EffectSchoolDMG(SpellEffIndex effIndex)
                 // Conflagrate - consumes Immolate or Shadowflame
                 else if (m_spellInfo->TargetAuraState == AURA_STATE_CONFLAGRATE)
                 {
-                    AuraEffect const* aura = NULL;                // found req. aura for damage calculation
-
                     Unit::AuraEffectList const &mPeriodic = unitTarget->GetAuraEffectsByType(SPELL_AURA_PERIODIC_DAMAGE);
                     for (Unit::AuraEffectList::const_iterator i = mPeriodic.begin(); i != mPeriodic.end(); ++i)
                     {
@@ -533,50 +531,25 @@ void Spell::EffectSchoolDMG(SpellEffIndex effIndex)
                         // Immolate
                         if ((*i)->GetSpellInfo()->SpellFamilyFlags[0] & 0x4)
                         {
-                            aura = *i;                      // it selected always if exist
+                            uint32 pdamage = uint32(std::max((*i)->GetAmount(), 0));
+                            pdamage = m_caster->SpellDamageBonus(unitTarget, (*i)->GetSpellInfo(), pdamage, DOT, (*i)->GetBase()->GetStackAmount());
+                            uint32 pct_dir = m_caster->CalculateSpellDamage(unitTarget, m_spellInfo, (effIndex + 1));
+                            uint8 baseTotalTicks = uint8(m_caster->CalcSpellDuration((*i)->GetSpellInfo()) / (*i)->GetSpellInfo()->Effects[EFFECT_0].Amplitude);
+                            damage += int32(CalculatePctU(pdamage * baseTotalTicks, pct_dir));
+
+                            uint32 pct_dot = m_caster->CalculateSpellDamage(unitTarget, m_spellInfo, (effIndex + 2)) / 3;
+                            m_spellValue->EffectBasePoints[1] = m_spellInfo->Effects[EFFECT_1].CalcBaseValue(int32(CalculatePctU(pdamage * baseTotalTicks, pct_dot)));
+
+                            apply_direct_bonus = false;
                             break;
                         }
-
-                        // Shadowflame
-                        if ((*i)->GetSpellInfo()->SpellFamilyFlags[2] & 0x00000002)
-                            aura = *i;                      // remember but wait possible Immolate as primary priority
-                    }
-
-                    // found Immolate or Shadowflame
-                    if (aura)
-                    {
-                        uint32 pdamage = uint32(std::max(aura->GetAmount(), 0));
-                        pdamage = m_caster->SpellDamageBonus(unitTarget, aura->GetSpellInfo(), pdamage, DOT, aura->GetBase()->GetStackAmount());
-                        uint32 pct_dir = m_caster->CalculateSpellDamage(unitTarget, m_spellInfo, (effIndex + 1));
-                        uint8 baseTotalTicks = uint8(m_caster->CalcSpellDuration(aura->GetSpellInfo()) / aura->GetSpellInfo()->Effects[EFFECT_0].Amplitude);
-                        damage += int32(CalculatePctU(pdamage * baseTotalTicks, pct_dir));
-
-                        uint32 pct_dot = m_caster->CalculateSpellDamage(unitTarget, m_spellInfo, (effIndex + 2)) / 3;
-                        m_spellValue->EffectBasePoints[1] = m_spellInfo->Effects[EFFECT_1].CalcBaseValue(int32(CalculatePctU(pdamage * baseTotalTicks, pct_dot)));
-
-                        apply_direct_bonus = false;
-                        // Glyph of Conflagrate
-                        if (!m_caster->HasAura(56235))
-                            unitTarget->RemoveAurasDueToSpell(aura->GetId(), m_caster->GetGUID());
-
-                        break;
                     }
                 }
                 // Shadow Bite
                 else if (m_spellInfo->SpellFamilyFlags[1] & 0x400000)
-                {
                     if (m_caster->GetTypeId() == TYPEID_UNIT && m_caster->ToCreature()->isPet())
-                    {
                         if (Player* owner = m_caster->GetOwner()->ToPlayer())
-                        {
-                            if (AuraEffect* aurEff = owner->GetAuraEffect(SPELL_AURA_ADD_FLAT_MODIFIER, SPELLFAMILY_WARLOCK, 214, 0))
-                            {
-                                int32 bp0 = aurEff->GetId() == 54037 ? 4 : 8;
-                                m_caster->CastCustomSpell(m_caster, 54425, &bp0, NULL, NULL, true);
-                            }
-                        }
-                    }
-                }
+                            damage += damage * unitTarget->GetDoTsByCaster(owner->GetGUID()) * m_spellInfo->Effects[EFFECT_1].BasePoints;
                 break;
             }
            case SPELLFAMILY_PRIEST:
@@ -998,7 +971,7 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                     if (m_caster->GetTypeId() != TYPEID_PLAYER)
                         return;
 
-                    uint32 spell_id = roll_chance_i(50)
+                    spell_id = roll_chance_i(50)
                         ? 29277                             // Summon Purified Helboar Meat
                         : 29278;                            // Summon Toxic Helboar Meat
 
@@ -1026,12 +999,16 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                     return;
                 case 35745:                                 // Socrethar's Stone
                 {
-                    uint32 spell_id;
                     switch (m_caster->GetAreaId())
                     {
-                        case 3900: spell_id = 35743; break; // Socrethar Portal
-                        case 3742: spell_id = 35744; break; // Socrethar Portal
-                        default: return;
+                        case 3900:
+                            spell_id = 35743;
+                            break; // Socrethar Portal
+                        case 3742:
+                            spell_id = 35744;
+                            break; // Socrethar Portal
+                        default:
+                            return;
                     }
 
                     m_caster->CastSpell(m_caster, spell_id, true);
@@ -1829,22 +1806,9 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
             {
                 m_caster->CastCustomSpell(m_caster, 51209, &bp, NULL, NULL, true);
             }
-            // Chains of Ice
-            if (m_spellInfo->SpellFamilyFlags[0] & SPELLFAMILYFLAG_DK_CHAINS_OF_ICE)
-            {
-                if (m_caster->HasAura(50040))
-                {
-                    m_caster->CastSpell(unitTarget, 96293, true);
-                }
-                if (m_caster->HasAura(50041))
-                {
-                    m_caster->CastSpell(unitTarget, 96294, true);
-                }
-            }
             // Death strike
             if (m_spellInfo->SpellFamilyFlags[0] & SPELLFAMILYFLAG_DK_DEATH_STRIKE)
             {
-                int32 bp;
                 if ((m_caster->CountPctFromMaxHealth(7)) > (20 * m_caster->GetDamageTakenInPastSecs(5) / 100))
                     bp = m_caster->CountPctFromMaxHealth(7);
                 else
@@ -1873,12 +1837,12 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
             {
                 if (m_caster->IsFriendlyTo(unitTarget))
                 {
-                    int32 bp = int32(985 + damage) * 3.5;
+                    bp = int32(985 + damage) * 3.5;
                     m_caster->CastCustomSpell(unitTarget, 47633, &bp, NULL, NULL, true);
                 }
                 else
                 {
-                    int32 bp = 985 + damage;
+                    bp = 985 + damage;
                     m_caster->CastCustomSpell(unitTarget, 47632, &bp, NULL, NULL, true);
                 }
                 return;
@@ -1908,29 +1872,18 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                 // Do we have talent Master of Ghouls?
                 if (m_caster->HasAura(52143))
                     // summon as pet
-                    bp = 52150;
+                    spell_id = 52150;
                 else
                     // or guardian
-                    bp = 46585;
+                    spell_id = 46585;
 
                 if (m_targets.HasDst())
                     targets.SetDst(*m_targets.GetDst());
                 else
-                {
                     targets.SetDst(*m_caster);
-                    // Corpse not found - take reagents (only not triggered cast can take them)
-                    triggered = false;
-                }
+
                 // Remove cooldown - summon spellls have category
                 m_caster->ToPlayer()->RemoveSpellCooldown(m_spellInfo->Id, true);
-                spell_id = 48289;
-                break;
-            // Raise dead - take reagents and trigger summon spells
-            case 48289:
-                if (m_targets.HasDst())
-                    targets.SetDst(*m_targets.GetDst());
-
-                spell_id = CalculateDamage(0, NULL);
                 break;
             }
             break;
@@ -1949,7 +1902,8 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
 
         targets.SetUnitTarget(unitTarget);
         Spell* spell = new Spell(m_caster, spellInfo, triggered ? TRIGGERED_FULL_MASK : TRIGGERED_NONE, m_originalCasterGUID, true);
-        if (bp) spell->SetSpellValue(SPELLVALUE_BASE_POINT0, bp);
+        if (bp) 
+            spell->SetSpellValue(SPELLVALUE_BASE_POINT0, bp);
         spell->prepare(&targets);
     }
 
@@ -5963,7 +5917,7 @@ void Spell::EffectScriptEffect(SpellEffIndex effIndex)
             {
                 if (!unitTarget || !unitTarget->isAlive())
                     return;
-                
+
                 uint32 spellId = 0;
 
                 // Seal of Truth and Seal of Righteoussness have a dummy aura on effect 2
@@ -6089,6 +6043,18 @@ void Spell::EffectScriptEffect(SpellEffIndex effIndex)
                 return;
             }
             break;
+        }
+        case SPELLFAMILY_HUNTER:
+        {
+            switch(m_spellInfo->Id)
+            {
+                case 77767: // Cobra Shot
+                {
+                    if(Aura* SS = unitTarget->GetAura(1978, m_caster->GetGUID())) // Find Serpent Sting
+                        SS->SetDuration(SS->GetDuration() + (m_spellInfo->Effects[EFFECT_1].BasePoints * 1000)); // Increase duration of the Serpent Sting aura
+                    break;
+                }
+            }
         }
     }
 
@@ -6927,13 +6893,13 @@ void Spell::EffectQuestClear(SpellEffIndex effIndex)
     // remove all quest entries for 'entry' from quest log
     for (uint8 slot = 0; slot < MAX_QUEST_LOG_SIZE; ++slot)
     {
-        uint32 quest = player->GetQuestSlotQuestId(slot);
-        if (quest == quest_id)
+        uint32 logQuest = player->GetQuestSlotQuestId(slot);
+        if (logQuest == quest_id)
         {
             player->SetQuestSlot(slot, 0);
 
-            // we ignore unequippable quest items in this case, its' still be equipped
-            player->TakeQuestSourceItem(quest, false);
+            // we ignore unequippable quest items in this case, it's still be equipped
+            player->TakeQuestSourceItem(logQuest, false);
         }
     }
 

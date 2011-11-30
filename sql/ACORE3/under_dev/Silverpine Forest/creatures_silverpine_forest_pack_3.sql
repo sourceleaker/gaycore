@@ -68,8 +68,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (50463, 0, 0, 0, 1, 0, '');
 
 -- Franny Mertz - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 50463, 0, 1, 1, 0, 0, 1054, 1520.78, 30.0964, 6.03884, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 50463, 0, 1, 1, 0, 0, 1054, 1520.78, 30.0964, 6.03884, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- --
@@ -85,8 +85,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (2226, 0, 0, 0, 1, 0, '');
 
 -- Karos Razok - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 2226, 0, 1, 1, 0, 0, 477.035, 1542.86, 130.627, 6.26573, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 2226, 0, 1, 1, 0, 0, 477.035, 1542.86, 130.627, 6.26573, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- --
@@ -94,8 +94,8 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- -- -- -- -- -- -- -- -- -- --
 
 -- Steve Stutzka - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 46552, 0, 1, 1, 0, 0, -114.764, 1313.55, 56.8249, 4.36332, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 46552, 0, 1, 1, 0, 0, -114.764, 1313.55, 56.8249, 4.36332, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- --
@@ -119,8 +119,8 @@ INSERT INTO `creature_text` (`entry`, `groupid`, `id`, `text`, `type`, `language
 -- Fenwick Thatros - SAI --
 
 -- Fenwick Thatros - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 47008, 0, 1, 1, 0, 0, 730.127, 956.674, 34.8391, 0.471239, 3600, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 47008, 0, 1, 1, 0, 0, 730.127, 956.674, 34.8391, 0.471239, 3600, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- --
@@ -138,8 +138,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (5748, 0, 0, 0, 257, 379, '');
 
 -- Killian Sanatha - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 5748, 0, 1, 1, 0, 0, 727.578, 959.929, 34.8391, 0.925025, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 5748, 0, 1, 1, 0, 0, 727.578, 959.929, 34.8391, 0.925025, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- --
@@ -159,8 +159,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 -- Bolgaff - SAI --
 
 -- Bolgaff - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 47003, 0, 1, 1, 0, 0, 980.066, 1414.4, 41.3021, 0.453786, 3600, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 47003, 0, 1, 1, 0, 0, 980.066, 1414.4, 41.3021, 0.453786, 3600, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- --
@@ -182,8 +182,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 -- Admiral Hatchet - SAI --
 
 -- Admiral Hatchet - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 44916, 0, 1, 1, 0, 0, 1068.75, 1601.3, 28.0847, 2.28638, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44916, 0, 1, 1, 0, 0, 1068.75, 1601.3, 28.0847, 2.28638, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- --
@@ -203,8 +203,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 -- Warlord Torok - SAI --
 
 -- Warlord Torok - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 44917, 0, 1, 1, 0, 0, 1070.59, 1602.1, 28.0824, 1.97222, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44917, 0, 1, 1, 0, 0, 1070.59, 1602.1, 28.0824, 1.97222, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- --
@@ -222,8 +222,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (16288, 0, 0, 0, 257, 0, '');
 
 -- Advisor Sorrelon - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 16288, 0, 1, 1, 0, 0, 525.679, 1627.3, 104.895, 2.16421, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 16288, 0, 1, 1, 0, 0, 525.679, 1627.3, 104.895, 2.16421, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- --
@@ -241,8 +241,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (3552, 0, 0, 0, 257, 0, '');
 
 -- Advisor Sorrelon - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 3552, 0, 1, 1, 0, 0, 567.634, 1576.57, 132.376, 3.38594, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 3552, 0, 1, 1, 0, 0, 567.634, 1576.57, 132.376, 3.38594, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- --
@@ -260,8 +260,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (3554, 0, 0, 0, 257, 0, '');
 
 -- Andrea Boynton - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 3554, 0, 1, 1, 0, 0, 570.564, 1571.17, 132.376, 1.76278, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 3554, 0, 1, 1, 0, 0, 570.564, 1571.17, 132.376, 1.76278, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- --
@@ -279,8 +279,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (3556, 0, 0, 0, 257, 0, '');
 
 -- Andrew Hilbert - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 3556, 0, 1, 1, 0, 0, 528.068, 1634.62, 104.706, 3.26377, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 3556, 0, 1, 1, 0, 0, 528.068, 1634.62, 104.706, 3.26377, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- --
@@ -298,8 +298,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (49870, 0, 0, 1, 257, 0, '10022 0');
 
 -- Angela Hipple - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 49870, 0, 1, 1, 0, 0, 497.67, 1644.61, 126.222, 3.40339, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 49870, 0, 1, 1, 0, 0, 497.67, 1644.61, 126.222, 3.40339, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -317,8 +317,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (1937, 0, 0, 0, 257, 0, '');
 
 -- Apothecary Renferrel - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 1937, 0, 1, 1, 0, 0, 457.809, 1475.54, 147.328, 1.11701, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 1937, 0, 1, 1, 0, 0, 457.809, 1475.54, 147.328, 1.11701, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- --
@@ -334,8 +334,8 @@ INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `ite
 -- Bee Bruxworthy - addon --
 
 -- Bee Bruxworthy - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 49718, 0, 1, 1, 0, 0, 536.858, 1638.68, 104.895, 3.08923, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 49718, 0, 1, 1, 0, 0, 536.858, 1638.68, 104.895, 3.08923, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- --
@@ -353,8 +353,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (45496, 0, 0, 0, 257, 0, '');
 
 -- Commander Hickley - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 45496, 0, 1, 1, 0, 0, 1097.57, 1587.29, 28.6136, 0.261799, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 45496, 0, 1, 1, 0, 0, 1097.57, 1587.29, 28.6136, 0.261799, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- --
@@ -372,8 +372,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (6739, 0, 0, 0, 257, 0, '');
 
 -- Innkeeper Bates - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 6739, 0, 1, 1, 0, 0, 471.135, 1500.55, 135.605, 1.0821, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 6739, 0, 1, 1, 0, 0, 471.135, 1500.55, 135.605, 1.0821, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -391,8 +391,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (49715, 0, 0, 0, 257, 0, '');
 
 -- Dark Cleric Pordon - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 49715, 0, 1, 1, 0, 0, 505.402, 1577.26, 127.766, 1.71668, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 49715, 0, 1, 1, 0, 0, 505.402, 1577.26, 127.766, 1.71668, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- --
@@ -410,8 +410,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (49720, 0, 0, 0, 257, 0, '');
 
 -- Eugene Daller - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 49720, 0, 1, 1, 0, 0, 489.606, 1643.8, 125.853, 0.191986, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 49720, 0, 1, 1, 0, 0, 489.606, 1643.8, 125.853, 0.191986, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -429,46 +429,46 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (45711, 0, 0, 0, 1, 0, '');
 
 -- Elementral Servitor - spawns --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 45711, 0, 1, 1, 0, 0, -126.212, 813.934, 66.1057, 1.65806, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -41.0336, 840.812, 66.2893, 0.067282, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -205.693, 891.036, 66.2713, 4.24874, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -30.7673, 1090.49, 65.1018, 0.218457, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -178.833, 925.41, 65.6262, 0.069813, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -141.573, 852.314, 61.9062, 1.55334, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -86.4653, 811.995, 64.0173, 2.54818, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -98.4046, 976.826, 68.6887, 2.54024, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -130.049, 852.731, 61.9426, 4.71706, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -234.048, 1042.64, 65.7881, 1.46296, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -115.332, 1018.29, 66.0801, 1.99658, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -77.2083, 935.946, 69.2913, 2.80998, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -214.84, 1005.51, 71.98, 0.349066, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -112.932, 945.802, 67.8771, 1.50882, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -211.75, 970.712, 72.4488, 0.506145, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -187.475, 1025.87, 64.6528, 3.34785, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -88.6993, 854.412, 62.2032, 3.17576, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -284.617, 861.668, 85.1271, 3.58076, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -24.6288, 1014.36, 70.0455, 1.79684, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -127.021, 781.488, 66.1066, 0.174533, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -121.884, 855.288, 61.7621, 1.55334, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -126.266, 1080.67, 65.5383, 1.55334, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -190.751, 863.348, 67.3425, 3.25117, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -242.476, 1106.9, 62.7733, 3.00883, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -89.4975, 904.143, 65.6692, 2.39482, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -209.428, 1079.96, 60.5367, 2.04754, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -157.858, 884.63, 62.3092, 3.34623, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -176.961, 1135.58, 57.8369, 1.62064, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -89.4396, 1117.49, 65.1474, 2.96439, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -144.448, 1080.78, 65.5677, 1.55334, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -246.475, 823.779, 74.0204, 6.20503, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -21.0362, 1129.55, 67.1176, 4.18904, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -37.2402, 970.484, 66.4277, 1.45149, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -37.8196, 895.89, 67.62, 4.79081, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -66.2951, 991.219, 67.4719, 3.1765, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -164.153, 803.373, 63.8996, 1.55334, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -157.944, 978.103, 65.0678, 1.36924, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -55.4124, 1047.32, 63.7987, 1.19786, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45711, 0, 1, 1, 0, 0, -133.878, 1055.32, 67.286, 1.60165, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 45711, 0, 1, 1, 0, 0, -126.212, 813.934, 66.1057, 1.65806, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -41.0336, 840.812, 66.2893, 0.067282, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -205.693, 891.036, 66.2713, 4.24874, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -30.7673, 1090.49, 65.1018, 0.218457, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -178.833, 925.41, 65.6262, 0.069813, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -141.573, 852.314, 61.9062, 1.55334, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -86.4653, 811.995, 64.0173, 2.54818, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -98.4046, 976.826, 68.6887, 2.54024, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -130.049, 852.731, 61.9426, 4.71706, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -234.048, 1042.64, 65.7881, 1.46296, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -115.332, 1018.29, 66.0801, 1.99658, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -77.2083, 935.946, 69.2913, 2.80998, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -214.84, 1005.51, 71.98, 0.349066, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -112.932, 945.802, 67.8771, 1.50882, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -211.75, 970.712, 72.4488, 0.506145, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -187.475, 1025.87, 64.6528, 3.34785, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -88.6993, 854.412, 62.2032, 3.17576, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -284.617, 861.668, 85.1271, 3.58076, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -24.6288, 1014.36, 70.0455, 1.79684, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -127.021, 781.488, 66.1066, 0.174533, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -121.884, 855.288, 61.7621, 1.55334, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -126.266, 1080.67, 65.5383, 1.55334, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -190.751, 863.348, 67.3425, 3.25117, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -242.476, 1106.9, 62.7733, 3.00883, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -89.4975, 904.143, 65.6692, 2.39482, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -209.428, 1079.96, 60.5367, 2.04754, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -157.858, 884.63, 62.3092, 3.34623, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -176.961, 1135.58, 57.8369, 1.62064, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -89.4396, 1117.49, 65.1474, 2.96439, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -144.448, 1080.78, 65.5677, 1.55334, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -246.475, 823.779, 74.0204, 6.20503, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -21.0362, 1129.55, 67.1176, 4.18904, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -37.2402, 970.484, 66.4277, 1.45149, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -37.8196, 895.89, 67.62, 4.79081, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -66.2951, 991.219, 67.4719, 3.1765, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -164.153, 803.373, 63.8996, 1.55334, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -157.944, 978.103, 65.0678, 1.36924, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -55.4124, 1047.32, 63.7987, 1.19786, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45711, 0, 1, 1, 0, 0, -133.878, 1055.32, 67.286, 1.60165, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- --
@@ -486,8 +486,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (3557, 0, 0, 0, 257, 0, '');
 
 -- Guillaume Sorouy - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 3557, 0, 1, 1, 0, 0, 520.0434, 1649.03, 125.7474, 4.956735, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 3557, 0, 1, 1, 0, 0, 520.0434, 1649.03, 125.7474, 4.956735, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- --
@@ -505,8 +505,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (3555, 0, 0, 0, 257, 0, '');
 
 -- Johan Focht - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 3555, 0, 1, 1, 0, 0, 534.024, 1626.95, 104.895, 2.54818, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 3555, 0, 1, 1, 0, 0, 534.024, 1626.95, 104.895, 2.54818, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- --
@@ -524,8 +524,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (3551, 0, 0, 0, 257, 0, '');
 
 -- Patrice Dwyer - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 3551, 0, 1, 1, 0, 0, 495.9965, 1647.856, 125.6638, 3.874631, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 3551, 0, 1, 1, 0, 0, 495.9965, 1647.856, 125.6638, 3.874631, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- --
@@ -543,8 +543,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (8385, 0, 0, 0, 257, 0, '');
 
 -- Mura Runetotem - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 8385, 0, 1, 1, 0, 0, 490.9365, 1647.894, 125.6788, 5.131268, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 8385, 0, 1, 1, 0, 0, 490.9365, 1647.894, 125.6788, 5.131268, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- --
@@ -562,8 +562,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (6389, 0, 0, 0, 257, 0, '');
 
 --  Deathguard Podrig - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 6389, 0, 1, 1, 0, 0, 502.101, 1625.51, 125.7453, 4.677482, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 6389, 0, 1, 1, 0, 0, 502.101, 1625.51, 125.7453, 4.677482, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -581,8 +581,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (1952, 0, 0, 0, 257, 0, '');
 
 -- High Executor Hadrec - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 1952, 0, 1, 1, 0, 0, 522.4488, 1626.148, 104.9969, 1.48353, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 1952, 0, 1, 1, 0, 0, 522.4488, 1626.148, 104.9969, 1.48353, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- --
@@ -600,8 +600,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (3553, 0, 0, 0, 257, 0, '');
 
 -- Sebastian Meloche - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 3553, 0, 1, 1, 0, 0, 508.9108, 1630.156, 104.895, 0.8028514, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 3553, 0, 1, 1, 0, 0, 508.9108, 1630.156, 104.895, 0.8028514, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -619,8 +619,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (2121, 0, 0, 0, 257, 0, '');
 
 -- Shadow Priest Allister - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 2121, 0, 1, 1, 0, 0, 478.549, 1566.14, 127.666, 3.31613, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 2121, 0, 1, 1, 0, 0, 478.549, 1566.14, 127.666, 3.31613, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- --
@@ -638,8 +638,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (9553, 0, 0, 0, 257, 0, '');
 
 -- Nadia Vernon - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 9553, 0, 1, 1, 0, 0, 556.339, 1568.4, 132.05, 3.07178, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 9553, 0, 1, 1, 0, 0, 556.339, 1568.4, 132.05, 3.07178, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- --
@@ -657,8 +657,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (49716, 0, 0, 0, 257, 0, '93451 0');
 
 -- Thom Denger - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 49716, 0, 1, 1, 0, 0, 568.6658, 1579.345, 132.2932, 0.2712138, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 49716, 0, 1, 1, 0, 0, 568.6658, 1579.345, 132.2932, 0.2712138, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- --
@@ -676,8 +676,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (6497, 0, 0, 0, 1, 0, '');
 
 -- Astor Hadren - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 6497, 0, 1, 1, 0, 0, 565.488, 1576.17, 139.6783, 4.939282, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 6497, 0, 1, 1, 0, 0, 565.488, 1576.17, 139.6783, 4.939282, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- --
@@ -695,8 +695,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (49960, 0, 0, 0, 1, 0, '');
 
 -- Hobbes - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 49960, 0, 1, 1, 0, 0, 470.4392, 1520.806, 134.9576, 0.7330383, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 49960, 0, 1, 1, 0, 0, 470.4392, 1520.806, 134.9576, 0.7330383, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- --
@@ -714,8 +714,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (49958, 0, 0, 0, 257, 0, '');
 
 -- Matt Bruxworthy - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 49958, 0, 1, 1, 0, 0, 471.4931, 1519.497, 135.2258, 0.8028514, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 49958, 0, 1, 1, 0, 0, 471.4931, 1519.497, 135.2258, 0.8028514, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- --
@@ -733,8 +733,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (9979, 0, 0, 0, 257, 0, '');
 
 -- Sarah Goode - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 9979, 0, 1, 1, 0, 0, 475.345, 1515.57, 135.8363, 0.9599311, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 9979, 0, 1, 1, 0, 0, 475.345, 1515.57, 135.8363, 0.9599311, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- --
@@ -752,8 +752,8 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 (1938, 0, 0, 0, 257, 0, '');
 
 -- Dakar Dawnweaver - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 1938, 0, 1, 1, 0, 0, 456.391, 1472.7, 125.083, 1.15192, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 1938, 0, 1, 1, 0, 0, 456.391, 1472.7, 125.083, 1.15192, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -768,8 +768,8 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- -- -- -- -- -- -- -- -- --
 
 -- Tiev Mordune - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 7007, 0, 1, 3, 0, 0, 430.385, 1881.86, 15.4168, 5.13127, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 7007, 0, 1, 3, 0, 0, 430.385, 1881.86, 15.4168, 5.13127, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --

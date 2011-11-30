@@ -63,7 +63,7 @@ DELETE FROM `gossip_menu_option` WHERE `menu_id` IN (11892,11823);
 DELETE FROM `gameobject_questrelation` WHERE `id` IN (205143);
 DELETE FROM `gameobject_involvedrelation` WHERE `id` IN (205143);
 DELETE FROM `conditions` WHERE `SourceGroup` IN (11892);
-DELETE FROM `conditions` WHERE `SourceEntry` IN (83573,83575);
+DELETE FROM `conditions` WHERE `SourceEntry` IN (83173,83575,83573);
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -126,15 +126,15 @@ INSERT INTO `pickpocketing_loot_template` (`entry`, `item`, `ChanceOrQuestChance
 (45197, 37853, 100, 1, 0, 1, 1);
 
 -- Veteran Forsaken Trooper - spawns --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 45197, 0, 1, 1, 0, 0, 250.049, 1441.26, 114.996, 0.645772, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45197, 0, 1, 1, 0, 0, 197.497, 1438.72, 113.113, 2.09439, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45197, 0, 1, 1, 0, 0, 134.682, 1501.94, 114.57, 2.46091, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45197, 0, 1, 1, 0, 0, 169.429, 1523.88, 114.592, 1.90241, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45197, 0, 1, 1, 0, 0, 305.227, 1544.43, 116.571, 4.17134, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45197, 0, 1, 1, 0, 0, 195.337, 1481.01, 114.521, 2.96706, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45197, 0, 1, 1, 0, 0, 327.286, 1453.18, 117.112, 2.47837, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 45197, 0, 1, 1, 0, 0, 228.467, 1543.09, 118.064, 5.11381, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 45197, 0, 1, 1, 0, 0, 250.049, 1441.26, 114.996, 0.645772, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45197, 0, 1, 1, 0, 0, 197.497, 1438.72, 113.113, 2.09439, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45197, 0, 1, 1, 0, 0, 134.682, 1501.94, 114.57, 2.46091, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45197, 0, 1, 1, 0, 0, 169.429, 1523.88, 114.592, 1.90241, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45197, 0, 1, 1, 0, 0, 305.227, 1544.43, 116.571, 4.17134, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45197, 0, 1, 1, 0, 0, 195.337, 1481.01, 114.521, 2.96706, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45197, 0, 1, 1, 0, 0, 327.286, 1453.18, 117.112, 2.47837, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 45197, 0, 1, 1, 0, 0, 228.467, 1543.09, 118.064, 5.11381, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -197,8 +197,8 @@ INSERT INTO `creature_text` (`entry`, `groupid`, `id`, `text`, `type`, `language
 (44365, 10, 0, 'Isn''t it obvious, Warchief? I serve the Horde. ', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 11');
 
 -- Lady Sylvanas Windrunner - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 44365, 0, 1, 4102, 0, 0, 1381.7, 1041.26, 54.3171, 4.02848, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44365, 0, 1, 4102, 0, 0, 1381.7, 1041.26, 54.3171, 4.02848, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- ----------- --
@@ -261,8 +261,8 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (4436500, 9, 48, 0, 0, 0, 100, 1, 0, 0, 0, 0, 4, 20469, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Sylvanas Windrunner - The Warchief Cometh - sound 11');
 
 -- Agatha - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(@AGATHA1, 44608, 0, 1, 2, 0, 0, 1364.1, 1028.6, 58.4662, 0.715585, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(@AGATHA1, 44608, 0, 1, 2, 0, 0, 1364.1, 1028.6, 58.4662, 0.715585, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- ----------- --
@@ -445,18 +445,18 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 
 
 -- Fallen Human - spawns --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(@FALLEN1, 44592, 0, 1, 6, 0, 0, 1372.98, 1041.06, 51.381, 0.226893, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(@FALLEN2, 44592, 0, 1, 6, 0, 0, 1378.16, 1031.71, 51.3717, 0.767945, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(@FALLEN3, 44592, 0, 1, 6, 0, 0, 1372.58, 1038.07, 50.9666, 0.890118, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(@FALLEN4, 44592, 0, 1, 6, 0, 0, 1375.42, 1033.81, 50.6522, 0.890118, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(@FALLEN5, 44592, 0, 1, 6, 0, 0, 1369.65, 1033.67, 50.9668, 0.698132, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(@FALLEN6, 44592, 0, 1, 6, 0, 0, 1367.33, 1035.38, 51.304, 0.890118, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(@FALLEN7, 44592, 0, 1, 6, 0, 0, 1370.66, 1030.82, 51.134, 0.890118, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(@FALLEN8, 44592, 0, 1, 6, 0, 0, 1374.14, 1036.35, 50.9217, 5.53269, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(@FALLEN9, 44592, 0, 1, 6, 0, 0, 1369.57, 1036.9, 50.998, 0.20944, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(@FALLEN10, 44592, 0, 1, 6, 0, 0, 1377.3, 1035.93, 51.0961, 3.14159, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(@FALLEN11, 44592, 0, 1, 6, 0, 0, 1373.35, 1031.58, 50.6189, 0.959931, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(@FALLEN1, 44592, 0, 1, 6, 0, 0, 1372.98, 1041.06, 51.381, 0.226893, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN2, 44592, 0, 1, 6, 0, 0, 1378.16, 1031.71, 51.3717, 0.767945, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN3, 44592, 0, 1, 6, 0, 0, 1372.58, 1038.07, 50.9666, 0.890118, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN4, 44592, 0, 1, 6, 0, 0, 1375.42, 1033.81, 50.6522, 0.890118, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN5, 44592, 0, 1, 6, 0, 0, 1369.65, 1033.67, 50.9668, 0.698132, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN6, 44592, 0, 1, 6, 0, 0, 1367.33, 1035.38, 51.304, 0.890118, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN7, 44592, 0, 1, 6, 0, 0, 1370.66, 1030.82, 51.134, 0.890118, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN8, 44592, 0, 1, 6, 0, 0, 1374.14, 1036.35, 50.9217, 5.53269, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN9, 44592, 0, 1, 6, 0, 0, 1369.57, 1036.9, 50.998, 0.20944, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN10, 44592, 0, 1, 6, 0, 0, 1377.3, 1035.93, 51.0961, 3.14159, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN11, 44592, 0, 1, 6, 0, 0, 1373.35, 1031.58, 50.6189, 0.959931, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- Fallen Human - waypoints --
 INSERT INTO `waypoints` (`entry`, `pointid`, `position_x`, `position_y`, `position_z`, `point_comment`) VALUES 
@@ -554,11 +554,11 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (4459303, 9, 10, 0, 0, 0, 100, 1, 0, 0, 0, 0, 94, 32, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Fallen Forsaken - add dynamic flag');
 
 -- Fallen Human - spawns --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(@FALLEN12, 44593, 0, 1, 6, 0, 0, 1376, 1029.61, 50.9374, 0.890118, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(@FALLEN13, 44593, 0, 1, 6, 0, 0, 1369.71, 1040.19, 51.0212, 5.58505, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(@FALLEN14, 44593, 0, 1, 6, 0, 0, 1375.2, 1038.58, 51.2451, 4.55531, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(@FALLEN15, 44593, 0, 1, 6, 0, 0, 1372.08, 1034.98, 50.8489, 0.890118, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(@FALLEN12, 44593, 0, 1, 6, 0, 0, 1376, 1029.61, 50.9374, 0.890118, 10, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN13, 44593, 0, 1, 6, 0, 0, 1369.71, 1040.19, 51.0212, 5.58505, 10, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN14, 44593, 0, 1, 6, 0, 0, 1375.2, 1038.58, 51.2451, 4.55531, 10, 0, 0, 0, 0, 0, 0, 0, 0),
+(@FALLEN15, 44593, 0, 1, 6, 0, 0, 1372.08, 1034.98, 50.8489, 0.890118, 10, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- Fallen Human - waypoints --
 INSERT INTO `waypoints` (`entry`, `pointid`, `position_x`, `position_y`, `position_z`, `point_comment`) VALUES 
@@ -742,13 +742,13 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (4460800, 9, 6, 0, 0, 0, 100, 1, 13000, 13000, 0, 0, 66, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Agatha - set home orientation');
 
 -- Agatha & Daschla & Arthura - spawns --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 44608, 0, 1, 4, 0, 0, 1364.02, 1028.54, 55.9914, 0.855211, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44609, 0, 1, 6, 0, 0, 1365.73, 1024.98, 57.0244, 1.13446, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44610, 0, 1, 6, 0, 0, 1360.81, 1030.57, 56.874, 0.645772, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 49044, 0, 1, 1, 0, 0, 1700.05, 1699.77, 135.463, 1.762, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 49128, 0, 1, 1, 0, 0, 1757.88, 1582, 114.622, 1.72788, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 49129, 0, 1, 1, 0, 0, 1725.54, 1681.13, 139.093, 4.90376, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44608, 0, 1, 4, 0, 0, 1364.02, 1028.54, 55.9914, 0.855211, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44609, 0, 1, 6, 0, 0, 1365.73, 1024.98, 57.0244, 1.13446, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44610, 0, 1, 6, 0, 0, 1360.81, 1030.57, 56.874, 0.645772, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 49044, 0, 1, 1, 0, 0, 1700.05, 1699.77, 135.463, 1.762, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 49128, 0, 1, 1, 0, 0, 1757.88, 1582, 114.622, 1.72788, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 49129, 0, 1, 1, 0, 0, 1725.54, 1681.13, 139.093, 4.90376, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- Agatha - waypoints --
 INSERT INTO `waypoints` (`entry`, `pointid`, `position_x`, `position_y`, `position_z`, `point_comment`) VALUES 
@@ -798,8 +798,8 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (4461500, 9, 1, 0, 0, 0, 100, 1, 192000, 192000, 0, 0, 22, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Grand Executor Mortuus - The Warchief Cometh - return to event phase 1 after end of event');
 
 -- Grand Executor Mortuus - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 44615, 0, 1, 6, 0, 0, 1383.47, 1038.86, 54.3172, 3.89889, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44615, 0, 1, 6, 0, 0, 1383.47, 1038.86, 54.3172, 3.89889, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -904,54 +904,54 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (4496605, 9, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 71, 4496605, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Hillsbrad Refugee - random equip 6');
 
 -- Hillsbrad Refugee - spawns --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 44954, 0, 1, 1, 0, 0, 1022.21, 725.2, 60.24043, 0.1047198, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 1022.32, 728.483, 59.41353, 6.108652, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 1077.506, 713.2042, 46.97196, 6.029072, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 1078.26, 716.108, 46.21903, 6.029399, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 733.7131, 761.834, 36.5505, 0.4112615, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 738.2366, 748.5332, 36.5505, 0.5267295, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 747.786, 670.804, 47.10512, 5.597707, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 749.6851, 673.1263, 46.84157, 5.599968, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 818.667, 693.582, 53.72653, 3.857178, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 823.939, 681.715, 53.66883, 3.089233, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 876.24, 672.118, 55.34103, 3.263766, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 912.061, 693.785, 53.69373, 3.159046, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 914.627, 697.276, 54.19193, 1.518436, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 917.993, 663.144, 53.56036, 5.276095, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 944.477, 694.101, 59.36703, 3.263766, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 946.639, 696.479, 59.36053, 1.58825, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 948.477, 634.106, 53.43565, 5.646388, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 950.472, 714.063, 59.36703, 3.263766, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 950.566, 627.721, 53.61423, 1.48353, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 952.5405, 711.9014, 59.39069, 5.426266, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44954, 0, 1, 1, 0, 0, 977.925, 630.656, 53.40493, 2.984513, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 1003.59, 735.797, 59.34833, 3.263766, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 1003.943, 733.0439, 59.26728, 3.932724, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 1005.644, 735.7538, 59.26728, 0.1093907, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 1047.187, 727.5039, 51.94195, 0.3950165, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 1047.412, 725.4969, 52.44451, 4.827434, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 1064.744, 740.7194, 45.55227, 2.808105, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 718.9749, 759.6835, 36.5505, 6.219963, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 739.304, 714.991, 37.0382, 1.689579, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 771.759, 685.523, 46.95479, 6.273988, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 795.59, 588.38, 34.03973, 5.189848, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 798.2545, 589.7586, 34.07306, 5.191073, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 821.964, 692.889, 53.44923, 3.979351, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 826.406, 683.024, 53.70383, 2.565634, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 855.63, 680.262, 53.60773, 2.6529, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 879.9598, 704.0951, 55.64228, 1.019666, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 912.052, 680.637, 53.63503, 3.193953, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 914.6962, 714.8013, 55.21833, 1.599474, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 944.193, 679.759, 59.36093, 3.281219, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 944.83, 681.802, 59.34833, 3.228859, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 964.486, 587.571, 53.59895, 4.133756, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 965.7565, 724.0196, 59.6828, 4.835153, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 966.547, 728.299, 59.36703, 3.263766, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 967.413, 601.453, 53.8163, 3.814456, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 984.384, 740.512, 59.44113, 3.263766, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 985.979, 744.052, 60.18213, 1.42071, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0), 
-(NULL, 44966, 0, 1, 1, 0, 0, 990.2358, 607.316, 55.0663, 1.765944, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44954, 0, 1, 1, 0, 0, 1022.21, 725.2, 60.24043, 0.1047198, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 1022.32, 728.483, 59.41353, 6.108652, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 1077.506, 713.2042, 46.97196, 6.029072, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 1078.26, 716.108, 46.21903, 6.029399, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 733.7131, 761.834, 36.5505, 0.4112615, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 738.2366, 748.5332, 36.5505, 0.5267295, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 747.786, 670.804, 47.10512, 5.597707, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 749.6851, 673.1263, 46.84157, 5.599968, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 818.667, 693.582, 53.72653, 3.857178, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 823.939, 681.715, 53.66883, 3.089233, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 876.24, 672.118, 55.34103, 3.263766, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 912.061, 693.785, 53.69373, 3.159046, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 914.627, 697.276, 54.19193, 1.518436, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 917.993, 663.144, 53.56036, 5.276095, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 944.477, 694.101, 59.36703, 3.263766, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 946.639, 696.479, 59.36053, 1.58825, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 948.477, 634.106, 53.43565, 5.646388, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 950.472, 714.063, 59.36703, 3.263766, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 950.566, 627.721, 53.61423, 1.48353, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 952.5405, 711.9014, 59.39069, 5.426266, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44954, 0, 1, 1, 0, 0, 977.925, 630.656, 53.40493, 2.984513, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 1003.59, 735.797, 59.34833, 3.263766, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 1003.943, 733.0439, 59.26728, 3.932724, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 1005.644, 735.7538, 59.26728, 0.1093907, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 1047.187, 727.5039, 51.94195, 0.3950165, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 1047.412, 725.4969, 52.44451, 4.827434, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 1064.744, 740.7194, 45.55227, 2.808105, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 718.9749, 759.6835, 36.5505, 6.219963, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 739.304, 714.991, 37.0382, 1.689579, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 771.759, 685.523, 46.95479, 6.273988, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 795.59, 588.38, 34.03973, 5.189848, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 798.2545, 589.7586, 34.07306, 5.191073, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 821.964, 692.889, 53.44923, 3.979351, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 826.406, 683.024, 53.70383, 2.565634, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 855.63, 680.262, 53.60773, 2.6529, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 879.9598, 704.0951, 55.64228, 1.019666, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 912.052, 680.637, 53.63503, 3.193953, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 914.6962, 714.8013, 55.21833, 1.599474, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 944.193, 679.759, 59.36093, 3.281219, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 944.83, 681.802, 59.34833, 3.228859, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 964.486, 587.571, 53.59895, 4.133756, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 965.7565, 724.0196, 59.6828, 4.835153, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 966.547, 728.299, 59.36703, 3.263766, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 967.413, 601.453, 53.8163, 3.814456, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 984.384, 740.512, 59.44113, 3.263766, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 985.979, 744.052, 60.18213, 1.42071, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 44966, 0, 1, 1, 0, 0, 990.2358, 607.316, 55.0663, 1.765944, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- --
@@ -959,8 +959,8 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- -- -- -- -- -- -- -- -- -- --
 
 -- Forest Ettin - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 44367, 0, 1, 3, 0, 0, 860.453, 1547.99, 33.4494, 4.66367, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44367, 0, 1, 3, 0, 0, 860.453, 1547.99, 33.4494, 4.66367, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- 1063 veh
 
@@ -1004,8 +1004,8 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (44825, 0, 2, 0, 62, 0, 100, 0, 11892, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Bat Handler Maggotbreath - Iterating Upon Success - text 1 on gossip select');
 
 -- Bat Handler Maggotbreath - spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 44825, 0, 1, 6, 0, 0, 1422.931, 1017.771, 52.64933, 2.86234, 120, 0, 0, 0, 0, 0,0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44825, 0, 1, 6, 0, 0, 1422.931, 1017.771, 52.64933, 2.86234, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- Bat Handler Maggotbreath - condition --
 INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `ElseGroup`, `ConditionTypeOrReference`, `ConditionValue1`, `ConditionValue2`, `ConditionValue3`, `ErrorTextId`, `ScriptName`, `Comment`) VALUES 
@@ -1036,8 +1036,8 @@ INSERT INTO `npc_spellclick_spells` (`npc_entry`, `spell_id`, `quest_start`, `qu
 -- Armoire - SAI --
 
 -- Armoire -  spawn --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 44894, 0, 1, 1, 0, 0, 1315.06, 1211.81, 58.5562, 4.67748, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44894, 0, 1, 1, 0, 0, 1315.06, 1211.81, 58.5562, 4.67748, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- Armoire Camera 83763
 -- Summon Bloodfang 83753
@@ -1270,20 +1270,20 @@ Text id: 16702
 -- Orc Crate - SAI --
 
 -- Orc Crate - spawns --
-INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 44915, 0, 1, 2, 0, 0, 928.754, 1819.33, 9.47788, 0.389824, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44915, 0, 1, 2, 0, 0, 920.561, 1833.38, 7.48124, 0.554758, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44915, 0, 1, 2, 0, 0, 884.283, 1817.97, 8.67689, 3.0255, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44915, 0, 1, 2, 0, 0, 890.443, 1763.35, 15.3323, 1.469, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44915, 0, 1, 2, 0, 0, 882.373, 1829.23, 7.4038, 3.4851, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44915, 0, 1, 2, 0, 0, 874.616, 1889.11, 1.58017, 4.87654, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44915, 0, 1, 2, 0, 0, 852.634, 1874.36, 2.13003, 5.72084, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44915, 0, 1, 2, 0, 0, 809.388, 1856.03, 0.876495, 4.10449, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44915, 0, 1, 2, 0, 0, 809.505, 1817.51, 8.36207, 0.786972, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44915, 0, 1, 2, 0, 0, 862.824, 1830.68, 6.56472, 5.06975, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44915, 0, 1, 2, 0, 0, 818.684, 1802.37, 10.9705, 3.91835, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44915, 0, 1, 2, 0, 0, 874.374, 1780.89, 13.0461, 1.04615, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(NULL, 44915, 0, 1, 2, 0, 0, 871.619, 1811.87, 8.48706, 0.94012, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44915, 0, 1, 2, 0, 0, 928.754, 1819.33, 9.47788, 0.389824, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44915, 0, 1, 2, 0, 0, 920.561, 1833.38, 7.48124, 0.554758, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44915, 0, 1, 2, 0, 0, 884.283, 1817.97, 8.67689, 3.0255, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44915, 0, 1, 2, 0, 0, 890.443, 1763.35, 15.3323, 1.469, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44915, 0, 1, 2, 0, 0, 882.373, 1829.23, 7.4038, 3.4851, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44915, 0, 1, 2, 0, 0, 874.616, 1889.11, 1.58017, 4.87654, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44915, 0, 1, 2, 0, 0, 852.634, 1874.36, 2.13003, 5.72084, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44915, 0, 1, 2, 0, 0, 809.388, 1856.03, 0.876495, 4.10449, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44915, 0, 1, 2, 0, 0, 809.505, 1817.51, 8.36207, 0.786972, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44915, 0, 1, 2, 0, 0, 862.824, 1830.68, 6.56472, 5.06975, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44915, 0, 1, 2, 0, 0, 818.684, 1802.37, 10.9705, 3.91835, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44915, 0, 1, 2, 0, 0, 874.374, 1780.89, 13.0461, 1.04615, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44915, 0, 1, 2, 0, 0, 871.619, 1811.87, 8.48706, 0.94012, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- Orc Crate - condition --
 

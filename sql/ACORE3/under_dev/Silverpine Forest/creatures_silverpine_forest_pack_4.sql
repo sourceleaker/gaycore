@@ -783,3 +783,44 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Captain Rutsak - spawn --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
 (NULL, 45389, 0, 1, 1, 0, 0, -1248.84, 1374.59, 27.83343, 3.316126, 300, 0, 0, 0, 0, 0, 0, 0, 0);
+
+
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- Veteran Forsaken Trooper   (ID: 45225) --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+-- Veteran Forsaken Trooper 
+
+-- Veteran Forsaken Trooper 
+
+-- Veteran Forsaken Trooper 
+
+-- Veteran Forsaken Trooper 
+
+-- Veteran Forsaken Trooper - spawns --
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 45225, 0, 1, 1, 0, 0, 364.993, 1093.53, 106.1783, 5.323254, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45225, 0, 1, 1, 0, 0, 365.075, 1097.21, 106.2123, 5.270895, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45225, 0, 1, 1, 0, 0, 368.543, 1095.05, 106.1913, 4.974188, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45225, 0, 1, 1, 0, 0, 369.517, 1098.67, 106.2823, 5.078908, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45225, 0, 1, 1, 0, 0, 372.582, 1096.04, 106.2333, 4.974188, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45225, 0, 1, 1, 0, 0, 373.549, 1098.99, 106.3463, 4.974188, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45225, 0, 1, 1, 0, 0, 376.009, 1096.43, 106.2763, 5.009095, 300, 0, 0, 0, 0, 0, 0, 0, 0);
+
+
+-- -- -- -- -- -- -- -- -- -- -- --
+-- Master Forteski   (ID: 45228) --
+-- -- -- -- -- -- -- -- -- -- -- --
+
+-- Master Forteski
+
+-- Master Forteski
+
+-- Master Forteski
+
+-- Master Forteski
+
+-- Master Forteski - spawn --
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 45228, 0, 1, 1, 0, 0, 368.99, 1102.56, 106.3493, 5.166174, 120, 0, 0, 1, 0, 0, 0, 0, 0);

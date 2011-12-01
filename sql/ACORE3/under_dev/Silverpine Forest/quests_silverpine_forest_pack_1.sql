@@ -22,7 +22,6 @@
 - NPC: Agatha (ID: 44951),
 - NPC: Grand Executor Mortuus(ID: 44615),
 - NPC: Hellscream's Elite (ID: 44636),
-- Object: Ferocious Doomweed (ID: 205099),
 - NPC: Hillsbrad Refugee (ID: 44954, 44966),
 - NPC: Forest Ettin (ID: 44367),
 - NPC: Bat Handler Maggotbreath (ID: 44825),
@@ -31,7 +30,6 @@
 - NPC: Packleader Ivar Bloodfang (ID: 44884),
 - NPC: Lord Darius Crowley (ID: 44883),
 - NPC: Deathstalker Rane Yorick (ID: 44882),
-- Object: Abandoned Outhouse (ID: 205143),
 - NPC: Orc Sea Pup (ID: 44914),
 - NPC: Admiral Hatchet (ID: 44916),
 - NPC: Orc Crate (ID: 44915); */
@@ -42,7 +40,6 @@
 -- -------- --
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (44608,44825,44615,44592,44593,45197,44636,44629,44640,44615,44365,44630,44954,44966) AND `source_type` = 0;
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (4464000,4459200,4459201,4459202,4459203,4459204,4459205,4459206,4459207,4459208,4459209,4459210,4459300,4459301,4459302,4459303,4459200,4459201,4459202,4459203,4460800,8000000,4461500,4436500,4462900,4495400,4495401,4495402,4495403,4495404,4495405,4496600,4496601,4496602,4496603,4496604,4496605,4463000,4463001,4463002) AND `source_type` = 9;
-DELETE FROM `smart_scripts` WHERE `entryorguid` IN (205099,205143) AND `source_type` = 1;
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (SELECT -`guid` FROM `creature` WHERE `id` = 44630) AND `source_type` = 0;
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (SELECT -`guid` FROM `creature` WHERE `id` = 44592) AND `source_type` = 0;
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (SELECT -`guid` FROM `creature` WHERE `id` = 44593) AND `source_type` = 0;
@@ -54,44 +51,12 @@ DELETE FROM `npc_spellclick_spells` WHERE `npc_entry` IN (44821,45197);
 DELETE FROM `pickpocketing_loot_template` WHERE `entry` = 45197;
 DELETE FROM `creature` WHERE `id` IN (45197,44630,44825,44367,44636,44954,44966,44608,44951,45104,46034,49213,49044,45583,45609,45625,45802,49128,45105,46033,45775,45761,45584,45610,45626,44609,45318,45473,45555,46032,45106,49129,45314,45585,45611,45627,44610,44365,44592,44593,44629,44640,44630,44615);
 DELETE FROM `creature` WHERE `id` = 39605 AND `map` = 0;
-DELETE FROM `spell_area` WHERE `area` IN (5369,928,305,239);
 DELETE FROM `creature_template` WHERE `entry` IN (44608,44609,44610,44893,44894,44883,44882,44884,44825,44821,44630,44365,44592,44593,44629,44640,44615,44365,44636);
-DELETE FROM `gameobject_template` WHERE `entry` IN (205143,205099);
 DELETE FROM `npc_text` WHERE `id` IN (16683,16575);
 DELETE FROM `gossip_menu` WHERE `entry` IN (11892,11823);
 DELETE FROM `gossip_menu_option` WHERE `menu_id` IN (11892,11823);
-DELETE FROM `gameobject_questrelation` WHERE `id` IN (205143);
-DELETE FROM `gameobject_involvedrelation` WHERE `id` IN (205143);
 DELETE FROM `conditions` WHERE `SourceGroup` IN (11892);
 DELETE FROM `conditions` WHERE `SourceEntry` IN (83173,83575,83573);
-
-
--- -- -- -- -- -- -- -- -- -- -- -- --
--- Forsaken High Command (ID: 5369) --
--- -- -- -- -- -- -- -- -- -- -- -- --
-
--- Forsaken High Command - phasing --
-INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_start_active`, `quest_end`, `aura_spell`, `racemask`, `gender`, `autocast`) VALUES 
-(59073, 5369, 0, 0, 26965, 0, 946, 2, 1), -- Forsaken High Command - phase 2
-(59074, 5369, 0, 0, 25098, 0, 946, 2, 1); -- Forsaken High Command - phase 4
-
-
--- -- -- -- -- -- -- -- -- -- -- -- --
--- North Tide's Beachhead (ID: 928) --
--- -- -- -- -- -- -- -- -- -- -- -- --
-
--- North Tide's Beachhead - phasing --
-INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_start_active`, `quest_end`, `aura_spell`, `racemask`, `gender`, `autocast`) VALUES 
-(59073, 928, 0, 0, 27073, 0, 946, 2, 1); -- North Tide's Beachhead 
-
-
--- -- -- -- -- -- -- -- -- -- -- -- --
--- North Tide's Run (ID: 305) --
--- -- -- -- -- -- -- -- -- -- -- -- --
-
--- North Tide's Run - phasing --
-INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_start_active`, `quest_end`, `aura_spell`, `racemask`, `gender`, `autocast`) VALUES 
-(59073, 305, 0, 0, 27073, 0, 946, 2, 1); -- North Tide's Run
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -825,39 +790,6 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (44636, 0, 2, 0, 1, 0, 100, 1, 180100, 180100, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Hellscream''s Elite - despawn');
 
 
--- -- -- -- -- -- -- -- -- -- -- -- --
--- Ferocious Doomweed  (ID: 205099) --
--- -- -- -- -- -- -- -- -- -- -- -- --
-
--- Ferocious Doomweed - new template --
-INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `IconName`, `castBarCaption`, `unk1`, `faction`, `flags`, `size`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `data0`, `data1`, `data2`, `data3`, `data4`, `data5`, `data6`, `data7`, `data8`, `data9`, `data10`, `data11`, `data12`, `data13`, `data14`, `data15`, `data16`, `data17`, `data18`, `data19`, `data20`, `data21`, `data22`, `data23`, `data24`, `data25`, `data26`, `data27`, `data28`, `data29`, `data30`, `data31`, `AIName`, `ScriptName`, `WDBVerified`) VALUES
-(205099, 3, 4112, 'Ferocious Doomweed', '', 'Gathering', '', 0, 0, 1, 60741, 0, 0, 0, 0, 0, 259, 205099, 300, 1, 0, 0, 0, 0, 26992, 0, 0, 0, 0, 0, 24982, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'SmartGameObjectAI', '', 0);
-
--- Ferocious Doomweed - SAI --
-INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
-(205099, 1, 0, 0, 64, 0, 100, 0, 0, 0, 0, 0, 75, 83523, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Ferocious Doomweed - call timed actionlist on gossip_hello');
-
--- Ferocious Doomweed - spawns --
-INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`) VALUES
-(NULL, 205099, 0, 1, 1, 1300.01, 850.846, 34.7983, 0, 0, 0, 0, 1, 180, 100, 1),
-(NULL, 205099, 0, 1, 1, 1312.28, 967.269, 54.5992, 0, 0, 0, 0, 1, 180, 100, 1),
-(NULL, 205099, 0, 1, 1, 1425.78, 827.576, 49.8996, 0, 0, 0, 0, 1, 180, 100, 1),
-(NULL, 205099, 0, 1, 1, 1394.26, 960.094, 49.7652, 0, 0, 0, 0, 1, 180, 100, 1),
-(NULL, 205099, 0, 1, 1, 1335.21, 820.444, 39.1371, 0, 0, 0, 0, 1, 180, 100, 1),
-(NULL, 205099, 0, 1, 1, 1272.92, 923.297, 42.1125, 0, 0, 0, 0, 1, 180, 100, 1),
-(NULL, 205099, 0, 1, 1, 1231.62, 1155.03, 45.2443, 0, 0, 0, 0, 1, 180, 100, 1),
-(NULL, 205099, 0, 1, 1, 1448.24, 891.762, 56.5077, 0, 0, 0, 0, 1, 180, 100, 1),
-(NULL, 205099, 0, 1, 1, 1329.58, 844.313, 42.013, 0, 0, 0, 0, 1, 180, 100, 1),
-(NULL, 205099, 0, 1, 1, 1357.43, 984.597, 52.9882, 0, 0, 0, 0, 1, 180, 100, 1),
-(NULL, 205099, 0, 1, 1, 1213.82, 1086.54, 39.3827, 0, 0, 0, 0, 1, 180, 100, 1),
-(NULL, 205099, 0, 1, 1, 1435.81, 953.023, 54.3454, 0, 0, 0, 0, 1, 180, 100, 1),
-(NULL, 205099, 0, 1, 1, 1362.4, 937.734, 54.5992, 0, 0, 0, 0, 1, 180, 100, 1),
-(NULL, 205099, 0, 1, 1, 1412.07, 922.304, 49.0066, 0, 0, 0, 0, 1, 180, 100, 1),
-(NULL, 205099, 0, 1, 1, 1309.53, 1134.29, 52.4592, 0, 0, 0, 0, 1, 180, 100, 1),
-(NULL, 205099, 0, 1, 1, 1391.05, 864.71, 48.6364, 0, 0, 0, 0, 1, 180, 100, 1),
-(NULL, 205099, 0, 1, 1, 1321.39, 804.915, 33.7252, 0, 0, 0, 0, 1, 180, 100, 1);
-
-
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- Hillsbrad Refugee   (ID: 44954, 44966) --
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -1201,31 +1133,6 @@ INSERT INTO `creature_text` (`entry`, `groupid`, `id`, `text`, `type`, `language
 (44882, 0, 0, 'We haven''t got much time. Crowley will be arriving shortly. Let''s go!', 12, 0, 100, 0, 0, 0, 'Deathstalker Rane Yorick 1'),
 (44882, 1, 0, 'THERE! Hide in the armoire! I''ll hide in the shadows next to you.', 12, 0, 100, 0, 0, 0, 'Deathstalker Rane Yorick 2'),
 (44882, 2, 0, 'I live... and die... for the Banshee Queen.', 12, 0, 100, 0, 0, 0, 'Deathstalker Rane Yorick 3');
-
-
--- -- -- -- -- -- -- -- -- -- -- -- --
--- Abandoned Outhouse  (ID: 205143) --
--- -- -- -- -- -- -- -- -- -- -- -- --
-
--- Abandoned Outhouse - new template --
-INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `IconName`, `castBarCaption`, `unk1`, `faction`, `flags`, `size`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `data0`, `data1`, `data2`, `data3`, `data4`, `data5`, `data6`, `data7`, `data8`, `data9`, `data10`, `data11`, `data12`, `data13`, `data14`, `data15`, `data16`, `data17`, `data18`, `data19`, `data20`, `data21`, `data22`, `data23`, `data24`, `data25`, `data26`, `data27`, `data28`, `data29`, `data30`, `data31`, `AIName`, `ScriptName`, `WDBVerified`) VALUES
-(205143, 2, 3332, 'Abandoned Outhouse', '', '', '', 0, 0, 1.03, 0, 0, 0, 0, 0, 0, 0, 15590, 0, 11897, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'SmartGameObjectAI', '', 0);
-
--- Abandoned Outhouse - quest relation --
-INSERT INTO `gameobject_questrelation` (`id`, `quest`) VALUES 
-(205143, 27045);
-
--- Abandoned Outhouse - involved relation --
-INSERT INTO `gameobject_involvedrelation` (`id`, `quest`) VALUES 
-(205143, 27039);
-
--- Abandoned Outhouse - SAI --
-INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
-(205143, 1, 0, 0, 47, 0, 100, 0, 0, 0, 0, 0, 11, 83751, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 'Abandoned Outhouse - cast Summon Deathstalker Yorick on player');
-
--- Abandoned Outhouse - spawn --
-INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`) VALUES
-(NULL, 205143, 0, 1, 8, 1304.34, 1188.18, 52.1125, 2.76478, 0, 0, 0, 1, 180, 100, 1);
 
 
 -- -- -- -- -- -- -- -- -- --

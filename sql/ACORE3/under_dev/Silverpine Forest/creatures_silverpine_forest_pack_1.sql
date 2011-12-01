@@ -7,6 +7,7 @@
 - Effritus (ID: 47012),
 - 7th Legion Scout (ID: 45883) and (ID: 46040),
 - 7th Legion Submariner (ID: 45403) and (ID: 46065),
+- Master Sergeant Pietro Zaren (ID: 45405),
 - Abomination (ID: 46058),
 - Worgen Commando (ID: 45861),
 - Bartolo Ginsetti (ID: 46060),
@@ -45,10 +46,11 @@ DELETE FROM `creature_equip_template` WHERE `entry` IN (4525400,4525401,4525402,
 DELETE FROM `creature_loot_template` WHERE `entry` IN (1778,12431,1766,1797,46575,47012,45883,46040,45403,46065,46058,45861,46060,45860,46050,44547,44549,45255,45254,46064,46063,45195,46992,1765,45896,47023,1870,46053,5757,3534,1781,44906,46751,1780,44941,44908,12433,45750,45752,45753);
 DELETE FROM `skinning_loot_template` WHERE `entry` IN (1778,12431,1766,1797,46575,47012,45883,46040,45403,46065,46058,45861,46060,45860,46050,44547,44549,45255,45254,46064,46063,45195,46992,1765,45896,47023,1870,46053,5757,3534,1781,44906,46751,1780,44941,44908,12433,45750,45752,45753);
 DELETE FROM `npc_vendor` WHERE `entry` IN (1778,12431,1766,1797,46575,47012,45883,46040,45403,46065,46058,45861,46060,45860,46050,44547,44549,45255,45254,46064,46063,45195,46992,1765,45896,47023,1870,46053,5757,3534,1781,44906,46751,1780,44941,44908,12433,45750,45752,45753);
-DELETE FROM `pool_creature` WHERE `description` LIKE 'Gorefang';
+DELETE FROM `pool_creature` WHERE `guid` IN (SELECT `guid` FROM `creature` WHERE `id` = 12431);
 DELETE FROM `pool_template` WHERE `description` LIKE 'Gorefang';
 DELETE FROM `creature_template` WHERE `entry` IN (1778,12431,1766,1797,46575,47012,45883,46040,45403,46065,46058,45861,46060,45860,46050,44547,44549,45255,45254,46064,46063,45195,46992,1765,45896,47023,1870,46053,5757,3534,1781,44906,46751,1780,44941,44908,12433,45750,45752,45753);
 DELETE FROM `creature` WHERE `id` IN (1778,12431,1766,1797,46575,47012,45883,46040,45403,46065,46058,45861,46060,45860,46050,44547,44549,45255,45254,46064,46063,45195,46992,1765,45896,47023,1870,46053,5757,3534,1781,44906,46751,1780,44941,44908,12433,45750,45752,45753);
+DELETE FROM `creature_ai_scripts` WHERE `creature_id` IN (1765);
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -342,8 +344,8 @@ INSERT INTO `pool_template` (`entry`, `max_limit`, `description`) VALUES
 
 -- Gorefang - pool_creature --
 INSERT INTO `pool_creature` (`guid`, `pool_entry`, `chance`, `description`) VALUES 
-(@GUID1, @POOL1, 100, 'Gorefang'),
-(@GUID2, @POOL1, 100, 'Gorefang');
+(@GUID1, @POOL1, 0, 'Gorefang'),
+(@GUID2, @POOL1, 0, 'Gorefang');
 
 -- Gorefang - spawns --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
@@ -1279,6 +1281,8 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- 7th Legion Scout - new template --
 UPDATE `creature_template` SET `AIName` = 'SmartAI' WHERE `entry` IN (45883,46040);
 
+-- 7th Legion Scout - equip --
+
 -- 7th Legion Scout - addon --
 INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
 (45883, 0, 0, 0, 0, 0, '84442 0'),
@@ -1295,6 +1299,8 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (4604000, 9, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 11, 80576, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '7th Legion Scout - cast Shadowstep'),
 (4604000, 9, 1, 0, 0, 0, 100, 0, 0, 0, 0, 0, 11, 79862, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, '7th Legion Scout - cast Backstab');
 
+-- 7th Legion Scout - spawns --
+
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- 7th Legion Submariner  (ID: 45403) and (ID: 46065) --
@@ -1302,6 +1308,10 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 
 -- 7th Legion Submariner - new template --
 UPDATE `creature_template` SET `AIName` = 'SmartAI' WHERE `entry` IN (45403,46065);
+
+-- 7th Legion Submariner - equip --
+
+-- 7th Legion Submariner - addon --
 
 -- 7th Legion Submariner - SAI --
 INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
@@ -1319,6 +1329,98 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (46065, 0, 4, 0, 0, 2, 100, 0, 0, 0, 0, 0, 11, 81087, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, '7th Legion Submariner - cast Puncture Wound'),
 (46065, 0, 5, 0, 25, 0, 100, 0, 0, 0, 0, 0, 22, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '7th Legion Submariner - set event phase 1 on reset'),
 (46065, 0, 6, 0, 9, 0, 100, 0, 5, 30, 1500, 1500, 22, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '7th Legion Submariner - set event phase 1 when player at the distance of more than 5 yards');
+
+-- 7th Legion Submariner - spawns --
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 45403, 0, 1, 1, 0, 0, -1228.38, 2037.45, 5.202864, 0.9075712, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1229.35, 2036.35, 9.480493, 0.9075712, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1230.04, 2039.19, 9.477523, 0.9075712, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1230.45, 2035.24, 9.483263, 0.9075712, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1231.19, 2037.94, 9.480453, 0.9075712, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1231.58, 2034.09, 9.486093, 0.9075712, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1231.73, 2040.7, 9.538163, 0.9075712, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1232.2, 2036.75, 9.483163, 0.9075712, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1232.85, 2039.38, 9.480443, 0.9075712, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1233.28, 2035.49, 9.486043, 0.9075712, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1233.86, 2038.1, 9.483303, 0.9075712, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1234.87, 2036.88, 9.486093, 0.9075712, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1315.99, 2118.48, 5.708064, 2.181662, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1317.8, 2115.28, 5.709353, 2.303835, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1318.51, 2119.86, 5.714314, 2.181662, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1319.3, 2112.34, 5.707903, 2.530727, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1320.32, 2116.66, 5.713563, 2.303835, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1320.85, 2109.48, 5.712684, 2.70526, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1321.29, 2121.42, 5.714324, 2.181662, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1321.82, 2113.72, 5.713843, 2.530727, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1322.45, 2106.63, 5.713684, 2.670354, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1323.09, 2118.22, 5.714314, 2.303835, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1323.37, 2110.85, 5.713543, 2.70526, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1323.8, 2103.97, 5.713873, 2.844887, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1324.38, 2122.94, 5.714324, 2.181662, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1324.59, 2115.28, 5.714324, 2.530727, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1324.97, 2108.01, 5.713543, 2.670354, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1326.14, 2112.42, 5.714324, 2.70526, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1326.18, 2119.73, 5.714324, 2.303835, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1326.31, 2105.35, 5.713543, 2.844887, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1327.47, 2123.83, 5.662251, 1.095933, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1327.69, 2116.8, 5.714324, 2.530727, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1327.74, 2109.57, 5.714324, 2.670354, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1329.09, 2106.91, 5.714324, 2.844887, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1329.24, 2113.93, 5.714324, 2.70526, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1330.84, 2111.09, 5.714324, 2.670354, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1332.18, 2108.42, 5.714324, 2.844887, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1390.47, 1509.21, 20.74918, 4.801762, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1393.79, 1546.26, 20.69936, 4.884229, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1414.84, 1559.37, 20.56123, 0.2792527, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1418.23, 1571.97, 20.56643, 0.3316126, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1419.08, 1590.55, 20.58984, 5.044387, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1423.4, 1536.47, 20.78123, 3.612832, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1424.33, 1654.64, 20.75277, 2.282538, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1427.5, 1504.4, 20.69233, 5.166174, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1443.77, 1592.52, 20.81543, 3.490659, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1451.02, 1519.18, 20.79963, 0.6632251, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1454.62, 1584.39, 20.80123, 0.7679449, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1456.65, 1635.85, 20.56883, 4.18879, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1456.76, 1635.84, 20.61054, 0.8211186, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1462.42, 1550.58, 20.61054, 1.201463, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1469.93, 1527.19, 20.83543, 2.216568, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1480.02, 1532.54, 20.73023, 6.021386, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1484.97, 1579.03, 20.56883, 5.445427, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1485.339, 1556.555, 20.83307, 5.307813, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1486.738, 1701.586, 20.7515, 1.07448, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1488.71, 1677.44, 20.49299, 5.663644, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1499.77, 1543.65, 20.69423, 0.9948376, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1502.497, 1636.315, 20.5403, 1.540376, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1502.86, 1632.62, 20.56883, 2.216568, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1505.31, 1585.75, 20.56883, 0.9075712, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1521.59, 1723.51, 20.75377, 2.750102, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1522.232, 1677.262, 20.95789, 4.591832, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1527.91, 1608.8, 20.56883, 0.6108652, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1536.03, 1631.68, 20.56883, 2.391101, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1537.21, 1676.58, 20.68273, 3.036873, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1548.34, 1699.99, 20.56823, 1.361357, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1559.63, 1628.36, 20.61983, 3.857178, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1568.68, 1651.06, 20.60992, 2.610867, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1572.6, 1628.23, 20.85313, 3.281219, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1575.47, 1682.88, 20.67113, 6.265732, 300, 0, 0, 0, 0, 0, 0, 0, 0), 
+(NULL, 45403, 0, 1, 1, 0, 0, -1577.96, 1653.6, 20.56823, 2.792527, 300, 0, 0, 0, 0, 0, 0, 0, 0);
+
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- Master Sergeant Pietro Zaren  (ID: 45405) --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+-- Master Sergeant Pietro Zaren - new template --
+
+-- Master Sergeant Pietro Zaren - equip --
+
+-- Master Sergeant Pietro Zaren - addon --
+
+-- Master Sergeant Pietro Zaren - SAI --
+
+-- Master Sergeant Pietro Zaren - spawn --
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 45405, 0, 1, 1, 0, 0, -1528.83, 1587.73, 26.62023, 0.8203048, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- 
@@ -1938,7 +2040,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 
 -- Worg - new template --
 INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
-(1765, 0, 0, 0, 0, 0, 11421, 0, 0, 0, 'Worg', NULL, NULL, 0, 9, 10, 0, 38, 38, 0, 1, 1, 1, 0, 13, 17, 0, 42, 1, 2000, 0, 1, 32768, 2048, 1, 0, 0, 0, 0, 9, 13, 0, 1, 1, 1765, 0, 1765, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5945, 0, 0, 0, 'EventAI', 1, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1765, 0, 0, '', 0);
+(1765, 0, 0, 0, 0, 0, 11421, 0, 0, 0, 'Worg', NULL, NULL, 0, 9, 10, 0, 38, 38, 0, 1, 1, 1, 0, 13, 17, 0, 42, 1, 2000, 0, 1, 32768, 2048, 1, 0, 0, 0, 0, 9, 13, 0, 1, 1, 1765, 0, 1765, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5945, 0, 0, 0, '', 1, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1765, 0, 0, '', 0);
 
 -- Worg - addon --
 INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES

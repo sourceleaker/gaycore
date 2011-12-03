@@ -1070,7 +1070,7 @@ INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entr
 
 -- Lady Sylvanas Windrunner - spawn --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
-(NULL, 44605, 0, 1, 4, 0, 0, -183.023, 1275.56, 46.45783, 3.124139, 300, 0, 0, 0, 0, 0, 0, 0, 0);
+(NULL, 45605, 0, 1, 4, 0, 0, -183.023, 1275.56, 46.45783, 3.124139, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -1087,7 +1087,7 @@ INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entr
 
 -- High Warlord Cromush - spawn --
 INSERT INTO `creature` (`guid`,  `id`,  `map`,  `spawnMask`,  `phaseMask`,  `modelid`,  `equipment_id`,  `position_x`,  `position_y`,  `position_z`,  `orientation`,  `spawntimesecs`,  `spawndist`,  `currentwaypoint`,  `curhealth`,  `curmana`,  `MovementType`,  `npcflag`,  `unit_flags`,  `dynamicflags`) VALUES
-(NULL,  44612,  0,  1,  4,  0,  0,  -180.2,  1280.6,  45.91623,  3.124139,  300,  0,  0,  0,  0,  0,  0,  0,  0);
+(NULL,  45612,  0,  1,  4,  0,  0,  -180.2,  1280.6,  45.91623,  3.124139,  300,  0,  0,  0,  0,  0,  0,  0,  0);
 
 
 -- -- -- -- -- -- -- -- -- -- --

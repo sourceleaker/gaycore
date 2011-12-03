@@ -4,13 +4,17 @@
 - Forsaken Communication Device (ID: 205363),
 - Wolfsbane (ID: 205367),
 - 7th Legion Telescope (ID: 205417),
-- Shoutbox (ID: 205420); */
+- Shoutbox (ID: 205420),
+- Ambermill Codex  (ID: 205534),
+- Dimensional Barrier (QUEST INVIS 20)  (ID: 205541),
+- Sturdy Treasure Chest  (ID: 207486),
+- Ambermill Strongbox (ID: 103815); */
 
 
 -- ------ --
 -- DELETE --
 -- ------ --
-DELETE FROM `gameobject_template` WHERE `entry` IN (205099,205143,205363,205367,205417,205420);
+DELETE FROM `gameobject_template` WHERE `entry` IN (205099,205143,205363,205367,205417,205420,205534,205541,207486,103815);
 DELETE FROM `gameobject` WHERE `id` IN (205099,205143,205363,205367,205417,205420);
 DELETE FROM `gameobject_questrelation` WHERE `id` IN (205143);
 DELETE FROM `gameobject_involvedrelation` WHERE `id` IN (205143);
@@ -216,3 +220,39 @@ INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `castBa
 -- Shoutbox - spawn --
 INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`) VALUES
 (4005112, 205420, 0, 1, 1, -1465.12, 1710.4, 20.7517, 0.904502, 0, 0, 0.436991, 0.899466, 300, 0, 0);
+
+
+-- -- -- -- -- -- -- -- -- -- -- --
+-- Ambermill Codex  (ID: 205534) --
+-- -- -- -- -- -- -- -- -- -- -- --
+
+-- Ambermill Codex - new template --
+INSERT INTO `gameobject_template` (`entry`,`type`,`displayId`,`name`,`castBarCaption`,`unk1`,`faction`,`flags`,`size`,`data0`,`data1`,`data2`,`data3`,`data4`,`data5`,`data6`,`data7`,`data8`,`data9`,`data10`,`data11`,`data12`,`data13`,`data14`,`data15`,`data16`,`data17`,`data18`,`data19`,`data20`,`data21`,`data22`,`data23`,`ScriptName`) VALUES 
+(205534, 3, 8520,  'Ambermill Codex', 'Stealing', '',35, 0, 1, 1691, 34700, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26365, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '');
+
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- Dimensional Barrier (QUEST INVIS 20)  (ID: 205541) --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+-- Dimensional Barrier (QUEST INVIS 20) - new template --
+INSERT INTO `gameobject_template` (`entry`,`type`,`displayId`,`name`,`castBarCaption`,`unk1`,`faction`,`flags`,`size`,`data0`,`data1`,`data2`,`data3`,`data4`,`data5`,`data6`,`data7`,`data8`,`data9`,`data10`,`data11`,`data12`,`data13`,`data14`,`data15`,`data16`,`data17`,`data18`,`data19`,`data20`,`data21`,`data22`,`data23`,`ScriptName`) VALUES 
+(205541, 5, 8472,  'Dimensional Barrier (QUEST INVIS 20)', '', '',35, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '');
+
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- Sturdy Treasure Chest  (ID: 207486) --
+-- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+-- Sturdy Treasure Chest - new template --
+INSERT INTO `gameobject_template` (`entry`,`type`,`displayId`,`name`,`castBarCaption`,`unk1`,`faction`,`flags`,`size`,`data0`,`data1`,`data2`,`data3`,`data4`,`data5`,`data6`,`data7`,`data8`,`data9`,`data10`,`data11`,`data12`,`data13`,`data14`,`data15`,`data16`,`data17`,`data18`,`data19`,`data20`,`data21`,`data22`,`data23`,`ScriptName`) VALUES 
+(207486, 3, 10313,  'Sturdy Treasure Chest', '', '',35, 0, 1, 57, 39336, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30, 5, 0, 0, 0, 0,  '');
+
+
+-- -- -- -- -- -- -- -- -- -- -- -- --
+-- Ambermill Strongbox (ID: 103815) --
+-- -- -- -- -- -- -- -- -- -- -- -- --
+
+-- Ambermill Strongbox - new template --
+INSERT INTO `gameobject_template` (`entry`,`type`,`displayId`,`name`,`castBarCaption`,`unk1`,`faction`,`flags`,`size`,`data0`,`data1`,`data2`,`data3`,`data4`,`data5`,`data6`,`data7`,`data8`,`data9`,`data10`,`data11`,`data12`,`data13`,`data14`,`data15`,`data16`,`data17`,`data18`,`data19`,`data20`,`data21`,`data22`,`data23`,`ScriptName`) VALUES 
+(103815, 3, 1,  'Ambermill Strongbox', '', '',35, 0, 1, 5, 4667, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '');

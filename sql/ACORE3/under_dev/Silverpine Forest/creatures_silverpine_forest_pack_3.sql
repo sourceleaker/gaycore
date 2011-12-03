@@ -792,3 +792,13 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 
 -- only delete old spawns --
 
+
+-- -- -- -- -- -- -- -- -- -- -- --
+-- Harris Franklin   (ID: 51709) --
+-- -- -- -- -- -- -- -- -- -- -- --
+
+-- Harris Franklin
+
+-- Harris Franklin - spawn --
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 51709, 0, 1, 3, 0, 0, -140.5608, 1292.561, 49.8385, 4.153883, 300, 0, 0, 0, 0, 0, 0, 0, 0);

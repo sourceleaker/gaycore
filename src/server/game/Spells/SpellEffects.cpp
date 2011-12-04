@@ -8152,5 +8152,6 @@ void Spell::EffectDamageSelfPct(SpellEffIndex effIndex)
     if (!m_originalCaster)
         return;
 
-    m_damage += m_originalCaster->SpellDamageBonus(unitTarget, m_spellInfo, effIndex, unitTarget->CountPctFromMaxHealth(damage), SELF_DAMAGE);
+    uint32 damage = unitTarget->CountPctFromMaxHealth(damage);
+	m_damage += m_originalCaster->SpellDamageBonus(unitTarget, m_spellInfo, damage, SELF_DAMAGE);
 }

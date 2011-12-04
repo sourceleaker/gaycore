@@ -783,7 +783,6 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
         {
             switch (m_spellInfo->Id)
             {
-<<<<<<< HEAD
                 case 8593:                                  // Symbol of life (restore creature to life)
                 case 31225:                                 // Shimmering Vessel (restore creature to life)
                 {
@@ -796,8 +795,6 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                 {
                     unitTarget->ToCreature()->ForcedDespawn(500);
                 }
-=======
->>>>>>> a8186453c0fd08c3573c2674e395a9f445a2f83b
                 case 12162:                                 // Deep wounds
                 case 12850:                                 // (now good common check for this spells)
                 case 12868:
@@ -905,7 +902,6 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
 
                     return;
                 }
-<<<<<<< HEAD
                 case 56989: // Glyph of Dragon's Breath
                 {
                     if (unitTarget)
@@ -932,11 +928,8 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                 case 26074:                                 // Holiday Cheer
                     // implemented at client side
                     return;
-                // Polarity Shift
-                case 28089:
-=======
                 case 28089:                                 // Polarity Shift
->>>>>>> a8186453c0fd08c3573c2674e395a9f445a2f83b
+
                     if (unitTarget)
                         unitTarget->CastSpell(unitTarget, roll_chance_i(50) ? 28059 : 28084, true, NULL, NULL, m_caster->GetGUID());
                     break;
@@ -1495,7 +1488,6 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                     unitTarget->CastSpell(unitTarget, 42726, true);
                     m_caster->ToPlayer()->KilledMonsterCredit(KillCredit, NULL);
                 }
-<<<<<<< HEAD
                 case 77314:                                 //Burn Constriction Totem
                 {
                     if(unitTarget->GetEntry() != 41202)
@@ -1534,8 +1526,6 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                         return;
                     }
                 }
-=======
->>>>>>> a8186453c0fd08c3573c2674e395a9f445a2f83b
             }
             break;
         }

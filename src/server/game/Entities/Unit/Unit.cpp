@@ -1982,7 +1982,10 @@ void Unit::AttackerStateUpdate (Unit* victim, WeaponAttackType attType, bool ext
         CalculateMeleeDamage(victim, 0, &damageInfo, attType);
 
         if(attType == BASE_ATTACK)
-            damageInfo.damage *= GetTotalAuraModifier(SPELL_AURA_MOD_AUTOATTACK_DAMAGE) / 100;
+        {
+            float mod = GetTotalAuraModifier(SPELL_AURA_MOD_AUTOATTACK_DAMAGE) / 100;
+            damageInfo.damage += uint32(damageInfo.damage * mod);
+        }
 
         // Send log damage message to client
         DealDamageMods(victim, damageInfo.damage, &damageInfo.absorb);
@@ -3957,16 +3960,20 @@ void Unit::RemoveMovementImpairingAuras()
     RemoveAurasWithMechanic((1<<MECHANIC_SNARE)|(1<<MECHANIC_ROOT));
 }
 
-void Unit::RemoveAurasWithMechanic(uint32 mechanic_mask, AuraRemoveMode removemode, uint32 except)
+void Unit::RemoveAurasWithMechanic(uint32 mechanic_mask, AuraRemoveMode removemode, uint32 except, int32 count)
 {
     for (AuraApplicationMap::iterator iter = m_appliedAuras.begin(); iter != m_appliedAuras.end();)
     {
+        int32 auracount = 0;
         Aura const* aura = iter->second->GetBase();
         if (!except || aura->GetId() != except)
         {
             if (aura->GetSpellInfo()->GetAllEffectsMechanicMask() & mechanic_mask)
             {
                 RemoveAura(iter, removemode);
+                auracount++;
+                if (count && auracount == count)
+                    break;
                 continue;
             }
         }
@@ -7806,42 +7813,6 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
                 triggered_spell_id = 50526;
                 break;
             }
-            // Sudden Doom
-            if (dummySpell->SpellIconID == 1939 && GetTypeId() == TYPEID_PLAYER)
-            {
-                SpellChainNode const* chain = NULL;
-                // get highest rank of the Death Coil spell
-                PlayerSpellMap const& sp_list = ToPlayer()->GetSpellMap();
-                for (PlayerSpellMap::const_iterator itr = sp_list.begin(); itr != sp_list.end(); ++itr)
-                {
-                    // check if shown in spell book
-                    if (!itr->second->active || itr->second->disabled || itr->second->state == PLAYERSPELL_REMOVED)
-                        continue;
-
-                    SpellInfo const* spellProto = sSpellMgr->GetSpellInfo(itr->first);
-                    if (!spellProto)
-                        continue;
-
-                    if (spellProto->SpellFamilyName == SPELLFAMILY_DEATHKNIGHT
-                        && spellProto->SpellFamilyFlags[0] & 0x2000)
-                    {
-                        SpellChainNode const* newChain = sSpellMgr->GetSpellChainNode(itr->first);
-
-                        // No chain entry or entry lower than found entry
-                        if (!chain || !newChain || (chain->rank < newChain->rank))
-                        {
-                            triggered_spell_id = itr->first;
-                            chain = newChain;
-                        }
-                        else
-                            continue;
-                        // Found spell is last in chain - do not need to look more
-                        // Optimisation for most common case
-                        if (chain && chain->last->Id == itr->first)
-                            break;
-                    }
-                }
-            }
             // Item - Death Knight T10 Melee 4P Bonus
             if (dummySpell->Id == 70656)
             {
@@ -7852,6 +7823,21 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
                 for (uint32 i = 0; i < MAX_RUNES; ++i)
                     if (player->GetRuneCooldown(i) == 0)
                         return false;
+            }
+            // Dark Simulacrum
+            if(dummySpell->Id == 77606)
+            {
+                if(!procSpell || procSpell->PowerType != POWER_MANA || (procSpell->ManaCost == 0 && procSpell->ManaCostPercentage == 0 && procSpell->ManaCostPerlevel == 0))
+                    return false;
+
+                Unit* caster = triggeredByAura->GetCaster();
+
+                if(!caster)
+                    return false;
+
+                triggered_spell_id = 77616;
+                basepoints0 = procSpell->Id;
+                target = caster;
             }
             break;
         }
@@ -8582,7 +8568,7 @@ bool Unit::HandleProcTriggerSpell(Unit* victim, uint32 damage, AuraEffect* trigg
                     case 93399: // Rank 2
                     {
                         if (GetTypeId() == TYPEID_PLAYER)
-                            ToPlayer()->RemoveSpellCooldown(78674,true); // Remove cooldown of Starsurge
+                            ToPlayer()->RemoveSpellCooldown(78674, true); // Remove cooldown of Starsurge
                         break;
                     }
                     default:
@@ -9028,6 +9014,29 @@ bool Unit::HandleProcTriggerSpell(Unit* victim, uint32 damage, AuraEffect* trigg
             cooldown = 45000; // Can only happen once in 45 seconds
             break;
         }
+        // Sudden Doom
+        case 49018:
+        case 49529:
+        case 49530:
+        {
+            if(GetTypeId() != TYPEID_PLAYER)
+                return false;
+
+            // Select chance based on weapon speed
+            float speed = ToPlayer()->GetWeaponForAttack(BASE_ATTACK)->GetTemplate()->Delay / 1000;
+
+            int32 modifier = 1;
+
+            if(auraSpellInfo->Id == 49530) // Rank 3
+                modifier = 4;
+            else if(auraSpellInfo->Id == 49529) // Rank 2
+                modifier = 3;
+
+            // ToDo: Check this, its based on a wowhead comment
+            if(!roll_chance_f(speed * modifier))
+                return false;
+            break;
+        }
     }
     // Sword Specialization
     if (auraSpellInfo->SpellFamilyName == SPELLFAMILY_GENERIC && auraSpellInfo->SpellIconID == 1462 && procSpell)
@@ -9257,6 +9266,8 @@ bool Unit::HandleProcTriggerSpell(Unit* victim, uint32 damage, AuraEffect* trigg
             // Proc only from healing part of Death Coil. Check is essential as all Death Coil spells have 0x2000 mask in SpellFamilyFlags
             if (!procSpell || !(procSpell->SpellFamilyName == SPELLFAMILY_DEATHKNIGHT && procSpell->SpellFamilyFlags[0] == 0x80002000))
                 return false;
+
+            target = this;
             break;
         }
         // Glyph of Death Grip
@@ -10050,7 +10061,7 @@ Unit* Unit::GetCharm() const
     return NULL;
 }
 
-void Unit::SetMinion(Minion *minion, bool apply)
+void Unit::SetMinion(Minion *minion, bool apply, PetSlot slot)
 {
     sLog->outDebug(LOG_FILTER_UNITS, "SetMinion %u for %u, apply %u", minion->GetEntry(), GetEntry(), apply);
 
@@ -10079,7 +10090,7 @@ void Unit::SetMinion(Minion *minion, bool apply)
                 {
                     // remove existing minion pet
                     if (oldPet->isPet())
-                        ((Pet*)oldPet)->Remove(PET_SAVE_AS_CURRENT);
+                        ((Pet*)oldPet)->Remove(PET_SLOT_ACTUAL_PET_SLOT);
                     else
                         oldPet->UnSummon();
                     SetPetGUID(minion->GetGUID());
@@ -10092,18 +10103,35 @@ void Unit::SetMinion(Minion *minion, bool apply)
                 SetMinionGUID(0);
             }
         }
-
-        if (minion->HasUnitTypeMask(UNIT_MASK_CONTROLABLE_GUARDIAN))
+        
+        if (slot == PET_SLOT_UNK_SLOT)
         {
-            if (AddUInt64Value(UNIT_FIELD_SUMMON, minion->GetGUID()))
+            if (minion->isPet() && minion->ToPet()->getPetType() == HUNTER_PET)
+                ASSERT(false);
+                
+            slot = PET_SLOT_OTHER_PET;
+        }
+       
+        if (GetTypeId() == TYPEID_PLAYER)
+        {
+            if(!minion->isHunterPet()) //If its not a Hunter Pet, well lets not try to use it for hunters then.
+            {   
+                ToPlayer()->m_currentPetSlot = slot;
+                ToPlayer()->m_petSlotUsed = 3452816845; // the same as 100 so that the pet is only that and nothing more
+                // ToPlayer()->setPetSlotUsed(slot, true);
+            }
+            if(slot >= PET_SLOT_HUNTER_FIRST && slot <= PET_SLOT_HUNTER_LAST) // Always save thoose spots where hunter is correct
             {
+                ToPlayer()->m_currentPetSlot = slot;
+                ToPlayer()->setPetSlotUsed(slot, true);       
             }
         }
 
+        if (minion->HasUnitTypeMask(UNIT_MASK_CONTROLABLE_GUARDIAN))
+            AddUInt64Value(UNIT_FIELD_SUMMON, minion->GetGUID());
+
         if (minion->m_Properties && minion->m_Properties->Type == SUMMON_TYPE_MINIPET)
-        {
             SetCritterGUID(minion->GetGUID());
-        }
 
         // PvP, FFAPvP
         minion->SetByteValue(UNIT_FIELD_BYTES_2, 1, GetByteValue(UNIT_FIELD_BYTES_2, 1));

@@ -47,6 +47,8 @@
 #include "Totem.h"
 #include "OutdoorPvPMgr.h"
 
+#define TERRAIN_LOS_STEP_DISTANCE   3.0f        // sample distance for terrain LoS this may need adjusting.
+
 uint32 GuidHigh2TypeId(uint32 guid_hi)
 {
     switch (guid_hi)
@@ -1326,8 +1328,34 @@ bool WorldObject::IsWithinLOS(float ox, float oy, float oz) const
 {
     float x, y, z;
     GetPosition(x, y, z);
-    VMAP::IVMapManager* vMapManager = VMAP::VMapFactory::createOrGetVMapManager();
-    return vMapManager->isInLineOfSight(GetMapId(), x, y, z+2.0f, ox, oy, oz+2.0f);
+    z += 2.0f;
+    oz += 2.0f;
+
+    // check for line of sight because of terrain height differences
+    if (!GetMap()->IsDungeon()) // avoid unnecessary calculation inside raid/dungeons
+    {
+        float dx = ox - x, dy = oy - y, dz = oz - z;
+        float dist = sqrt(dx*dx + dy*dy + dz*dz);
+        if (dist > ATTACK_DISTANCE && dist < MAX_VISIBILITY_DISTANCE)
+        {
+            uint32 steps = uint32(dist / TERRAIN_LOS_STEP_DISTANCE);
+            float step_dist = dist / (float)steps; // to make sampling intervals symmetric in both directions
+            float inc_factor = step_dist / dist;
+            float incx = dx*inc_factor, incy = dy*inc_factor, incz = dz*inc_factor;
+            float px = x, py = y, pz = z;
+            for (; steps; --steps)
+            {
+                if (GetBaseMap()->GetHeight(px, py, pz, false) > pz)
+                    return false; // found intersection with ground
+                px += incx;
+                py += incy;
+                pz += incz;
+            }
+        }
+    }
+
+    VMAP::IVMapManager *vMapManager = VMAP::VMapFactory::createOrGetVMapManager();
+    return vMapManager->isInLineOfSight(GetMapId(), x, y, z, ox, oy, oz);
 }
 
 bool WorldObject::GetDistanceOrder(WorldObject const* obj1, WorldObject const* obj2, bool is3D /* = true */) const
@@ -2186,25 +2214,12 @@ TempSummon* WorldObject::SummonCreature(uint32 entry, const Position &pos, TempS
     return NULL;
 }
 
-Pet* Player::SummonPet(uint32 entry, float x, float y, float z, float ang, PetType petType, uint32 duration)
+Pet* Player::SummonPet(uint32 entry, float x, float y, float z, float ang, PetType petType, uint32 duration, PetSlot slotID)
 {
     Pet* pet = new Pet(this, petType);
 
-    if (petType == SUMMON_PET && pet->LoadPetFromDB(this, entry))
+    if (petType == SUMMON_PET && pet->LoadPetFromDB(this, entry, 0, slotID != PET_SLOT_UNK_SLOT, slotID))
     {
-        // Remove Demonic Sacrifice auras (known pet)
-        Unit::AuraEffectList const& auraClassScripts = GetAuraEffectsByType(SPELL_AURA_OVERRIDE_CLASS_SCRIPTS);
-        for (Unit::AuraEffectList::const_iterator itr = auraClassScripts.begin(); itr != auraClassScripts.end();)
-        {
-            if ((*itr)->GetMiscValue() == 2228)
-            {
-                RemoveAurasDueToSpell((*itr)->GetId());
-                itr = auraClassScripts.begin();
-            }
-            else
-                ++itr;
-        }
-
         if (duration > 0)
             pet->SetDuration(duration);
 
@@ -2243,7 +2258,8 @@ Pet* Player::SummonPet(uint32 entry, float x, float y, float z, float ang, PetTy
     pet->SetUInt32Value(UNIT_FIELD_BYTES_1, 0);
     pet->InitStatsForLevel(getLevel());
 
-    SetMinion(pet, true);
+    // Only slot 100, as it's not hunter pet.
+    SetMinion(pet, true, PET_SLOT_OTHER_PET);
 
     switch (petType)
     {
@@ -2268,27 +2284,11 @@ Pet* Player::SummonPet(uint32 entry, float x, float y, float z, float ang, PetTy
         case SUMMON_PET:
             pet->InitPetCreateSpells();
             pet->InitTalentForLevel();
-            pet->SavePetToDB(PET_SAVE_AS_CURRENT);
+            pet->SavePetToDB(PET_SLOT_ACTUAL_PET_SLOT);
             PetSpellInitialize();
             break;
         default:
             break;
-    }
-
-    if (petType == SUMMON_PET)
-    {
-        // Remove Demonic Sacrifice auras (known pet)
-        Unit::AuraEffectList const& auraClassScripts = GetAuraEffectsByType(SPELL_AURA_OVERRIDE_CLASS_SCRIPTS);
-        for (Unit::AuraEffectList::const_iterator itr = auraClassScripts.begin(); itr != auraClassScripts.end();)
-        {
-            if ((*itr)->GetMiscValue() == 2228)
-            {
-                RemoveAurasDueToSpell((*itr)->GetId());
-                itr = auraClassScripts.begin();
-            }
-            else
-                ++itr;
-        }
     }
 
     if (duration > 0)

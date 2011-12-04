@@ -796,16 +796,16 @@ void WorldSession::SendListInventory(uint64 vendorGuid)
                 // reputation discount
                 int32 price = item->IsGoldRequired(itemTemplate) ? uint32(floor(itemTemplate->BuyPrice * discountMod)) : 0;
 
-                data << uint32(slot+1);    // client expects counting to start at 1
-                data << uint32(1); // unknow value 4.0.1, always 1
+                data << uint32(slot + 1);       // client expects counting to start at 1
+                data << uint32(1); // unk 4.0.1 always 1
                 data << uint32(item->item);
                 data << uint32(itemTemplate->DisplayInfoID);
-                data << int32(item->maxcount <= 0 ? 0xFFFFFFFF : vendor->GetVendorItemCurrentCount(item));
-                data << uint32(price);
+                data << int32(leftInStock);
+                data << int32(price);
                 data << uint32(itemTemplate->MaxDurability);
                 data << uint32(itemTemplate->BuyCount);
                 data << uint32(item->ExtendedCost);
-                data << uint8(0); // unk 4.0.1
+                data << uint32(0); // unk 4.0.1
             }
         }
     }

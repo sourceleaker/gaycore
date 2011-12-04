@@ -7,10 +7,7 @@
 - Quest: Waiting to Exsanguinate (ID: 27045),
 - Quest: Steel Thunder (ID: 27069),
 - Quest: Iterating Upon Success (ID: 26998),
-- Quest: 
-- Phasing: Forsaken High Command (ID: 5369), -- before and after Q: The Warchief Cometh
-- Phasing: North Tide's Beachhead (ID: 928),
-- Phasing: North Tide's Run (ID: 305),
+- Quest: Lordaeron (ID: 27098),
 - NPC: Veteran Forsaken Trooper (ID: 45197),
 - NPC: Portal from Orgrimmar (ID: 44630),
 - NPC: Lady Sylvanas Windrunner (ID: 44365),
@@ -32,31 +29,45 @@
 - NPC: Deathstalker Rane Yorick (ID: 44882),
 - NPC: Orc Sea Pup (ID: 44914),
 - NPC: Admiral Hatchet (ID: 44916),
-- NPC: Orc Crate (ID: 44915); */
+- NPC: Orc Crate (ID: 44915),
+- NPC: Lady Sylvanas Windrunner (ID: 45051) & Forsaken Warhorse (ID: 45057),
+- NPC: Forsaken Warhorse (ID: 45041),
+- NPC: Worgen Sentry (ID: 44987),
+- NPC: Lord Darius Crowley (ID: 44989),
+- NPC: Packleader Ivar Bloodfang (ID: 44990),
+- NPC: Phin Odelic (ID: 44993),
+- NPC: Bartolo Ginsetti (ID: 44994),
+- NPC: Loremaster Dibbs (ID: 44995),
+- NPC: Magistrate Henry Maleb (ID: 44996),
+- NPC: Caretaker Smithers (ID: 44997),
+- NPC: Sophia Zowski (ID: 45002),
+- NPC: Fenris Keep Camera (ID: 45003),
+- NPC: Fenris Keep Stalker (ID: 45032); */
 
 
 -- -------- --
 --  DELETE  --
 -- -------- --
-DELETE FROM `smart_scripts` WHERE `entryorguid` IN (44608,44825,44615,44592,44593,45197,44636,44629,44640,44615,44365,44630,44954,44966) AND `source_type` = 0;
+DELETE FROM `smart_scripts` WHERE `entryorguid` IN (45041,44608,44825,44615,44592,44593,45197,44636,44629,44640,44615,44365,44630,44954,44966) AND `source_type` = 0;
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (4464000,4459200,4459201,4459202,4459203,4459204,4459205,4459206,4459207,4459208,4459209,4459210,4459300,4459301,4459302,4459303,4459200,4459201,4459202,4459203,4460800,8000000,4461500,4436500,4462900,4495400,4495401,4495402,4495403,4495404,4495405,4496600,4496601,4496602,4496603,4496604,4496605,4463000,4463001,4463002) AND `source_type` = 9;
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (SELECT -`guid` FROM `creature` WHERE `id` = 44630) AND `source_type` = 0;
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (SELECT -`guid` FROM `creature` WHERE `id` = 44592) AND `source_type` = 0;
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (SELECT -`guid` FROM `creature` WHERE `id` = 44593) AND `source_type` = 0;
-DELETE FROM `creature_text` WHERE `entry` IN (44882,44821,44629,44640,44365,44825,44884,44883);
+DELETE FROM `creature_text` WHERE `entry` IN (45051,44882,44821,44629,44640,44365,44825,44884,44883);
 DELETE FROM `waypoints` WHERE `entry` IN (446290,446400,446080,445930,445931,445932,445933,445935,445920,445921,445922,445923,445924,445925,445926,445927,445928,445929);
-DELETE FROM `creature_equip_template` WHERE `entry` IN (44894,44629,44882,44883,44884,44821,44894,44592,44593,44365,44630,44825,44615,45197,44629,44636,44640,44954,44966,4495400,4495401,4495402,4495403,4495404,4495405,4496600,4496601,4496602,4496603,4496604,4496605);
-DELETE FROM `creature_template_addon` WHERE `entry` IN (44894,44629,44882,44883,44884,44821,4488444629,44640,44592,44593,44365,44630,44825,44636,44615,45197,44608,44951,45104,46034,49213,49044,45583,45609,45625,45802,49128,45105,46033,45775,45761,45584,45610,45626,44609,45318,45473,45555,46032,45106,49129,45314,45585,45611,45627,44610,44608);
-DELETE FROM `npc_spellclick_spells` WHERE `npc_entry` IN (44821,45197);
+DELETE FROM `creature_equip_template` WHERE `entry` IN (45051,45057,45041,44894,44629,44882,44883,44884,44821,44894,44592,44593,44365,44630,44825,44615,45197,44629,44636,44640,44954,44966,4495400,4495401,4495402,4495403,4495404,4495405,4496600,4496601,4496602,4496603,4496604,4496605);
+DELETE FROM `creature_template_addon` WHERE `entry` IN (45051,45057,45041,44894,44629,44882,44883,44884,44821,4488444629,44640,44592,44593,44365,44630,44825,44636,44615,45197,44608,44951,45104,46034,49213,49044,45583,45609,45625,45802,49128,45105,46033,45775,45761,45584,45610,45626,44609,45318,45473,45555,46032,45106,49129,45314,45585,45611,45627,44610,44608);
+DELETE FROM `npc_spellclick_spells` WHERE `npc_entry` IN (45051,45057,45041,44821,45197);
 DELETE FROM `pickpocketing_loot_template` WHERE `entry` = 45197;
-DELETE FROM `creature` WHERE `id` IN (45197,44630,44825,44367,44636,44954,44966,44608,44951,45104,46034,49213,49044,45583,45609,45625,45802,49128,45105,46033,45775,45761,45584,45610,45626,44609,45318,45473,45555,46032,45106,49129,45314,45585,45611,45627,44610,44365,44592,44593,44629,44640,44630,44615);
+DELETE FROM `creature` WHERE `id` IN (44987,44989,44990,44993,44994,44995,44996,44997,45002,45003,45032,45625,45051,45057,45041,45197,44630,44825,44367,44636,44954,44966,44608,44951,45104,46034,49213,49044,45583,45609,45625,45802,49128,45105,46033,45775,45761,45584,45610,45626,44609,45318,45473,45555,46032,45106,49129,45314,45585,45611,45627,44610,44365,44592,44593,44629,44640,44630,44615);
 DELETE FROM `creature` WHERE `id` = 39605 AND `map` = 0;
-DELETE FROM `creature_template` WHERE `entry` IN (44608,44609,44610,44893,44894,44883,44882,44884,44825,44821,44630,44365,44592,44593,44629,44640,44615,44365,44636);
+DELETE FROM `creature_template` WHERE `entry` IN (44987,44989,44990,44993,44994,44995,44996,44997,45002,45003,45032,45627,45625,45611,45051,45057,45041,45608,45609,45610,44608,44608,44609,44610,44893,44894,44883,44882,44884,44825,44821,44630,44365,44592,44593,44629,44640,44615,44365,44636);
 DELETE FROM `npc_text` WHERE `id` IN (16683,16575);
 DELETE FROM `gossip_menu` WHERE `entry` IN (11892,11823);
 DELETE FROM `gossip_menu_option` WHERE `menu_id` IN (11892,11823);
 DELETE FROM `conditions` WHERE `SourceGroup` IN (11892);
 DELETE FROM `conditions` WHERE `SourceEntry` IN (83173,83575,83573);
+DELETE FROM `vehicle_template_accessory` WHERE `entry` IN (45057);
 
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -610,7 +621,6 @@ INSERT INTO `waypoints` (`entry`, `pointid`, `position_x`, `position_y`, `positi
 -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- High Warlord Cromush - new template --
-
 INSERT INTO `creature_template` ( `entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES 
 (44640, 0, 0, 0, 0, 0, 34009, 0, 0, 0, 'High Warlord Cromush', '', '', 0, 85, 85, 3, 29, 29, 3, 1.0, 2.0, 1.0, 1, 2, 2, 0, 24, 7.5, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2, 2, 24, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 3, 4.2287, 0.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44640, 0, 0, '', 0);
 
@@ -656,15 +666,15 @@ INSERT INTO `waypoints` (`entry`, `pointid`, `position_x`, `position_y`, `positi
 -- -- -- -- -- -- -- -- -- -- --
 
 -- Agatha & Daschla & Arthura - new template --
-INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES 
-(44608, 0, 0, 0, 0, 0, 33996, 0, 0, 0, 'Agatha', '', '', 0, 15, 15, 0, 68, 68, 0, 1, 1.14286, 1, 1, 20, 27, 0, 48, 1.7, 2000, 0, 2, 33536, 2048, 0, 0, 0, 0, 0, 14, 21, 2, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 7, 30, 20, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44608, 613097436, 0, '', 0),
-(44609, 0, 0, 0, 0, 0, 33997, 0, 0, 0, 'Daschla', '', '', 0, 15, 15, 0, 68, 68, 0, 1, 1.14286, 1, 1, 20, 27, 0, 48, 1.7, 2000, 0, 2, 33536, 2048, 0, 0, 0, 0, 0, 14, 21, 2, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 7, 30, 20, 1, 0, 0, 0, 0, 0, 0, 0, 868, 1, 44609, 613097436, 0, '', 0),
-(44610, 0, 0, 0, 0, 0, 33997, 0, 0, 0, 'Arthura', '', '', 0, 15, 15, 0, 68, 68, 0, 1, 1.14286, 1, 1, 20, 27, 0, 48, 1.7, 2000, 0, 2, 33536, 2048, 0, 0, 0, 0, 0, 14, 21, 2, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 7, 30, 20, 1, 0, 0, 0, 0, 0, 0, 0, 868, 1, 44610, 613097436, 0, '', 0);
-(45609, 0, 0, 0, 0, 0, 33996, 0, 0, 0,  'Agatha',  '',  '', 0, 15, 15, 0, 68, 68, 0, 1, 1.14286, 1, 1, 20, 27, 0, 48, 1.7, 2000, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 7, 30, 20, 1, 0, 0, 0, 0, 0, 0, 0, 868, 1, 0, 0, 0,  '', 0), 
-(45610, 0, 0, 0, 0, 0, 33997, 0, 0, 0,  'Daschla',  '',  '', 0, 15, 15, 0, 68, 68, 0, 1, 1.14286, 1, 1, 20, 27, 0, 48, 1.7, 2000, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 7, 30, 20, 1, 0, 0, 0, 0, 0, 0, 0, 868, 1, 0, 0, 0,  '', 0), 
-(45611, 0, 0, 0, 0, 0, 33997, 0, 0, 0,  'Arthura',  '',  '', 0, 15, 15, 0, 68, 68, 0, 1, 1.14286, 1, 1, 20, 27, 0, 48, 1.7, 2000, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 7, 30, 20, 1, 0, 0, 0, 0, 0, 0, 0, 868, 1, 0, 0, 0,  '', 0), 
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES 
+(44608, 0, 0, 0, 0, 0, 33996, 0, 0, 0, 'Agatha', '', '', 0, 15, 15, 0, 68, 68, 0, 1, 1.14286, 1, 1, 20, 27, 0, 48, 1.7, 2000, 0, 2, 33536, 2048, 0, 0, 0, 0, 0, 14, 21, 2, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 7, 30, 20, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44608, 613097436, 0, ''),
+(44609, 0, 0, 0, 0, 0, 33997, 0, 0, 0, 'Daschla', '', '', 0, 15, 15, 0, 68, 68, 0, 1, 1.14286, 1, 1, 20, 27, 0, 48, 1.7, 2000, 0, 2, 33536, 2048, 0, 0, 0, 0, 0, 14, 21, 2, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 7, 30, 20, 1, 0, 0, 0, 0, 0, 0, 0, 868, 1, 44609, 613097436, 0, ''),
+(44610, 0, 0, 0, 0, 0, 33997, 0, 0, 0, 'Arthura', '', '', 0, 15, 15, 0, 68, 68, 0, 1, 1.14286, 1, 1, 20, 27, 0, 48, 1.7, 2000, 0, 2, 33536, 2048, 0, 0, 0, 0, 0, 14, 21, 2, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 7, 30, 20, 1, 0, 0, 0, 0, 0, 0, 0, 868, 1, 44610, 613097436, 0, ''),
+(45609, 0, 0, 0, 0, 0, 33996, 0, 0, 0,  'Agatha',  '',  '', 0, 15, 15, 0, 68, 68, 0, 1, 1.14286, 1, 1, 20, 27, 0, 48, 1.7, 2000, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 7, 30, 20, 1, 0, 0, 0, 0, 0, 0, 0, 868, 1, 0, 0, 0,  ''), 
+(45610, 0, 0, 0, 0, 0, 33997, 0, 0, 0,  'Daschla',  '',  '', 0, 15, 15, 0, 68, 68, 0, 1, 1.14286, 1, 1, 20, 27, 0, 48, 1.7, 2000, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 7, 30, 20, 1, 0, 0, 0, 0, 0, 0, 0, 868, 1, 0, 0, 0,  ''), 
+(45611, 0, 0, 0, 0, 0, 33997, 0, 0, 0,  'Arthura',  '',  '', 0, 15, 15, 0, 68, 68, 0, 1, 1.14286, 1, 1, 20, 27, 0, 48, 1.7, 2000, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 7, 30, 20, 1, 0, 0, 0, 0, 0, 0, 0, 868, 1, 0, 0, 0,  ''), 
 (45625, 0, 0, 0, 0, 0, 33996, 0, 0, 0,  'Agatha',  '',  '', 0, 15, 15, 0, 68, 68, 0, 1, 1.14286, 1, 1, 20, 27, 0, 48, 1.7, 2000, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 7, 30, 20, 1, 0, 0, 0, 0, 0, 0, 0, 868, 1, 0, 0, 0,  ''), 
-(45627, 0, 0, 0, 0, 0, 33997, 0, 0, 0,  'Arthura',  '',  '', 0, 15, 15, 0, 68, 68, 0, 1, 1.14286, 1, 1, 20, 27, 0, 48, 1.7, 2000, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 7, 30, 20, 1, 0, 0, 0, 0, 0, 0, 0, 868, 1, 0, 0, 0,  ''), 
+(45627, 0, 0, 0, 0, 0, 33997, 0, 0, 0,  'Arthura',  '',  '', 0, 15, 15, 0, 68, 68, 0, 1, 1.14286, 1, 1, 20, 27, 0, 48, 1.7, 2000, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 7, 30, 20, 1, 0, 0, 0, 0, 0, 0, 0, 868, 1, 0, 0, 0,  '');
 
 UPDATE `creature_template` SET `InhabitType` = '7' WHERE `entry` IN (44951,45104,46034,49213,49044,45583,45609,45625);
 UPDATE `creature_template` SET `InhabitType` = '7' WHERE `entry` IN (45802,49128,45105,46033,45775,45761,45584,45610,45626);
@@ -1205,7 +1215,299 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 
 -- Orc Crate - condition --
 
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- Lady Sylvanas Windrunner (ID: 45051) & Forsaken Warhorse (ID: 45057) --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+-- Lady Sylvanas Windrunner & Forsaken Warhorse - new templates --
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(45051, 0, 0, 0, 0, 0, 28213, 0, 0, 0, 'Lady Sylvanas Windrunner', 'Banshee Queen', '', 11823, 88, 88, 3, 118, 118, 16777216, 1, 1, 1, 3, 650, 856, 0, 2000, 35, 2000, 0, 2, 33600, 2048, 0, 0, 0, 0, 0, 650, 856, 2000, 7, 2124, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1076, 0, 0, 'SmartAI', 0, 3, 319.313, 34.4238, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45051, 0, 0, '', 0),
+(45057, 0, 0, 0, 0, 0, 29257, 0, 0, 0, 'Forsaken Warhorse', '', '', 0, 10, 10, 0, 118, 118, 16777216, 1, 1.14286, 1, 0, 2, 2, 0, 24, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1077, 0, 0, '', 0, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 45057, 0, 0, '', 0);
+
+-- Lady Sylvanas Windrunner & Forsaken Warhorse - equip --
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
+(45051, 0, 0, 0),
+(45057, 0, 0, 0);
+
+-- Lady Sylvanas Windrunner & Forsaken Warhorse - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(45051, 0, 0, 0, 0, 0, ''),
+(45057, 0, 0, 0, 0, 0, '');
+
+-- Lady Sylvanas Windrunner & Forsaken Warhorse - spellclick --
+INSERT INTO `npc_spellclick_spells` (`npc_entry`, `spell_id`, `quest_start`, `quest_start_active`, `quest_end`, `cast_flags`, `aura_required`, `aura_forbidden`, `user_type`) VALUES 
+(45051, 46598, 0, 0, 0, 1, 0, 0, 0),
+(45057, 46598, 0, 0, 0, 1, 0, 0, 0);
+
+-- Lady Sylvanas Windrunner & Forsaken Warhorse - SAI -- 
+
+-- Lady Sylvanas Windrunner - texts --
+INSERT INTO `creature_text` (`entry`, `groupid`, `id`, `text`, `type`, `language`, `probability`, `emote`, `duration`, `sound`, `comment`) VALUES
+(45051, 0, 0, 'I have not always been the Banshee Queen, $N.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 1'),
+(45051, 1, 0, 'And my people have not always been the Forsaken.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 2'),
+(45051, 2, 0, 'Long ago this land comprised the northern kingdoms of Lordaeron, ruled by King Terenas Menethil.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 3'),
+(45051, 3, 0, 'Terenas had a son named Arthas.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 4'),
+(45051, 4, 0, 'Arthas... even saying his name makes my body quiver in rage.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 5'),
+(45051, 5, 0, 'This man-child, Arthas, took for himself a cursed blade known as Frostmourne.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 6'),
+(45051, 6, 0, 'Through Frostmourne, Arthas killed his own father and razed this land along with every living creature in it!', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 7'),
+(45051, 7, 0, 'My own death came at the hands of Arthas when he and his armies sacked my homeland, Quel''Thalas, and murdered my people.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 8'),
+(45051, 8, 0, 'In his vast cruelty, Arthas severed my spirit from my body and raised me as a banshee to serve in his Scourge army.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 9'),
+(45051, 9, 0, 'A similar fate befell all that would die to the Scourge war machine.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 10'),
+(45051, 10, 0, 'In death, they were reborn as mindless undead.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 11'),
+(45051, 11, 0, 'But Arthas was not invincible! With each passing day his power waned - his grip over the will of the damned loosening.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 12'),
+(45051, 12, 0, 'It was when Arthas was at his weakest that I struck!', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 13'),
+(45051, 13, 0, 'And though the hour of his atonement had come, the worm managed to escape his fate, returning to the frozen wastes of Northrend.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 14'),
+(45051, 14, 0, 'With Arthas gone, so too was the control he held over the undead masses of Lordaeron. After recovering my body, I freed the remaining Scourge that were left behind.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 15'),
+(45051, 15, 0, 'From the cruelty and mercilessness of Arthas, the man who would be the Lich King, the Forsaken were born.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 16'),
+(45051, 16, 0, 'Our goal... Our sole purpose was to destroy the Lich King. We threw our lot in with the Horde and began our journey towards redemption.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 17'),
+(45051, 17, 0, 'Now the Lich King is dead and we have returned. ', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 18'),
+(45051, 18, 0, 'The people who called this land their home in life, do so in death as well.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 19'),
+(45051, 19, 0, 'But the Alliance does not recognize our rights. They claim this land is their own while attempting to invalidate the claims of the founders of this kingdom.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 20'),
+(45051, 20, 0, 'I will never allow it... Never!', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 21'),
+(45051, 21, 0, 'Lordaeron belongs to the Forsaken - always and forever.', 12, 0, 100, 0, 0, 0, 'Lady Sylvanas Windrunner 22');
+
+-- 20470-91
+
+-- Forsaken Warhorse - vehicle accessory --
+INSERT INTO `vehicle_template_accessory` (`entry`, `accessory_entry`, `seat_id`, `minion`, `description`, `summontype`, `summontimer`) VALUES
+(45057, 45051, 0, 0, 'Sylvanas Windrunner on Forsaken Warhouse from Q: Lordaeron', 7, 0);
+
+-- Forsaken Warhorse - waypoints -- 
 
 
+-- -- -- -- -- -- -- -- -- -- -- --
+-- Forsaken Warhorse (ID: 45041) --
+-- -- -- -- -- -- -- -- -- -- -- --
+
+-- Forsaken Warhorse - new template --
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(45041, 0, 0, 0, 0, 0, 29252, 0, 0, 0, 'Forsaken Warhorse', '', '', 0, 10, 10, 0, 118, 118, 16777216, 1, 1.14286, 1, 0, 2, 2, 0, 24, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1076, 0, 0, '', 0, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 45041, 0, 0, '', 0);
+
+-- Forsaken Warhorse - equip --
+INSERT INTO `creature_equip_template` (`entry`, `itementry1`, `itementry2`, `itementry3`) VALUES
+(45041, 0, 0, 0);
+
+-- Forsaken Warhorse - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(45041, 0, 0, 0, 0, 0, '');
+
+-- Forsaken Warhorse - spellclick --
+INSERT INTO `npc_spellclick_spells` (`npc_entry`, `spell_id`, `quest_start`, `quest_start_active`, `quest_end`, `cast_flags`, `aura_required`, `aura_forbidden`, `user_type`) VALUES 
+(45041, 46598, 0, 0, 0, 1, 0, 0, 0);
+
+-- Forsaken Warhorse - SAI --
+INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
+(45041, 0, 0, 0, 25, 0, 100, 0, 0, 0, 0, 0, 11, 46598, 2, 0, 0, 0, 0, 9, 45057, 0, 30, 0, 0, 0, 0, 'Forsaken Warhorse - mount on Sylvanas'' Forsaken Warhorse');
 
 
+-- -- -- -- -- -- -- -- -- -- --
+-- Worgen Sentry  (ID: 44987) --
+-- -- -- -- -- -- -- -- -- -- --
+
+-- Worgen Sentry 
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES 
+(44987, 0, 0, 0, 0, 0, 34078, 34079, 34080, 34081,  'Worgen Sentry',  'Gilneas Liberation Front',  '', 0, 1, 1, 0, 35, 35, 0, 1, 1.14286, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '', 0, 0, 2.5, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,  '');
+
+-- Worgen Sentry 
+
+-- Worgen Sentry 
+
+-- Worgen Sentry 
+
+-- Worgen Sentry
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44987, 0, 1, 1, 0, 0, 991.717, 666.655, 60.97496, 3.196525, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44987, 0, 1, 1, 0, 0, 982.807, 689.127, 59.55933, 3.159046, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44987, 0, 1, 1, 0, 0, 991.137, 711.653, 60.97495, 3.20026, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44987, 0, 1, 1, 0, 0, 1010.67, 693.438, 61.05833, 2.80998, 300, 0, 0, 0, 0, 0, 0, 0, 0),
+(NULL, 44987, 0, 1, 1, 0, 0, 997.785, 689.901, 69.88004, 0, 300, 0, 0, 0, 0, 0, 0, 0, 0);
+
+
+-- -- -- -- -- -- -- -- -- -- -- -- --
+-- Lord Darius Crowley  (ID: 44989) --
+-- -- -- -- -- -- -- -- -- -- -- -- --
+
+-- Lord Darius Crowley 
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES 
+(44989, 0, 0, 0, 0, 0, 34161, 0, 0, 0,  'Lord Darius Crowley',  'Leader of the Gilneas Liberation Front',  '', 0, 1, 1, 0, 35, 35, 0, 1, 1.14286, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 262148, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '', 0, 0, 20, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,  '');
+
+-- Lord Darius Crowley 
+
+-- Lord Darius Crowley 
+
+-- Lord Darius Crowley 
+
+-- Lord Darius Crowley 
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44989, 0, 1, 1, 0, 0, 994.562, 691.186, 74.98174, 0, 300, 0, 0, 0, 0, 0, 0, 0, 0);
+
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- Packleader Ivar Bloodfang  (ID: 44990) --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+-- Packleader Ivar Bloodfang
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES 
+(44990, 0, 0, 0, 0, 0, 34162, 0, 0, 0,  'Packleader Ivar Bloodfang',  '',  '', 0, 1, 1, 0, 35, 35, 0, 1, 1.14286, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 262148, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '', 0, 0, 20, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,  '');
+
+-- Packleader Ivar Bloodfang
+
+-- Packleader Ivar Bloodfang
+
+-- Packleader Ivar Bloodfang
+
+-- Packleader Ivar Bloodfang
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44990, 0, 1, 1, 0, 0, 994.53, 687.74, 74.98174, 0.1570796, 300, 0, 0, 0, 0, 0, 0, 0, 0);
+
+
+-- -- -- -- -- -- -- -- -- --
+-- Phin Odelic (ID: 44993) --
+-- -- -- -- -- -- -- -- -- --
+
+-- Phin Odelic
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES 
+(44993, 0, 0, 0, 0, 0, 3666, 0, 0, 0,  'Phin Odelic',  '',  '', 0, 1, 1, 0, 35, 35, 0, 1, 1.14286, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '', 0, 0, 1.15, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,  '');
+
+-- Phin Odelic
+
+-- Phin Odelic
+
+-- Phin Odelic
+
+-- Phin Odelic
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44993, 0, 1, 1, 0, 0, 1002.52, 693.027, 76.27554, 3.368933, 300, 0, 0, 0, 0, 0, 0, 0, 0);
+
+
+-- -- -- -- -- -- -- -- -- -- -- --
+-- Bartolo Ginsetti  (ID: 44994) --
+-- -- -- -- -- -- -- -- -- -- -- --
+
+-- Bartolo Ginsetti
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES 
+(44994, 0, 0, 0, 0, 0, 1662, 0, 0, 0,  'Bartolo Ginsetti',  '',  '', 0, 1, 1, 0, 35, 35, 0, 1, 1.14286, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '', 0, 0, 1.1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,  '');
+
+-- Bartolo Ginsetti
+
+-- Bartolo Ginsetti
+
+-- Bartolo Ginsetti
+
+-- Bartolo Ginsetti
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44994, 0, 1, 1, 0, 0, 1002.76, 687.195, 76.27554, 2.688543, 300, 0, 0, 0, 0, 0, 0, 0, 0);
+
+
+-- -- -- -- -- -- -- -- -- -- -- --
+-- Loremaster Dibbs  (ID: 44995) --
+-- -- -- -- -- -- -- -- -- -- -- --
+
+-- Loremaster Dibbs
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES 
+(44995, 0, 0, 0, 0, 0, 3702, 0, 0, 0,  'Loremaster Dibbs',  '',  '', 0, 1, 1, 0, 35, 35, 0, 1, 1.14286, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '', 0, 0, 1.05, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,  '');
+
+-- Loremaster Dibbs
+
+-- Loremaster Dibbs
+
+-- Loremaster Dibbs
+
+-- Loremaster Dibbs
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44995, 0, 1, 1, 0, 0, 1002.8, 684.256, 76.27554, 2.442215, 300, 0, 0, 0, 0, 0, 0, 0, 0);
+
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- Magistrate Henry Maleb  (ID: 44996) --
+-- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+-- Magistrate Henry Maleb
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES 
+(44996, 0, 0, 0, 0, 0, 3665, 0, 0, 0,  'Magistrate Henry Maleb',  '',  '', 0, 1, 1, 0, 35, 35, 0, 1, 1.14286, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '', 0, 0, 20, 10, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,  '');
+
+-- Magistrate Henry Maleb
+
+-- Magistrate Henry Maleb
+
+-- Magistrate Henry Maleb
+
+-- Magistrate Henry Maleb
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44996, 0, 1, 1, 0, 0, 1000.67, 689.759, 76.27554, 2.91208, 300, 0, 0, 0, 0, 0, 0, 0, 0);
+
+
+-- -- -- -- -- -- -- -- -- -- -- -- --
+-- Caretaker Smithers   (ID: 44997) -- 
+-- -- -- -- -- -- -- -- -- -- -- -- --
+
+-- Caretaker Smithers
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES 
+(44997, 0, 0, 0, 0, 0, 3704, 0, 0, 0,  'Caretaker Smithers',  '',  '', 0, 1, 1, 0, 35, 35, 0, 1, 1.14286, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '', 0, 0, 1.1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,  '');
+
+-- Caretaker Smithers
+
+-- Caretaker Smithers
+
+-- Caretaker Smithers
+
+-- Caretaker Smithers
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 44997, 0, 1, 1, 0, 0, 1002.7, 695.775, 76.27554, 3.655048, 300, 0, 0, 0, 0, 0, 0, 0, 0);
+
+
+-- -- -- -- -- -- -- -- -- -- --
+-- Sophia Zowski  (ID: 45002) --
+-- -- -- -- -- -- -- -- -- -- --
+
+-- Sophia Zowski 
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES 
+(45002, 0, 0, 0, 0, 0, 34205, 0, 0, 0,  'Sophia Zowski',  '',  '', 0, 1, 1, 0, 35, 35, 0, 1, 1.14286, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '', 0, 0, 1.1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,  '');
+
+-- Sophia Zowski 
+
+-- Sophia Zowski 
+
+-- Sophia Zowski 
+
+-- Sophia Zowski 
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 45002, 0, 1, 1, 0, 0, 1004.53, 688.619, 76.27554, 2.88955, 300, 0, 0, 0, 0, 0, 0, 0, 0);
+
+
+-- -- -- -- -- -- -- -- -- -- -- -- --
+-- Fenris Keep Camera   (ID: 45003) --
+-- -- -- -- -- -- -- -- -- -- -- -- --
+
+-- Fenris Keep Camera
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES 
+(45003, 0, 0, 0, 0, 0, 15435, 0, 0, 0,  'Fenris Keep Camera',  '',  '', 0, 1, 1, 0, 35, 35, 0, 1, 1.14286, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '', 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,  '');
+
+-- Fenris Keep Camera
+
+-- Fenris Keep Camera
+
+-- Fenris Keep Camera
+
+-- Fenris Keep Camera
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 45003, 0, 1, 1, 0, 0, 983.5908, 707.1349, 74.69009, 4.706822, 300, 0, 0, 0, 0, 0, 0, 0, 0);
+
+
+-- -- -- -- -- -- -- -- -- -- -- -- --
+-- Fenris Keep Stalker  (ID: 45032) --
+-- -- -- -- -- -- -- -- -- -- -- -- --
+
+-- Fenris Keep Stalker
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES 
+(45032, 0, 0, 0, 0, 0, 1126, 11686, 0, 0,  'Fenris Keep Stalker',  '',  '', 0, 1, 1, 0, 35, 35, 0, 1, 1.14286, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1048576, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '', 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,  '');
+
+-- Fenris Keep Stalker
+
+-- Fenris Keep Stalker
+
+-- Fenris Keep Stalker
+
+-- Fenris Keep Stalker
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
+(NULL, 45032, 0, 1, 1, 0, 0, 980.253, 689.196, 74.98174, 0, 300, 0, 0, 0, 0, 0, 0, 0, 0);

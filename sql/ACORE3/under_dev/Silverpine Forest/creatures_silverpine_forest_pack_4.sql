@@ -85,11 +85,15 @@ DELETE FROM `creature_template` WHERE `entry` IN (44786,44778,44784,44789,44790,
 
 -- Apothecary Initiate - new template --
 INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
-(44786, 0, 0, 0, 0, 0, 34073, 34074, 34075, 34076, 'Apothecary Initiate', '', '', 0, 1, 1, 0, 35, 35, 0, 1, 1.14286, 1, 0, 2, 2, 0, 24, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 3, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, '', 1);
+(44786, 0, 0, 0, 0, 0, 34073, 34074, 34075, 34076, 'Apothecary Initiate', '', '', 0, 8, 11, 0, 118, 118, 0, 1, 1.14286, 1, 0, 2, 2, 0, 24, 1, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 3, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44786, 0, 0, '', 0);
 
--- Apothecary Initiate 
+-- Apothecary Initiate - equip --
+INSERT INTO `creature_equip_template` (`entry`, `ItemEntry1`, `ItemEntry2`, `ItemEntry3`) VALUES
+(44786, 0, 0, 0);
 
--- Apothecary Initiate 
+-- Apothecary Initiate - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(44786, 0, 0, 0, 0, 0, '');
 
 -- Apothecary Initiate - spawns --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
@@ -114,11 +118,15 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 
 -- Apothecary Witherbloom - new template --
 INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
-(44778, 0, 0, 0, 0, 0, 34071, 0, 0, 0, 'Apothecary Witherbloom', '', '', 0, 1, 1, 0, 35, 35, 3, 1, 1.14286, 1, 0, 2, 2, 0, 24, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 3, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, '', 1);
+(44778, 0, 0, 0, 0, 0, 34071, 0, 0, 0, 'Apothecary Witherbloom', '', '', 0, 12, 12, 0, 118, 118, 3, 1, 1.14286, 1, 0, 2, 2, 0, 24, 1, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 3, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44778, 0, 0, '', 0);
 
--- Apothecary Witherbloom
+-- Apothecary Witherbloom - equip --
+INSERT INTO `creature_equip_template` (`entry`, `ItemEntry1`, `ItemEntry2`, `ItemEntry3`) VALUES
+(44778, 2716, 3756, 0);
 
--- Apothecary Witherbloom
+-- Apothecary Witherbloom - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(44778, 0, 0, 0, 1, 69, '');
 
 -- Apothecary Witherbloom - spawn --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
@@ -131,11 +139,15 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 
 -- High Apothecary Shana T'veen - new template --
 INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
-(44784, 0, 0, 0, 0, 0, 34072, 0, 0, 0, 'High Apothecary Shana T''veen', '', '', 0, 1, 1, 0, 35, 35, 3, 1, 1.14286, 1, 0, 2, 2, 0, 24, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 3, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, '', 1);
+(44784, 0, 0, 0, 0, 0, 34072, 0, 0, 0, 'High Apothecary Shana T''veen', '', '', 0, 14, 14, 0, 118, 118, 3, 1, 1.14286, 1, 0, 2, 2, 0, 24, 1, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 3, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44784, 0, 0, '', 0);
 
 -- High Apothecary Shana T'veen - equip --
+INSERT INTO `creature_equip_template` (`entry`, `ItemEntry1`, `ItemEntry2`, `ItemEntry3`) VALUES
+(44784, 12750, 3756, 0);
 
 -- High Apothecary Shana T'veen - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(44784, 0, 0, 0, 1, 0, '');
 
 -- High Apothecary Shana T'veen  - spawn --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
@@ -147,12 +159,16 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- Deathstalker Commander Belmont - new template --
-INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES 
-(44789, 0, 0, 0, 0, 0, 34077, 0, 0, 0,  'Deathstalker Commander Belmont',  '',  '', 0, 1, 1, 0, 35, 35, 0, 1, 1.14286, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '', 0, 0, 5, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,  '');
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(44789, 0, 0, 0, 0, 0, 34077, 0, 0, 0, 'Deathstalker Commander Belmont', '', '', 0, 18, 18, 0, 118, 118, 0, 1, 1.14286, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 1, 5, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 44789, 0, 0, '', 0);
 
--- Deathstalker Commander Belmont
+-- Deathstalker Commander Belmont - equip --
+INSERT INTO `creature_equip_template` (`entry`, `ItemEntry1`, `ItemEntry2`, `ItemEntry3`) VALUES
+(44789, 0, 0, 0);
 
--- Deathstalker Commander Belmont
+-- Deathstalker Commander Belmont - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(44789, 0, 0, 0, 0, 68, '');
 
 -- Deathstalker Commander Belmont - spawn --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
@@ -167,9 +183,13 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES 
 (44790, 0, 0, 0, 0, 0, 2685, 0, 0, 0,  'Deathstalker',  '',  '', 0, 1, 1, 0, 35, 35, 0, 1, 1.14286, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '', 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,  '');
 
--- Deathstalker
+-- Deathstalker - equip --
+INSERT INTO `creature_equip_template` (`entry`, `ItemEntry1`, `ItemEntry2`, `ItemEntry3`) VALUES
+(44790, 0, 0, 0);
 
--- Deathstalker
+-- Deathstalker - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(44790, 0, 0, 0, 0, 68, '');
 
 -- Deathstalker - spawns --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
@@ -180,29 +200,70 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 
 
 -- -- -- -- -- -- -- -- -- -- -- --
--- Apothecary Marry   (ID: 45490 --
+-- Apothecary Marry  (ID: 45490) --
 -- -- -- -- -- -- -- -- -- -- -- --
 
 -- Apothecary Marry - new template --
-INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES 
-(45490, 0, 0, 0, 0, 0, 34075, 0, 0, 0,  'Apothecary Marry',  'Trade Supplies',  '', 0, 1, 1, 0, 35, 35, 0, 1, 1.14286, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '', 0, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,  '');
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(45490, 0, 0, 0, 0, 0, 34075, 0, 0, 0, 'Apothecary Marry', 'Trade Supplies', '', 0, 12, 12, 0, 118, 118, 128, 1, 1.14286, 0, 0, 0, 0, 0, 0, 1, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 45490, 0, 0, '', 0);
+
+-- Apothecary Marry - equip --
+INSERT INTO `creature_equip_template` (`entry`, `ItemEntry1`, `ItemEntry2`, `ItemEntry3`) VALUES
+(45490, 0, 0, 0);
+
+-- Apothecary Marry - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(45490, 0, 0, 0, 0, 0, '');
 
 -- Apothecary Marry - spawn --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
 (NULL, 45490, 0, 1, 1, 0, 0, 1422.57, 1097.31, 60.56173, 4.485496, 300, 0, 0, 0, 0, 0, 0, 0, 0);
+
+-- Apothecary Marry - vendor --
+INSERT INTO `npc_vendor` (`entry`, `slot`, `item`, `maxcount`, `incrtime`, `ExtendedCost`) VALUES
+(45490, 0, 2320, 0, 0, 0),
+(45490, 0, 2321, 0, 0, 0),
+(45490, 0, 2324, 0, 0, 0),
+(45490, 0, 2605, 0, 0, 0),
+(45490, 0, 2604, 0, 0, 0),
+(45490, 0, 2880, 0, 0, 0),
+(45490, 0, 2901, 0, 0, 0),
+(45490, 0, 3371, 0, 0, 0),
+(45490, 0, 4289, 0, 0, 0),
+(45490, 0, 5956, 0, 0, 0),
+(45490, 0, 6256, 0, 0, 0),
+(45490, 0, 6260, 0, 0, 0),
+(45490, 0, 2678, 0, 0, 0),
+(45490, 0, 6530, 0, 0, 0),
+(45490, 0, 6217, 0, 0, 0),
+(45490, 0, 6529, 0, 0, 0),
+(45490, 0, 7005, 0, 0, 0),
+(45490, 0, 39505, 0, 0, 0),
+(45490, 0, 39354, 0, 0, 0);
 
 
 -- -- -- -- -- -- -- -- -- -- -- --
 -- Ambermill Watcher  (ID: 1888) --
 -- -- -- -- -- -- -- -- -- -- -- --
 
--- Ambermill Watcher new template
+-- Ambermill Watcher - new template --
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(1888, 0, 0, 0, 45756, 0, 3566, 3567, 0, 0, 'Ambermill Watcher', '', '', 0, 17, 18, 0, 76, 76, 0, 1, 1.14286, 0, 0, 0, 0, 0, 0, 1, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 1888, 1888, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0, 1, 1.3, 1, 0, 7293, 0, 0, 0, 0, 0, 0, 1, 1888, 0, 0, '', 0);
 
 -- Ambermill Watcher - equip --
+INSERT INTO `creature_equip_template` (`entry`, `ItemEntry1`, `ItemEntry2`, `ItemEntry3`) VALUES
+(1888, 1907, 0, 0);
 
 -- Ambermill Watcher - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(1888, 0, 0, 0, 1, 0, '');
 
 -- Ambermill Watcher - SAI --
+INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
+(1888, 0, 0, 0, 16, 0, 100, 0, 1888, 1, 0, 0, 11, 48168, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Ambermill Watcher - cast Inner Fire'),
+(1888, 0, 1, 0, 2, 0, 100, 1, 50, 50, 0, 0, 11, 11640, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Ambermill Watcher - cast Renew on self'),
+(1888, 0, 2, 0, 14, 0, 100, 0, 200, 10, 10000, 10000, 11, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 'Ambermill Watcher - cast Renew on wounded ally'),
+(1888, 0, 3, 0, 0, 0, 100, 0, 2000, 3000, 6000, 8000, 11, 14140, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 'Ambermill Watcher - cast Holy Fire on enemy');
 
 -- Ambermill Watcher - spawns --
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`) VALUES
@@ -243,17 +304,174 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 (NULL, 1888, 0, 1, 1, 0, 0, -427.931, 911.598, 107.515, 3.9194, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- Ambermill Watcher - loot --
+INSERT INTO `creature_loot_template` (`entry`, `item`, `ChanceOrQuestChance`, `lootmode`, `groupid`, `mincountOrRef`, `maxcount`) VALUES
+(1888, 414, 8.9, 1, 0, 1, 1),
+(1888, 789, 0.08, 1, 0, -789, 1),
+(1888, 858, 2.4, 1, 0, 1, 1),
+(1888, 954, 0.5935, 1, 0, -954, 1),
+(1888, 1179, 6.1, 1, 0, 1, 1),
+(1888, 1206, 0.1473, 1, 0, 1, 1),
+(1888, 1210, 0.2633, 1, 0, 1, 1),
+(1888, 1738, 0.3, 1, 0, 1, 1),
+(1888, 1739, 0.2, 1, 0, 1, 1),
+(1888, 1740, 0.3, 1, 0, 1, 1),
+(1888, 1742, 0.3, 1, 0, 1, 1),
+(1888, 1743, 0.1, 1, 0, 1, 1),
+(1888, 1744, 0.3, 1, 0, 1, 1),
+(1888, 1745, 0.3, 1, 0, 1, 1),
+(1888, 1764, 0.2, 1, 0, 1, 1),
+(1888, 1766, 0.3, 1, 0, 1, 1),
+(1888, 1767, 0.2, 1, 0, 1, 1),
+(1888, 1768, 0.3, 1, 0, 1, 1),
+(1888, 1769, 0.3, 1, 0, 1, 1),
+(1888, 1770, 0.2, 1, 0, 1, 1),
+(1888, 1787, 0.3, 1, 0, 1, 1),
+(1888, 1788, 0.3, 1, 0, 1, 1),
+(1888, 1789, 0.3, 1, 0, 1, 1),
+(1888, 1791, 0.2, 1, 0, 1, 1),
+(1888, 1792, 0.5, 1, 0, 1, 1),
+(1888, 1793, 0.2, 1, 0, 1, 1),
+(1888, 1794, 0.3, 1, 0, 1, 1),
+(1888, 1811, 0.4, 1, 0, 1, 1),
+(1888, 1812, 0.2, 1, 0, 1, 1),
+(1888, 1813, 0.7, 1, 0, 1, 1),
+(1888, 1814, 0.3, 1, 0, 1, 1),
+(1888, 1815, 0.5, 1, 0, 1, 1),
+(1888, 1817, 0.7, 1, 0, 1, 1),
+(1888, 2078, 0.2, 1, 0, 1, 1),
+(1888, 2079, 0.1, 1, 0, 1, 1),
+(1888, 2216, 0.1, 1, 0, 1, 1),
+(1888, 2217, 0.1, 1, 0, 1, 1),
+(1888, 2406, 0.0403, 1, 0, -2406, 1),
+(1888, 2409, 0.05, 1, 0, 1, 1),
+(1888, 2455, 1.4, 1, 0, 1, 1),
+(1888, 2555, 0.1, 1, 0, 1, 1),
+(1888, 2589, 35, 1, 0, 1, 3),
+(1888, 2592, 41.6, 1, 0, 1, 2),
+(1888, 2601, 0.0627, 1, 0, -2601, 1),
+(1888, 2764, 0.6, 1, 0, 1, 1),
+(1888, 2780, 0.7, 1, 0, 1, 1),
+(1888, 2781, 0.5, 1, 0, 1, 1),
+(1888, 2883, 0.05, 1, 0, 1, 1),
+(1888, 2970, 0.05, 1, 0, 1, 1),
+(1888, 2973, 0.2, 1, 0, 1, 1),
+(1888, 2974, 0.1, 1, 0, 1, 1),
+(1888, 2981, 0.28, 1, 0, -2981, 1),
+(1888, 2982, 0.1, 1, 0, 1, 1),
+(1888, 2983, 0.05, 1, 0, 1, 1),
+(1888, 2984, 0.1, 1, 0, 1, 1),
+(1888, 2985, 0.05, 1, 0, 1, 1),
+(1888, 2987, 0.1, 1, 0, 1, 1),
+(1888, 2988, 0.93, 1, 0, -2988, 1),
+(1888, 2992, 0.1, 1, 0, 1, 1),
+(1888, 3184, 0.05, 1, 0, 1, 1),
+(1888, 3195, 0.2, 1, 0, 1, 1),
+(1888, 3196, 0.2, 1, 0, 1, 1),
+(1888, 3205, 0.2, 1, 0, 1, 1),
+(1888, 3211, 0.05, 1, 0, 1, 1),
+(1888, 3376, 0.3, 1, 0, 1, 1),
+(1888, 3377, 0.3, 1, 0, 1, 1),
+(1888, 3394, 0.0045, 1, 0, 1, 1),
+(1888, 3396, 0.0045, 1, 0, -3396, 1),
+(1888, 3645, 0.05, 1, 0, 1, 1),
+(1888, 3655, 0.05, 1, 0, 1, 1),
+(1888, 4292, 0.05, 1, 0, 1, 1),
+(1888, 4293, 0.1, 1, 0, 1, 1),
+(1888, 4346, 0.05, 1, 0, 1, 1),
+(1888, 4567, 0.3, 1, 0, 1, 1),
+(1888, 4571, 0.1, 1, 0, 1, 1),
+(1888, 4575, 0.2, 1, 0, 1, 1),
+(1888, 4694, 0.5, 1, 0, -4694, 1),
+(1888, 4695, 0.1, 1, 0, 1, 1),
+(1888, 4697, 0.05, 1, 0, 1, 1),
+(1888, 4698, 0.05, 1, 0, 1, 1),
+(1888, 4699, 0.1, 1, 0, 1, 1),
+(1888, 4701, 0.05, 1, 0, 1, 1),
+(1888, 5110, 0.05, 1, 0, 1, 1),
+(1888, 5207, 0.05, 1, 0, 1, 1),
+(1888, 5212, 0.1, 1, 0, 1, 1),
+(1888, 5573, 0.05, 1, 0, 1, 1),
+(1888, 5574, 0.05, 1, 0, 1, 1),
+(1888, 6378, 0.1, 1, 0, 1, 1),
+(1888, 6379, 0.05, 1, 0, 1, 1),
+(1888, 6538, 0.05, 1, 0, 1, 1),
+(1888, 6539, 0.05, 1, 0, 1, 1),
+(1888, 6540, 0.2, 1, 0, 1, 1),
+(1888, 6541, 0.05, 1, 0, 1, 1),
+(1888, 6545, 0.1, 1, 0, 1, 1),
+(1888, 6546, 0.1, 1, 0, 1, 1),
+(1888, 6547, 0.2, 1, 0, 1, 1),
+(1888, 6548, 0.2, 1, 0, 1, 1),
+(1888, 6551, 0.1, 1, 0, 1, 1),
+(1888, 6552, 0.05, 1, 0, 1, 1),
+(1888, 6553, 0.1, 1, 0, 1, 1),
+(1888, 6554, 0.2, 1, 0, 1, 1),
+(1888, 6557, 0.05, 1, 0, 1, 1),
+(1888, 6559, 0.1, 1, 0, 1, 1),
+(1888, 6562, 0.05, 1, 0, 1, 1),
+(1888, 6563, 0.05, 1, 0, 1, 1),
+(1888, 6581, 0.1, 1, 0, 1, 1),
+(1888, 6585, 0.2, 1, 0, 1, 1),
+(1888, 6716, 0.05, 1, 0, 1, 1),
+(1888, 7293, -100, 1, 0, 1, 1),
+(1888, 7554, 0.2, 1, 0, 1, 1),
+(1888, 7608, 0.05, 1, 0, 1, 1),
+(1888, 9775, 0.05, 1, 0, 1, 1),
+(1888, 9777, 0.05, 1, 0, 1, 1),
+(1888, 9778, 0.05, 1, 0, 1, 1),
+(1888, 9779, 0.1, 1, 0, 1, 1),
+(1888, 9780, 0.05, 1, 0, 1, 1),
+(1888, 9785, 0.1, 1, 0, 1, 1),
+(1888, 9788, 0.1, 1, 0, 1, 1),
+(1888, 9789, 0.1, 1, 0, 1, 1),
+(1888, 10316, 0.05, 1, 0, 1, 1),
+(1888, 14166, 0.2, 1, 0, 1, 1),
+(1888, 14167, 0.1, 1, 0, 1, 1),
+(1888, 14173, 0.05, 1, 0, 1, 1),
+(1888, 14174, 0.1, 1, 0, 1, 1),
+(1888, 15210, 0.2, 1, 0, 1, 1),
+(1888, 15248, 0.05, 1, 0, 1, 1),
+(1888, 15268, 0.05, 1, 0, 1, 1),
+(1888, 15926, 0.05, 1, 0, 1, 1);
 
+-- Ambermill Watcher - pickpocket loot --
+INSERT INTO `pickpocketing_loot_template` (`entry`, `item`, `ChanceOrQuestChance`, `lootmode`, `groupid`, `mincountOrRef`, `maxcount`) VALUES
+(1888, 414, 20, 1, 0, 1, 1),
+(1888, 858, 12, 1, 0, 1, 1),
+(1888, 4537, 10, 1, 0, 1, 1),
+(1888, 1210, 2, 1, 0, 1, 1),
+(1888, 818, 2, 1, 0, 1, 1),
+(1888, 4541, 6, 1, 0, 1, 1),
+(1888, 5368, 61, 1, 0, 1, 1);
+
+/*
+INSERT INTO `creature_template` (`entry`,`difficulty_entry_1`,`difficulty_entry_2`,`difficulty_entry_3`,`KillCredit1`,`KillCredit2`,`modelid1`,`modelid2`,`modelid3`,`modelid4`,`name`,`subname`,`IconName`,`gossip_menu_id`,`minlevel`,`maxlevel`,`exp`,`faction_A`,`faction_H`,`npcflag`,`speed_walk`,`speed_run`,`scale`,`rank`,`mindmg`,`maxdmg`,`dmgschool`,`attackpower`,`dmg_multiplier`,`baseattacktime`,`rangeattacktime`,`unit_class`,`unit_flags`,`dynamicflags`,`family`,`trainer_type`,`trainer_spell`,`trainer_class`,`trainer_race`,`minrangedmg`,`maxrangedmg`,`rangedattackpower`,`type`,`type_flags`,`lootid`,`pickpocketloot`,`skinloot`,`resistance1`,`resistance2`,`resistance3`,`resistance4`,`resistance5`,`resistance6`,`spell1`,`spell2`,`spell3`,`spell4`,`spell5`,`spell6`,`spell7`,`spell8`,`PetSpellDataId`,`VehicleId`,`mingold`,`maxgold`,`AIName`,`MovementType`,`InhabitType`,`Health_mod`,`Mana_mod`,`Armor_mod`,`RacialLeader`,`questItem1`,`questItem2`,`questItem3`,`questItem4`,`questItem5`,`questItem6`,`movementId`,`RegenHealth`,`equipment_id`,`mechanic_immune_mask`,`flags_extra`,`ScriptName`) VALUES 
+(1889,0,0,0,45756,0,3585,3586,0,0, 'Ambermill Witchalok', '', '',0,1,1,0,35,35,0,1,1.14286,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, '',0,0,1.5,1,1,0,7293,7293,7293,7293,7293,7293,0,1,0,0,0, ''),
+INSERT INTO `creature_template` (`entry`,`difficulty_entry_1`,`difficulty_entry_2`,`difficulty_entry_3`,`KillCredit1`,`KillCredit2`,`modelid1`,`modelid2`,`modelid3`,`modelid4`,`name`,`subname`,`IconName`,`gossip_menu_id`,`minlevel`,`maxlevel`,`exp`,`faction_A`,`faction_H`,`npcflag`,`speed_walk`,`speed_run`,`scale`,`rank`,`mindmg`,`maxdmg`,`dmgschool`,`attackpower`,`dmg_multiplier`,`baseattacktime`,`rangeattacktime`,`unit_class`,`unit_flags`,`dynamicflags`,`family`,`trainer_type`,`trainer_spell`,`trainer_class`,`trainer_race`,`minrangedmg`,`maxrangedmg`,`rangedattackpower`,`type`,`type_flags`,`lootid`,`pickpocketloot`,`skinloot`,`resistance1`,`resistance2`,`resistance3`,`resistance4`,`resistance5`,`resistance6`,`spell1`,`spell2`,`spell3`,`spell4`,`spell5`,`spell6`,`spell7`,`spell8`,`PetSpellDataId`,`VehicleId`,`mingold`,`maxgold`,`AIName`,`MovementType`,`InhabitType`,`Health_mod`,`Mana_mod`,`Armor_mod`,`RacialLeader`,`questItem1`,`questItem2`,`questItem3`,`questItem4`,`questItem5`,`questItem6`,`movementId`,`RegenHealth`,`equipment_id`,`mechanic_immune_mask`,`flags_extra`,`ScriptName`) VALUES 
+(1913,0,0,0,45756,0,3592,3593,0,0, 'Ambermill Warder', '', '',0,1,1,0,35,35,0,1,1.14286,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, '',0,0,1,1,1,0,7293,7293,7293,7293,7293,7293,0,1,0,0,0, ''),
+INSERT INTO `creature_template` (`entry`,`difficulty_entry_1`,`difficulty_entry_2`,`difficulty_entry_3`,`KillCredit1`,`KillCredit2`,`modelid1`,`modelid2`,`modelid3`,`modelid4`,`name`,`subname`,`IconName`,`gossip_menu_id`,`minlevel`,`maxlevel`,`exp`,`faction_A`,`faction_H`,`npcflag`,`speed_walk`,`speed_run`,`scale`,`rank`,`mindmg`,`maxdmg`,`dmgschool`,`attackpower`,`dmg_multiplier`,`baseattacktime`,`rangeattacktime`,`unit_class`,`unit_flags`,`dynamicflags`,`family`,`trainer_type`,`trainer_spell`,`trainer_class`,`trainer_race`,`minrangedmg`,`maxrangedmg`,`rangedattackpower`,`type`,`type_flags`,`lootid`,`pickpocketloot`,`skinloot`,`resistance1`,`resistance2`,`resistance3`,`resistance4`,`resistance5`,`resistance6`,`spell1`,`spell2`,`spell3`,`spell4`,`spell5`,`spell6`,`spell7`,`spell8`,`PetSpellDataId`,`VehicleId`,`mingold`,`maxgold`,`AIName`,`MovementType`,`InhabitType`,`Health_mod`,`Mana_mod`,`Armor_mod`,`RacialLeader`,`questItem1`,`questItem2`,`questItem3`,`questItem4`,`questItem5`,`questItem6`,`movementId`,`RegenHealth`,`equipment_id`,`mechanic_immune_mask`,`flags_extra`,`ScriptName`) VALUES 
+(1914,0,0,0,45756,0,3559,3560,0,0, 'Ambermill Magister', '', '',0,1,1,0,35,35,0,1,1.14286,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, '',0,0,1,1,1,0,3354,3354,3354,3354,3354,3354,0,1,0,0,0, ''),
+INSERT INTO `creature_template` (`entry`,`difficulty_entry_1`,`difficulty_entry_2`,`difficulty_entry_3`,`KillCredit1`,`KillCredit2`,`modelid1`,`modelid2`,`modelid3`,`modelid4`,`name`,`subname`,`IconName`,`gossip_menu_id`,`minlevel`,`maxlevel`,`exp`,`faction_A`,`faction_H`,`npcflag`,`speed_walk`,`speed_run`,`scale`,`rank`,`mindmg`,`maxdmg`,`dmgschool`,`attackpower`,`dmg_multiplier`,`baseattacktime`,`rangeattacktime`,`unit_class`,`unit_flags`,`dynamicflags`,`family`,`trainer_type`,`trainer_spell`,`trainer_class`,`trainer_race`,`minrangedmg`,`maxrangedmg`,`rangedattackpower`,`type`,`type_flags`,`lootid`,`pickpocketloot`,`skinloot`,`resistance1`,`resistance2`,`resistance3`,`resistance4`,`resistance5`,`resistance6`,`spell1`,`spell2`,`spell3`,`spell4`,`spell5`,`spell6`,`spell7`,`spell8`,`PetSpellDataId`,`VehicleId`,`mingold`,`maxgold`,`AIName`,`MovementType`,`InhabitType`,`Health_mod`,`Mana_mod`,`Armor_mod`,`RacialLeader`,`questItem1`,`questItem2`,`questItem3`,`questItem4`,`questItem5`,`questItem6`,`movementId`,`RegenHealth`,`equipment_id`,`mechanic_immune_mask`,`flags_extra`,`ScriptName`) VALUES 
+(1933,0,0,0,0,0,856,857,0,0, 'Sheep', '', '',0,1,1,0,35,35,0,1,1.14286,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, '',0,0,0.2,1,1,0,0,0,0,0,0,0,100,1,0,0,0, ''),
+INSERT INTO `creature_template` (`entry`,`difficulty_entry_1`,`difficulty_entry_2`,`difficulty_entry_3`,`KillCredit1`,`KillCredit2`,`modelid1`,`modelid2`,`modelid3`,`modelid4`,`name`,`subname`,`IconName`,`gossip_menu_id`,`minlevel`,`maxlevel`,`exp`,`faction_A`,`faction_H`,`npcflag`,`speed_walk`,`speed_run`,`scale`,`rank`,`mindmg`,`maxdmg`,`dmgschool`,`attackpower`,`dmg_multiplier`,`baseattacktime`,`rangeattacktime`,`unit_class`,`unit_flags`,`dynamicflags`,`family`,`trainer_type`,`trainer_spell`,`trainer_class`,`trainer_race`,`minrangedmg`,`maxrangedmg`,`rangedattackpower`,`type`,`type_flags`,`lootid`,`pickpocketloot`,`skinloot`,`resistance1`,`resistance2`,`resistance3`,`resistance4`,`resistance5`,`resistance6`,`spell1`,`spell2`,`spell3`,`spell4`,`spell5`,`spell6`,`spell7`,`spell8`,`PetSpellDataId`,`VehicleId`,`mingold`,`maxgold`,`AIName`,`MovementType`,`InhabitType`,`Health_mod`,`Mana_mod`,`Armor_mod`,`RacialLeader`,`questItem1`,`questItem2`,`questItem3`,`questItem4`,`questItem5`,`questItem6`,`movementId`,`RegenHealth`,`equipment_id`,`mechanic_immune_mask`,`flags_extra`,`ScriptName`) VALUES 
+(2120,0,0,0,0,0,3601,0,0,0, 'Archmage Ataeric', '', '',0,1,1,0,35,35,0,1,1.14286,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,7,-2147483640,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, '',0,0,5,1,1,0,3515,3515,3515,3515,3515,3515,0,1,0,0,0, ''),
+*/
 
 -- -- -- -- -- -- -- -- -- -- -- -- --
 -- Ambermill Witchalok   (ID: 1889) --
 -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- Ambermill Witchalok - new template --
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(1889, 0, 0, 0, 45756, 0, 3585, 3586, 0, 0, 'Ambermill Witchalok', '', '', 0, 18, 18, 0, 76, 76, 0, 1, 1.14286, 0, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 1889, 1889, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 1, 1.5, 1, 1, 0, 7293, 0, 0, 0, 0, 0, 0, 1, 1889, 0, 0, '', 1);
 
 -- Ambermill Witchalok - equip --
+INSERT INTO `creature_equip_template` (`entry`, `ItemEntry1`, `ItemEntry2`, `ItemEntry3`) VALUES
+(1889, 1907, 0, 0);
 
 -- Ambermill Witchalok - addon --
+INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `auras`) VALUES
+(1889, 0, 0, 0, 1, 0, '');
 
 -- Ambermill Witchalok - SAI --
 
@@ -265,6 +483,8 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 (NULL, 1889, 0, 1, 1, 0, 0, -99.31432, 944.1245, 68.55656, 4.227155, 300, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- Ambermill Witchalok - loot --
+
+-- Ambermill Witchalok - pickpocket loot --
 
 
 -- -- -- -- -- -- -- -- -- -- -- --
@@ -705,6 +925,7 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 
 -- Forward Commander Onslaught - equip --
 
+
 -- Forward Commander Onslaught - addon --
 
 -- Forward Commander Onslaught - SAI --
@@ -741,6 +962,8 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- -- -- -- -- -- -- -- -- -- --
 
 -- Highlands Fox - new template --
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `Health_mod`, `Mana_mod`, `Armor_mod`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `WDBVerified`) VALUES
+(45335, 0, 0, 0, 0, 0, 30254, 0, 0, 0, 'Highlands Fox', '', '', 0, 13, 14, 0, 2200, 2200, 0, 1, 1, 1, 0, 20, 27, 0, 50, 1, 2000, 0, 1, 32768, 2048, 50, 0, 0, 0, 0, 13, 20, 1, 1, 1, 45335, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 45335, 0, 0, '', 0);
 
 -- Highlands Fox - equip --
 
@@ -751,6 +974,28 @@ INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`
 -- Highlands Fox - skinning --
 
 -- Highlands Fox - spawns --
+-802.263 Y: 1703.886 Z: 68.23342 O: 4.426827
+-1157.996 Y: 1543.048 Z: 30.6894 O: 1.73755
+-1182.505 Y: 1638.329 Z: 20.78053 O: 0.7853982
+-1187.993 Y: 1626.871 Z: 23.65285 O: 4.265785
+-1188.294 Y: 1497.804 Z: 28.37258
+-1191.94 Y: 1506.128 Z: 28.54207
+-1194.574 Y: 1502.269 Z: 28.03096 O: 5.901977
+-1208.011 Y: 1508.733 Z: 25.95778
+-1220.859 Y: 1546.847 Z: 24.59593 O: 2.621435
+-1221.389 Y: 1450.81 Z: 23.9888
+-1222.946 Y: 1442.076 Z: 24.52042
+-1223.044 Y: 1555.602 Z: 25.73065
+-1223.196 Y: 1442.171 Z: 24.46085
+-1244.148 Y: 1445.194 Z: 22.78115
+-1225.861 Y: 1440.296 Z: 24.04813
+-1227.071 Y: 1560.087 Z: 26.21793
+-1229.73 Y: 1437.629 Z: 23.64761 O: 3.929753
+-1237.813 Y: 1442.216 Z: 22.90615
+-1242.074 Y: 1442.577 Z: 22.99807
+-1267.979 Y: 1836.284 Z: 11.95589 O: 2.502115
+-1306.852 Y: 1665.952 Z: 8.251657 O: 4.665
+
 
 
 -- -- -- -- -- -- -- -- -- -- --

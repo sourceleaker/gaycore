@@ -1341,10 +1341,11 @@ class Player : public Unit, public GridObject<Player>
         void ModifyCurrency(uint32 id, int32 count, bool force = false);
 
         void ApplyEquipCooldown(Item* pItem);
+
         void SetAmmo(uint32 item);
         void RemoveAmmo();
-        float GetAmmoDPS() const { return m_ammoDPS; }
         bool CheckAmmoCompatibility(const ItemTemplate *ammo_proto) const;
+
         void QuickEquipItem(uint16 pos, Item *pItem);
         void VisualizeItem(uint8 slot, Item *pItem);
         void SetVisibleItemSlot(uint8 slot, Item *pItem);
@@ -2151,7 +2152,7 @@ class Player : public Unit, public GridObject<Player>
         void _ApplyAllLevelScaleItemMods(bool apply);
         void _ApplyItemBonuses(ItemTemplate const *proto, uint8 slot, bool apply, bool only_level_scale = false);
         void _ApplyWeaponDamage(uint8 slot, ItemTemplate const *proto, ScalingStatValuesEntry const *ssv, bool apply);
-        //void _ApplyAmmoBonuses();
+
         bool EnchantmentFitsRequirements(uint32 enchantmentcondition, int8 slot);
         void ToggleMetaGemsActive(uint8 exceptslot, bool apply);
         void CorrectMetaGemEnchants(uint8 slot, bool apply);
@@ -2161,12 +2162,15 @@ class Player : public Unit, public GridObject<Player>
         void ApplyEquipSpell(SpellInfo const* spellInfo, Item* item, bool apply, bool form_change = false);
         void UpdateEquipSpellsAtFormChange();
         void CastItemCombatSpell(Unit* target, WeaponAttackType attType, uint32 procVictim, uint32 procEx);
-        void CastItemUseSpell(Item *item, SpellCastTargets const& targets, uint8 cast_count, uint32 glyphIndex);
+        void CastItemUseSpell(Item *item, SpellCastTargets const& targets, uint8 cast_count);
         void CastItemCombatSpell(Unit* target, WeaponAttackType attType, uint32 procVictim, uint32 procEx, Item *item, ItemTemplate const* proto);
 
         void SendEquipmentSetList();
         void SetEquipmentSet(uint32 index, EquipmentSet eqset);
         void DeleteEquipmentSet(uint64 setGuid);
+
+        void SetEmoteState(uint32 anim_id);
+        uint32 GetEmoteState() { return m_emote; }
 
         void SendInitWorldStates(uint32 zone, uint32 area);
         void SendUpdateWorldState(uint32 Field, uint32 Value);
@@ -2352,7 +2356,7 @@ class Player : public Unit, public GridObject<Player>
         WorldObject* GetViewpoint() const;
         void StopCastingCharm();
         void StopCastingBindSight();
-        
+
         void SendPetTameResult(PetTameResult result);
 
         uint32 GetSaveTimer() const { return m_nextSave; }
@@ -2378,11 +2382,11 @@ class Player : public Unit, public GridObject<Player>
         float m_homebindZ;
 
         WorldLocation GetStartPosition() const;
-        
+
         // current pet slot
         PetSlot m_currentPetSlot;
         uint32 m_petSlotUsed;
-        
+
         void setPetSlotUsed(PetSlot slot, bool used)
         {
             if (used)
@@ -2408,7 +2412,7 @@ class Player : public Unit, public GridObject<Player>
                 last_known = 2;
             else if(HasSpell(883))
                 last_known = 1;
-           
+
             for(uint32 i = uint32(PET_SLOT_HUNTER_FIRST); i < last_known; i++)
                 if((m_petSlotUsed & (1 << i)) == 0)
                     return PetSlot(i);
@@ -2416,7 +2420,6 @@ class Player : public Unit, public GridObject<Player>
             // If there is no slots available, then we should point that out
             return PET_SLOT_FULL_LIST; //(PetSlot)last_known;
         }
-
 
         // currently visible objects at player client
         typedef std::set<uint64> ClientGUIDs;
@@ -2750,6 +2753,8 @@ class Player : public Unit, public GridObject<Player>
         uint32 m_branchSpec[MAX_TALENT_SPECS];
         uint32 m_freeTalentPoints;
 
+        uint32 m_emote;
+
         uint32 m_Glyphs[MAX_TALENT_SPECS][MAX_GLYPH_SLOT_INDEX];
 
         ActionButtonList m_actionButtons;
@@ -2808,7 +2813,6 @@ class Player : public Unit, public GridObject<Player>
         bool m_canBlock;
         bool m_canTitanGrip;
         uint8 m_swingErrorMsg;
-        float m_ammoDPS;
 
         ////////////////////Rest System/////////////////////
         time_t time_inn_enter;

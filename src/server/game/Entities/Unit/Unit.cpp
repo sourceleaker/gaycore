@@ -4976,7 +4976,7 @@ void Unit::SendAttackStateUpdate(uint32 HitInfo, Unit* target, uint8 /*SwingType
     SendAttackStateUpdate(&dmgInfo);
 }
 
-bool Unit::HandleHasteAuraProc(Unit* victim, uint32 damage, AuraEffect* triggeredByAura, SpellInfo const* /*procSpell*/, uint32 /*procFlag*/, uint32 /*procEx*/, uint32 cooldown)
+bool Unit::HandleModPowerRegenAuraProc(Unit* victim, uint32 damage, AuraEffect* triggeredByAura, SpellInfo const* /*procSpell*/, uint32 /*procFlag*/, uint32 /*procEx*/, uint32 cooldown)
 {
     SpellInfo const* hasteSpell = triggeredByAura->GetSpellInfo();
 
@@ -4995,7 +4995,6 @@ bool Unit::HandleHasteAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
             {
                 // Blade Flurry
                 case 13877:
-                case 33735:
                 {
                     target = SelectNearbyTarget();
                     if (!target || target == victim)
@@ -5928,20 +5927,6 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
                 target = this;
                 break;
             }
-            // Damage Shield
-            if (dummySpell->SpellIconID == 3214)
-            {
-                triggered_spell_id = 59653;
-                // % of amount blocked
-                basepoints0 = CalculatePctN(int32(GetShieldBlockValue()), triggerAmount);
-                break;
-            }
-            // Glyph of Blocking
-            if (dummySpell->Id == 58375)
-            {
-                triggered_spell_id = 58374;
-                break;
-            }
             // Glyph of Sunder Armor
             if (dummySpell->Id == 58387)
             {
@@ -6053,12 +6038,12 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
                         {
                             if ((*i)->GetEffIndex() != 0)
                                 continue;
-                                
+
                             basepoints0 = int32((*i)->GetAmount());
                             target = GetGuardianPet();
                             if (target)
                                 CastCustomSpell(target, 54607, &basepoints0, NULL, NULL, true, castItem, triggeredByAura); // regen mana for pet
-                                
+
                             // regen mana for caster
                             CastCustomSpell(this, 59117, &basepoints0, NULL, NULL, true, castItem, triggeredByAura);
                             // Get second aura of spell for replenishment effect on party
@@ -6203,7 +6188,7 @@ bool Unit::HandleDummyAuraProc(Unit* victim, uint32 damage, AuraEffect* triggere
                     basepoints0 = CalculatePctN(int32(damage), triggerAmount) / tickcount;
                     break;
                 }
-                // Improved Shadowform
+                // Phantasm
                 case 47570:
                 case 47569:
                 {
@@ -9788,6 +9773,9 @@ bool Unit::Attack(Unit* victim, bool meleeAttack)
         ToCreature()->CallAssistance();
     }
 
+    if (GetTypeId() == TYPEID_PLAYER && ToPlayer()->GetEmoteState() != 0)
+        ToPlayer()->SetEmoteState(0);
+
     // delay offhand weapon attack to next attack time
     if (haveOffhandWeapon())
         resetAttackTimer(OFF_ATTACK);
@@ -9828,6 +9816,9 @@ bool Unit::AttackStop()
     }
 
     SendMeleeAttackStop(victim);
+
+    if (GetTypeId() == TYPEID_PLAYER && ToPlayer()->GetEmoteState() != 0)
+        ToPlayer()->SetEmoteState(0);
 
     return true;
 }
@@ -10098,19 +10089,19 @@ void Unit::SetMinion(Minion *minion, bool apply, PetSlot slot)
                 SetMinionGUID(0);
             }
         }
-        
+
         if (slot == PET_SLOT_UNK_SLOT)
         {
             if (minion->isPet() && minion->ToPet()->getPetType() == HUNTER_PET)
                 ASSERT(false);
-                
+
             slot = PET_SLOT_OTHER_PET;
         }
-       
+
         if (GetTypeId() == TYPEID_PLAYER)
         {
             if(!minion->isHunterPet()) //If its not a Hunter Pet, well lets not try to use it for hunters then.
-            {   
+            {
                 ToPlayer()->m_currentPetSlot = slot;
                 ToPlayer()->m_petSlotUsed = 3452816845; // the same as 100 so that the pet is only that and nothing more
                 // ToPlayer()->setPetSlotUsed(slot, true);
@@ -10118,7 +10109,7 @@ void Unit::SetMinion(Minion *minion, bool apply, PetSlot slot)
             if(slot >= PET_SLOT_HUNTER_FIRST && slot <= PET_SLOT_HUNTER_LAST) // Always save thoose spots where hunter is correct
             {
                 ToPlayer()->m_currentPetSlot = slot;
-                ToPlayer()->setPetSlotUsed(slot, true);       
+                ToPlayer()->setPetSlotUsed(slot, true);
             }
         }
 
@@ -11200,7 +11191,8 @@ uint32 Unit::SpellCriticalDamageBonus(SpellInfo const* spellProto, uint32 damage
     // Calculate critical bonus
     int32 crit_bonus = damage;
     float crit_mod = 0.0f;
-
+    Player* modOwner = GetSpellModOwner();
+	
     switch (spellProto->DmgClass)
     {
         case SPELL_DAMAGE_CLASS_MELEE:                      // for melee based spells is 100%
@@ -11209,7 +11201,10 @@ uint32 Unit::SpellCriticalDamageBonus(SpellInfo const* spellProto, uint32 damage
             crit_bonus += damage;
             break;
         default:
-            crit_bonus += damage / 2;                       // for spells is 50%
+            if (modOwner && (modOwner->getClass() == CLASS_MAGE || modOwner->getClass() == CLASS_WARLOCK))
+                crit_bonus = damage; // 100% bonus for Mages and Warlocks in Cataclysm
+            else
+                crit_bonus = damage / 2;                        // for spells is 50%
             break;
     }
 
@@ -11224,7 +11219,7 @@ uint32 Unit::SpellCriticalDamageBonus(SpellInfo const* spellProto, uint32 damage
     crit_bonus -= damage;
 
     // adds additional damage to crit_bonus (from talents)
-    if (Player* modOwner = GetSpellModOwner())
+    if (modOwner)
         modOwner->ApplySpellMod(spellProto->Id, SPELLMOD_CRIT_DAMAGE_BONUS, crit_bonus, NULL, victim);
 
     crit_bonus += damage;
@@ -12055,6 +12050,9 @@ void Unit::Mount(uint32 mount, uint32 VehicleId, uint32 creatureEntry)
 
     if (Player* player = ToPlayer())
     {
+        if (player->GetEmoteState())
+            player->SetEmoteState(0);
+
         // mount as a vehicle
         if (VehicleId)
         {
@@ -14582,10 +14580,10 @@ void Unit::ProcDamageAndSpellFor(bool isVictim, Unit* target, uint32 procFlag, u
                     if (HandleModDamagePctTakenAuraProc(target, damage, triggeredByAura, procSpell, procFlag, procExtra, cooldown))
                         takeCharges = true;
                     break;
-                case SPELL_AURA_MOD_MELEE_HASTE:
+                case SPELL_AURA_MOD_POWER_REGEN_PERCENT:
                 {
-                    sLog->outDebug(LOG_FILTER_SPELLS_AURAS, "ProcDamageAndSpell: casting spell id %u (triggered by %s haste aura of spell %u)", spellInfo->Id, (isVictim?"a victim's":"an attacker's"), triggeredByAura->GetId());
-                    if (HandleHasteAuraProc(target, damage, triggeredByAura, procSpell, procFlag, procExtra, cooldown))
+                    sLog->outDebug(LOG_FILTER_SPELLS_AURAS, "ProcDamageAndSpell: casting spell id %u (triggered by %s ModPowerRegenPCT of spell %u)", spellInfo->Id,(isVictim?"a victim's":"an attacker's"), triggeredByAura->GetId());
+                    if (HandleModPowerRegenAuraProc(target, damage, triggeredByAura, procSpell, procFlag, procExtra, cooldown))
                         takeCharges = true;
                     break;
                 }

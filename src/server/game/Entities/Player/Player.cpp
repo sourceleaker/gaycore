@@ -756,7 +756,6 @@ Player::Player (WorldSession *session): Unit(), m_achievementMgr(this), m_reputa
     m_canBlock = false;
     m_canDualWield = false;
     m_canTitanGrip = false;
-    m_ammoDPS = 0.0f;
 
     m_temporaryUnsummonedPetNumber = 0;
     //cache for UNIT_CREATED_BY_SPELL to allow
@@ -1096,12 +1095,10 @@ bool Player::Create(uint32 guidlow, CharacterCreateInfo* createInfo)
         SetPower(POWER_MANA, GetMaxPower(POWER_MANA));
     }
 
-    if (getPowerType() == POWER_RUNIC_POWER)
+    if (getPowerType() != POWER_MANA)                        // hide additional mana bar if we have no mana
     {
-        SetPower(POWER_RUNE, 8);
-        SetMaxPower(POWER_RUNE, 8);
-        SetPower(POWER_RUNIC_POWER, 0);
-        SetMaxPower(POWER_RUNIC_POWER, 1000);
+        SetPower(POWER_MANA, 0);
+        SetMaxPower(POWER_MANA, 0);
     }
 
     // original spells
@@ -2177,6 +2174,9 @@ bool Player::ToggleAFK()
     if (state && InBattleground() && !InArena())
         LeaveBattleground();
 
+    if (Guild* guild = sGuildMgr->GetGuildById(GetGuildId()))
+        guild->OnPlayerStatusChange(this, GUILD_MEMBER_FLAG_AFK, state);
+
     return state;
 }
 
@@ -2184,7 +2184,11 @@ bool Player::ToggleDND()
 {
     ToggleFlag(PLAYER_FLAGS, PLAYER_FLAGS_DND);
 
-    return HasFlag(PLAYER_FLAGS, PLAYER_FLAGS_DND);
+    bool state = HasFlag(PLAYER_FLAGS, PLAYER_FLAGS_DND);
+    if (Guild* guild = sGuildMgr->GetGuildById(GetGuildId()))
+        guild->OnPlayerStatusChange(this, GUILD_MEMBER_FLAG_DND, state);
+
+    return state;
 }
 
 uint8 Player::GetChatTag() const
@@ -3206,6 +3210,9 @@ void Player::GiveLevel(uint8 level)
     uint8 oldLevel = getLevel();
     if (level == oldLevel)
         return;
+
+    if (Guild* guild = sGuildMgr->GetGuildById(GetGuildId()))
+        guild->UpdateMemberData(this, GUILD_MEMBER_DATA_LEVEL, level);
 
     PlayerLevelInfo info;
     sObjectMgr->GetPlayerLevelInfo(getRace(), getClass(), level, &info);
@@ -7649,6 +7656,9 @@ void Player::UpdateZone(uint32 newZone, uint32 newArea)
 {
     if (m_zoneUpdateId != newZone)
     {
+        if (Guild* guild = sGuildMgr->GetGuildById(GetGuildId()))
+            guild->UpdateMemberData(this, GUILD_MEMBER_DATA_ZONEID, newZone);
+
         sOutdoorPvPMgr->HandlePlayerLeaveZone(this, m_zoneUpdateId);
         sOutdoorPvPMgr->HandlePlayerEnterZone(this, newZone);
         sBattlefieldMgr.HandlePlayerLeaveZone(this, m_zoneUpdateId);
@@ -9010,7 +9020,7 @@ void Player::CastItemCombatSpell(Unit* target, WeaponAttackType attType, uint32 
     }
 }
 
-void Player::CastItemUseSpell(Item *item, SpellCastTargets const& targets, uint8 cast_count, uint32 glyphIndex)
+void Player::CastItemUseSpell(Item *item, SpellCastTargets const& targets, uint8 cast_count)
 {
     ItemTemplate const* proto = item->GetTemplate();
     // special learning case
@@ -9061,7 +9071,6 @@ void Player::CastItemUseSpell(Item *item, SpellCastTargets const& targets, uint8
         Spell* spell = new Spell(this, spellInfo, (count > 0) ? TRIGGERED_FULL_MASK : TRIGGERED_NONE);
         spell->m_CastItem = item;
         spell->m_cast_count = cast_count;                   // set count of casts
-        spell->m_glyphIndex = glyphIndex;                   // glyph index
         spell->prepare(&targets);
 
         ++count;
@@ -9089,7 +9098,6 @@ void Player::CastItemUseSpell(Item *item, SpellCastTargets const& targets, uint8
             Spell* spell = new Spell(this, spellInfo, (count > 0) ? TRIGGERED_FULL_MASK : TRIGGERED_NONE);
             spell->m_CastItem = item;
             spell->m_cast_count = cast_count;               // set count of casts
-            spell->m_glyphIndex = glyphIndex;               // glyph index
             spell->prepare(&targets);
 
             ++count;
@@ -12660,14 +12668,10 @@ void Player::SetAmmo(uint32 item)
             return;
         }
     }
-
-   // _ApplyAmmoBonuses();
 }
 
 void Player::RemoveAmmo()
 {
-    m_ammoDPS = 0.0f;
-
     if (CanModifyStats())
         UpdateDamagePhysical(RANGED_ATTACK);
 }
@@ -16967,6 +16971,7 @@ void Player::SendQuestReward(Quest const *quest, uint32 XP, Object * questGiver)
     if (getLevel() < sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL))
     {
         data << uint32(quest->GetRewOrReqMoney());
+        data << uint32(quest->GetBonusTalents());              // bonus talents
         data << uint32(quest->GetRewSkillPoints());
         data << uint32(XP);
     }
@@ -16979,9 +16984,6 @@ void Player::SendQuestReward(Quest const *quest, uint32 XP, Object * questGiver)
         data << uint32(0);
     }
 
-    data << 10 * Trinity::Honor::hk_honor_at_level(getLevel(), quest->GetRewHonorMultiplier());
-    data << uint32(quest->GetBonusTalents());              // bonus talents
-    data << uint32(quest->GetRewArenaPoints());
     GetSession()->SendPacket(&data);
 
     if (quest->GetQuestCompleteScript() != 0)
@@ -17346,6 +17348,11 @@ bool Player::LoadFromDB(uint32 guid, SQLQueryHolder *holder)
     SetFloatValue(UNIT_FIELD_COMBATREACH, 1.5f);
     SetFloatValue(UNIT_FIELD_HOVERHEIGHT, 1.0f);
 
+    SetUInt32Value(PLAYER_GUILDRANK, 0);
+    SetUInt32Value(PLAYER_GUILD_TIMESTAMP, 0);
+    SetUInt32Value(PLAYER_GUILDDELETE_DATE, 0);
+    SetUInt32Value(PLAYER_GUILDLEVEL, 1);
+
     // load achievements before anything else to prevent multiple gains for the same achievement/criteria on every loading (as loading does call UpdateAchievementCriteria)
     m_achievementMgr.LoadFromDB(holder->GetPreparedResult(PLAYER_LOGIN_QUERY_LOADACHIEVEMENTS), holder->GetPreparedResult(PLAYER_LOGIN_QUERY_LOADCRITERIAPROGRESS));
 
@@ -17369,7 +17376,7 @@ bool Player::LoadFromDB(uint32 guid, SQLQueryHolder *holder)
 
     m_currentPetSlot = (PetSlot)fields[68].GetUInt32();
     m_petSlotUsed = fields[69].GetUInt32();
-    
+
     InitDisplayIds();
 
     // cleanup inventory related item value fields (its will be filled correctly in _LoadInventory)
@@ -19157,7 +19164,7 @@ void Player::SaveToDB(bool create /*=false*/)
 
     PreparedStatement* stmt = NULL;
     uint16 index = 0;
-    
+
     if(create)
     {
         //! Insert query
@@ -19182,7 +19189,7 @@ void Player::SaveToDB(bool create /*=false*/)
         stmt->setFloat(index++, finiteAlways(GetPositionY()));
         stmt->setFloat(index++, finiteAlways(GetPositionZ()));
         stmt->setFloat(index++, finiteAlways(GetOrientation()));
-        
+
         std::ostringstream ss;
         ss << m_taxi;
         stmt->setString(index++, ss.str());
@@ -19204,7 +19211,7 @@ void Player::SaveToDB(bool create /*=false*/)
 
         ss.str().clear();
         ss << m_taxi.SaveTaxiDestinationsToString();
-        
+
         stmt->setString(index++, ss.str());
         stmt->setUInt32(index++, GetArenaPoints());
         stmt->setUInt32(index++, GetHonorPoints());
@@ -19231,7 +19238,7 @@ void Player::SaveToDB(bool create /*=false*/)
         for (uint32 i = 0; i < PLAYER_EXPLORED_ZONES_SIZE; ++i)
             ss << GetUInt32Value(PLAYER_EXPLORED_ZONES_1 + i) << ' ';
         stmt->setString(index++, ss.str());
-        
+
         ss.str().clear();
         // cache equipment...
         for (uint32 i = 0; i < EQUIPMENT_SLOT_END * 2; ++i)
@@ -20263,7 +20270,6 @@ void Player::RemovePet(Pet* pet, PetSlot mode, bool returnreagent)
         SetMinion(pet, false, PET_SLOT_UNK_SLOT);
     else
         SetMinion(pet, false, PET_SLOT_ACTUAL_PET_SLOT);
-
 
     pet->AddObjectToRemoveList();
     pet->m_removed = true;
@@ -22113,7 +22119,7 @@ void Player::ModifyMoney(int32 d)
         SetMoney (GetMoney() > uint32(-d) ? GetMoney() + d : 0);
     else
     {
-        uint32 newAmount = 0;
+        uint64 newAmount = 0;
         if (GetMoney() < uint32(MAX_MONEY_AMOUNT - d))
             newAmount = GetMoney() + d;
         else
@@ -25031,6 +25037,13 @@ void Player::DeleteEquipmentSet(uint64 setGuid)
             break;
         }
     }
+}
+
+void Player::SetEmoteState(uint32 anim_id)
+{
+    HandleEmoteCommand(anim_id); // Fall-back
+
+    m_emote = anim_id;
 }
 
 void Player::RemoveAtLoginFlag(AtLoginFlags f, bool in_db_also /*= false*/)

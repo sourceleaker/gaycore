@@ -611,8 +611,31 @@ void Spell::EffectSchoolDMG(SpellEffIndex effIndex)
             }
             case SPELLFAMILY_DRUID:
             {
+                // Maul
+                if (m_spellInfo->Id == 6807)
+                {
+                    damage += float(((Player*)m_caster)->GetTotalAttackPowerValue(BASE_ATTACK)*0.264f);
+                }
+                // Starsurge
+                else if (m_spellInfo->Id == 78674)
+                {
+                    if (m_caster->GetTypeId() == TYPEID_PLAYER)
+                    {
+                        if (m_caster->ToPlayer()->GetTalentBranchSpec(m_caster->ToPlayer()->GetActiveSpec()) == BS_DRUID_BALANCE)
+                        {                           
+                            if(m_caster->GetEclipsePower() > 0 && !m_caster->HasAura(48518) && !m_caster->HasAura(48517))
+                            {
+                                    m_caster->SetEclipsePower(int32(m_caster->GetEclipsePower() + 15));
+                            }
+                            else if (m_caster->GetEclipsePower() < 0 && !m_caster->HasAura(48518) && !m_caster->HasAura(48517))
+                            {
+                                    m_caster->SetEclipsePower(int32(m_caster->GetEclipsePower() - 15));
+                            }
+                        }
+                    }
+                }
                 // Starfire
-                if (m_spellInfo->SpellFamilyFlags[0] & 0x00000004)
+                else if (m_spellInfo->SpellFamilyFlags[0] & 0x00000004)
                 {
                     if (m_caster->GetTypeId() == TYPEID_PLAYER)
                     {
@@ -626,8 +649,18 @@ void Spell::EffectSchoolDMG(SpellEffIndex effIndex)
                             if (m_caster->GetEclipsePower() >= -20)
                                 if (m_caster->HasAura(48518))
                                         m_caster->RemoveAurasDueToSpell(48518);
-
-                            m_caster->SetEclipsePower(int32(m_caster->GetEclipsePower() + 20));
+                            
+                            int32 random = irand(0,100);
+                            if (m_caster->HasAura(81061) && random<=12 && !m_caster->HasAura(48518)) // Euphoria Rank 1
+                            {
+                                    m_caster->SetEclipsePower(int32(m_caster->GetEclipsePower() + 40));
+                            }                       
+                            else if (m_caster->HasAura(81062) && random<=24 && !m_caster->HasAura(48518)) // Euphoria Rank 2
+                            {
+                                    m_caster->SetEclipsePower(int32(m_caster->GetEclipsePower() + 40));
+                            }
+                            else
+                                m_caster->SetEclipsePower(int32(m_caster->GetEclipsePower() + 20));
                         }
                     }
                 }
@@ -647,7 +680,17 @@ void Spell::EffectSchoolDMG(SpellEffIndex effIndex)
                                 if (m_caster->HasAura(48517))
                                         m_caster->RemoveAurasDueToSpell(48517);
 
-                            m_caster->SetEclipsePower(int32(m_caster->GetEclipsePower() - 13));
+                            int32 random = irand(0,100);
+                            if (m_caster->HasAura(81061) && random<=12 && !m_caster->HasAura(48517)) // Euphoria Rank 1
+                            {
+                                    m_caster->SetEclipsePower(int32(m_caster->GetEclipsePower() - 26));
+                            }                       
+                            else if (m_caster->HasAura(81062) && random<=24 && !m_caster->HasAura(48517)) // Euphoria Rank 2
+                            {
+                                    m_caster->SetEclipsePower(int32(m_caster->GetEclipsePower() - 26));
+                            }
+                            else
+                                m_caster->SetEclipsePower(int32(m_caster->GetEclipsePower() - 13));
                         }
                     }
                     // Improved Insect Swarm

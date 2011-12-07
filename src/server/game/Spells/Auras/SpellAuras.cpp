@@ -1178,8 +1178,112 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
             case SPELLFAMILY_DRUID:
                 if (!caster)
                     break;
+                 if (GetSpellInfo()->Id == 5217) // Tiger Fury
+                {
+                    if (caster->HasAura(48492))      // King Of The Jugle Rank 1
+                        caster->SetPower(POWER_ENERGY, caster->GetPower(POWER_ENERGY)+20);
+                    else if (caster->HasAura(48494)) // King Of The Jugle Rank 2
+                        caster->SetPower(POWER_ENERGY, caster->GetPower(POWER_ENERGY)+40);
+                    else if (caster->HasAura(48495)) // King Of The Jugle Rank 3
+                        caster->SetPower(POWER_ENERGY, caster->GetPower(POWER_ENERGY)+60);
+
+                    if (caster->HasAura(80316)) // Primal Madness Rank 1
+                    {
+                        caster->CastSpell(caster, 80879);
+                        caster->SetPower(POWER_ENERGY, caster->GetPower(POWER_ENERGY)+10);
+                    }
+                    else if (caster->HasAura(80317)) // Primal Madness Rank 2
+                    {
+                        caster->CastSpell(caster, 80886);
+                        caster->SetPower(POWER_ENERGY, caster->GetPower(POWER_ENERGY)+20);
+                    }
+                }
+                else if (GetSpellInfo()->Id == 50334) // Beserk
+                {
+                    caster->ToPlayer()->RemoveSpellCooldown(33878, true); // Mangle CD
+                }
+                else if (GetSpellInfo()->Id == 33745) // Lacerate 
+                {
+                    if (caster->HasSpell(50334))
+                    {
+                        int32 random = irand(0,1);   // 50% chance to proc
+                        if (random == 0)
+                        {
+                            caster->CastSpell(caster, 93622, true);
+                            caster->ToPlayer()->RemoveSpellCooldown(33878, true); // Mangle CD
+                        }
+                    }
+                }
+                else if (GetSpellInfo()->Id == 48517) // Solar Eclipse
+                {
+                    // Hack Fix (cant find spell that gives 8/16% mana instead casting 6% mana and 3x6% giving 18% mana ;\)
+                    if (caster->HasAura(81061)) // Euphoria Rank 1
+                    {
+                        caster->CastSpell(caster, 81070, true);
+                    }
+                    else if (caster->HasAura(81062)) // Euphoria Rank 2
+                    {
+                        caster->CastSpell(caster, 81070, true);
+                        caster->CastSpell(caster, 81070, true);
+                        caster->CastSpell(caster, 81070, true);
+                    }
+                }
+                else if (GetSpellInfo()->Id == 48518) // Lunar Eclipse
+                {
+                    // Hack Fix (cant find spell that gives 8/16% mana instead casting 6% mana and 3x6% giving 18% mana ;\)
+                    if (caster->HasAura(81061)) // Euphoria Rank 1
+                    {
+                        caster->CastSpell(caster, 81070, true);
+                    }
+                    else if (caster->HasAura(81062)) // Euphoria Rank 2
+                    {
+                        caster->CastSpell(caster, 81070, true);
+                        caster->CastSpell(caster, 81070, true);
+                        caster->CastSpell(caster, 81070, true);
+                    }
+                }
+                else if (GetSpellInfo()->Id == 5229) // Enrage
+                {
+                    if (caster->HasAura(48492)) // King Of The Jugle Rank 1
+                    {
+                        int32 increase_dmg = 5;
+                        caster->CastCustomSpell(caster, 51185, &increase_dmg, NULL, NULL, true);
+                    }
+                    else if (caster->HasAura(48494)) // King Of The Jugle Rank 2
+                    {
+                        int32 increase_dmg = 10;
+                        caster->CastCustomSpell(caster, 51185, &increase_dmg, NULL, NULL, true);
+                    }
+                    else if (caster->HasAura(48495)) // King Of The Jugle Rank 3
+                    {
+                        int32 increase_dmg = 15;
+                        caster->CastCustomSpell(caster, 51185, &increase_dmg, NULL, NULL, true);
+                    }
+                }
+                else if (GetSpellInfo()->Id == 93400) // Shooting Stars
+                {
+                    caster->ToPlayer()->RemoveSpellCooldown(78674, true); // Starsurge CD
+                }
+                /*else if (GetSpellInfo()->Id == 49376) // Feral Charge - Cat
+                {
+                    // Feral Charge Cat - Stampede Rank 1
+                    if(caster->HasAura(78892))
+                        caster->CastSpell(caster, 81021);
+                    // Feral Charge Cat - Stampede Rank 2
+                    else if(caster->HasAura(78893))
+                        caster->CastSpell(caster, 81022);
+                }
+                else if (GetSpellInfo()->Id == 16979) // Feral Charge - Bear
+                {
+                    // Feral Charge Bear - Stampede Rank 1
+                    if(caster->HasAura(78892))
+                        caster->CastSpell(caster, 81016);
+                     // Feral Charge Bear - Stampede Rank 2
+                    else if(caster->HasAura(78893))
+                        caster->CastSpell(caster, 81017);
+                }*/
                 // Rejuvenation
-                if (GetSpellInfo()->SpellFamilyFlags[0] & 0x10 && GetEffect(EFFECT_0))
+                else if (GetSpellInfo()->SpellFamilyFlags[0] & 0x10 && GetEffect(EFFECT_0))
                 {
                     // Druid T8 Restoration 4P Bonus
                     if (caster->HasAura(64760))

@@ -1461,7 +1461,7 @@ class Player : public Unit, public GridObject<Player>
         bool SatisfyQuestReputation(Quest const* qInfo, bool msg);
         bool SatisfyQuestStatus(Quest const* qInfo, bool msg);
         bool SatisfyQuestConditions(Quest const* qInfo, bool msg);
-		uint32 GetQuestCriteriaProgess(uint32 QuestEntry, uint8 Position = 0);
+        uint32 GetQuestCriteriaProgess(uint32 QuestEntry, uint8 Position = 0);
         bool SatisfyQuestTimed(Quest const* qInfo, bool msg);
         bool SatisfyQuestExclusiveGroup(Quest const* qInfo, bool msg);
         bool SatisfyQuestNextChain(Quest const* qInfo, bool msg);
@@ -1916,6 +1916,7 @@ class Player : public Unit, public GridObject<Player>
         bool UpdateAllStats();
         void UpdateResistances(uint32 school);
         void UpdateArmor();
+        void UpdateSpellPower();
         void UpdateMaxHealth();
         void UpdateMaxPower(Powers power);
         void ApplyFeralAPBonus(int32 amount, bool apply);
@@ -1940,7 +1941,7 @@ class Player : public Unit, public GridObject<Player>
         float OCTRegenMPPerSpirit();
         float GetRatingMultiplier(CombatRating cr) const;
         float GetRatingBonusValue(CombatRating cr) const;
-        uint32 GetBaseSpellPowerBonus() { return m_baseSpellPower; }
+        uint32 GetBaseSpellPowerBonus() { return m_spellPowerFromIntellect + m_baseSpellPower; }
         int32 GetSpellPenetrationItemMod() const { return m_spellPenetrationItemMod; }
 
         float GetExpertiseDodgeOrParryReduction(WeaponAttackType attType) const;
@@ -2762,6 +2763,7 @@ class Player : public Unit, public GridObject<Player>
         float m_auraBaseMod[BASEMOD_END][MOD_END];
         int16 m_baseRatingValue[MAX_COMBAT_RATING];
         uint32 m_baseSpellPower;
+        uint32 m_spellPowerFromIntellect;
         uint32 m_baseFeralAP;
         uint32 m_baseManaRegen;
         uint32 m_baseHealthRegen;

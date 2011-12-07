@@ -84,6 +84,7 @@ bool Player::UpdateStats(Stats stat)
             UpdateMaxPower(POWER_MANA);
             UpdateAllSpellCritChances();
             UpdateArmor();                                  //SPELL_AURA_MOD_RESISTANCE_OF_INTELLECT_PERCENT, only armor currently
+            UpdateSpellPower();
             break;
 
         case STAT_SPIRIT:
@@ -139,6 +140,8 @@ void Player::ApplySpellPowerBonus(int32 amount, bool apply)
     ApplyModUInt32Value(PLAYER_FIELD_MOD_HEALING_DONE_POS, amount, apply);
     for (int i = SPELL_SCHOOL_HOLY; i < MAX_SPELL_SCHOOL; ++i)
         ApplyModUInt32Value(PLAYER_FIELD_MOD_DAMAGE_DONE_POS + i, amount, apply);
+
+    UpdateSpellPower();
 }
 
 void Player::UpdateSpellDamageAndHealingBonus()
@@ -164,6 +167,7 @@ bool Player::UpdateAllStats()
     // calls UpdateAttackPowerAndDamage() in UpdateArmor for SPELL_AURA_MOD_ATTACK_POWER_OF_ARMOR
     UpdateAttackPowerAndDamage(true);
     UpdateMaxHealth();
+    UpdateSpellPower();
 
     for (uint8 i = POWER_MANA; i < MAX_POWERS; ++i)
         UpdateMaxPower(Powers(i));
@@ -226,6 +230,18 @@ void Player::UpdateArmor()
         pet->UpdateArmor();
 
     UpdateAttackPowerAndDamage();                           // armor dependent auras update for SPELL_AURA_MOD_ATTACK_POWER_OF_ARMOR
+}
+
+void Player::UpdateSpellPower()
+{
+    uint32 spellPowerFromIntellect = GetStat(STAT_INTELLECT) - 10;
+
+    //apply only the diff between the last and the new value.
+    ApplyModUInt32Value(PLAYER_FIELD_MOD_HEALING_DONE_POS, spellPowerFromIntellect - m_spellPowerFromIntellect, true);
+    for (int i = SPELL_SCHOOL_HOLY; i < MAX_SPELL_SCHOOL; ++i)
+        ApplyModUInt32Value(PLAYER_FIELD_MOD_DAMAGE_DONE_POS + i, spellPowerFromIntellect - m_spellPowerFromIntellect, true);
+
+    m_spellPowerFromIntellect = spellPowerFromIntellect;
 }
 
 float Player::GetHealthBonusFromStamina()
@@ -867,7 +883,7 @@ void Player::UpdateManaRegen()
         modManaRegenInterrupt = 100;
     // The base regen value is 5% of your base mana pool per 5 seconds (wowpedia)
     float baseCombatRegen = GetCreateMana() * 0.01f + GetTotalAuraModifierByMiscValue(SPELL_AURA_MOD_POWER_REGEN, POWER_MANA) / 5.0f;
-	
+    
     SetStatFloatValue(UNIT_FIELD_POWER_REGEN_INTERRUPTED_FLAT_MODIFIER,
         baseCombatRegen + power_regen * modManaRegenInterrupt / 100.0f);
 

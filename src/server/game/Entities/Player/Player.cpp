@@ -816,6 +816,7 @@ Player::Player (WorldSession *session): Unit(), m_achievementMgr(this), m_reputa
     for (uint8 i = 0; i < MAX_COMBAT_RATING; i++)
         m_baseRatingValue[i] = 0;
 
+    m_spellPowerFromIntellect = 0;
     m_baseSpellPower = 0;
     m_baseFeralAP = 0;
     m_baseManaRegen = 0;
@@ -20869,7 +20870,7 @@ bool Player::ActivateTaxiPathTo(std::vector<uint32> const& nodes, Creature* npc 
 
     uint32 prevnode = sourcenode;
     uint32 lastnode = 0;
-	m_taxi.AddTaxiDestination(nodes[0]);
+    m_taxi.AddTaxiDestination(nodes[0]);
 
     for (uint32 i = 1; i < nodes.size(); ++i)
     {

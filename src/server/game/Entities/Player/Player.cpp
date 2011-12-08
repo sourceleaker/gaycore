@@ -822,6 +822,7 @@ Player::Player (WorldSession *session): Unit(), m_achievementMgr(this), m_reputa
     m_baseManaRegen = 0;
     m_baseHealthRegen = 0;
     m_spellPenetrationItemMod = 0;
+    m_spellPowerFromIntellect = 0;
 
     // Honor System
     m_lastHonorUpdateTime = time(NULL);
@@ -2821,7 +2822,7 @@ void Player::RegenerateHealth()
     // normal regen case (maybe partly in combat case)
     else if (!isInCombat() || HasAuraType(SPELL_AURA_MOD_REGEN_DURING_COMBAT))
     {
-        addvalue = 0.015f*((float)GetMaxHealth())*HealthIncreaseRate;
+        addvalue = 0.015f*((float)GetMaxHealth())*HealthIncreaseRate; //2 secs: 0.75*2 :-) source: wowpedia.
         if (!isInCombat())
         {
             AuraEffectList const& mModHealthRegenPct = GetAuraEffectsByType(SPELL_AURA_MOD_HEALTH_REGEN_PERCENT);
@@ -3378,7 +3379,7 @@ void Player::InitStatsForLevel(bool reapplyMods)
     //set create powers
     SetCreateMana(classInfo.basemana);
 
-    SetArmor(int32(m_createStats[STAT_AGILITY]*2));
+    SetArmor(0);
 
     InitStatBuffMods();
 
@@ -3393,6 +3394,7 @@ void Player::InitStatsForLevel(bool reapplyMods)
         SetUInt32Value(PLAYER_FIELD_MOD_DAMAGE_DONE_POS+i, 0);
         SetFloatValue(PLAYER_FIELD_MOD_DAMAGE_DONE_PCT+i, 1.00f);
     }
+    SetFloatValue(PLAYER_FIELD_MOD_SPELL_POWER_PCT, 1.0f);
 
     SetFloatValue(PLAYER_FIELD_MOD_SPELL_POWER_PCT, 1.0f);
 
@@ -3431,8 +3433,8 @@ void Player::InitStatsForLevel(bool reapplyMods)
     // Dodge percentage
     SetFloatValue(PLAYER_DODGE_PERCENTAGE, 0.0f);
 
-    // set armor (resistance 0) to original value (create_agility*2)
-    SetArmor(int32(m_createStats[STAT_AGILITY]*2));
+    // set armor (resistance 0) to original value (0)
+    SetArmor(0);
     SetResistanceBuffMods(SpellSchools(0), true, 0.0f);
     SetResistanceBuffMods(SpellSchools(0), false, 0.0f);
     // set other resistance to original value (0)
@@ -8607,9 +8609,6 @@ void Player::_ApplyItemBonuses(ItemTemplate const *proto, uint8 slot, bool apply
     if (proto->ArmorDamageModifier > 0)
         HandleStatModifier(UNIT_MOD_ARMOR, TOTAL_VALUE, float(proto->ArmorDamageModifier), apply);
 
-    // if (proto->Block)
-        // HandleBaseModValue(SHIELD_BLOCK_VALUE, FLAT_MOD, float(proto->Block), apply);
-
     WeaponAttackType attType = BASE_ATTACK;
 
     if (slot == EQUIPMENT_SLOT_RANGED && (
@@ -8776,7 +8775,7 @@ void Player::ApplyItemEquipSpell(Item *item, bool apply, bool form_change)
     if (!item)
         return;
 
-    ItemTemplate const *proto = item->GetTemplate();
+    ItemTemplate const* proto = item->GetTemplate();
     if (!proto)
         return;
 
@@ -12616,7 +12615,7 @@ InventoryResult Player::CanUseItem(ItemTemplate const* proto) const
         if (getLevel() < proto->RequiredLevel)
             return EQUIP_ERR_CANT_EQUIP_LEVEL_I;
 
-        // If World Event is not active, prevent using event dependant items
+        // If World Event is not active, prevent using event dependent items
         if (proto->HolidayId && !IsHolidayActive((HolidayIds)proto->HolidayId))
             return EQUIP_ERR_CANT_DO_RIGHT_NOW;
 
@@ -17760,6 +17759,21 @@ bool Player::LoadFromDB(uint32 guid, SQLQueryHolder *holder)
     UpdateSkillsForLevel(); //update skills after load, to make sure they are correctly update at player load
 
     // apply original stats mods before spell loading or item equipment that call before equip _RemoveStatsMods()
+    UpdateMaxHealth();                                      // Update max Health (for add bonus from stamina)
+    SetFullHealth();
+    if (getPowerType() == POWER_MANA)
+    {
+        UpdateMaxPower(POWER_MANA);                         // Update max Mana (for add bonus from intellect)
+        SetPower(POWER_MANA, GetMaxPower(POWER_MANA));
+    }
+
+    if (getPowerType() == POWER_RUNIC_POWER)
+    {
+        SetPower(POWER_RUNE, 8);
+        SetMaxPower(POWER_RUNE, 8);
+        SetPower(POWER_RUNIC_POWER, 0);
+        SetMaxPower(POWER_RUNIC_POWER, 1000);
+    }
 
     //mails are loaded only when needed ;-) - when player in game click on mailbox.
     //_LoadMail();

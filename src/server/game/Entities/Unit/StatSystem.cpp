@@ -79,14 +79,15 @@ bool Player::UpdateStats(Stats stat)
             UpdateAllCritPercentages();
             UpdateDodgePercentage();
             break;
-        case STAT_STAMINA:   UpdateMaxHealth(); break;
+        case STAT_STAMINA:
+            UpdateMaxHealth();
+            break;
         case STAT_INTELLECT:
             UpdateMaxPower(POWER_MANA);
             UpdateAllSpellCritChances();
             UpdateArmor();                                  //SPELL_AURA_MOD_RESISTANCE_OF_INTELLECT_PERCENT, only armor currently
             UpdateSpellPower();
             break;
-
         case STAT_SPIRIT:
             break;
 
@@ -251,7 +252,7 @@ float Player::GetHealthBonusFromStamina()
     float baseStam = stamina < 20 ? stamina : 20;
     float moreStam = stamina - baseStam;
 
-    return baseStam + (moreStam*10.0f);
+    return baseStam + (moreStam*14.0f);
 }
 
 float Player::GetManaBonusFromIntellect()
@@ -883,7 +884,7 @@ void Player::UpdateManaRegen()
         modManaRegenInterrupt = 100;
     // The base regen value is 5% of your base mana pool per 5 seconds (wowpedia)
     float baseCombatRegen = GetCreateMana() * 0.01f + GetTotalAuraModifierByMiscValue(SPELL_AURA_MOD_POWER_REGEN, POWER_MANA) / 5.0f;
-    
+
     SetStatFloatValue(UNIT_FIELD_POWER_REGEN_INTERRUPTED_FLAT_MODIFIER,
         baseCombatRegen + power_regen * modManaRegenInterrupt / 100.0f);
 

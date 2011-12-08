@@ -514,10 +514,48 @@ void Spell::EffectSchoolDMG(SpellEffIndex effIndex)
                 }
                 break;
             }
+            /*case SPELLFAMILY_SHAMAN:
+            {
+                if (m_spellInfo->Id == 8056) // Frost Shock
+                {
+                    if (m_caster->HasAura(63373)) // Frozen Power
+                    {
+                        if (m_caster->IsInRange(unitTarget, 15, 40, true))
+                        {
+                            int32 random = irand(0,1);
+                            int32 frozen = 5;
+                            if (random == 0)
+                                m_caster->CastCustomSpell(unitTarget, 50635, &frozen,  NULL, NULL, true);
+                        }
+                    }
+                    else if (m_caster->HasAura(63374))
+                    {
+                        if (m_caster->IsInRange(unitTarget, 15, 40, true))
+                        {
+                            int32 frozen = 5;
+                            m_caster->CastCustomSpell(unitTarget, 50635, &frozen,  NULL, NULL, true);
+                        }
+                    }
+                }
+                break;
+            }*/
             case SPELLFAMILY_WARLOCK:
             {
+                if (m_spellInfo->Id == 6353)
+                {
+                    if (m_caster->HasAura(18119))
+                    {
+                        int32 increase_dmg = 4;
+                        m_caster->CastCustomSpell(m_caster, 85383, &increase_dmg, NULL, NULL, true);
+                    }
+                    else if (m_caster->HasAura(18120))
+                    {
+                        int32 increase_dmg = 8;
+                        m_caster->CastCustomSpell(m_caster, 85383, &increase_dmg, NULL, NULL, true);
+                    }
+                }
                 // Incinerate Rank 1 & 2
-                if ((m_spellInfo->SpellFamilyFlags[1] & 0x000040) && m_spellInfo->SpellIconID == 2128)
+                else if ((m_spellInfo->SpellFamilyFlags[1] & 0x000040) && m_spellInfo->SpellIconID == 2128)
                 {
                     // Incinerate does more dmg (dmg*0.25) if the target have Immolate debuff.
                     // Check aura state for speed but aura state set not only for Immolate spell
@@ -569,7 +607,17 @@ void Spell::EffectSchoolDMG(SpellEffIndex effIndex)
                          break;
                 }
 
-                if (m_spellInfo->Id == 589 || m_spellInfo->Id == 15407)  //Shadow Word: Pain | mind flay
+                if (m_spellInfo->Id == 8092) // Mind Blast
+                {
+                    int32 random = irand(0,2);
+                    if (m_caster->HasAura(15273) && random == 0)
+                        m_caster->CastSpell(unitTarget, 48301);
+                    else if (m_caster->HasAura(15312) && random <= 1)
+                        m_caster->CastSpell(unitTarget, 48301);
+                    else if (m_caster->HasAura(15313))
+                        m_caster->CastSpell(unitTarget, 48301);
+                }
+                else if (m_spellInfo->Id == 589 || m_spellInfo->Id == 15407)  //Shadow Word: Pain | mind flay
                 {
                     if (m_caster->HasSpell(95740))   // Shadow Orbs
                     {
@@ -705,9 +753,33 @@ void Spell::EffectSchoolDMG(SpellEffIndex effIndex)
                 // Envenom
                 if (m_caster->GetTypeId() == TYPEID_PLAYER && (m_spellInfo->SpellFamilyFlags[1] & 0x8))
                 {
-                    // consume from stack dozes not more that have combo-points
-                    if (uint32 combo = m_caster->ToPlayer()->GetComboPoints())
-                    {
+                  // consume from stack dozes not more that have combo-points
+                  if (uint32 combo = m_caster->ToPlayer()->GetComboPoints())
+                  {
+                        uint32 random1 = 0;
+                        uint32 random2 = 0;
+                        if (m_caster->HasAura(51664))
+                        {
+                            random1 = 1;
+                            random2 = 3;
+                        }
+                        else if (m_caster->HasAura(51665))
+                        {
+                            random1 = 2;
+                            random2 = 3;
+                        }
+                        else if (m_caster->HasAura(51667))
+                        {
+                            random1 = 3;
+                            random2 = 3;
+                        }
+                        
+                        uint32 random = irand(random1,random2);
+                        if(random == 3)
+                        {
+                            if(Aura* slice = m_caster->GetAura(5171))
+                                slice->RefreshDuration();
+                        }
                         // Lookup for Deadly poison (only attacker applied)
                         if (AuraEffect const* aurEff = unitTarget->GetAuraEffect(SPELL_AURA_PERIODIC_DAMAGE, SPELLFAMILY_ROGUE, 0x10000, 0, 0, m_caster->GetGUID()))
                         {
@@ -748,6 +820,30 @@ void Spell::EffectSchoolDMG(SpellEffIndex effIndex)
                 {
                     if (uint32 combo = ((Player*)m_caster)->GetComboPoints())
                     {
+                        uint32 random1 = 0;
+                        uint32 random2 = 0;
+                        if (m_caster->HasAura(51664))
+                        {
+                            random1 = 1;
+                            random2 = 3;
+                        }
+                        else if (m_caster->HasAura(51665))
+                        {
+                            random1 = 2;
+                            random2 = 3;
+                        }
+                        else if (m_caster->HasAura(51667))
+                        {
+                            random1 = 3;
+                            random2 = 3;
+                        }
+                        
+                        uint32 random = irand(random1,random2);
+                        if(random == 3)
+                        {
+                            if(Aura* slice = m_caster->GetAura(5171))
+                                slice->RefreshDuration();
+                        }
                         float ap = m_caster->GetTotalAttackPowerValue(BASE_ATTACK);
                         damage += irand(int32(ap * combo * 0.03f), int32(ap * combo * 0.07f));
 
@@ -796,8 +892,13 @@ void Spell::EffectSchoolDMG(SpellEffIndex effIndex)
             }
             case SPELLFAMILY_MAGE:
             {
+                if (m_spellInfo->Id == 30451) // Arcane Blast
+                {
+                    if (m_caster->HasAura(86209)) // Nether Vortex - Adds slow effect
+                        m_caster->CastSpell(unitTarget, 31589);
+                }
                 // Deep Freeze should deal damage to permanently stun-immune targets.
-                if (m_spellInfo->Id == 71757)
+                else if (m_spellInfo->Id == 71757)
                     if (unitTarget->GetTypeId() != TYPEID_UNIT || !(unitTarget->IsImmunedToSpellEffect(sSpellMgr->GetSpellInfo(44572), 0)))
                         return;
                 break;

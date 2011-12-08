@@ -1219,13 +1219,13 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                     // Hack Fix (cant find spell that gives 8/16% mana instead casting 6% mana and 3x6% giving 18% mana ;\)
                     if (caster->HasAura(81061)) // Euphoria Rank 1
                     {
-                        caster->CastSpell(caster, 81070, true);
+                        int32 regen_mana = 8;
+                        caster->CastCustomSpell(caster, 81070, &regen_mana, NULL, NULL, true);
                     }
                     else if (caster->HasAura(81062)) // Euphoria Rank 2
                     {
-                        caster->CastSpell(caster, 81070, true);
-                        caster->CastSpell(caster, 81070, true);
-                        caster->CastSpell(caster, 81070, true);
+                        int32 regen_mana = 16;
+                        caster->CastCustomSpell(caster, 81070, &regen_mana, NULL, NULL, true);
                     }
                 }
                 else if (GetSpellInfo()->Id == 48518) // Lunar Eclipse
@@ -1233,13 +1233,13 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                     // Hack Fix (cant find spell that gives 8/16% mana instead casting 6% mana and 3x6% giving 18% mana ;\)
                     if (caster->HasAura(81061)) // Euphoria Rank 1
                     {
-                        caster->CastSpell(caster, 81070, true);
+                        int32 regen_mana = 8;
+                        caster->CastCustomSpell(caster, 81070, &regen_mana, NULL, NULL, true);
                     }
                     else if (caster->HasAura(81062)) // Euphoria Rank 2
                     {
-                        caster->CastSpell(caster, 81070, true);
-                        caster->CastSpell(caster, 81070, true);
-                        caster->CastSpell(caster, 81070, true);
+                        int32 regen_mana = 16;
+                        caster->CastCustomSpell(caster, 81070, &regen_mana, NULL, NULL, true);
                     }
                 }
                 else if (GetSpellInfo()->Id == 5229) // Enrage
@@ -1425,8 +1425,16 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
             case SPELLFAMILY_PRIEST:
                 if (!caster)
                     break;
+
+                if (GetSpellInfo()->Id == 89485) // Inner Focus
+                {
+                    if (caster->HasAura(89488))
+                        caster->CastSpell(caster, 96266);
+                    else if (caster->HasAura(89489))
+                        caster->CastSpell(caster, 96267);
+                }
                 // Devouring Plague
-                if (GetSpellInfo()->SpellFamilyFlags[0] & 0x02000000 && GetEffect(0))
+                else if (GetSpellInfo()->SpellFamilyFlags[0] & 0x02000000 && GetEffect(0))
                 {
                     // Improved Devouring Plague
                     if (AuraEffect const* aurEff = caster->GetDummyAuraEffect(SPELLFAMILY_PRIEST, 3790, 1))
@@ -1460,23 +1468,44 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                 }
                 break;
             case SPELLFAMILY_ROGUE:
+                if (GetId() == 31230)
+                {
+                    caster->SetHealth(caster->GetMaxHealth()*0.1);
+                }
                 // Sprint (skip non player casted spells by category)
-                if (GetSpellInfo()->SpellFamilyFlags[0] & 0x40 && GetSpellInfo()->Category == 44)
+                else if (GetSpellInfo()->SpellFamilyFlags[0] & 0x40 && GetSpellInfo()->Category == 44)
                     // in official maybe there is only one icon?
                     if (target->HasAura(58039)) // Glyph of Blurred Speed
                         target->CastSpell(target, 61922, true); // Sprint (waterwalk)
                 break;
             case SPELLFAMILY_PALADIN:
+                if (GetId() == 85416) //Grand Crusader
+                {
+                    caster->ToPlayer()->RemoveSpellCooldown(31935, true);
+                }
                 // Sanctfied Wrath Cataclysm proc
-                if (GetId() == 31884)
+                else if (GetId() == 31884)
                     if (caster->GetAuraEffect(SPELL_AURA_ADD_FLAT_MODIFIER, SPELLFAMILY_PALADIN, 3029, 0))
                         caster->CastSpell(caster,57318,true);
                 break;
             case SPELLFAMILY_DEATHKNIGHT:
                 if (!caster)
                     break;
+                if (GetId() == 48266) // Frost Presence
+                {
+                    if (caster->HasAura(50384)) // Impr. Frost Presence Rank 1
+                    {
+                        int32 increase_dmg = 12;
+                        caster->CastCustomSpell(caster, 48266, &increase_dmg, NULL, NULL, true);
+                    }
+                    else if (caster->HasAura(50385)) // Impr. Frost Presence Rank 2
+                    {
+                        int32 increase_dmg = 15;
+                        caster->CastCustomSpell(caster, 48266, &increase_dmg, NULL, NULL, true);
+                    }
+                }
                 // Frost Fever and Blood Plague
-                if (GetSpellInfo()->SpellFamilyFlags[2] & 0x2)
+                else if (GetSpellInfo()->SpellFamilyFlags[2] & 0x2)
                 {
                     // Can't proc on self
                     if (GetCasterGUID() == target->GetGUID())

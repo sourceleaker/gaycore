@@ -2675,7 +2675,9 @@ public:
     }
 };
 
-class npc_robocik : public CreatureScript{
+#define KickFootbomb         70052
+class npc_robocik : public CreatureScript
+{
 public:
     npc_robocik() : CreatureScript("npc_robocik") { }
 

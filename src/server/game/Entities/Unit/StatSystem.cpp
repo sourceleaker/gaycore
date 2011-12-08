@@ -884,11 +884,7 @@ void Player::UpdateManaRegen()
         modManaRegenInterrupt = 100;
     // The base regen value is 5% of your base mana pool per 5 seconds (wowpedia)
     float baseCombatRegen = GetCreateMana() * 0.01f + GetTotalAuraModifierByMiscValue(SPELL_AURA_MOD_POWER_REGEN, POWER_MANA) / 5.0f;
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 35046dfe0cec0914261878e99b0f845eae0ca84c
     SetStatFloatValue(UNIT_FIELD_POWER_REGEN_INTERRUPTED_FLAT_MODIFIER,
         baseCombatRegen + power_regen * modManaRegenInterrupt / 100.0f);
 

@@ -6378,7 +6378,7 @@ bool Player::UpdateFishingSkill()
 // levels sync. with spell requirement for skill levels to learn
 // bonus abilities in sSkillLineAbilityStore
 // Used only to avoid scan DBC at each skill grow
-static uint32 bonusSkillLevels[] = {75, 150, 225, 300, 375, 450};
+static uint32 bonusSkillLevels[] = {75, 150, 225, 300, 375, 450, 525};
 
 bool Player::UpdateSkillPro(uint16 SkillId, int32 Chance, uint32 step)
 {
@@ -19272,7 +19272,7 @@ void Player::SaveToDB(bool create /*=false*/)
         }
 
         stmt->setString(index++, ss.str());
-        stmt->setUInt32(index++, 0/*GetUInt32Value(PLAYER_AMMO_ID)*/);
+        /*stmt->setUInt32(index++, 0 GetUInt32Value(PLAYER_AMMO_ID));*/     // REMOVED
 
         ss.str().clear();
         for (uint32 i = 0; i < KNOWN_TITLES_SIZE * 2; ++i)
@@ -19280,7 +19280,7 @@ void Player::SaveToDB(bool create /*=false*/)
 
         stmt->setString(index++, ss.str());
         stmt->setUInt8(index++, GetByteValue(PLAYER_FIELD_BYTES, 2));
-        stmt->setUInt32(index++, m_currentPetSlot);
+        stmt->setInt8(index++, m_currentPetSlot);
         stmt->setUInt32(index++, m_petSlotUsed);
         stmt->setUInt32(index++, m_grantableLevels);
     }

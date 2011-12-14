@@ -962,7 +962,7 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder * holder)
         {
             guild->SendLoginInfo(this);
             pCurrChar->SetUInt32Value(PLAYER_GUILDLEVEL, uint32(guild->GetLevel()));
-            
+
             if (sWorld->getBoolConfig(CONFIG_GUILD_ADVANCEMENT_ENABLED))
             {
                 pCurrChar->SetFlag(PLAYER_FLAGS, PLAYER_FLAGS_GLEVEL_ENABLED);
@@ -1179,15 +1179,17 @@ void WorldSession::HandleSetFactionInactiveOpcode(WorldPacket & recv_data)
     _player->GetReputationMgr().SetInactive(replistid, inactive);
 }
 
-void WorldSession::HandleShowingHelmOpcode(WorldPacket & /*recv_data*/)
+void WorldSession::HandleShowingHelmOpcode(WorldPacket& recv_data)
 {
     sLog->outStaticDebug("CMSG_SHOWING_HELM for %s", _player->GetName());
+    recv_data.read_skip<uint8>(); // unknown, bool?
     _player->ToggleFlag(PLAYER_FLAGS, PLAYER_FLAGS_HIDE_HELM);
 }
 
-void WorldSession::HandleShowingCloakOpcode(WorldPacket & /*recv_data*/)
+void WorldSession::HandleShowingCloakOpcode(WorldPacket& recv_data)
 {
     sLog->outStaticDebug("CMSG_SHOWING_CLOAK for %s", _player->GetName());
+    recv_data.read_skip<uint8>(); // unknown, bool?
     _player->ToggleFlag(PLAYER_FLAGS, PLAYER_FLAGS_HIDE_CLOAK);
 }
 

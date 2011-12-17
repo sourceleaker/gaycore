@@ -11,7 +11,6 @@ EndScriptData */
 #include "ScriptPCH.h"
 #include "Group.h"
 #include "ScriptedEscortAI.h"
-#include <map.h>
 #include "ScriptedFollowerAI.h"
 #include "Vehicle.h"
 
